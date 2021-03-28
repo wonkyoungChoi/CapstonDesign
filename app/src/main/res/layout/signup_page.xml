@@ -97,6 +97,35 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉네임 설정"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/nickname"
+                    android:layout_weight="0.6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp" />
+                <Button
+                    android:id="@+id/nick_check"
+                    android:layout_weight="0.4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임 중복체크"/>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_marginTop="20dp"
@@ -127,34 +156,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
 
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="닉네임 설정"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/nickname"
-                    android:layout_weight="0.6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginEnd="20dp" />
-                <Button
-                    android:id="@+id/nick_check"
-                    android:layout_weight="0.4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="닉네임 중복체크"/>
-            </LinearLayout>
 
 
             <LinearLayout
@@ -190,21 +191,6 @@
 
                 </RadioGroup>
             </LinearLayout>
-
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="생일"/>
-            <EditText
-                android:id="@+id/birth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"/>
         </LinearLayout>
     </ScrollView>
 

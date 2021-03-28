@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
@@ -26,6 +27,7 @@ import java.net.URL;
 public class SignUpActivity extends AppCompatActivity {
     EditText name, phone_num, password, nickname, passwordCheck, email_front, email_end;
     RadioGroup sex;
+    RadioButton radioButton;
     Button sign_up, cancel;
 
     @Override
@@ -33,48 +35,67 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
 
-        name = findViewById(R.id.name);
-        email_front = findViewById(R.id.email_front);
-        email_end = findViewById(R.id.email_end);
-        phone_num = findViewById(R.id.phone_num);
-        sex = findViewById(R.id.sex);
-        password = findViewById(R.id.password);
-        passwordCheck = findViewById(R.id.password_check);
-        nickname = findViewById(R.id.nickname);
-        sign_up = findViewById(R.id.sign_up);
-        cancel = findViewById(R.id.cancel);
+        name = (EditText) findViewById(R.id.name);
+        email_front = (EditText) findViewById(R.id.email_front);
+        email_end = (EditText) findViewById(R.id.email_end);
+        phone_num = (EditText) findViewById(R.id.phone_num);
+        sex = (RadioGroup) findViewById(R.id.sex);
+        password = (EditText) findViewById(R.id.password);
+        passwordCheck = (EditText) findViewById(R.id.password_check);
+        nickname = (EditText) findViewById(R.id.nickname);
+        sign_up = (Button) findViewById(R.id.sign_up);
+        cancel = (Button) findViewById(R.id.cancel);
+
+        sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = (RadioButton) findViewById(checkedId);
+                Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = name.getText().toString();
-                String useremail = email_front.getText().toString() + "@" + email_end.getText().toString();
-                String userPassword = password.getText().toString();
+                String useremail_front = email_front.getText().toString();
+                String useremail_end = email_end.getText().toString();
+                String userNum = phone_num.getText().toString();
                 String userNickname = nickname.getText().toString();
+                String usersex = radioButton.getText().toString();
+                String userPassword = password.getText().toString();
                 String passwordcheck = passwordCheck.getText().toString();
-                String userPhonenum = phone_num.getText().toString();
-                if(username.trim().length()>0 && useremail.trim().length()>0 && useremail.trim().length()>0  && userPassword.trim().length()>0 && userNickname.trim().length()>0
-                        && userPassword.equals(passwordcheck)) {
+
+                if(username.trim().length()>0 && useremail_front.trim().length()>0 && useremail_end.trim().length()>0  && userPassword.trim().length()>0
+                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && usersex.trim().length()>0) {
                     try {
                         String result;
                         CustomTask task = new CustomTask();
-                        result = task.execute(username, useremail, userNickname ,userPassword, userNickname, userPhonenum).get();
-                        if(result.contains("sameNickEmail")) {
-                            Toast.makeText(getApplicationContext(), "아이디, 닉네임, 이메일 중복", Toast.LENGTH_SHORT).show();
-                        }  else if (result.contains("sameNick/")) {
+                        result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, userNickname).get();
+                        if(result.contains("sameNumNickEmail")) {
+                            Toast.makeText(getApplicationContext(), "폰번호, 닉네임, 이메일 중복", Toast.LENGTH_SHORT).show();
+                        } else if (result.contains("sameNum/")){
+                            Toast.makeText(getApplicationContext(), "폰번호 중복", Toast.LENGTH_SHORT).show();
+                        } else if (result.contains("sameNick/")) {
                             Toast.makeText(getApplicationContext(), "닉네임 중복", Toast.LENGTH_SHORT).show();
                         } else if (result.contains("sameEmail/")) {
                             Toast.makeText(getApplicationContext(), "이메일 중복", Toast.LENGTH_SHORT).show();
-                        }   else if (result.contains("sameNickEmail/")) {
-                            Log.d("값", userPassword + userNickname);
+                        } else if (result.contains("sameNumNick/")) {
+                            Toast.makeText(getApplicationContext(), "폰번호, 닉네임 중복", Toast.LENGTH_SHORT).show();
+                        } else if (result.contains("sameNumEmail/")) {
+                            Toast.makeText(getApplicationContext(), "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
+                        } else if (result.contains("sameNickEmail/")) {
+                            Log.d("값", userNum + userPassword + userNickname);
                             Log.d("리턴 값", result);
                             Toast.makeText(getApplicationContext(), "닉네임, 이메일 중복", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d("값", userPassword + userNickname);
+                        }
+                        else {
+                            Log.d("값", userNum + userPassword + userNickname);
                             Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
                             Log.d("리턴 값", result);
-                            Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                            startActivity(intent);
+                            //Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                            //startActivity(intent);
                             finish();
                         }
 
@@ -106,12 +127,13 @@ public class SignUpActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://192.168.0.15:8080/regist.jsp");
+                URL url = new URL("http://192.168.0.15:8080/sign_up.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "name="+strings[0]+"&email="+strings[1]+"&id="+strings[2]+"&pwd="+strings[3]+"&nick="+strings[4];
+                sendMsg = "name="+strings[0]+"&phone_num="+strings[1]+"&email_front="+strings[2]+"&email_end="+strings[3]+"&nick="+strings[4]
+                        +"&pwd="+strings[5] +"&sex="+strings[6];
                 osw.write(sendMsg);
                 osw.flush();
                 if(conn.getResponseCode() == conn.HTTP_OK) {
