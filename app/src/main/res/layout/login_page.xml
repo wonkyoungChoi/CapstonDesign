@@ -11,9 +11,8 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/login_linear"
-        />
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_linear" />
 
     <LinearLayout
         android:id="@+id/login_linear"
@@ -23,7 +22,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/ll_naver_login">
+        app:layout_constraintBottom_toTopOf="@+id/kakao_Log">
 
         <EditText
             android:layout_width="match_parent"
@@ -46,7 +45,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintBottom_toTopOf="@+id/ll_naver_login"
         tools:layout_editor_absoluteX="16dp">
 
 
@@ -61,6 +60,7 @@
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:textColor="#000000"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +80,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintBottom_toTopOf="@+id/ll_naver_login"
         tools:layout_editor_absoluteX="16dp">
 
 
@@ -117,9 +117,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/kakao_Log"
+        app:layout_constraintBottom_toTopOf="@+id/ll_facebook_login"
         tools:layout_editor_absoluteX="16dp">
-
 
         <ImageView
             android:layout_width="30dp"
@@ -143,15 +142,76 @@
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/btn_logout"
+    <LinearLayout
+        android:id="@+id/facebook_login"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#1EC800"
+        android:background="#0A6EFF"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:text="로그인"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        tools:layout_editor_absoluteX="16dp">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/btn_login"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_facebook_login"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#0A6EFF"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/naver_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="페이스북 시작하기"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#FFEFD5"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:text="로 그 인"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="80dp"

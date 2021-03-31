@@ -16,21 +16,26 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.KakaoCallback;
 import com.example.capstondesign.model.NaverLogin;
 import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.facebookCallback;
+import com.facebook.CallbackManager;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
-
 import com.kakao.usermgmt.LoginButton;
+
+import java.util.Arrays;
 
 public class LoginAcitivity extends AppCompatActivity {
 
-    LinearLayout naver_login, kakao_login;
+    LinearLayout naver_login, kakao_login, facebook_login;
     NaverLogin naverLogin;
     LoginButton kakao_button;
+    com.facebook.login.widget.LoginButton btn_Facebook_Login;
     Button signup;
     Context context;
     Activity activity;
     KakaoCallback sessionCallback;
     ISessionCallback callback;
+    facebookCallback facebookCallback;
     public static Profile profile = new Profile();
     public static int login = 0;
 
@@ -38,6 +43,20 @@ public class LoginAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+        facebook_login = (LinearLayout) findViewById(R.id.ll_facebook_login);
+        btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
+
+        facebook_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_Facebook_Login.performClick();
+                CallbackManager callbackManager = CallbackManager.Factory.create();
+                facebookCallback = new facebookCallback();
+                btn_Facebook_Login.setPermissions(Arrays.asList("public_profile", "email"));
+                btn_Facebook_Login.registerCallback(callbackManager, facebookCallback);
+            }
+        });
+
 
         context = this;
         activity = LoginAcitivity.this;
