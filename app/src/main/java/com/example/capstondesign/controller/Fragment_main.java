@@ -29,10 +29,10 @@ public class Fragment_main extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_article:
+                    case R.id.action_chatting:
                         setFrag(0);
                         break;
-                    case R.id.action_chatting:
+                    case R.id.action_article:
                         setFrag(1);
                         break;
                     case R.id.action_setting:

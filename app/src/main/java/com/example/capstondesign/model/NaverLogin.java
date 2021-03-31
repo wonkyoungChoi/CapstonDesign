@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.controller.FastSignUpActivity;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.Fragment_main;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -20,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,6 +33,7 @@ import java.util.Map;
 public class NaverLogin {
     OAuthLogin mOAuthLoginModule;
     Profile profile = LoginAcitivity.profile;
+    String name1, email1, sex1;
 
     public NaverLogin(Context mContext, Activity activity) {
         Login(mContext);
@@ -76,10 +81,30 @@ public class NaverLogin {
                                 requestHeaders.put("Authorization", header);
                                 String responseBody = get(apiURL, requestHeaders);
                                 Log.d("NAVERLOGIN", responseBody);
-                                NaverUserInfo(responseBody);
+                                NaverUserInfo(responseBody, mContext);
                                 LoginAcitivity.login = 2;
-                                Intent intent = new Intent(mContext, Fragment_main.class);
-                                mContext.startActivity(intent);
+                                CheckTask checkTask = new CheckTask();
+                                String check;
+                                name1 = profile.getName();
+                                email1 = profile.getEmail();
+                                sex1 = profile.getGender();
+                                if(sex1.equals("M")) {
+                                    sex1 = "남성";
+                                } else if(sex1.equals("F")) {
+                                    sex1 = "여성";
+                                }
+                                check = checkTask.execute(name1, email1, sex1).get();
+                                Intent intent;
+                                Log.d("CHECK", check);
+                                if(check.contains("signup")) {
+                                    intent = new Intent(activity, Fragment_main.class);
+                                    showToast(mContext, "로그인 성공");
+                                } else {
+                                    intent = new Intent(activity, FastSignUpActivity.class);
+                                    showToast(mContext, "회원가입 하기");
+                                }
+                                activity.startActivity(intent);
+                                activity.finish();
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -160,7 +185,7 @@ public class NaverLogin {
     }
 
     //네이버 로그인
-    private void NaverUserInfo(String msg) {
+    private void NaverUserInfo(String msg, Context context) {
         try {
             JSONObject jsonObject = new JSONObject(msg);
             String resultcode = jsonObject.get("resultcode").toString();
@@ -174,25 +199,69 @@ public class NaverLogin {
                     String gender = naverJson.get("gender").toString();
                     String email = naverJson.get("email").toString();
                     String name = naverJson.get("name").toString();
-                    String birthday = naverJson.get("birthday").toString();
 
                     profile.setName(name);
                     profile.setGender(gender);
                     profile.setEmail(email);
-                    profile.setBirthday(birthday);
 
                     Log.d("name 확인 ", name);
                     Log.d("gender 확인 ", gender);
                     Log.d("email 확인 ", email);
-                    Log.d("birthday 확인 ", birthday);
+
 
                 }
             } else {
-                //Toast.makeText(getApplicationContext(), "로그인 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                showToast(context, "로그인 오류가 발생했습니다.");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    class CheckTask extends AsyncTask<String, Void, String> {
+        String sendMsg, receiveMsg;
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                String str;
+                URL url = new URL("http://192.168.0.15:8080/fast_sign_up_check.jsp");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestMethod("POST");
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                sendMsg = "name="+strings[0]+"&email="+strings[1]+"&sex="+strings[2];
+                osw.write(sendMsg);
+                osw.flush();
+                if(conn.getResponseCode() == conn.HTTP_OK) {
+                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(tmp);
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+                    receiveMsg = buffer.toString();
+
+                } else {
+                    Log.i("통신 결과", conn.getResponseCode()+"에러");
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return receiveMsg;
+        }
+    }
+
+    final Handler mHandler = new Handler();
+    void showToast(Context context, CharSequence text) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context , text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

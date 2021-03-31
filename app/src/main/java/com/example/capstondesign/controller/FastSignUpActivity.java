@@ -1,5 +1,7 @@
 package com.example.capstondesign.controller;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Profile;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,32 +31,90 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-public class SignUpActivity extends AppCompatActivity {
-    EditText name, phone_num, password, nickname, passwordCheck, email_front, email_end;
+public class FastSignUpActivity extends AppCompatActivity {
+    TextView name, email;
+    EditText phone_num, password, nickname, passwordCheck;
     RadioGroup sex;
     RadioButton radioButton;
-    Button sign_up, cancel, nick_check;
+    Context context;
+    Activity activity;
+    Button sign_up, sign_cancel, nick_check;
     Boolean nick_click = false;
-    Boolean sex_click = false;
+    Profile profile = LoginAcitivity.profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup_page);
+        setContentView(R.layout.fast_signup_page);
 
-        name = (EditText) findViewById(R.id.name);
-        email_front = (EditText) findViewById(R.id.email_front);
-        email_end = (EditText) findViewById(R.id.email_end);
+        context = this;
+        activity = FastSignUpActivity.this;
+
+
+
+        name = (TextView) findViewById(R.id.name);
+        email = (TextView) findViewById(R.id.email);
         phone_num = (EditText) findViewById(R.id.phone_num);
         sex = (RadioGroup) findViewById(R.id.sex);
         password = (EditText) findViewById(R.id.password);
         passwordCheck = (EditText) findViewById(R.id.password_check);
         nickname = (EditText) findViewById(R.id.nickname);
         sign_up = (Button) findViewById(R.id.sign_up);
-        cancel = (Button) findViewById(R.id.cancel);
+        sign_cancel = (Button) findViewById(R.id.sign_cancel);
         nick_check = (Button) findViewById(R.id.nick_check);
 
+        Log.d("NAME" ,profile.getName());
+        Log.d("EMAIL" ,profile.getEmail());
+
+        name.setText(profile.getName());
+        email.setText(profile.getEmail());
+        if(profile.getGender().equals("M")||profile.getGender().equals("male")) {
+            sex.check(R.id.male);
+            radioButton = (RadioButton) findViewById(R.id.male);
+        } else {
+            sex.check(R.id.female);
+            radioButton = (RadioButton) findViewById(R.id.female);
+        }
+
+        sign_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //네이버 로그인시 login 값은 2
+                if(LoginAcitivity.login == 2) {
+                    OAuthLogin mOAuthLoginModule;
+                    mOAuthLoginModule = OAuthLogin.getInstance();
+                    mOAuthLoginModule.init(
+                            getApplicationContext()
+                            ,getString(R.string.naver_client_id)
+                            ,getString(R.string.naver_client_secret)
+                            ,getString(R.string.naver_client_name)
+                    );
+                    mOAuthLoginModule.logout(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    LoginAcitivity.login = 0;
+                    Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if(LoginAcitivity.login == 1) {
+
+                    //카카오 로그인시 login 값은 1
+                    Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                        @Override
+                        public void onCompleteLogout() {
+                            Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
+                            startActivity(intent);
+                            LoginAcitivity.login = 0;
+                            Log.d("LOGOUT", String.valueOf(LoginAcitivity.login));
+                        }
+                    });
+                    finish();
+                }
+            }
+        });
+
         nick_check.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String userNickname = nickname.getText().toString();
@@ -77,32 +141,34 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
+
         sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                sex_click = true;
                 radioButton = (RadioButton) findViewById(checkedId);
                 Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
+
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = name.getText().toString();
-                String useremail_front = email_front.getText().toString();
-                String useremail_end = email_end.getText().toString();
+                String userEmail_front = email_front(email.getText().toString());
+                String userEmail_end = email_end(email.getText().toString());
                 String userNum = phone_num.getText().toString();
                 String userNickname = nickname.getText().toString();
                 String userPassword = password.getText().toString();
                 String passwordcheck = passwordCheck.getText().toString();
 
-                if(username.trim().length()>0 && useremail_front.trim().length()>0 && useremail_end.trim().length()>0  && userPassword.trim().length()>0
-                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && sex_click && nick_click) {
+                if(username.trim().length()>0 && userPassword.trim().length()>0
+                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && nick_click) {
                     try {
                         String result;
                         SignUpTask task = new SignUpTask();
-                        result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, userNickname).get();
+                        result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
                         if(result.contains("sameNumEmail/")) {
                             Toast.makeText(getApplicationContext(), "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
                         } else if (result.contains("sameNum/")){
@@ -113,8 +179,8 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.d("값", userNum + userPassword + userNickname);
                             Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
                             Log.d("리턴 값", result);
-                            //Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                            //startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                            startActivity(intent);
                             finish();
                         }
 
@@ -129,15 +195,6 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("LOGOUT", String.valueOf(LoginAcitivity.login));
-                Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
 
@@ -217,4 +274,12 @@ public class SignUpActivity extends AppCompatActivity {
             return receiveMsg;
         }
     }
+    String email_front(String email) {
+        return email.substring(0 ,email.lastIndexOf("@"));
+    }
+
+    String email_end(String email) {
+        return email.substring(email.lastIndexOf("@")+1);
+    }
+
 }

@@ -63,7 +63,6 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 kakao_button.performClick();
-
             }
         });
 
@@ -80,13 +79,15 @@ public class LoginAcitivity extends AppCompatActivity {
     }
 
 
-
+    /*
     void Success() {
         Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
         Toast.makeText(getApplicationContext(), "로그인 성공.", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();
     }
+    */
+
 
 
     /*
