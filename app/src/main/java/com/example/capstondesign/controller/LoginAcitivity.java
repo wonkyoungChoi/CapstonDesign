@@ -18,6 +18,7 @@ import com.example.capstondesign.model.NaverLogin;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.facebookCallback;
 import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
@@ -36,6 +37,7 @@ public class LoginAcitivity extends AppCompatActivity {
     KakaoCallback sessionCallback;
     ISessionCallback callback;
     facebookCallback facebookCallback;
+    CallbackManager callbackManager;
     public static Profile profile = new Profile();
     public static int login = 0;
 
@@ -43,23 +45,23 @@ public class LoginAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+
+        context = this;
+        activity = LoginAcitivity.this;
+
         facebook_login = (LinearLayout) findViewById(R.id.ll_facebook_login);
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
 
+        callbackManager = CallbackManager.Factory.create();
+        facebookCallback = new facebookCallback(activity, context);
+        btn_Facebook_Login.setPermissions(Arrays.asList("user_gender", "email"));
         facebook_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btn_Facebook_Login.performClick();
-                CallbackManager callbackManager = CallbackManager.Factory.create();
-                facebookCallback = new facebookCallback();
-                btn_Facebook_Login.setPermissions(Arrays.asList("public_profile", "email"));
                 btn_Facebook_Login.registerCallback(callbackManager, facebookCallback);
             }
         });
-
-
-        context = this;
-        activity = LoginAcitivity.this;
 
         naver_login = (LinearLayout) findViewById(R.id.ll_naver_login);
         naver_login.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +99,6 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
-
     /*
     void Success() {
         Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
@@ -108,72 +109,12 @@ public class LoginAcitivity extends AppCompatActivity {
     */
 
 
-
-    /*
-    //카카오 프로필 정보 콜백 메소드
-    private class SessionCallback implements ISessionCallback {
-        @Override
-        public void onSessionOpened() {
-            UserManagement.getInstance().me(new MeV2ResponseCallback() {
-                @Override
-                public void onFailure(ErrorResult errorResult) {
-                    int result = errorResult.getErrorCode();
-
-                    if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
-                        Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(),"로그인 도중 오류가 발생했습니다: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onSessionClosed(ErrorResult errorResult) {
-                    Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onSuccess(MeV2Response result) {
-                    if(result.getKakaoAccount().getProfile() != null)  {
-                        if(result.getKakaoAccount().getProfile().getNickname() != null) {
-                            name = result.getKakaoAccount().getProfile().getNickname();
-                            gender = result.getKakaoAccount().getGender().getValue();
-                            email = result.getKakaoAccount().getEmail();
-                            birthday = result.getKakaoAccount().getBirthday();
-
-                            profile.setName(name);
-                            profile.setGender(gender);
-                            profile.setEmail(email);
-                            profile.setBirthday(birthday);
-
-                            Log.d("name 확인 ", name);
-                            Log.d("gender 확인 ", gender);
-                            Log.d("email 확인 ", email);
-                            Log.d("birthday 확인 ", birthday);
-
-                            login = 1;
-                            Success();
-                        }
-                    } else {
-                        Log.d("Fail", "Fail");
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void onSessionOpenFailed(KakaoException e) {
-            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-     */
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
+        } else if(callbackManager.onActivityResult(requestCode, resultCode, data)) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -181,6 +122,7 @@ public class LoginAcitivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(callback);
+        LoginManager.getInstance().logOut();
     }
 
 }

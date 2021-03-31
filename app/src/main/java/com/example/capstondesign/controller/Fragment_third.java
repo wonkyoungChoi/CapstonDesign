@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
+import com.facebook.login.LoginManager;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -97,6 +98,14 @@ public class Fragment_third extends Fragment {
                             Log.d("LOGOUT", String.valueOf(login));
                         }
                     });
+                    getActivity().finish();
+                } else if(login==3) {
+                    //페이스북 로그인시 login 값은 3
+                    LoginManager.getInstance().logOut();
+                    Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                    startActivity(intent);
+                    LoginAcitivity.login = 0;
                     getActivity().finish();
                 }
             }

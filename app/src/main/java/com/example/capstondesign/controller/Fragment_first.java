@@ -80,7 +80,7 @@ public class Fragment_first extends Fragment {
         email = profile.getEmail();
 
         nameTv.setText(name);
-        if(gender.equals("M")||gender.equals("male")) {
+        if(gender.equals("M")||gender.equals("male") || gender.equals("남성")) {
             gender = "남성";
         } else {
             gender = "여성";

@@ -27,11 +27,11 @@ import java.util.concurrent.ExecutionException;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText name, phone_num, password, nickname, passwordCheck, email_front, email_end;
-    RadioGroup sex;
+    RadioGroup gender;
     RadioButton radioButton;
     Button sign_up, cancel, nick_check;
     Boolean nick_click = false;
-    Boolean sex_click = false;
+    Boolean gender_click = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         email_front = (EditText) findViewById(R.id.email_front);
         email_end = (EditText) findViewById(R.id.email_end);
         phone_num = (EditText) findViewById(R.id.phone_num);
-        sex = (RadioGroup) findViewById(R.id.sex);
+        gender = (RadioGroup) findViewById(R.id.gender);
         password = (EditText) findViewById(R.id.password);
         passwordCheck = (EditText) findViewById(R.id.password_check);
         nickname = (EditText) findViewById(R.id.nickname);
@@ -77,10 +77,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                sex_click = true;
+                gender_click = true;
                 radioButton = (RadioButton) findViewById(checkedId);
                 Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String passwordcheck = passwordCheck.getText().toString();
 
                 if(username.trim().length()>0 && useremail_front.trim().length()>0 && useremail_end.trim().length()>0  && userPassword.trim().length()>0
-                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && sex_click && nick_click) {
+                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && gender_click && nick_click) {
                     try {
                         String result;
                         SignUpTask task = new SignUpTask();
@@ -136,6 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("LOGOUT", String.valueOf(LoginAcitivity.login));
+                LoginAcitivity.login = 0;
                 Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }

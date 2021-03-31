@@ -33,7 +33,7 @@ import java.util.Map;
 public class NaverLogin {
     OAuthLogin mOAuthLoginModule;
     Profile profile = LoginAcitivity.profile;
-    String name1, email1, sex1;
+    String name1, email1, gender;
 
     public NaverLogin(Context mContext, Activity activity) {
         Login(mContext);
@@ -87,13 +87,13 @@ public class NaverLogin {
                                 String check;
                                 name1 = profile.getName();
                                 email1 = profile.getEmail();
-                                sex1 = profile.getGender();
-                                if(sex1.equals("M")) {
-                                    sex1 = "남성";
-                                } else if(sex1.equals("F")) {
-                                    sex1 = "여성";
+                                gender = profile.getGender();
+                                if(gender.equals("M")) {
+                                    gender = "남성";
+                                } else if(gender.equals("F")) {
+                                    gender = "여성";
                                 }
-                                check = checkTask.execute(name1, email1, sex1).get();
+                                check = checkTask.execute(name1, email1, gender).get();
                                 Intent intent;
                                 Log.d("CHECK", check);
                                 if(check.contains("signup")) {

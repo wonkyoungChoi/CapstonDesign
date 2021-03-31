@@ -170,7 +170,7 @@
                     android:layout_marginStart="10dp"
                     android:text="성별"/>
                 <RadioGroup
-                    android:id="@+id/sex"
+                    android:id="@+id/gender"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
