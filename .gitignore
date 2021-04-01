@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+/build/
+=======
 *.iml
 .gradle
 /local.properties
@@ -13,3 +16,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+>>>>>>> refs/remotes/origin/master
