@@ -69,14 +69,14 @@
 <%
 	try{
 		// select 문장을 문자열 형태로 구성한다.
-		String sql = "select name, email_front, email_end, phone_num, password, nickname, sex from sign_up";
+		String sql = "select name, email_front, email_end, phone_num, password, nickname, gender from sign_up";
 		pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		int i=1;
 
 		while(rs.next()) {
 			out.println("name"+ " : " + rs.getString("name")+ "email"+ " : " + rs.getString("email_front") + "@" + rs.getString("email_end") + "phonenum"+ " : " + rs.getString("phone_num")
-			+" , password"+ ":"+ rs.getString("password")+ " , nickname"+ ":"+ rs.getString("nickname")+ " , sex"+ ":"+ rs.getString("sex")+"<BR>");
+			+" , password"+ ":"+ rs.getString("password")+ " , nickname"+ ":"+ rs.getString("nickname")+ " , gender"+ ":"+ rs.getString("gender")+"<BR>");
 		}
 		rs.close();
 		pstmt.close();
