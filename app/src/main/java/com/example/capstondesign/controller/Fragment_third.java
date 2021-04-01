@@ -82,11 +82,12 @@ public class Fragment_third extends Fragment {
                             ,getString(R.string.naver_client_name)
                     );
                     mOAuthLoginModule.logout(getContext());
+                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                    startActivity(intent);
                     Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                     LoginAcitivity.login = 0;
                     getActivity().finish();
                 } else if(login == 1) {
-
                     //카카오 로그인시 login 값은 1
                     Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {

@@ -90,15 +90,7 @@ public class KakaoCallback {
                                 try {
                                     String check;
                                     check = checkTask.execute(name, email, gender).get();
-                                    Intent intent;
-                                    if(check.contains("signup")) {
-                                        intent = new Intent(activity, Fragment_main.class);
-                                        Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        intent = new Intent(activity, FastSignUpActivity.class);
-                                        Toast.makeText(context, "회원가입 하기", Toast.LENGTH_SHORT).show();
-                                    }
-                                    activity.startActivity(intent);
+                                    new CheckTask.SignUpCheck(check, context, activity);
 
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
@@ -119,42 +111,6 @@ public class KakaoCallback {
                 Toast.makeText(context, "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: " + e.toString(), Toast.LENGTH_SHORT).show();
             }
         };
-    }
-
-    class CheckTask extends AsyncTask<String, Void, String> {
-        String sendMsg, receiveMsg;
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                String str;
-                URL url = new URL("http://192.168.0.15:8080/fast_sign_up_check.jsp");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "name="+strings[0]+"&email="+strings[1]+"&sex="+strings[2];
-                osw.write(sendMsg);
-                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-                    receiveMsg = buffer.toString();
-
-                } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMsg;
-        }
     }
 
 

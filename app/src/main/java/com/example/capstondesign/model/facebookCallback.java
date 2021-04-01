@@ -34,6 +34,7 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
     Profile profile = LoginAcitivity.profile;
     Context context;
     Activity activity;
+    String name, email, gender;
 
     public facebookCallback(Activity activity1, Context context1) {
         activity = activity1;
@@ -45,7 +46,6 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
     {
         Log.e("Callback :: ", "onSuccess");
         requestMe(loginResult.getAccessToken());
-
     }
 
     @Override
@@ -70,15 +70,13 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
                         try {
-                            String act_id = object.getString("id");
-
-                            String email = object.getString("email");
+                            email = object.getString("email");
                             profile.setEmail(email);
 
-                            String name = object.getString("name");
+                            name = object.getString("name");
                             profile.setName(name);
 
-                            String gender = object.getString("gender");
+                            gender = object.getString("gender");
                             if(gender.equals("male")) {
                                 gender = "남성";
                             } else if(gender.equals("female")) {
@@ -86,21 +84,11 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                             }
                             LoginAcitivity.login = 3;
                             profile.setGender(gender);
-
                             CheckTask checkTask = new CheckTask();
                             String check;
                             check = checkTask.execute(name, email, gender).get();
-                            Intent intent;
-                            Log.d("CHECK", String.valueOf(LoginAcitivity.login));
-                            if(check.contains("signup")) {
-                                intent = new Intent(activity, Fragment_main.class);
-                                Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
-                            } else {
-                                intent = new Intent(activity, FastSignUpActivity.class);
-                                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
-                            }
-                            activity.startActivity(intent);
-                            activity.finish();
+                            new CheckTask.SignUpCheck(check, context, activity);
+
 
                             Log.e("result",object.toString());
                         } catch (JSONException e) {
@@ -120,40 +108,5 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
         graphRequest.executeAsync();
     }
 
-    class CheckTask extends AsyncTask<String, Void, String> {
-        String sendMsg, receiveMsg;
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                String str;
-                URL url = new URL("http://192.168.0.15:8080/fast_sign_up_check.jsp");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "name="+strings[0]+"&email="+strings[1]+"&sex="+strings[2];
-                osw.write(sendMsg);
-                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-                    receiveMsg = buffer.toString();
-
-                } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMsg;
-        }
-    }
 
 }

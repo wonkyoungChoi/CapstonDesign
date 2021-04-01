@@ -17,7 +17,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.SignUpTask;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -34,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 public class FastSignUpActivity extends AppCompatActivity {
     TextView name, email;
     EditText phone_num, password, nickname, passwordCheck;
-    RadioGroup sex;
+    RadioGroup gender;
     RadioButton radioButton;
     Context context;
     Activity activity;
@@ -50,12 +52,10 @@ public class FastSignUpActivity extends AppCompatActivity {
         context = this;
         activity = FastSignUpActivity.this;
 
-
-
         name = (TextView) findViewById(R.id.name);
         email = (TextView) findViewById(R.id.email);
         phone_num = (EditText) findViewById(R.id.phone_num);
-        sex = (RadioGroup) findViewById(R.id.sex);
+        gender = (RadioGroup) findViewById(R.id.gender);
         password = (EditText) findViewById(R.id.password);
         passwordCheck = (EditText) findViewById(R.id.password_check);
         nickname = (EditText) findViewById(R.id.nickname);
@@ -63,16 +63,13 @@ public class FastSignUpActivity extends AppCompatActivity {
         sign_cancel = (Button) findViewById(R.id.sign_cancel);
         nick_check = (Button) findViewById(R.id.nick_check);
 
-        Log.d("NAME" ,profile.getName());
-        Log.d("EMAIL" ,profile.getEmail());
-
         name.setText(profile.getName());
         email.setText(profile.getEmail());
         if(profile.getGender().equals("M")||profile.getGender().equals("male")) {
-            sex.check(R.id.male);
+            gender.check(R.id.male);
             radioButton = (RadioButton) findViewById(R.id.male);
         } else {
-            sex.check(R.id.female);
+            gender.check(R.id.female);
             radioButton = (RadioButton) findViewById(R.id.female);
         }
 
@@ -141,16 +138,13 @@ public class FastSignUpActivity extends AppCompatActivity {
             }
         });
 
-
-
-        sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioButton = (RadioButton) findViewById(checkedId);
                 Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,20 +163,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                         String result;
                         SignUpTask task = new SignUpTask();
                         result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
-                        if(result.contains("sameNumEmail/")) {
-                            Toast.makeText(getApplicationContext(), "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
-                        } else if (result.contains("sameNum/")){
-                            Toast.makeText(getApplicationContext(), "폰번호 중복", Toast.LENGTH_SHORT).show();
-                        }  else if (result.contains("sameEmail/")) {
-                            Toast.makeText(getApplicationContext(), "이메일 중복", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d("값", userNum + userPassword + userNickname);
-                            Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
-                            Log.d("리턴 값", result);
-                            Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                        new SignUpTask.DuplicateCheck(result, context, activity);
 
                     } catch (Exception e) {
 
@@ -200,80 +181,6 @@ public class FastSignUpActivity extends AppCompatActivity {
 
     }
 
-
-    class SignUpTask extends AsyncTask<String, Void, String> {
-        String sendMsg, receiveMsg;
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                String str;
-                URL url = new URL("http://192.168.0.15:8080/sign_up.jsp");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "name="+strings[0]+"&phone_num="+strings[1]+"&email_front="+strings[2]+"&email_end="+strings[3]+"&nick="+strings[4]
-                        +"&pwd="+strings[5] +"&sex="+strings[6];
-                osw.write(sendMsg);
-                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-                    receiveMsg = buffer.toString();
-
-                } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMsg;
-        }
-    }
-
-
-    class NickCheckTask extends AsyncTask<String, Void, String> {
-        String sendMsg, receiveMsg;
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                String str;
-                URL url = new URL("http://192.168.0.15:8080/nick_check.jsp");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "nick="+strings[0];
-                osw.write(sendMsg);
-                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-                    receiveMsg = buffer.toString();
-
-                } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMsg;
-        }
-    }
     String email_front(String email) {
         return email.substring(0 ,email.lastIndexOf("@"));
     }

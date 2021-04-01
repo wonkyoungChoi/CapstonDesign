@@ -17,7 +17,9 @@ import com.example.capstondesign.model.KakaoCallback;
 import com.example.capstondesign.model.NaverLogin;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.facebookCallback;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.LoginStatusCallback;
 import com.facebook.login.LoginManager;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -54,14 +56,15 @@ public class LoginAcitivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         facebookCallback = new facebookCallback(activity, context);
-        btn_Facebook_Login.setPermissions(Arrays.asList("user_gender", "email"));
         facebook_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_Facebook_Login.setPermissions(Arrays.asList("user_gender", "email"));
                 btn_Facebook_Login.performClick();
                 btn_Facebook_Login.registerCallback(callbackManager, facebookCallback);
             }
         });
+
 
         naver_login = (LinearLayout) findViewById(R.id.ll_naver_login);
         naver_login.setOnClickListener(new View.OnClickListener() {
@@ -99,22 +102,14 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
-    /*
-    void Success() {
-        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-        Toast.makeText(getApplicationContext(), "로그인 성공.", Toast.LENGTH_SHORT).show();
-        startActivity(intent);
-        finish();
-    }
-    */
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
         } else if(callbackManager.onActivityResult(requestCode, resultCode, data)) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
+            Log.d("ABC", "ABC");
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

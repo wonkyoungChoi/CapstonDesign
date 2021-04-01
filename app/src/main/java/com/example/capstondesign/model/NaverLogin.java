@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,9 +36,10 @@ public class NaverLogin {
     Profile profile = LoginAcitivity.profile;
     String name1, email1, gender;
 
-    public NaverLogin(Context mContext, Activity activity) {
-        Login(mContext);
-        loginHandler(mContext, activity);
+
+    public NaverLogin(Context context, Activity activity) {
+        Login(context);
+        loginHandler(context, activity);
     }
 
 
@@ -53,16 +55,16 @@ public class NaverLogin {
         );
     }
 
-    void loginHandler(Context mContext, Activity activity) {
+    void loginHandler(Context context, Activity activity) {
         @SuppressLint("HandlerLeak")
         OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
             @Override
             public void run(boolean success) {
                 if (success) {
-                    String accessToken = mOAuthLoginModule.getAccessToken(mContext);
-                    String refreshToken = mOAuthLoginModule.getRefreshToken(mContext);
-                    long expiresAt = mOAuthLoginModule.getExpiresAt(mContext);
-                    String tokenType = mOAuthLoginModule.getTokenType(mContext);
+                    String accessToken = mOAuthLoginModule.getAccessToken(context);
+                    String refreshToken = mOAuthLoginModule.getRefreshToken(context);
+                    long expiresAt = mOAuthLoginModule.getExpiresAt(context);
+                    String tokenType = mOAuthLoginModule.getTokenType(context);
 
                     Log.i("LoginData", "accessToken : " + accessToken);
                     Log.i("LoginData", "refreshToken : " + refreshToken);
@@ -81,7 +83,7 @@ public class NaverLogin {
                                 requestHeaders.put("Authorization", header);
                                 String responseBody = get(apiURL, requestHeaders);
                                 Log.d("NAVERLOGIN", responseBody);
-                                NaverUserInfo(responseBody, mContext);
+                                NaverUserInfo(responseBody, context);
                                 LoginAcitivity.login = 2;
                                 CheckTask checkTask = new CheckTask();
                                 String check;
@@ -93,18 +95,15 @@ public class NaverLogin {
                                 } else if(gender.equals("F")) {
                                     gender = "여성";
                                 }
+
                                 check = checkTask.execute(name1, email1, gender).get();
-                                Intent intent;
-                                Log.d("CHECK", check);
-                                if(check.contains("signup")) {
-                                    intent = new Intent(activity, Fragment_main.class);
-                                    showToast(mContext, "로그인 성공");
-                                } else {
-                                    intent = new Intent(activity, FastSignUpActivity.class);
-                                    showToast(mContext, "회원가입 하기");
-                                }
-                                activity.startActivity(intent);
-                                activity.finish();
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        new CheckTask.SignUpCheck(check, context, activity);
+                                    }
+                                });
+
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -115,9 +114,9 @@ public class NaverLogin {
 
                 } else {
                     String errorCode = mOAuthLoginModule
-                            .getLastErrorCode(mContext).getCode();
-                    String errorDesc = mOAuthLoginModule.getLastErrorDesc(mContext);
-                    Toast.makeText(mContext, "errorCode:" + errorCode
+                            .getLastErrorCode(context).getCode();
+                    String errorDesc = mOAuthLoginModule.getLastErrorDesc(context);
+                    Toast.makeText(context, "errorCode:" + errorCode
                             + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -218,41 +217,7 @@ public class NaverLogin {
         }
     }
 
-    class CheckTask extends AsyncTask<String, Void, String> {
-        String sendMsg, receiveMsg;
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                String str;
-                URL url = new URL("http://192.168.0.15:8080/fast_sign_up_check.jsp");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "name="+strings[0]+"&email="+strings[1]+"&sex="+strings[2];
-                osw.write(sendMsg);
-                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
-                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(tmp);
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-                    receiveMsg = buffer.toString();
 
-                } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMsg;
-        }
-    }
 
     final Handler mHandler = new Handler();
     void showToast(Context context, CharSequence text) {
@@ -263,6 +228,7 @@ public class NaverLogin {
             }
         });
     }
+
 
 
 }
