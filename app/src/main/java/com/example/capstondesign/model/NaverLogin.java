@@ -55,7 +55,7 @@ public class NaverLogin {
         );
     }
 
-    void loginHandler(Context context, Activity activity) {
+    private void loginHandler(Context context, Activity activity) {
         @SuppressLint("HandlerLeak")
         OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
             @Override
@@ -97,6 +97,8 @@ public class NaverLogin {
                                 }
 
                                 check = checkTask.execute(name1, email1, gender).get();
+
+                                //회원가입 했는지 확인하는 부분
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {

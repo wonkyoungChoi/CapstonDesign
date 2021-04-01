@@ -40,7 +40,6 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
         activity = activity1;
         context = context1;
     }
-
     @Override
     public void onSuccess(LoginResult loginResult)
     {
@@ -87,8 +86,9 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                             CheckTask checkTask = new CheckTask();
                             String check;
                             check = checkTask.execute(name, email, gender).get();
-                            new CheckTask.SignUpCheck(check, context, activity);
 
+                            //회원가입 했는지 확인하는 부분
+                            new CheckTask.SignUpCheck(check, context, activity);
 
                             Log.e("result",object.toString());
                         } catch (JSONException e) {

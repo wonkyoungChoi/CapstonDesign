@@ -55,11 +55,11 @@ public class LoginAcitivity extends AppCompatActivity {
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
 
         callbackManager = CallbackManager.Factory.create();
+        btn_Facebook_Login.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
         facebookCallback = new facebookCallback(activity, context);
         facebook_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_Facebook_Login.setPermissions(Arrays.asList("user_gender", "email"));
                 btn_Facebook_Login.performClick();
                 btn_Facebook_Login.registerCallback(callbackManager, facebookCallback);
             }
