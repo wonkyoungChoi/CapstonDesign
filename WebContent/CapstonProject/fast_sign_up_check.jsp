@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<td>성별</td>
-			<td><input type="text" name="sex" size=20></td>
+			<td><input type="text" name="gender" size=20></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
@@ -50,7 +50,7 @@
 		//데이터베이스 연결정보를 이용해 Connection 인스턴스 확보
 		conn = DriverManager.getConnection(jdbc_url, "root", "1234");
 		
-		String sql = "select name, email_front, email_end, sex from sign_up";
+		String sql = "select name, email_front, email_end, gender from sign_up";
 		int i = 0;
 
 		pstmt = conn.prepareStatement(sql);
@@ -58,7 +58,7 @@
 		while(rs.next()){
 			if(rs.getString("name").equals(request.getParameter("name")) &&
 					(rs.getString("email_front") + "@" + rs.getString("email_end")).equals(request.getParameter("email")) &&
-					rs.getString("sex").equals(request.getParameter("sex"))) {
+					rs.getString("gender").equals(request.getParameter("gender"))) {
 				i = 1;
 			}
 		}
@@ -79,14 +79,14 @@
 <%
 	try{
 		// select 문장을 문자열 형태로 구성한다.
-		String sql = "select name, email_front, email_end, phone_num, password, nickname, sex from sign_up";
+		String sql = "select name, email_front, email_end, phone_num, password, nickname, gender from sign_up";
 		pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		int i=1;
 
 		while(rs.next()) {
 			out.println("name"+ " : " + rs.getString("name")+ "email"+ " : " + rs.getString("email_front") + "@" + rs.getString("email_end") + " , phonenum"+ " : " + rs.getString("phone_num")
-			+" , password"+ ":"+ rs.getString("password")+ " , nickname"+ ":"+ rs.getString("nickname")+ " , sex"+ ":"+ rs.getString("sex")+"<BR>");
+			+" , password"+ ":"+ rs.getString("password")+ " , nickname"+ ":"+ rs.getString("nickname")+ " , gender"+ ":"+ rs.getString("gender")+"<BR>");
 		}
 		rs.close();
 		pstmt.close();
