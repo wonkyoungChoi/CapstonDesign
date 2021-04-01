@@ -84,12 +84,12 @@ public class KakaoCallback {
                                 } else if(gender.equals("female")) {
                                     gender = "여성";
                                 }
-
                                 login = 1;
                                 LoginAcitivity.login = login;
                                 try {
                                     String check;
                                     check = checkTask.execute(name, email, gender).get();
+                                    Log.d("CHECK", check);
 
                                     //회원가입 했는지 확인하는 부분
                                     new CheckTask.SignUpCheck(check, context, activity);

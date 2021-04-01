@@ -69,4 +69,13 @@ public class CheckTask extends AsyncTask<String, Void, String> {
             activity.finish();
         }
     }
+
+    public static class Logout {
+        public Logout(Context context, Activity activity) {
+            Intent intent = new Intent(context, LoginAcitivity.class);
+            activity.startActivity(intent);
+            LoginAcitivity.login = 0;
+            activity.finish();
+        }
+    }
 }

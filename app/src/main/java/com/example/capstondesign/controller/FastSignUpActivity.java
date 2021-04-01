@@ -17,9 +17,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.CheckTask;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.SignUpTask;
+import com.facebook.login.LoginManager;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -43,6 +45,7 @@ public class FastSignUpActivity extends AppCompatActivity {
     Button sign_up, sign_cancel, nick_check;
     Boolean nick_click = false;
     Profile profile = LoginAcitivity.profile;
+    CheckTask.Logout logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +79,10 @@ public class FastSignUpActivity extends AppCompatActivity {
         sign_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //네이버 로그인시 login 값은 2
-                if(LoginAcitivity.login == 2) {
+                int login = LoginAcitivity.login;
+
+                if(login == 2) {
+                    //네이버 로그인시 login 값은 2
                     OAuthLogin mOAuthLoginModule;
                     mOAuthLoginModule = OAuthLogin.getInstance();
                     mOAuthLoginModule.init(
@@ -87,25 +92,24 @@ public class FastSignUpActivity extends AppCompatActivity {
                             ,getString(R.string.naver_client_name)
                     );
                     mOAuthLoginModule.logout(getApplicationContext());
-                    Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                    LoginAcitivity.login = 0;
-                    Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if(LoginAcitivity.login == 1) {
+                    logout = new CheckTask.Logout(context, activity);
+                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
 
+                } else if(login == 1) {
                     //카카오 로그인시 login 값은 1
-                    Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
-                            Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
-                            startActivity(intent);
-                            LoginAcitivity.login = 0;
-                            Log.d("LOGOUT", String.valueOf(LoginAcitivity.login));
+                            logout = new CheckTask.Logout(context, activity);
                         }
                     });
-                    finish();
+
+                } else if(login==3) {
+                    //페이스북 로그인시 login 값은 3
+                    LoginManager.getInstance().logOut();
+                    logout = new CheckTask.Logout(context, activity);
+                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
                 }
             }
         });
