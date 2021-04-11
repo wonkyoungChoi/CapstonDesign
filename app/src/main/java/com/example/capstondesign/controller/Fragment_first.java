@@ -1,5 +1,7 @@
 package com.example.capstondesign.controller;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,17 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutionException;
 
 public class Fragment_first extends Fragment {
-    String name;
-    String gender;
-    String email;
-    String birthday;
-    int login = LoginAcitivity.login;
+    String name, phone_num, email , nickname, password, gender;
 
     Profile profile = LoginAcitivity.profile;
 
@@ -64,32 +74,55 @@ public class Fragment_first extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView nameTv, genderTv, birthTv, emailTv;
+        TextView nameTv, phone_numTv, emailTv, nicknameTv, passwordTv, genderTv;
         View v = inflater.inflate(R.layout.fragment_blank_first, container, false);
 
-        nameTv = v.findViewById(R.id.nickname);
-        genderTv = v.findViewById(R.id.gender);
+        nameTv = v.findViewById(R.id.name);
+        phone_numTv = v.findViewById(R.id.phone_num);
         emailTv = v.findViewById(R.id.email);
-        birthTv = v.findViewById(R.id.birth);
+        nicknameTv = v.findViewById(R.id.nickname);
+        passwordTv = v.findViewById(R.id.password);
+        genderTv = v.findViewById(R.id.gender);
 
-        Log.d("LOGIN!!!!", String.valueOf(login));
+        //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
 
-        name = profile.getName();
-        gender = profile.getGender();
-        birthday = profile.getBirthday();
-        email = profile.getEmail();
+            name = profileTask.substringBetween(result, "name:", "/");
+            profile.setName(name);
+            nameTv.setText(name);
 
-        nameTv.setText(name);
-        if(gender.equals("M")||gender.equals("male") || gender.equals("남성")) {
-            gender = "남성";
-        } else {
-            gender = "여성";
+            phone_num = profileTask.substringBetween(result, "phone_num:", "/");
+            profile.setPhone_num(phone_num);
+            phone_numTv.setText(phone_num);
+
+            email = profileTask.substringBetween(result, "email:", "/");
+            profile.setEmail(email);
+            emailTv.setText(email);
+
+            nickname = profileTask.substringBetween(result, "nickname:", "/");
+            profile.setNickname(nickname);
+            nicknameTv.setText(nickname);
+            ChatAdapter.nick = nickname;
+
+            password = profileTask.substringBetween(result, "password:", "/");
+            profile.setPassword(password);
+            passwordTv.setText(password);
+
+            gender = profileTask.substringBetween(result, "gender:", "/");
+            profile.setGender(gender);
+            genderTv.setText(gender);
+
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        genderTv.setText(gender);
-        emailTv.setText(email);
-        birthTv.setText(birthday);
 
 
         return v;
     }
+
 }

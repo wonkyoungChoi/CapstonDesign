@@ -3,7 +3,11 @@ package com.example.capstondesign.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.KakaoCallback;
 import com.example.capstondesign.model.NaverLogin;
 import com.example.capstondesign.model.Profile;
@@ -25,6 +30,8 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class LoginAcitivity extends AppCompatActivity {
@@ -41,6 +48,7 @@ public class LoginAcitivity extends AppCompatActivity {
     facebookCallback facebookCallback;
     CallbackManager callbackManager;
     public static Profile profile = new Profile();
+    public static ChatData chatData = new ChatData();
     public static int login = 0;
 
     @Override
@@ -54,18 +62,19 @@ public class LoginAcitivity extends AppCompatActivity {
         facebook_login = (LinearLayout) findViewById(R.id.ll_facebook_login);
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
 
+        //페이스북 간편 로그인
         callbackManager = CallbackManager.Factory.create();
+        btn_Facebook_Login.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
         facebookCallback = new facebookCallback(activity, context);
         facebook_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_Facebook_Login.setPermissions(Arrays.asList("user_gender", "email"));
                 btn_Facebook_Login.performClick();
                 btn_Facebook_Login.registerCallback(callbackManager, facebookCallback);
             }
         });
 
-
+        //네이버 간편 로그인
         naver_login = (LinearLayout) findViewById(R.id.ll_naver_login);
         naver_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +85,8 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        
+        //카카오 간편 로그인
         sessionCallback = new KakaoCallback(context, activity);
         callback = sessionCallback.kakakoCallback(context, activity);
         Session.getCurrentSession().addCallback(callback);
@@ -90,6 +101,8 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        
+        //회원가입 하기
         signup = findViewById(R.id.sign_up);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override

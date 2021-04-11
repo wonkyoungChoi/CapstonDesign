@@ -55,21 +55,13 @@ public class NaverLogin {
         );
     }
 
-    void loginHandler(Context context, Activity activity) {
+    private void loginHandler(Context context, Activity activity) {
         @SuppressLint("HandlerLeak")
         OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
             @Override
             public void run(boolean success) {
                 if (success) {
                     String accessToken = mOAuthLoginModule.getAccessToken(context);
-                    String refreshToken = mOAuthLoginModule.getRefreshToken(context);
-                    long expiresAt = mOAuthLoginModule.getExpiresAt(context);
-                    String tokenType = mOAuthLoginModule.getTokenType(context);
-
-                    Log.i("LoginData", "accessToken : " + accessToken);
-                    Log.i("LoginData", "refreshToken : " + refreshToken);
-                    Log.i("LoginData", "expiresAt : " + expiresAt);
-                    Log.i("LoginData", "tokenType : " + tokenType);
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -97,6 +89,8 @@ public class NaverLogin {
                                 }
 
                                 check = checkTask.execute(name1, email1, gender).get();
+
+                                //회원가입 했는지 확인하는 부분
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {

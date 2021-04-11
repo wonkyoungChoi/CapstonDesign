@@ -30,7 +30,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "name="+strings[0]+"&email="+strings[1]+"&sex="+strings[2];
+            sendMsg = "name="+strings[0]+"&email="+strings[1]+"&gender="+strings[2];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {
@@ -66,6 +66,15 @@ public class CheckTask extends AsyncTask<String, Void, String> {
                 Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
             }
             activity.startActivity(intent);
+            activity.finish();
+        }
+    }
+
+    public static class Logout {
+        public Logout(Context context, Activity activity) {
+            Intent intent = new Intent(context, LoginAcitivity.class);
+            activity.startActivity(intent);
+            LoginAcitivity.login = 0;
             activity.finish();
         }
     }

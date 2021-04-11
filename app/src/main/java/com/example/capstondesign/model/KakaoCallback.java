@@ -73,23 +73,19 @@ public class KakaoCallback {
                                 profile.setGender(gender);
                                 profile.setEmail(email);
 
-
-                                Log.d("name 확인 ", name);
-                                Log.d("gender 확인 ", gender);
-                                Log.d("email 확인 ", email);
-
                                 CheckTask checkTask = new CheckTask();
                                 if(gender.equals("male")) {
                                     gender = "남성";
                                 } else if(gender.equals("female")) {
                                     gender = "여성";
                                 }
-
                                 login = 1;
                                 LoginAcitivity.login = login;
                                 try {
                                     String check;
                                     check = checkTask.execute(name, email, gender).get();
+
+                                    //회원가입 했는지 확인하는 부분
                                     new CheckTask.SignUpCheck(check, context, activity);
 
                                 } catch (ExecutionException e) {

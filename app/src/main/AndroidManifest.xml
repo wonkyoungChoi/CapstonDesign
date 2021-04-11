@@ -46,6 +46,8 @@
         <activity android:name=".controller.Fragment_main" />
         <activity android:name=".controller.SignUpActivity" />
         <activity android:name=".controller.FastSignUpActivity" />
+        <activity android:name=".controller.add_chat" />
+        <activity android:name=".controller.in_chat_room"/>
     </application>
 
 </manifest>

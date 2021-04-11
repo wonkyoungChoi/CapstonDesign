@@ -31,7 +31,7 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
             sendMsg = "name="+strings[0]+"&phone_num="+strings[1]+"&email_front="+strings[2]+"&email_end="+strings[3]+"&nick="+strings[4]
-                    +"&pwd="+strings[5] +"&sex="+strings[6];
+                    +"&pwd="+strings[5] +"&gender="+strings[6];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {
