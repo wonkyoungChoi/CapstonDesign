@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.capstondesign.controller.FastSignUpActivity;
 import com.example.capstondesign.controller.Fragment_main;
+import com.example.capstondesign.controller.Fragment_second;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -90,7 +91,6 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                             //회원가입 했는지 확인하는 부분
                             new CheckTask.SignUpCheck(check, context, activity);
 
-                            Log.e("result",object.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {

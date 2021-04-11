@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.CheckTask;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.Profile;
@@ -66,6 +67,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         sign_cancel = (Button) findViewById(R.id.sign_cancel);
         nick_check = (Button) findViewById(R.id.nick_check);
 
+        //간편로그인으로 가져온 값들을 세팅해줌
         name.setText(profile.getName());
         email.setText(profile.getEmail());
         if(profile.getGender().equals("M")||profile.getGender().equals("male")) {
@@ -76,6 +78,8 @@ public class FastSignUpActivity extends AppCompatActivity {
             radioButton = (RadioButton) findViewById(R.id.female);
         }
 
+
+        //취소를 누를 경우 간편 로그인을 로그아웃함.
         sign_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +119,6 @@ public class FastSignUpActivity extends AppCompatActivity {
         });
 
         nick_check.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 String userNickname = nickname.getText().toString();
@@ -167,6 +170,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                         String result;
                         SignUpTask task = new SignUpTask();
                         result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
+                        ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
                     } catch (Exception e) {

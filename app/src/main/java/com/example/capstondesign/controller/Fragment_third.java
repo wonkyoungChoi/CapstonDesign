@@ -68,6 +68,8 @@ public class Fragment_third extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_blank_third, container, false);
 
         logout = v.findViewById(R.id.btn_logout);
+        
+        //로그아웃 이벤트
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

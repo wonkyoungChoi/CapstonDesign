@@ -17,6 +17,7 @@ import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.SignUpTask;
 import com.facebook.login.LoginManager;
@@ -115,6 +116,7 @@ public class SignUpActivity extends AppCompatActivity {
                         String result;
                         SignUpTask task = new SignUpTask();
                         result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, userNickname).get();
+                        ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
                     } catch (Exception e) {

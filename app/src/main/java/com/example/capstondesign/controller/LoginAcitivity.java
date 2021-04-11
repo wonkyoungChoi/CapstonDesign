@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.KakaoCallback;
 import com.example.capstondesign.model.NaverLogin;
 import com.example.capstondesign.model.Profile;
@@ -47,13 +48,13 @@ public class LoginAcitivity extends AppCompatActivity {
     facebookCallback facebookCallback;
     CallbackManager callbackManager;
     public static Profile profile = new Profile();
+    public static ChatData chatData = new ChatData();
     public static int login = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-        getHashKey();
 
         context = this;
         activity = LoginAcitivity.this;
@@ -61,6 +62,7 @@ public class LoginAcitivity extends AppCompatActivity {
         facebook_login = (LinearLayout) findViewById(R.id.ll_facebook_login);
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
 
+        //페이스북 간편 로그인
         callbackManager = CallbackManager.Factory.create();
         btn_Facebook_Login.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
         facebookCallback = new facebookCallback(activity, context);
@@ -72,7 +74,7 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
-
+        //네이버 간편 로그인
         naver_login = (LinearLayout) findViewById(R.id.ll_naver_login);
         naver_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,8 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        
+        //카카오 간편 로그인
         sessionCallback = new KakaoCallback(context, activity);
         callback = sessionCallback.kakakoCallback(context, activity);
         Session.getCurrentSession().addCallback(callback);
@@ -97,6 +101,8 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        
+        //회원가입 하기
         signup = findViewById(R.id.sign_up);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,27 +131,6 @@ public class LoginAcitivity extends AppCompatActivity {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(callback);
         LoginManager.getInstance().logOut();
-    }
-
-    private void getHashKey(){
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-            }
-        }
     }
 
 }

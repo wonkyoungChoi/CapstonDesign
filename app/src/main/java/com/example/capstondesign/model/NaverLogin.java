@@ -62,14 +62,6 @@ public class NaverLogin {
             public void run(boolean success) {
                 if (success) {
                     String accessToken = mOAuthLoginModule.getAccessToken(context);
-                    String refreshToken = mOAuthLoginModule.getRefreshToken(context);
-                    long expiresAt = mOAuthLoginModule.getExpiresAt(context);
-                    String tokenType = mOAuthLoginModule.getTokenType(context);
-
-                    Log.i("LoginData", "accessToken : " + accessToken);
-                    Log.i("LoginData", "refreshToken : " + refreshToken);
-                    Log.i("LoginData", "expiresAt : " + expiresAt);
-                    Log.i("LoginData", "tokenType : " + tokenType);
 
                     Thread thread = new Thread(new Runnable() {
                         @Override

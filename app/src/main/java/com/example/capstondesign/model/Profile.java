@@ -2,16 +2,21 @@ package com.example.capstondesign.model;
 
 public class Profile {
     String name;
-    String gender;
+    String phone_num;
     String email;
-    String birthday;
+    String nickname;
+    String password;
+    String gender;
 
-    public Profile(String name, String gender, String email, String birthday) {
+    public Profile(String name, String phone_num, String email, String nickname, String password, String gender) {
         this.name = name;
-        this.gender = gender;
+        this.phone_num = phone_num;
         this.email = email;
-        this.birthday = birthday;
+        this.nickname = nickname;
+        this.password = password;
+        this.gender = gender;
     }
+
 
     public Profile(){};
 
@@ -39,12 +44,16 @@ public class Profile {
         this.email = email;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
+    public String getPhone_num() { return phone_num; }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
+    public void setPhone_num(String phone_num) { this.phone_num = phone_num; }
+
+    public String getNickname() { return nickname; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 
 }
