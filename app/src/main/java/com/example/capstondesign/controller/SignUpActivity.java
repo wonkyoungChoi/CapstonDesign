@@ -115,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity {
                     try {
                         String result;
                         SignUpTask task = new SignUpTask();
-                        result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, userNickname).get();
+                        result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
                         ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 

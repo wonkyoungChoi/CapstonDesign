@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class add_chat extends AppCompatActivity {
     Button add, cancel;
     EditText chattingroom, othernick;
-    String my_room_name,other_room_name, other_nick, result;
+    String my_room_name,other_room_name, other_nick;
     String mynick = ChatAdapter.nick;
     String message;
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
@@ -51,7 +51,6 @@ public class add_chat extends AppCompatActivity {
 
                 //채팅방의 값을 데이터베이스에 저장하는 Task
                 chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
-
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
                 startActivity(intent);
                 finish();

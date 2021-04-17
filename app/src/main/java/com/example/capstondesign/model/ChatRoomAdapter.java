@@ -6,22 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_second;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyViewHolder> {
     static ChatRoomAdapter.OnItemClickListener mListener = null;
@@ -30,9 +24,13 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyView
 
     public interface OnItemClickListener{
         void onItemClick(View v, int pos);
+        void onItemLongClick(View v, int pos);
     }
 
     public void setOnItemClickListener(ChatRoomAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
+    public void setOnItemLongClickListener(ChatRoomAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -58,6 +56,19 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyView
                     }
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        if(mListener != null) {
+                            mListener.onItemLongClick(v, pos);
+                        }
+                    }
+                    return false;
+                }
+            });
+
         }
 
         @SuppressLint("SetTextI18n")

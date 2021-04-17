@@ -66,7 +66,7 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
             } else {
                 Toast.makeText(context, "회원가입 완료", Toast.LENGTH_SHORT).show();
                 Log.d("리턴 값", result);
-                Intent intent = new Intent(context, Fragment_main.class);
+                Intent intent = new Intent(context, LoginAcitivity.class);
                 activity.startActivity(intent);
                 activity.finish();
             }

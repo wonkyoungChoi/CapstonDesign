@@ -25,9 +25,11 @@
         app:layout_constraintBottom_toTopOf="@+id/kakao_Log">
 
         <EditText
+            android:id="@+id/id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/password"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

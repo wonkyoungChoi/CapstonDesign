@@ -1,7 +1,11 @@
 package com.example.capstondesign.controller;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +14,22 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatRoomAdapter;
+import com.example.capstondesign.model.ChatRoomData;
+import com.example.capstondesign.model.CheckTask;
 import com.facebook.login.LoginManager;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
 
-public class Fragment_third extends Fragment {
+import java.util.ArrayList;
+
+public class Fragment_buy extends Fragment {
+    Button logout;
     int login = LoginAcitivity.login;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -29,7 +41,7 @@ public class Fragment_third extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_third() {
+    public Fragment_buy() {
         // Required empty public constructor
     }
 
@@ -39,11 +51,11 @@ public class Fragment_third extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment_third.
+     * @return A new instance of fragment BlankFragment_second.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_third newInstance(String param1, String param2) {
-        Fragment_third fragment = new Fragment_third();
+    public static Fragment_buy newInstance(String param1, String param2) {
+        Fragment_buy fragment = new Fragment_buy();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,18 +75,30 @@ public class Fragment_third extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Button logout;
-
-        View v =  inflater.inflate(R.layout.fragment_blank_third, container, false);
+        View v = inflater.inflate(R.layout.fragment_buy, container, false);
 
         logout = v.findViewById(R.id.btn_logout);
-        
+
         //로그아웃 이벤트
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //네이버 로그인시 login 값은 2
-                if(login == 2) {
+                if(login == 1) {
+                    //카카오 로그인시 login 값은 1
+                    Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                        @Override
+                        public void onCompleteLogout() {
+                            Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                            startActivity(intent);
+                            LoginAcitivity.login = 0;
+                            Log.d("LOGOUT", String.valueOf(login));
+                        }
+                    });
+                    getActivity().finish();
+                } else if(login == 2) {
+
                     OAuthLogin mOAuthLoginModule;
                     mOAuthLoginModule = OAuthLogin.getInstance();
                     mOAuthLoginModule.init(
@@ -89,19 +113,6 @@ public class Fragment_third extends Fragment {
                     Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                     LoginAcitivity.login = 0;
                     getActivity().finish();
-                } else if(login == 1) {
-                    //카카오 로그인시 login 값은 1
-                    Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
-                        @Override
-                        public void onCompleteLogout() {
-                            Intent intent = new Intent(getActivity(), LoginAcitivity.class);
-                            startActivity(intent);
-                            LoginAcitivity.login = 0;
-                            Log.d("LOGOUT", String.valueOf(login));
-                        }
-                    });
-                    getActivity().finish();
                 } else if(login==3) {
                     //페이스북 로그인시 login 값은 3
                     LoginManager.getInstance().logOut();
@@ -110,10 +121,11 @@ public class Fragment_third extends Fragment {
                     startActivity(intent);
                     LoginAcitivity.login = 0;
                     getActivity().finish();
+                } else if(login==4) {
+
                 }
             }
         });
         return v;
     }
-
 }
