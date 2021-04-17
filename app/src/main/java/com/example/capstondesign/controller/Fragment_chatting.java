@@ -1,46 +1,29 @@
 package com.example.capstondesign.controller;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.ChatAdapter;
-import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.ChatRoomAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class Fragment_second extends Fragment {
+public class Fragment_chatting extends Fragment {
     public static ChatRoomAdapter chatRoomAdapter;
     public static ArrayList<ChatRoomData> chatlist = new ArrayList<>();
     static int clicked_item;
@@ -57,7 +40,7 @@ public class Fragment_second extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_second() {
+    public Fragment_chatting() {
         // Required empty public constructor
     }
 
@@ -70,8 +53,8 @@ public class Fragment_second extends Fragment {
      * @return A new instance of fragment BlankFragment_second.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_second newInstance(String param1, String param2) {
-        Fragment_second fragment = new Fragment_second();
+    public static Fragment_chatting newInstance(String param1, String param2) {
+        Fragment_chatting fragment = new Fragment_chatting();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -94,22 +77,23 @@ public class Fragment_second extends Fragment {
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        View v = inflater.inflate(R.layout.fragment_blank_second, container, false);
+        View v = inflater.inflate(R.layout.fragment_chatting, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         Button button_add;
         button_add = v.findViewById(R.id.add);
 
         chatlist.clear();
-
         chatTask = new ChatTask();
-
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
         chatRoomAdapter = new ChatRoomAdapter(chatlist);
 
         recyclerView.setAdapter(chatRoomAdapter);
+
+
 
         //채팅방을 클릭했을 경우의 이벤트
         chatRoomAdapter.setOnItemClickListener(new ChatRoomAdapter.OnItemClickListener() {
@@ -125,6 +109,12 @@ public class Fragment_second extends Fragment {
                 startActivity(intent);
 
             }
+
+            final String[] items = {"채팅방 이름 설정", "나가기"};
+            @Override
+            public void onItemLongClick(View v, int pos) {
+                setAlertDialog(items, getContext());
+            }
         });
 
         //채팅방 추가 버튼
@@ -139,6 +129,23 @@ public class Fragment_second extends Fragment {
 
         // Inflate the layout for this fragment
         return v;
+    }
+
+    public void setAlertDialog(String[] items, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("채팅방 설정");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Toast.makeText(context, "채팅방 이름 설정 클릭", Toast.LENGTH_SHORT).show();
+                } else if (which == 1) {
+                    Toast.makeText(context, "나가기 클릭", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }

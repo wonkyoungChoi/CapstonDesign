@@ -1,7 +1,5 @@
 package com.example.capstondesign.controller;
 
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
@@ -17,16 +14,9 @@ import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
-public class Fragment_first extends Fragment {
+public class Fragment_profile extends Fragment {
     String name, phone_num, email , nickname, password, gender;
 
     Profile profile = LoginAcitivity.profile;
@@ -40,7 +30,7 @@ public class Fragment_first extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_first() {
+    public Fragment_profile() {
         // Required empty public constructor
     }
 
@@ -53,8 +43,8 @@ public class Fragment_first extends Fragment {
      * @return A new instance of fragment BlankFragment_first.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_first newInstance(String param1, String param2) {
-        Fragment_first fragment = new Fragment_first();
+    public static Fragment_profile newInstance(String param1, String param2) {
+        Fragment_profile fragment = new Fragment_profile();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,7 +65,7 @@ public class Fragment_first extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         TextView nameTv, phone_numTv, emailTv, nicknameTv, passwordTv, genderTv;
-        View v = inflater.inflate(R.layout.fragment_blank_first, container, false);
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         nameTv = v.findViewById(R.id.name);
         phone_numTv = v.findViewById(R.id.phone_num);
@@ -84,6 +74,8 @@ public class Fragment_first extends Fragment {
         passwordTv = v.findViewById(R.id.password);
         genderTv = v.findViewById(R.id.gender);
 
+        Log.d("EMAIL", profile.getEmail());
+        Log.d("NAME", profile.getName());
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
         ProfileTask profileTask = new ProfileTask();
         try {

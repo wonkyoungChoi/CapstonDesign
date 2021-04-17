@@ -2,15 +2,9 @@ package com.example.capstondesign.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.capstondesign.controller.FastSignUpActivity;
-import com.example.capstondesign.controller.Fragment_main;
-import com.example.capstondesign.controller.Fragment_second;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -22,13 +16,6 @@ import com.facebook.login.LoginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class facebookCallback implements FacebookCallback<LoginResult> {

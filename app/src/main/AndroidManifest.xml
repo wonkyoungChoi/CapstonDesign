@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.capstondesign">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <queries> <package android:name="com.facebook.katana" /> </queries>
@@ -36,7 +37,7 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
-        <activity android:name=".controller.LoginAcitivity">
+        <activity android:name=".controller.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,6 +49,8 @@
         <activity android:name=".controller.FastSignUpActivity" />
         <activity android:name=".controller.add_chat" />
         <activity android:name=".controller.in_chat_room"/>
+        <activity android:name=".controller.LoginAcitivity" />
+        <activity android:name=".controller.addBoard"/>
     </application>
 
 </manifest>

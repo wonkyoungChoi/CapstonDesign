@@ -2,13 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_second;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.example.capstondesign.controller.Fragment_chatting;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ChatTask {
-    public static ArrayList<ChatRoomData> chatlist = Fragment_second.chatlist;
+    public static ArrayList<ChatRoomData> chatlist = Fragment_chatting.chatlist;
     ChatRoomData chatRoomData;
     String nickname, nickname2;
 
@@ -88,7 +82,5 @@ public class ChatTask {
             e.printStackTrace();
         }
     }
-
-
 }
 

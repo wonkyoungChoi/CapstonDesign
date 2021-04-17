@@ -14,9 +14,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Fragment_main extends AppCompatActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private Fragment_first frag1;
-    private Fragment_second frag2;
-    private Fragment_third frag3;
+    private Fragment_home frag1;
+    private Fragment_board frag2;
+    private  Fragment_buy frag3;
+    private Fragment_chatting frag4;
+    private Fragment_profile frag5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +32,32 @@ public class Fragment_main extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.action_profile:
+                    case R.id.action_home:
                         setFrag(0);
                         break;
-                    case R.id.action_chatting:
+                    case R.id.action_article:
                         setFrag(1);
                         break;
-                    case R.id.action_setting:
+                    case R.id.action_buy:
                         setFrag(2);
                         break;
-
+                    case R.id.action_chatting:
+                        setFrag(3);
+                        break;
+                    case R.id.action_profile:
+                        setFrag(4);
+                        break;
                 }
                 return true;
             }
         });
 
-        frag1 = new Fragment_first();
-        frag2 = new Fragment_second();
-        frag3 = new Fragment_third();
+        frag1 = new Fragment_home();
+        frag2 = new Fragment_board();
+        frag3 = new Fragment_buy();
+        frag4 = new Fragment_chatting();
+        frag5 = new Fragment_profile();
+
 
         setFrag(0); // 첫 프래그먼트 화면을 무엇으로 지정해줄 것인지 선택.
 
@@ -67,6 +77,14 @@ public class Fragment_main extends AppCompatActivity {
                 break;
             case 2:
                 ft.replace(R.id.frame_container, frag3);
+                ft.commit();
+                break;
+            case 3:
+                ft.replace(R.id.frame_container, frag4);
+                ft.commit();
+                break;
+            case 4:
+                ft.replace(R.id.frame_container, frag5);
                 ft.commit();
                 break;
         }
