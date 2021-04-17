@@ -95,7 +95,6 @@
 		pstmt.setString(7, request.getParameter("gender"));
 		
 		
-		
 		//id 값을 입력한 경우 sql 문장을 수행.
 		if(request.getParameter("phone_num") != null && i == 0 && k == 0 && j==0) {
 			pstmt.executeUpdate();
