@@ -1,0 +1,29 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FF9800</item>
+        <item name="colorPrimaryDark">#E65100</item>
+        <item name="colorAccent">#FF4081</item>
+    </style>
+
+    <style name="title_text">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="content_text">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="comment_name">
+        <item name="android:textColor">#FFC600</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="comment_content">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+</resources>

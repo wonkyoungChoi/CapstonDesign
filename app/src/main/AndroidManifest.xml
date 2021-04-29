@@ -51,6 +51,7 @@
         <activity android:name=".controller.in_chat_room"/>
         <activity android:name=".controller.LoginAcitivity" />
         <activity android:name=".controller.addBoard"/>
+
     </application>
 
 </manifest>

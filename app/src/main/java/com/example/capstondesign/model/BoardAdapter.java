@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Board;
 
 import java.util.Vector;
 
@@ -24,7 +26,7 @@ public class BoardAdapter extends ArrayAdapter<Board> {
     }
 
     class ViewHolder {
-        //ImageView imageView;
+        ImageView imageView;
         TextView title;
         TextView text;
     }
@@ -38,7 +40,8 @@ public class BoardAdapter extends ArrayAdapter<Board> {
             itemLayout = inflater.inflate(R.layout.board_layout, null, true);
 
             viewHolder = new ViewHolder();
-            //viewHolder.imageView = (ImageView) itemLayout.findViewById(R.id.imageView);
+
+            viewHolder.imageView = (ImageView) itemLayout.findViewById(R.id.imageView);
             viewHolder.text = (TextView) itemLayout.findViewById(R.id.title);
             viewHolder.title = (TextView) itemLayout.findViewById(R.id.text);
 
@@ -47,9 +50,15 @@ public class BoardAdapter extends ArrayAdapter<Board> {
             viewHolder = (ViewHolder) itemLayout.getTag();
         }
 
-        //viewHolder.imageView.setImageURI(board.get(position).image);
-        viewHolder.title.setText(board.get(position).title);
-        viewHolder.text.setText(board.get(position).text);
+        if(board.get(position).image != null) {
+            viewHolder.imageView.setImageURI(board.get(position).image);
+            viewHolder.title.setText(board.get(position).title);
+            viewHolder.text.setText(board.get(position).text);
+        } else {
+            viewHolder.title.setText(board.get(position).title);
+            viewHolder.text.setText(board.get(position).text);
+            viewHolder.imageView.setVisibility(View.GONE);
+        }
 
         return itemLayout;
     }
