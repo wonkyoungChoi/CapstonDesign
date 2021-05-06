@@ -30,7 +30,7 @@ public class Intro extends AppCompatActivity {
                 finish();
             }
 
-        },7000);
+        },2400);
 
 
 

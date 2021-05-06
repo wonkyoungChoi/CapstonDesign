@@ -50,6 +50,8 @@ dependencies {
 
     //파이어베이스
     implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-auth'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 

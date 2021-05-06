@@ -70,6 +70,23 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="인증 번호"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
+
+            <EditText
+                android:id="@+id/auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:text="이메일"/>
