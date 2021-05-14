@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.capstondesign.R;
+import com.facebook.login.Login;
 
 public class Intro extends AppCompatActivity {
 
@@ -25,15 +26,11 @@ public class Intro extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent(Intro.this, LoginAcitivity.class);
+                Intent intent = new Intent(Intro.this, Fragment_main.class);
                 startActivity(intent);
                 finish();
             }
 
         },2400);
-
-
-
-
     }
 }

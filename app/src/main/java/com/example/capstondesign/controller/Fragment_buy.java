@@ -90,8 +90,9 @@ public class Fragment_buy extends Fragment {
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
-                            Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                            Intent intent = new Intent(getActivity(), Fragment_main.class);
                             startActivity(intent);
+                            LoginAcitivity.Login = false;
                             LoginAcitivity.login = 0;
                             Log.d("LOGOUT", String.valueOf(login));
                         }
@@ -108,8 +109,9 @@ public class Fragment_buy extends Fragment {
                             ,getString(R.string.naver_client_name)
                     );
                     mOAuthLoginModule.logout(getContext());
-                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                    Intent intent = new Intent(getActivity(), Fragment_main.class);
                     startActivity(intent);
+                    LoginAcitivity.Login = false;
                     Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                     LoginAcitivity.login = 0;
                     getActivity().finish();
@@ -117,12 +119,16 @@ public class Fragment_buy extends Fragment {
                     //페이스북 로그인시 login 값은 3
                     LoginManager.getInstance().logOut();
                     Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                    Intent intent = new Intent(getActivity(), Fragment_main.class);
                     startActivity(intent);
+                    LoginAcitivity.Login = false;
                     LoginAcitivity.login = 0;
                     getActivity().finish();
                 } else if(login==4) {
-
+                    Intent intent = new Intent(getActivity(), Fragment_main.class);
+                    startActivity(intent);
+                    LoginAcitivity.Login = false;
+                    getActivity().finish();
                 }
             }
         });

@@ -42,44 +42,13 @@
                 android:text="휴대폰 인증"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/phone_num"
-                    android:layout_weight="0.7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginEnd="20dp" />
                 <Button
                     android:id="@+id/authClick"
-                    android:layout_weight="0.3"
-                    android:layout_width="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="인증요청"/>
-            </LinearLayout>
+                    android:text="인증하기"/>
 
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인증 번호"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp" />
-
-            <EditText
-                android:id="@+id/auth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp" />
 
             <TextView
                 android:layout_marginTop="20dp"

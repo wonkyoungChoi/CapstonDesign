@@ -39,7 +39,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class LoginAcitivity extends AppCompatActivity {
-
+    public static Boolean Login = false;
     LinearLayout naver_login, kakao_login, facebook_login;
     NaverLogin naverLogin;
     LoginButton kakao_button;
@@ -107,6 +107,7 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        //일반 로그인
         login_btn = findViewById(R.id.btn_login);
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +123,6 @@ public class LoginAcitivity extends AppCompatActivity {
                         id_end = substringBetween(id_str, "@", ".net", 4);
                     }
 
-                    Log.d("EMAIL_FRONT", id_front);
-                    Log.d("EMAIL_END", id_end);
                     String pwd_str = password.getText().toString();
                     LoginTask loginTask = new LoginTask();
                     if (id_front.trim().length() > 0 && pwd_str.trim().length() > 0) {
@@ -137,6 +136,7 @@ public class LoginAcitivity extends AppCompatActivity {
                                 profile.setEmail(id_str);
                                 id.setText("");
                                 password.setText("");
+                                Login = true;
                                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
                                 startActivity(intent);
                                 login = 4;
