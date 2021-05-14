@@ -43,7 +43,7 @@ public class FastSignUpActivity extends AppCompatActivity {
     RadioButton radioButton;
     Context context;
     Activity activity;
-    Button sign_up, sign_cancel, nick_check;
+    Button sign_up, sign_cancel, nick_check, phone_check;
     Boolean nick_click = false;
     Profile profile = LoginAcitivity.profile;
     CheckTask.Logout logout;
@@ -64,8 +64,9 @@ public class FastSignUpActivity extends AppCompatActivity {
         passwordCheck = (EditText) findViewById(R.id.password_check);
         nickname = (EditText) findViewById(R.id.nickname);
         sign_up = (Button) findViewById(R.id.sign_up);
-        sign_cancel = (Button) findViewById(R.id.sign_cancel);
+        sign_cancel = (Button) findViewById(R.id.cancel);
         nick_check = (Button) findViewById(R.id.nick_check);
+        phone_check = (Button) findViewById(R.id.authClick);
 
         //간편로그인으로 가져온 값들을 세팅해줌
         name.setText(profile.getName());
@@ -77,6 +78,14 @@ public class FastSignUpActivity extends AppCompatActivity {
             gender.check(R.id.female);
             radioButton = (RadioButton) findViewById(R.id.female);
         }
+
+        phone_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Phone_check.class);
+                startActivity(intent);
+            }
+        });
 
 
         //취소를 누를 경우 간편 로그인을 로그아웃함.

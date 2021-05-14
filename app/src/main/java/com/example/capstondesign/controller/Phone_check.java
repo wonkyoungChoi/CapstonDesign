@@ -2,6 +2,7 @@ package com.example.capstondesign.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +31,14 @@ public class Phone_check extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     EditText auth,phone_num;
-    TextView phone_check;
+    TextView phone_check,re_check, delay_tv;
     public static Boolean check = false;
+    private int mnMilliSecond = 1000;
+    private int value;
+    private int mnExitDelay = 60;
+
+
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +48,43 @@ public class Phone_check extends AppCompatActivity {
         Log.d("AUTH", mAuth.toString());
 
         phone_check = (TextView) findViewById(R.id.authClick);
+        re_check = (TextView) findViewById(R.id.re_authClick);
+        delay_tv = (TextView) findViewById(R.id.DelayTextView);
         auth = (EditText) findViewById(R.id.auth);
         phone_num = (EditText) findViewById(R.id.phone_num);
         auth_check = (Button) findViewById(R.id.auth_check);
 
+        //휴대폰 인증버튼 클릭
         phone_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendVerificationCode(phone_num.getText().toString());
+                if(phone_num.length() > 6) {
+                    Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    sendVerificationCode(phone_num.getText().toString());
+                    AuthCodeTimer();
+                    timer.start();
+                } else {
+                    Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+        //휴대폰 인증번호 재전송
+        re_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(phone_num.length() > 6) {
+                    Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    sendVerificationCode(phone_num.getText().toString());
+                    AuthCodeTimer();
+                    timer.start();
+                } else {
+                    Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //인증하기 클릭
         auth_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +155,7 @@ public class Phone_check extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                                 finish();
+                                Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                                 intent.putExtra("phoneNum", phone_num.getText().toString());
                                 check = true;
@@ -132,4 +166,31 @@ public class Phone_check extends AppCompatActivity {
                 });
 
     }
+
+
+    public void AuthCodeTimer() {
+        value = 60;
+        int delay = mnExitDelay * mnMilliSecond;
+
+        timer = new CountDownTimer(delay, 1000) {
+            @Override
+            public void onTick(long l) {
+                value--;
+                delay_tv.setVisibility(View.VISIBLE);
+                if(value >= 10) {
+                    delay_tv.setText("00 : " + value);
+                } else {
+                    delay_tv.setText(("00 : 0" + value));
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                delay_tv.setText("");
+                delay_tv.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "제한시간 종료", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
 }
