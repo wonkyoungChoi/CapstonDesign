@@ -32,6 +32,7 @@ public class Phone_check extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     EditText auth,phone_num;
     TextView phone_check,re_check, delay_tv;
+    public static String phone;
     public static Boolean check = false;
     private int mnMilliSecond = 1000;
     private int value;
@@ -154,11 +155,10 @@ public class Phone_check extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                                finish();
-                                Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                                intent.putExtra("phoneNum", phone_num.getText().toString());
-                                check = true;
+                            phone = phone_num.getText().toString();
+                            check = true;
+                            finish();
+                            Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

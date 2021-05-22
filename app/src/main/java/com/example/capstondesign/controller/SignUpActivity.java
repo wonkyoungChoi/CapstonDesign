@@ -56,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
     Boolean gender_click = false;
     Context context;
     Activity activity;
-
+    public  static int phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Phone_check.class);
+                phone = 1;
                 startActivity(intent);
 
             }
@@ -138,18 +139,17 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (username.trim().length() > 0 && useremail_front.trim().length() > 0 && useremail_end.trim().length() > 0 && userPassword.trim().length() > 0
                         && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && nick_click && Phone_check.check) {
-                    Intent intent = getIntent();
-                    String userNum = intent.getExtras().getString("phoneNum");
+
                     try {
                         String result;
                         SignUpTask signUpTask = new SignUpTask();
-                        Log.d("PHONENUM", userNum);
+                        String userNum = Phone_check.phone;
                         result = signUpTask.execute(username, userNum, useremail_front, useremail_end, userNickname, userPassword, radioButton.getText().toString()).get();
                         ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
-                    } catch (Exception e) {
-                        Log.d("PHONENUM", userNum);
+                    } catch (Exception ignored) {
+
                     }
 
                 } else if (!Phone_check.check) {

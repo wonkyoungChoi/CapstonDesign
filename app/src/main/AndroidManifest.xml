@@ -52,6 +52,9 @@
         <activity android:name=".controller.LoginAcitivity" />
         <activity android:name=".controller.addBoard"/>
         <activity android:name=".controller.Phone_check"/>
+        <activity android:name=".controller.FreeBoard"/>
+        <activity android:name=".controller.Search"/>
+        <activity android:name=".controller.Search_result"/>
 
     </application>
 

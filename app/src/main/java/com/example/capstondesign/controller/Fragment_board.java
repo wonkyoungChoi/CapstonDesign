@@ -6,51 +6,46 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardAdapter;
+import com.example.capstondesign.model.BoardTask;
+import com.example.capstondesign.model.ChatRoomAdapter;
+import com.example.capstondesign.model.ChatTask;
+import com.example.capstondesign.model.addBoardTask;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import static android.app.Activity.RESULT_OK;
 
 public class Fragment_board extends Fragment {
 
-    public String title;
-    public String text;
+    public String nick, title, text;
+
     public static Uri image;
-    private static final String TAG = "Main_Activity";
-    static final int GALLERY_PERMISSON = 101;
-    static final int REQUEST = 111;
-    private final int GET_STRING = 1;
 
-    private ImageView ivMenu;
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-
-    Vector<Board> board = null;
-    BoardAdapter boardAdapter;
-    ListView listView;
+    public static BoardAdapter boardAdapter;
+    BoardTask boardTask;
+    public static ArrayList<Board> board = new ArrayList<>();;
     int position;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,40 +93,49 @@ public class Fragment_board extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_board, container, false);
+        RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
 
-        GALLERY(); // 허가
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        board = new Vector<>();
+        //GALLERY(); // 허가
+        board.clear();
+        boardTask = new BoardTask();
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
-        boardAdapter = new BoardAdapter(getContext(), R.layout.board_layout, board);
-        listView = (ListView) v.findViewById(R.id.listView);
-        listView.setAdapter(boardAdapter);
+        boardAdapter = new BoardAdapter(board);
+
+        recyclerView.setAdapter(boardAdapter);
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
+
+
+        boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
+            public void onItemClick(View v, int pos) {
+                nick = BoardAdapter.click_nickname;
+                title = BoardAdapter.click_title;
+                text = BoardAdapter.click_text;
                 getPosition(position);
                 Intent intent = new Intent(getContext(), FreeBoard.class);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
-                if (image != null) {
-                    Log.d("IMAGETO", image.toString());
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putExtra("image", image.toString());
-                }
-                getActivity().setResult(RESULT_OK, intent);
-                startActivityForResult(intent, REQUEST);
+                startActivity(intent);
             }
         });
+
+
 
         final Button addButton = v.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), addBoard.class);
-                startActivityForResult(intent, GET_STRING);
+                startActivity(intent);
             }
         });
         return v;
@@ -159,7 +163,7 @@ public class Fragment_board extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+/*
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GET_STRING && resultCode == RESULT_OK && data != null) {
@@ -176,6 +180,8 @@ public class Fragment_board extends Fragment {
             boardAdapter.notifyDataSetChanged();
         }
     }
+    */
+    /*
     void GALLERY() {
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -197,6 +203,8 @@ public class Fragment_board extends Fragment {
             }
         }
     }
+
+     */
 
 
 

@@ -67,7 +67,7 @@ public class in_chat_room extends AppCompatActivity {
         name = intent.getStringExtra("name");
         //방 이름을 미리 저장해둠
         othername = name;
-        check = intent.getExtras().getBoolean("chcek");
+        check = intent.getExtras().getBoolean("check");
         Log.d("NAME", name);
         //인텐트를 통해 가져온 Boolean 값을 통해 myname인지 othername인지 체크 후
         //othername일 경우 채팅방 이름을 다시 othername으로 바꿔줌

@@ -96,7 +96,6 @@ public class Fragment_profile extends Fragment {
             nickname = profileTask.substringBetween(result, "nickname:", "/");
             profile.setNickname(nickname);
             nicknameTv.setText(nickname);
-            ChatAdapter.nick = nickname;
 
             password = profileTask.substringBetween(result, "password:", "/");
             profile.setPassword(password);

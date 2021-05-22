@@ -17,17 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.ChatRoomAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Fragment_chatting extends Fragment {
     public static ChatRoomAdapter chatRoomAdapter;
     public static ArrayList<ChatRoomData> chatlist = new ArrayList<>();
     static int clicked_item;
     public static String name;
+    Profile profile = LoginAcitivity.profile;
     Boolean check;
     ChatTask chatTask;
 
@@ -74,6 +79,7 @@ public class Fragment_chatting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getNick();
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -146,6 +152,18 @@ public class Fragment_chatting extends Fragment {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            ChatAdapter.nick = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -32,6 +32,7 @@
                 android:id="@+id/name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:background="@drawable/border"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
@@ -72,6 +73,7 @@
                     android:background="@drawable/border"
                     android:layout_weight="0.35"
                     android:layout_width="0dp"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
@@ -87,6 +89,7 @@
                     android:background="@drawable/border"
                     android:layout_weight="0.35"
                     android:layout_width="0dp"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
@@ -110,6 +113,7 @@
                     android:background="@drawable/border"
                     android:layout_weight="0.6"
                     android:layout_width="0dp"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
@@ -138,6 +142,7 @@
                 android:background="@drawable/border"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
@@ -156,6 +161,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
 

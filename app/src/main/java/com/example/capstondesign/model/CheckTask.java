@@ -25,7 +25,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://172.121.251.102:8080/fast_sign_up_check.jsp");
+            URL url = new URL("http://http://3.34.52.209/:8080/fast_sign_up_check.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");

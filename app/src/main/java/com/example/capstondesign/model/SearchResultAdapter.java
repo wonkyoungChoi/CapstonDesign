@@ -31,8 +31,8 @@ import com.example.capstondesign.R;
 
 import java.util.List;
 
-public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
-    static BoardAdapter.OnItemClickListener mListener = null;
+public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.MyViewHolder> {
+    static SearchResultAdapter.OnItemClickListener mListener = null;
     public static String nick;
     public static Board board;
 
@@ -41,7 +41,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(BoardAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(SearchResultAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -74,12 +74,12 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     }
 
     public static List<Board> boardList;
-    public BoardAdapter(List<Board> items) { boardList = items; }
+    public SearchResultAdapter(List<Board> items) { boardList = items; }
     public static String click_nickname, click_title, click_text;
 
     @NonNull
     @Override
-    public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchResultAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.board_layout, parent, false);
 

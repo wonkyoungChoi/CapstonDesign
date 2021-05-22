@@ -48,10 +48,13 @@ public class FastSignUpActivity extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     CheckTask.Logout logout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fast_signup_page);
+
+        Intent intent = getIntent();
 
         context = this;
         activity = FastSignUpActivity.this;
@@ -82,6 +85,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         phone_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SignUpActivity.phone = 2;
                 Intent intent = new Intent(getApplicationContext(), Phone_check.class);
                 startActivity(intent);
             }
@@ -168,7 +172,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                 String username = name.getText().toString();
                 String userEmail_front = email_front(email.getText().toString());
                 String userEmail_end = email_end(email.getText().toString());
-                String userNum = phone_num.getText().toString();
+                String userNum = Phone_check.phone;
                 String userNickname = nickname.getText().toString();
                 String userPassword = password.getText().toString();
                 String passwordcheck = passwordCheck.getText().toString();
