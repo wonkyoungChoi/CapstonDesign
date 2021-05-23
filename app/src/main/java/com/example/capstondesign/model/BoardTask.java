@@ -35,7 +35,7 @@ public class BoardTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://3.34.52.209:8080/boardjson.jsp");
+            URL url = new URL("http://13.124.143.218080/boardjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();

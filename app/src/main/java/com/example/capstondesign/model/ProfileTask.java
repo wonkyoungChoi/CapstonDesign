@@ -21,7 +21,7 @@ public class ProfileTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://3.34.52.209:8080/profile_cp.jsp");
+            URL url = new URL("http://13.124.143.218:8080/profile_cp.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
