@@ -24,8 +24,8 @@
 
 
     <LinearLayout
-        android:layout_width="401dp"
-        android:layout_height="379dp"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
         android:background="@drawable/login"
         android:gravity="center"
         android:orientation="vertical">
@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/login" />
 
     </LinearLayout>
@@ -183,7 +183,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="30dp">
 
             <TextView
                 android:id="@+id/textView"
