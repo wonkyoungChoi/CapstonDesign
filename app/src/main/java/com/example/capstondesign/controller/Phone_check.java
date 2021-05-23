@@ -31,6 +31,7 @@ public class Phone_check extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     EditText auth,phone_num;
+    String phoneNum;
     TextView phone_check,re_check, delay_tv;
     public static String phone;
     public static Boolean check = false;
@@ -61,7 +62,8 @@ public class Phone_check extends AppCompatActivity {
             public void onClick(View view) {
                 if(phone_num.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    sendVerificationCode(phone_num.getText().toString());
+                    phoneNum = phone_num.getText().toString();
+                    sendVerificationCode("+82"+phoneNum.substring(1));
                     AuthCodeTimer();
                     timer.start();
                 } else {

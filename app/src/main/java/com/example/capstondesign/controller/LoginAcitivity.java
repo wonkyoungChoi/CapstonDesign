@@ -112,6 +112,7 @@ public class LoginAcitivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Email_Login.class);
                 startActivity(intent);
+                finish();
             }
         });
 

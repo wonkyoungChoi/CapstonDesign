@@ -25,7 +25,6 @@ public class Email_Login extends AppCompatActivity {
     Button login_btn, cancel_btn;
     Profile profile = LoginAcitivity.profile;
     int login = LoginAcitivity.login;
-    Boolean Login = LoginAcitivity.Login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +60,10 @@ public class Email_Login extends AppCompatActivity {
                                 profile.setEmail(id_str);
                                 id.setText("");
                                 password.setText("");
-                                Login = true;
+                                LoginAcitivity.Login = true;
                                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
                                 startActivity(intent);
+                                finish();
                                 login = 4;
                             } else {
                                 Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
