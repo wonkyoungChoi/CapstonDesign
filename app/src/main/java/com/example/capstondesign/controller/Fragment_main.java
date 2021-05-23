@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,15 +21,16 @@ public class Fragment_main extends AppCompatActivity {
     private FragmentTransaction ft;
     private Fragment_home frag1;
     private Fragment_board frag2;
-    private  Fragment_buy frag3;
+    private Fragment_Groupbuy frag3;
     private Fragment_chatting frag4;
     private Fragment_profile frag5;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
-
 
         // 바텀 네비게이션 뷰
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -66,7 +66,7 @@ public class Fragment_main extends AppCompatActivity {
 
         frag1 = new Fragment_home();
         frag2 = new Fragment_board();
-        frag3 = new Fragment_buy();
+        frag3 = new Fragment_Groupbuy();
         frag4 = new Fragment_chatting();
         frag5 = new Fragment_profile();
 
@@ -112,7 +112,6 @@ public class Fragment_main extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

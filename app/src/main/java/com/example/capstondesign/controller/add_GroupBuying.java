@@ -12,21 +12,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.ChatAdapter;
+import com.example.capstondesign.model.Board;
+import com.example.capstondesign.model.BoardAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addBoardTask;
 
 import java.io.IOException;
+import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
-public class addBoard extends AppCompatActivity {
+public class add_GroupBuying extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
     Profile profile = LoginAcitivity.profile;
     Uri image;
@@ -35,11 +38,10 @@ public class addBoard extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addboard);
+        setContentView(R.layout.activity_add_board_group_buying);
 
         final EditText EDTITLE = findViewById(R.id.editTitle);
         final EditText EDTEXT = findViewById(R.id.editText);
@@ -120,6 +122,5 @@ public class addBoard extends AppCompatActivity {
             }
         }
     }
-
-
 }
+

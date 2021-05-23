@@ -28,15 +28,20 @@ import com.example.capstondesign.model.Comment_Adapter;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.SearchResultAdapter;
 import com.example.capstondesign.model.SearchResultTask;
+import com.example.capstondesign.model.SearchTask;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Search_result extends AppCompatActivity {
     public static ArrayList<Board> board = new ArrayList<>();
     public static SearchResultAdapter searchResultAdapter;
+    ImageView button, back;
+    EditText search;
     SearchResultTask  searchResultTask;
+    String search_result, result1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,44 @@ public class Search_result extends AppCompatActivity {
 
             recyclerView.setAdapter(searchResultAdapter);
         }
+
+        search = (EditText) findViewById(R.id.search);
+        button = (ImageView) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchTask searchTask = new SearchTask();
+                search_result = search.getText().toString();
+                try {
+                    result1 = searchTask.execute(search_result).get();
+                    if(result1.contains("[]")) {
+                        Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), Search_result.class);
+                        int idx = result1.indexOf("[");
+                        String re_result = result1.substring(idx);
+                        Log.d("RESULT", re_result);
+                        intent.putExtra("result", re_result);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        back = (ImageView) findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         /*

@@ -15,6 +15,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -64,4 +65,11 @@ dependencies {
     //인트로 애니메이션
     implementation "com.airbnb.android:lottie:3.7.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // image slide
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
+
+    //circle
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

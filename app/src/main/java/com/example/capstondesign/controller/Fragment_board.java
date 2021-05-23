@@ -1,25 +1,15 @@
 package com.example.capstondesign.controller;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,14 +18,8 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardAdapter;
 import com.example.capstondesign.model.BoardTask;
-import com.example.capstondesign.model.ChatRoomAdapter;
-import com.example.capstondesign.model.ChatTask;
-import com.example.capstondesign.model.addBoardTask;
 
 import java.util.ArrayList;
-import java.util.Vector;
-
-import static android.app.Activity.RESULT_OK;
 
 public class Fragment_board extends Fragment {
 
@@ -134,7 +118,7 @@ public class Fragment_board extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), addBoard.class);
+                Intent intent = new Intent(getContext(), add_Board.class);
                 startActivity(intent);
             }
         });

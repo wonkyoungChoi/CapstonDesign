@@ -4,24 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFDFDF"
+    android:background="#ECE289"
     android:backgroundTint="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="79dp"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/notice"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/notice"
-            android:contentDescription="TODO" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#F6EFAD"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/bellclick"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="right">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/bell"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="right"
+                android:scaleType="centerCrop"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/bell" />
+        </FrameLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -51,31 +68,52 @@
 
             <ImageButton
                 android:id="@+id/search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="314dp"
+                android:layout_height="53dp"
+                android:background="@drawable/button"
                 android:backgroundTint="@color/white"
                 android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
 
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="183dp">
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/custom_button"
+            android:gravity="center">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:layout_width="315dp"
-                android:layout_height="106dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="@color/com_kakao_button_background_press"
+                app:sliderIndicatorUnselectedColor="#FFFACD"
+                app:sliderScrollTimeInSec="2"
+                app:sliderStartAutoCycle="true" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6EFAD"
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>

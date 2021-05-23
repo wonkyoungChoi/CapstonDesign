@@ -17,7 +17,7 @@ public class Intro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
-        animationView = findViewById(R.id.loding);
+        animationView = findViewById(R.id.loading);
 
         animationView.setVisibility(animationView.VISIBLE);
         animationView.playAnimation();

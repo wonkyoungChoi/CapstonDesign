@@ -54,8 +54,6 @@ public class FastSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fast_signup_page);
 
-        Intent intent = getIntent();
-
         context = this;
         activity = FastSignUpActivity.this;
 

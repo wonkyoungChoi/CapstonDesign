@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -20,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Search extends AppCompatActivity {
     EditText search;
-    Button button;
+    ImageView button, back;
     String search_result, result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.search_page);
 
         search = (EditText) findViewById(R.id.search);
-        button = (Button) findViewById(R.id.button);
+        button = (ImageView) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,7 @@ public class Search extends AppCompatActivity {
                         Log.d("RESULT", re_result);
                         intent.putExtra("result", re_result);
                         startActivity(intent);
+                        finish();
                         Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
                     }
                 } catch (ExecutionException e) {
@@ -56,5 +58,15 @@ public class Search extends AppCompatActivity {
 
             }
         });
+
+        back = (ImageView) findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
 }
