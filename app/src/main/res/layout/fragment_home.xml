@@ -43,7 +43,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,39 +75,63 @@
                 android:contentDescription="TODO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
 
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.133"
                 app:srcCompat="@drawable/button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RelativeLayout
-            android:layout_width="350dp"
-            android:layout_height="150dp"
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:background="@drawable/custom_button"
-            android:gravity="center">
+            android:background="@drawable/custom_button">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/image_slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="back_and_forth"
-                app:sliderAutoCycleEnabled="true"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="15dp"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="3dp"
-                app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="@color/com_kakao_button_background_press"
-                app:sliderIndicatorUnselectedColor="#FFFACD"
-                app:sliderScrollTimeInSec="2"
-                app:sliderStartAutoCycle="true" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="295dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="10dp">
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="310dp"
+                    android:layout_height="115dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/custom_button"
+                    android:gravity="center">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="@color/com_kakao_button_background_press"
+                        app:sliderIndicatorUnselectedColor="#FFFACD"
+                        app:sliderScrollTimeInSec="2"
+                        app:sliderStartAutoCycle="true" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#FAF7DE"
+        android:orientation="vertical">
 
     </LinearLayout>
 

@@ -63,7 +63,6 @@ public class ChatTask {
                 JSONObject ChatObject = ChatArray.getJSONObject(i);
                 nickname = ChatObject.getString("mynick");
                 nickname2 = ChatObject.getString("othernick");
-                Log.d("NICK", nickname);
 
                 if(nickname.equals(ChatAdapter.nick)) {
                     chatRoomData.setNickname(nickname2);

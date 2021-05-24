@@ -111,9 +111,9 @@ public class Fragment_chatting extends Fragment {
                 check = chatRoomAdapter.getItem(pos).getRoom_check();
                 Intent intent = new Intent(getContext(), in_chat_room.class);
                 intent.putExtra("name", name);
-                intent.putExtra("chcek", check);
+                intent.putExtra("check", check);
                 startActivity(intent);
-
+                
             }
 
             final String[] items = {"채팅방 이름 설정", "나가기"};
