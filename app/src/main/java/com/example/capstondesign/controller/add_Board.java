@@ -67,6 +67,7 @@ public class add_Board extends AppCompatActivity {
                 nick = nickname;
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
+
                 addBoardTask addBoardTask = new addBoardTask();
 
                 addBoardTask.execute(nick, title, text);

@@ -73,6 +73,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         }
     }
 
+
     public static List<Board> boardList;
     public BoardAdapter(List<Board> items) { boardList = items; }
     public static String click_nickname, click_title, click_text;
@@ -94,7 +95,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         Log.d("position", String.valueOf(position));
 
         holder.setIsRecyclable(false);
-
         board = boardList.get(position);
 
         if(boardList.get(position).image != null) {

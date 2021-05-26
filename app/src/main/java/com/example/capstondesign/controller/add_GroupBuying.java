@@ -24,6 +24,7 @@ import com.example.capstondesign.model.BoardAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addBoardTask;
+import com.example.capstondesign.model.addGroupbuyingTask;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -34,7 +35,7 @@ public class add_GroupBuying extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     Uri image;
     ImageView imgView;
-    String nick, nickname, title, text;
+    String nick, nickname, titlestr, textstr, pricestr, headcountstr, areastr;
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
@@ -43,8 +44,11 @@ public class add_GroupBuying extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_board_group_buying);
 
-        final EditText EDTITLE = findViewById(R.id.editTitle);
-        final EditText EDTEXT = findViewById(R.id.editText);
+        final EditText title = findViewById(R.id.title);
+        final EditText text = findViewById(R.id.text);
+        final EditText price = findViewById(R.id.price);
+        final EditText headcount = findViewById(R.id.headCount);
+        final EditText area = findViewById(R.id.area);
         imgView = findViewById(R.id.addImageView);
 
         imgView.setVisibility(View.GONE);
@@ -67,11 +71,15 @@ public class add_GroupBuying extends AppCompatActivity {
             public void onClick(View v) {
                 getNick();
                 nick = nickname;
-                title = EDTITLE.getText().toString();
-                text = EDTEXT.getText().toString();
-                addBoardTask addBoardTask = new addBoardTask();
+                titlestr = title.getText().toString();
+                pricestr = price.getText().toString();
+                headcountstr = headcount.getText().toString();
+                textstr = text.getText().toString();
+                areastr = area.getText().toString();
 
-                addBoardTask.execute(nick, title, text);
+                addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
+
+                addgroupbuyingtask.execute(nick, titlestr, pricestr,headcountstr, textstr, areastr);
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
                 startActivity(intent);
 
