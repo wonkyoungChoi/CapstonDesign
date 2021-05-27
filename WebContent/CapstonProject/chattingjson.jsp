@@ -14,6 +14,7 @@
 	PreparedStatement pstmt = conn.prepareStatement(sql);
 	ResultSet rs = pstmt.executeQuery();
 	
+	
 	JSONArray arr = new JSONArray();
 	while(rs.next())
 		{
