@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.model.Board;
 
 import android.os.Build;
@@ -33,7 +34,7 @@ import com.example.capstondesign.R;
 
 import java.util.List;
 
-public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.MyViewHolder> {
+public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyViewHolder> {
     static OnItemClickListener mListener = null;
     public static String nick;
     public static Groupbuying groupbuying;
@@ -42,7 +43,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(GroupBuyingAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(WatchlistAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -85,13 +86,13 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         }
     }
 
-    public static List<Groupbuying> groupbuyingList;
-    public GroupBuyingAdapter(List<Groupbuying> items) { groupbuyingList = items; }
+    public static List<Groupbuying> watchlistList;
+    public WatchlistAdapter(List<Groupbuying> items) { watchlistList = items; }
     public static String click_nickname, click_title, click_text;
 
     @NonNull
     @Override
-    public GroupBuyingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WatchlistAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.groupbuy_item, parent, false);
 
@@ -107,14 +108,18 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
 
         holder.setIsRecyclable(false);
 
-        groupbuying = groupbuyingList.get(position);
 
-        holder.getInterest_btn().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onItemClick(v, position);
-            }
-        });
+
+        groupbuying = watchlistList.get(position);
+
+        if(groupbuying.watchnick.contains(LoginAcitivity.profile.nickname + ",")) {
+
+            holder.getInterest_btn().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(v, position);
+                }
+            });
 
         /*
         if(groupbuyingList.get(position).image != null) {
@@ -125,29 +130,30 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         }
          else {
          */
-            holder.title.setText(groupbuyingList.get(position).title);
-            holder.price.setText(groupbuyingList.get(position).price);
-            holder.headCount.setText(groupbuyingList.get(position).headcount);
-            holder.nowCount.setText(groupbuyingList.get(position).nowCount);
-            holder.area.setText(groupbuyingList.get(position).area);
+
+            holder.title.setText(watchlistList.get(position).title);
+            holder.price.setText(watchlistList.get(position).price);
+            holder.headCount.setText(watchlistList.get(position).headcount);
+            holder.nowCount.setText(watchlistList.get(position).nowCount);
+            holder.area.setText(watchlistList.get(position).area);
             //holder.imageView.setVisibility(View.GONE);
 
-
+        }
     }
 
     @Override
     public int getItemCount() {
-        return groupbuyingList.size();
+        return watchlistList.size();
     }
 
 
-    public Groupbuying getGroupbuying(int position) {
-        return groupbuyingList != null ? groupbuyingList.get(position) : null;
+    public Groupbuying getWatchlist(int position) {
+        return watchlistList != null ? watchlistList.get(position) : null;
     }
 
-    public void addGroupbuying(Groupbuying groupbuying) {
-        groupbuyingList.add(groupbuying);
-        notifyItemInserted(groupbuyingList.size()-1);
+    public void addWatchlist(Groupbuying groupbuying) {
+        watchlistList.add(groupbuying);
+        notifyItemInserted(watchlistList.size()-1);
     }
 
 

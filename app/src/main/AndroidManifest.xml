@@ -61,6 +61,7 @@
         <activity android:name=".controller.Notice"/>
         <activity android:name=".controller.add_GroupBuying"/>
         <activity android:name=".controller.in_profile"/>
+        <activity android:name=".controller.in_watchlist"/>
 
     </application>
 

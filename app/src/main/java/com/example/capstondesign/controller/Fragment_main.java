@@ -24,7 +24,7 @@ public class Fragment_main extends AppCompatActivity {
     private Fragment_Groupbuy frag3;
     private Fragment_chatting frag4;
     private Fragment_profile frag5;
-
+    int i;
 
 
     @Override
@@ -34,6 +34,18 @@ public class Fragment_main extends AppCompatActivity {
 
         // 바텀 네비게이션 뷰
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        Intent intent = getIntent();
+        i = intent.getIntExtra("boardNum", 0);
+        if(i == 0) {
+            i = intent.getIntExtra("groupbuyingNum", 0);
+            Log.d("GROUPNUM", String.valueOf(i));
+        }
+        if(i == 0) {
+            i = intent.getIntExtra("chatNum", 0);
+            Log.d("CHATNUM", String.valueOf(i));
+        }
+        Log.d("NUM", String.valueOf(i));
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -44,21 +56,22 @@ public class Fragment_main extends AppCompatActivity {
                     Log.d("LOGIN", String.valueOf(Login));
                     switch (menuItem.getItemId()) {
                         case R.id.action_home:
-                            setFrag(0);
+                            i=0;
                             break;
                         case R.id.action_article:
-                            setFrag(1);
+                            i=1;
                             break;
                         case R.id.action_buy:
-                            setFrag(2);
+                            i=2;
                             break;
                         case R.id.action_chatting:
-                            setFrag(3);
+                            i=3;
                             break;
                         case R.id.action_profile:
-                            setFrag(4);
+                            i=4;
                             break;
                     }
+                    setFrag(i);
                     return true;
                 }
             }
@@ -70,12 +83,23 @@ public class Fragment_main extends AppCompatActivity {
         frag4 = new Fragment_chatting();
         frag5 = new Fragment_profile();
 
-
-        setFrag(0); // 첫 프래그먼트 화면을 무엇으로 지정해줄 것인지 선택.
-
+        if(Login) {
+            if (i == 1) {
+                bottomNavigationView.setSelectedItemId(R.id.action_article);
+            } else if (i == 2) {
+                bottomNavigationView.setSelectedItemId(R.id.action_buy);
+            } else if (i == 3) {
+                bottomNavigationView.setSelectedItemId(R.id.action_chatting);
+            } else if (i == 4) {
+                bottomNavigationView.setSelectedItemId(R.id.action_profile);
+            } else {
+                bottomNavigationView.setSelectedItemId(R.id.action_home);
+            }
+        }
+        setFrag(i); // 첫 프래그먼트 화면을 무엇으로 지정해줄 것인지 선택.
     }
     // 프래그먼트 교체가 일어나는 실행문이다.
-    private void setFrag(int n){
+    public void setFrag(int n){
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 

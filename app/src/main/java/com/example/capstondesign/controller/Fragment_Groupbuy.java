@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,14 +23,20 @@ import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.GroupBuyingAdapter;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.addWatchlistTask;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Fragment_Groupbuy extends Fragment {
 
-    public String nick, title, text;
-
+    public String mynick, nick, title, text;
+    ImageView buysearch;
+    ImageView buynotify;
     public static Uri image;
+    Profile profile = LoginAcitivity.profile;
 
     public static GroupBuyingAdapter groupBuyingAdapter;
     GroupBuyingTask groupBuyingTask;
@@ -86,6 +94,8 @@ public class Fragment_Groupbuy extends Fragment {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        getNick();
+
         //GALLERY(); // 허가
         groupbuying.clear();
         groupBuyingTask = new GroupBuyingTask();
@@ -96,26 +106,44 @@ public class Fragment_Groupbuy extends Fragment {
 
         groupBuyingAdapter = new GroupBuyingAdapter(groupbuying);
 
+
         recyclerView.setAdapter(groupBuyingAdapter);
 
 
 
-    /*
-        groupBuyingAdapter.setOnItemClickListener(new groupBuyingAdapter.OnItemClickListener() {
+        //관심목록 클릭
+        groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                nick = BoardAdapter.click_nickname;
-                title = BoardAdapter.click_title;
-                text = BoardAdapter.click_text;
-                getPosition(position);
-                Intent intent = new Intent(getContext(), FreeBoard.class);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                startActivity(intent);
+
+                String title = groupbuying.get(pos).getTitle();
+                String nick = groupbuying.get(pos).getNick();
+                Log.d("관심목록 클릭", "title");
+                addWatchlistTask addWatchlistTask = new addWatchlistTask();
+                addWatchlistTask.execute(mynick, title, nick);
             }
         });
 
-     */
+
+
+
+        buysearch = (ImageView)v.findViewById(R.id.buysearch);
+        buynotify = (ImageView)v.findViewById(R.id.buynotify);
+
+        buysearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 이동
+            }
+        });
+
+        buynotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이동
+            }
+        });
+
 
 
 
@@ -195,7 +223,17 @@ public class Fragment_Groupbuy extends Fragment {
 
      */
 
-
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            mynick = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

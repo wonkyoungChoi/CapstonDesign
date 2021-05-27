@@ -81,6 +81,7 @@ public class add_GroupBuying extends AppCompatActivity {
 
                 addgroupbuyingtask.execute(nick, titlestr, pricestr,headcountstr, textstr, areastr);
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);
 
                 finish();

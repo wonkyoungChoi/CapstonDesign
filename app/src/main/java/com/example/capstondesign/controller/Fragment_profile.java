@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 public class Fragment_profile extends Fragment {
     String nickname;
     TextView nicknameTv;
-    Button logout, in_profile;
+    Button logout, in_profile, in_watchlist;
     int login = LoginAcitivity.login;
 
     Profile profile = LoginAcitivity.profile;
@@ -101,6 +101,15 @@ public class Fragment_profile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), in_profile.class);
+                startActivity(intent);
+            }
+        });
+
+        in_watchlist = (Button) v.findViewById(R.id.inrebtn);
+        in_watchlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), in_watchlist.class);
                 startActivity(intent);
             }
         });

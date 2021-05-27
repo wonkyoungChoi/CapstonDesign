@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.capstondesign.controller.Fragment_Groupbuy;
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.in_watchlist;
 
 import org.json.JSONArray;
@@ -17,16 +18,17 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class GroupBuyingTask {
-    public static ArrayList<Groupbuying> groupbuyinglist = Fragment_Groupbuy.groupbuying;
-
+public class WatchlistTask {
+    public static ArrayList<Groupbuying> watchlist = in_watchlist.watchlist;
     Groupbuying groupbuying;
-    String nick, price, title, text, headCount, nowCount, area, watchnick;
+    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick;
+    Profile profile = LoginAcitivity.profile;
 
-    public GroupBuyingTask() {
+    public WatchlistTask() {
         try {
-            jsonParsing(downloadUrl(), groupbuyinglist);
+            jsonParsing(downloadUrl(), watchlist);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,10 +80,14 @@ public class GroupBuyingTask {
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
                 Log.d("WATCHNICK", watchnick);
+                Log.d("MYNICK", LoginAcitivity.profile.nickname + ",");
 
                 groupbuying = new Groupbuying(nick, title, price, headCount, nowCount, area, watchnick);
 
+                if(groupbuying.watchnick.contains(profile.nickname + ",")) {
+
                 board1.add(groupbuying);
+            }
 
             }
         }catch (JSONException e) {
@@ -89,5 +95,19 @@ public class GroupBuyingTask {
             e.printStackTrace();
         }
     }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            mynick = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 

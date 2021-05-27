@@ -72,6 +72,8 @@ public class add_Board extends AppCompatActivity {
 
                 addBoardTask.execute(nick, title, text);
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("boardNum", 1);
+
                 startActivity(intent);
 
                 finish();

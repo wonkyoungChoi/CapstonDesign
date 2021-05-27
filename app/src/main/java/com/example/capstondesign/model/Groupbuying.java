@@ -3,18 +3,30 @@ package com.example.capstondesign.model;
 public class Groupbuying {
 
     int buy_image;
+    String nick;
     String title;
     String price;
     String headcount;
     String nowCount;
     String area;
+    String watchnick;
 
-    public Groupbuying(String title, String price, String headcount, String nowCount, String area) {
+    public Groupbuying(String nick, String title, String price, String headcount, String nowCount, String area, String watchnick) {
+        this.nick = nick;
         this.title = title;
         this.price = price;
         this.headcount = headcount;
         this.nowCount = nowCount;
         this.area = area;
+        this.watchnick = watchnick;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public int getBuy_image() {
@@ -63,6 +75,14 @@ public class Groupbuying {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getWatchnick() {
+        return watchnick;
+    }
+
+    public void setWatchnick(String watchnick) {
+        this.watchnick = watchnick;
     }
 }
 
