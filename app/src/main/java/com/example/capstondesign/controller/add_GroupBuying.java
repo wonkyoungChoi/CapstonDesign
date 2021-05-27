@@ -12,30 +12,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Board;
+import com.example.capstondesign.model.BoardAdapter;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.addBoardTask;
+import com.example.capstondesign.model.addGroupbuyingTask;
 
 import java.io.IOException;
+import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
-public class addBoard extends AppCompatActivity {
+public class add_GroupBuying extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
+    Profile profile = LoginAcitivity.profile;
     Uri image;
     ImageView imgView;
+    String nick, nickname, titlestr, textstr, pricestr, headcountstr, areastr;
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addboard);
+        setContentView(R.layout.activity_add_board_group_buying);
 
-        final EditText EDTITLE = findViewById(R.id.editTitle);
-        final EditText EDTEXT = findViewById(R.id.editText);
+        final EditText title = findViewById(R.id.title);
+        final EditText text = findViewById(R.id.text);
+        final EditText price = findViewById(R.id.price);
+        final EditText headcount = findViewById(R.id.headCount);
+        final EditText area = findViewById(R.id.area);
         imgView = findViewById(R.id.addImageView);
 
         imgView.setVisibility(View.GONE);
@@ -56,23 +69,35 @@ public class addBoard extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("Input_Title", EDTITLE.getText().toString());
-                bundle.putString("Input_Text", EDTEXT.getText().toString());
-                if(image != null) {
-                    bundle.putString("Input_Image", image.toString());
-                }
-                Fragment_board fragobj = new Fragment_board();
-                fragobj.setArguments(bundle);
-//                intent.putExtra("Input_Title", EDTITLE.getText().toString());
-//                intent.putExtra("Input_Text", EDTEXT.getText().toString());
-//                if(image != null) {
-//                    intent.putExtra("Input_Image", image.toString());
-//                }
-                setResult(RESULT_OK, intent);
+                getNick();
+                nick = nickname;
+                titlestr = title.getText().toString();
+                pricestr = price.getText().toString();
+                headcountstr = headcount.getText().toString();
+                textstr = text.getText().toString();
+                areastr = area.getText().toString();
+
+                addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
+
+                addgroupbuyingtask.execute(nick, titlestr, pricestr,headcountstr, textstr, areastr);
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                startActivity(intent);
+
                 finish();
             }
         });
+    }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            nickname = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -105,6 +130,5 @@ public class addBoard extends AppCompatActivity {
             }
         }
     }
-
-
 }
+

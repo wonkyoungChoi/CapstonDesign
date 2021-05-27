@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
@@ -21,6 +22,17 @@ import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.SignUpTask;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -33,26 +45,30 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText name, phone_num, password, nickname, passwordCheck, email_front, email_end;
+    EditText name, password, nickname, passwordCheck, email_front, email_end;
     RadioGroup gender;
     RadioButton radioButton;
-    Button sign_up, cancel, nick_check;
+    Button sign_up, cancel, nick_check, phone_check;
     Boolean nick_click = false;
     Boolean gender_click = false;
     Context context;
     Activity activity;
+    public  static int phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
 
+
         name = (EditText) findViewById(R.id.name);
         email_front = (EditText) findViewById(R.id.email_front);
         email_end = (EditText) findViewById(R.id.email_end);
-        phone_num = (EditText) findViewById(R.id.phone_num);
+
+        phone_check = (Button) findViewById(R.id.authClick);
         gender = (RadioGroup) findViewById(R.id.gender);
         password = (EditText) findViewById(R.id.password);
         passwordCheck = (EditText) findViewById(R.id.password_check);
@@ -62,6 +78,17 @@ public class SignUpActivity extends AppCompatActivity {
         nick_check = (Button) findViewById(R.id.nick_check);
         context = this;
         activity = SignUpActivity.this;
+
+
+        phone_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Phone_check.class);
+                phone = 1;
+                startActivity(intent);
+
+            }
+        });
 
         nick_check.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,42 +122,49 @@ public class SignUpActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 gender_click = true;
                 radioButton = (RadioButton) findViewById(checkedId);
-                Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("ABC", "ABC");
                 String username = name.getText().toString();
                 String useremail_front = email_front.getText().toString();
                 String useremail_end = email_end.getText().toString();
-                String userNum = phone_num.getText().toString();
                 String userNickname = nickname.getText().toString();
                 String userPassword = password.getText().toString();
                 String passwordcheck = passwordCheck.getText().toString();
 
-                if(username.trim().length()>0 && useremail_front.trim().length()>0 && useremail_end.trim().length()>0  && userPassword.trim().length()>0
-                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && gender_click && nick_click) {
+                if (username.trim().length() > 0 && useremail_front.trim().length() > 0 && useremail_end.trim().length() > 0 && userPassword.trim().length() > 0
+                        && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && nick_click && Phone_check.check) {
+
                     try {
                         String result;
-                        SignUpTask task = new SignUpTask();
-                        result = task.execute(username, userNum, useremail_front, useremail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
+                        SignUpTask signUpTask = new SignUpTask();
+                        String userNum = Phone_check.phone;
+                        result = signUpTask.execute(username, userNum, useremail_front, useremail_end, userNickname, userPassword, radioButton.getText().toString()).get();
                         ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
 
                     }
 
-                } else if (!userPassword.equals(passwordcheck)){
+                } else if (!Phone_check.check) {
+                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
+                } else if (!userPassword.equals(passwordcheck)) {
                     Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 } else if (!nick_click) {
                     Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
+
             }
+
+
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +179,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
-
-
-
 
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,14 +40,13 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class LoginAcitivity extends AppCompatActivity {
-
-    LinearLayout naver_login, kakao_login, facebook_login;
+    public static Boolean Login = false;
+    LinearLayout naver_login, kakao_login, facebook_login, email_login;
     NaverLogin naverLogin;
     LoginButton kakao_button;
     com.facebook.login.widget.LoginButton btn_Facebook_Login;
-    EditText id, password;
-    String id_str, id_end;
-    Button signup;
+
+    Button exit;
     Context context;
     Activity activity;
     KakaoCallback sessionCallback;
@@ -54,7 +54,6 @@ public class LoginAcitivity extends AppCompatActivity {
     facebookCallback facebookCallback;
     CallbackManager callbackManager;
     public static Profile profile = new Profile();
-    Button login_btn;
     public static int login = 0;
 
     @Override
@@ -65,7 +64,7 @@ public class LoginAcitivity extends AppCompatActivity {
         context = this;
         activity = LoginAcitivity.this;
 
-        facebook_login = (LinearLayout) findViewById(R.id.ll_facebook_login);
+        facebook_login = (LinearLayout) findViewById(R.id.facebook_login);
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);
 
         //페이스북 간편 로그인
@@ -98,7 +97,7 @@ public class LoginAcitivity extends AppCompatActivity {
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
 
-        kakao_login = (LinearLayout) findViewById(R.id.ll_kakao_login);
+        kakao_login = (LinearLayout) findViewById(R.id.kakao_Log);
         kakao_button = (LoginButton) findViewById(R.id.login);
         kakao_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,63 +106,21 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
-        login_btn = findViewById(R.id.btn_login);
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        email_login = (LinearLayout) findViewById(R.id.ll_email_login);
+        email_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id = findViewById(R.id.id);
-                password = findViewById(R.id.password);
-                id_str = id.getText().toString();
-                if(id_str.contains("@")) {
-                    String id_front = substringBetween(id_str, "", "@", 0);
-                    if(id_str.contains(".com")) {
-                        id_end = substringBetween(id_str, "@", ".com", 4);
-                    } else if(id_str.contains(".net")) {
-                        id_end = substringBetween(id_str, "@", ".net", 4);
-                    }
-
-                    Log.d("EMAIL_FRONT", id_front);
-                    Log.d("EMAIL_END", id_end);
-                    String pwd_str = password.getText().toString();
-                    LoginTask loginTask = new LoginTask();
-                    if (id_front.trim().length() > 0 && pwd_str.trim().length() > 0) {
-                        try {
-                            String result = loginTask.execute(id_front, id_end, pwd_str).get();
-                            Log.i("리턴 값", result);
-                            if (result.contains("true")) {
-                                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
-                                String name = loginTask.substringBetween(result, "name:", "/");
-                                profile.setName(name);
-                                profile.setEmail(id_str);
-                                id.setText("");
-                                password.setText("");
-                                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                                startActivity(intent);
-                                login = 4;
-                            } else {
-                                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "이메일을 제대로 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getApplicationContext(), Email_Login.class);
+                startActivity(intent);
+                finish();
             }
         });
 
-        
-        //회원가입 하기
-        signup = findViewById(R.id.sign_up);
-        signup.setOnClickListener(new View.OnClickListener() {
+        exit = (Button) findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                Toast.makeText(getApplicationContext(), "회원가입 하기.", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -185,18 +142,6 @@ public class LoginAcitivity extends AppCompatActivity {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(callback);
         LoginManager.getInstance().logOut();
-    }
-
-    private String substringBetween(String str, String open, String close, int i) {
-        if (str == null || open == null || close == null) {
-            return null;
-        }
-        int start = str.indexOf(open);
-        if (start != -1) {
-            int end = str.indexOf(close, start + open.length()) + i;
-            return str.substring(start + open.length(), end);
-        }
-        return null;
     }
 
 }

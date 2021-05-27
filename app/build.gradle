@@ -15,6 +15,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,6 +51,8 @@ dependencies {
 
     //파이어베이스
     implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-auth'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -59,7 +62,15 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
     //인트로 애니메이션
     implementation "com.airbnb.android:lottie:3.7.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // image slide
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
+
+    //circle
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

@@ -13,53 +13,121 @@ import androidx.annotation.NonNull;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
 
-import java.util.Vector;
+import android.os.Build;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class BoardAdapter extends ArrayAdapter<Board> {
-    Vector<Board> board;
-    Context context;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
-    public BoardAdapter(@NonNull Context context, int resource, Vector<Board> board) {
-        super(context, resource, board);
-        this.board = board;
-        this.context = context;
+import com.example.capstondesign.R;
+
+import java.util.List;
+
+public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
+    static BoardAdapter.OnItemClickListener mListener = null;
+    public static String nick;
+    public static Board board;
+
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int pos);
     }
 
-    class ViewHolder {
-        ImageView imageView;
-        TextView title;
-        TextView text;
+    public void setOnItemClickListener(BoardAdapter.OnItemClickListener listener) {
+        mListener = listener;
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        View itemLayout = convertView;
-        final ViewHolder viewHolder;
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        public TextView nick, text, title;
+        public ImageView imageView;
 
-        if (itemLayout == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            itemLayout = inflater.inflate(R.layout.board_layout, null, true);
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            nick = (TextView) itemView.findViewById(R.id.nick);
+            title = (TextView) itemView.findViewById(R.id.title);
+            text = (TextView) itemView.findViewById(R.id.text);
 
-            viewHolder = new ViewHolder();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        if(mListener != null) {
+                            click_nickname = boardList.get(pos).nick;
+                            click_title = boardList.get(pos).title;
+                            click_text = boardList.get(pos).text;
+                            mListener.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
+        }
+    }
 
-            viewHolder.imageView = (ImageView) itemLayout.findViewById(R.id.imageView);
-            viewHolder.text = (TextView) itemLayout.findViewById(R.id.title);
-            viewHolder.title = (TextView) itemLayout.findViewById(R.id.text);
 
-            itemLayout.setTag(viewHolder);
+    public static List<Board> boardList;
+    public BoardAdapter(List<Board> items) { boardList = items; }
+    public static String click_nickname, click_title, click_text;
+
+    @NonNull
+    @Override
+    public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.board_layout, parent, false);
+
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        Log.d("position", String.valueOf(position));
+
+        holder.setIsRecyclable(false);
+        board = boardList.get(position);
+
+        if(boardList.get(position).image != null) {
+            holder.nick.setText(boardList.get(position).nick);
+            holder.imageView.setImageURI(boardList.get(position).image);
+            holder.title.setText(boardList.get(position).title);
+            holder.text.setText(boardList.get(position).text);
         } else {
-            viewHolder = (ViewHolder) itemLayout.getTag();
+            holder.nick.setText(boardList.get(position).nick);
+            holder.title.setText(boardList.get(position).title);
+            holder.text.setText(boardList.get(position).text);
+            holder.imageView.setVisibility(View.GONE);
         }
 
-        if(board.get(position).image != null) {
-            viewHolder.imageView.setImageURI(board.get(position).image);
-            viewHolder.title.setText(board.get(position).title);
-            viewHolder.text.setText(board.get(position).text);
-        } else {
-            viewHolder.title.setText(board.get(position).title);
-            viewHolder.text.setText(board.get(position).text);
-            viewHolder.imageView.setVisibility(View.GONE);
-        }
 
-        return itemLayout;
     }
+
+    @Override
+    public int getItemCount() {
+        return boardList.size();
+    }
+
+
+    public Board getChat(int position) {
+        return boardList != null ? boardList.get(position) : null;
+    }
+
+    public void addBoard(Board board1) {
+        boardList.add(board1);
+        notifyItemInserted(boardList.size()-1);
+    }
+
+
+
 }
+
