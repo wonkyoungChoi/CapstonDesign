@@ -75,6 +75,9 @@ public class in_watchlist extends AppCompatActivity {
                 Log.d("관심목록 클릭", "title");
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 addWatchlistTask.execute(mynick, title, nick);
+                finish();
+                Intent intent = new Intent(getApplicationContext(), in_watchlist.class);
+                startActivity(intent);
             }
         });
 
