@@ -52,6 +52,7 @@ public class add_chat extends AppCompatActivity {
                 //채팅방의 값을 데이터베이스에 저장하는 Task
                 chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("chatNum", 3);
                 startActivity(intent);
                 finish();
             }

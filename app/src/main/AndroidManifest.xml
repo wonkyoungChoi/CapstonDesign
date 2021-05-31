@@ -37,6 +37,8 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+
+
         <activity android:name=".controller.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +52,16 @@
         <activity android:name=".controller.add_chat" />
         <activity android:name=".controller.in_chat_room"/>
         <activity android:name=".controller.LoginAcitivity" />
-        <activity android:name=".controller.addBoard"/>
+        <activity android:name=".controller.add_Board"/>
+        <activity android:name=".controller.Phone_check"/>
+        <activity android:name=".controller.FreeBoard"/>
+        <activity android:name=".controller.Search"/>
+        <activity android:name=".controller.Search_result"/>
+        <activity android:name=".controller.Email_Login"/>
+        <activity android:name=".controller.Notice"/>
+        <activity android:name=".controller.add_GroupBuying"/>
+        <activity android:name=".controller.in_profile"/>
+        <activity android:name=".controller.in_watchlist"/>
 
     </application>
 

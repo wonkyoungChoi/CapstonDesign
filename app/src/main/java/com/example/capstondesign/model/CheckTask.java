@@ -25,7 +25,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://192.168.0.15:8080/fast_sign_up_check.jsp");
+            URL url = new URL("http://13.124.143.218:8080/fast_sign_up_check.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
@@ -60,6 +60,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
             Log.d("CHECK", String.valueOf(LoginAcitivity.login));
             if(check.contains("signup")) {
                 intent = new Intent(activity, Fragment_main.class);
+                LoginAcitivity.Login = true;
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
                 intent = new Intent(activity, FastSignUpActivity.class);

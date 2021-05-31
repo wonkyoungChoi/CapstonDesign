@@ -92,6 +92,7 @@
 <%
 	try{
 		// select 문장을 문자열 형태로 구성한다.
+<<<<<<< HEAD
 		String sql = "select title, price, headcount, text, area, nowCount, watchnick  from group_buying";
 		pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
@@ -102,6 +103,17 @@
 					" headcount : " + rs.getString("headcount") + " text : " + rs.getString("text") +
 					" area : " + rs.getString("area") +  " nowCount : " + rs.getString("nowCount")
 					+  " watchnick : " + rs.getString("watchnick"));
+=======
+		String sql = "select title, price, headcount, text, area, nowCount  from group_buying";
+		pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		int i=1;
+
+		while(rs.next()) {
+			out.println("title"+ " : " + rs.getString("title")+ " price"+ " : " + rs.getString("price")+ 
+					" headcount : " + rs.getString("headcount") + " text : " + rs.getString("text") +
+					" area : " + rs.getString("area") +  " nowCount : " + rs.getString("nowCount"));
+>>>>>>> refs/remotes/origin/master
 		}
 		rs.close();
 		pstmt.close();

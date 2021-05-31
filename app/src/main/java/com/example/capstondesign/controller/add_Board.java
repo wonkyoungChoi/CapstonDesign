@@ -18,13 +18,20 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatAdapter;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.addBoardTask;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
-public class addBoard extends AppCompatActivity {
+public class add_Board extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
+    Profile profile = LoginAcitivity.profile;
     Uri image;
     ImageView imgView;
+    String nick, nickname, title, text;
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
@@ -56,23 +63,34 @@ public class addBoard extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("Input_Title", EDTITLE.getText().toString());
-                bundle.putString("Input_Text", EDTEXT.getText().toString());
-                if(image != null) {
-                    bundle.putString("Input_Image", image.toString());
-                }
-                Fragment_board fragobj = new Fragment_board();
-                fragobj.setArguments(bundle);
-//                intent.putExtra("Input_Title", EDTITLE.getText().toString());
-//                intent.putExtra("Input_Text", EDTEXT.getText().toString());
-//                if(image != null) {
-//                    intent.putExtra("Input_Image", image.toString());
-//                }
-                setResult(RESULT_OK, intent);
+                getNick();
+                nick = nickname;
+                title = EDTITLE.getText().toString();
+                text = EDTEXT.getText().toString();
+
+                addBoardTask addBoardTask = new addBoardTask();
+
+                addBoardTask.execute(nick, title, text);
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("boardNum", 1);
+
+                startActivity(intent);
+
                 finish();
             }
         });
+    }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            nickname = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 

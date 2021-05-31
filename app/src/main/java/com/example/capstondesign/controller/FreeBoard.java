@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.Comment_Adapter;
 import com.example.capstondesign.model.Comment_Item;
 
@@ -47,10 +48,10 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_comment);
 
         intent = getIntent();
-        setResult(RESULT_OK, intent);
+        //setResult(RESULT_OK, intent);
         try {
             init();
-            Log.d("AAAAA", String.valueOf(image));
+            //Log.d("AAAAA", String.valueOf(image));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,24 +84,28 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         c_arr.add(ci);
     }
     private void setHeader() throws IOException {
+        BoardTask boardTask = new BoardTask();
         TextView title_text = header.findViewById(R.id.title_text);
         title_text.setText(getIntent().getStringExtra("title"));
         TextView content_text = header.findViewById(R.id.content_text);
         content_text.setText(getIntent().getStringExtra("text"));
-        ImageView imgView = header.findViewById(R.id.imageHeader);
-        String str = getIntent().getStringExtra("image");
-        Log.d("STR", str);
-        Uri uri;
-        uri = Uri.parse(str);
+        //ImageView imgView = header.findViewById(R.id.imageHeader);
+        //String str = getIntent().getStringExtra("image");
+        //Log.d("STR", str);
+        //Uri uri;
+        // uri = Uri.parse(str);
+        /*
         Bitmap bitmap = null;
         try {
-            Log.d("AAAAA", String.valueOf(uri));
+            //Log.d("AAAAA", String.valueOf(uri));
             image = uri;
             bitmap = getBitmapFromUri(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
         imgView.setImageBitmap(bitmap);
+
+         */
     }
 
     private void setFooter() {
@@ -153,20 +158,6 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         return image;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
-        super.onActivityResult(requestCode, resultCode, resultData);
-        Log.d("RESULT", String.valueOf(resultData.getData()));
-        if (requestCode == REQUEST
-                && resultCode == RESULT_OK) {
-            Log.d("RESULT", String.valueOf(resultData.getData()));
-            Uri uri = null;
-            if (resultData != null) {
-
-            }
-        }
-    }
 
 
 }
