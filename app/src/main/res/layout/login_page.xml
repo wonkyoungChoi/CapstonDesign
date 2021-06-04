@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
@@ -11,8 +11,11 @@
 
 
     <LinearLayout
+        android:id="@+id/login_top"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
         <Button
@@ -23,23 +26,58 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/login_name"
         android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_top">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/login" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="290dp"
+            android:layout_centerInParent="false"
+            android:layout_centerHorizontal="true">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/login" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/cookierun"
+                android:gravity="center"
+                android:text="자취왕"
+                android:textColor="#43390D"
+                android:textSize="60sp" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="70dp"
+                android:contentDescription="TODO"
+                android:paddingLeft="10dp"
+                app:srcCompat="@drawable/crown" />
+
+        </FrameLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/login_lg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/login_name"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -218,8 +256,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

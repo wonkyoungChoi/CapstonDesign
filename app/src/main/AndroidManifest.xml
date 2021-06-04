@@ -62,6 +62,7 @@
         <activity android:name=".controller.add_GroupBuying"/>
         <activity android:name=".controller.in_profile"/>
         <activity android:name=".controller.in_watchlist"/>
+        <activity android:name=".controller.BuySubMain"/>
 
     </application>
 

@@ -39,7 +39,7 @@ public class WatchlistTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.143.218:8080/groupbuyingjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/groupbuyingjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();
@@ -82,7 +82,7 @@ public class WatchlistTask {
                 Log.d("WATCHNICK", watchnick);
                 Log.d("MYNICK", LoginAcitivity.profile.nickname + ",");
 
-                groupbuying = new Groupbuying(nick, title, price, headCount, nowCount, area, watchnick);
+                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick);
 
                 if(groupbuying.watchnick.contains(profile.nickname + ",")) {
 

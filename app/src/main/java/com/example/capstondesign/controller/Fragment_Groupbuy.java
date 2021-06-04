@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Fragment_Groupbuy extends Fragment {
 
-    public String mynick, nick, title, text;
+    public String mynick, nick, title, text, area;
     ImageView buysearch;
     ImageView buynotify;
     public static Uri image;
@@ -109,13 +109,30 @@ public class Fragment_Groupbuy extends Fragment {
 
         recyclerView.setAdapter(groupBuyingAdapter);
 
-
-
-        //관심목록 클릭
         groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                nick = groupbuying.get(pos).getNick();
+                title = groupbuying.get(pos).getTitle();
+                text = groupbuying.get(pos).getText();
+                area = groupbuying.get(pos).getArea();
+                Log.d("1111111111",nick);
+                getPosition(position);
+                Intent intent = new Intent(getContext(), BuySubMain.class);
+                intent.putExtra("title", title);
+                intent.putExtra("text", text);
+                intent.putExtra("nick", nick);
+                intent.putExtra("area", area);
+                startActivity(intent);
+            }
+        });
 
+
+
+        //관심목록 클릭
+        groupBuyingAdapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
                 String title = groupbuying.get(pos).getTitle();
                 String nick = groupbuying.get(pos).getNick();
                 Log.d("관심목록 클릭", "title");
@@ -123,6 +140,7 @@ public class Fragment_Groupbuy extends Fragment {
                 addWatchlistTask.execute(mynick, title, nick);
             }
         });
+
 
 
 

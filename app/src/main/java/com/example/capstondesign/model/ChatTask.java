@@ -32,7 +32,7 @@ public class ChatTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.143.218:8080/chattingjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/chattingjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();

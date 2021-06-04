@@ -37,7 +37,7 @@ public class GroupBuyingTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.143.218:8080/groupbuyingjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/groupbuyingjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();
@@ -75,11 +75,10 @@ public class GroupBuyingTask {
                 text = GroupbuyingObject.getString("text");
                 watchnick = GroupbuyingObject.getString("watchnick");
                 Log.d("PRICE", price);
-                Log.d("TITLE", title);
                 Log.d("TEXT", text);
                 Log.d("WATCHNICK", watchnick);
 
-                groupbuying = new Groupbuying(nick, title, price, headCount, nowCount, area, watchnick);
+                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick);
 
                 board1.add(groupbuying);
 

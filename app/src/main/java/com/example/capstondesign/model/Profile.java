@@ -1,5 +1,7 @@
 package com.example.capstondesign.model;
 
+import android.net.Uri;
+
 public class Profile {
     String name;
     String phone_num;
@@ -7,6 +9,7 @@ public class Profile {
     String nickname;
     String password;
     String gender;
+    String picture;
 
     public Profile(String name, String phone_num, String email, String nickname, String password, String gender) {
         this.name = name;
@@ -56,4 +59,11 @@ public class Profile {
 
     public void setPassword(String password) { this.password = password; }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 }

@@ -57,6 +57,15 @@ public class LoginAcitivity extends AppCompatActivity {
     public static int login = 0;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        startActivity(intent);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
@@ -85,7 +94,6 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 naverLogin = new NaverLogin(context, activity);
-
                 Log.d("LOGIN", String.valueOf(login));
             }
         });
@@ -121,6 +129,8 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                startActivity(intent);
             }
         });
 

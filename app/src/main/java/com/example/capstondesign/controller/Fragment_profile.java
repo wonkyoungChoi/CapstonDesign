@@ -80,8 +80,6 @@ public class Fragment_profile extends Fragment {
         nicknameTv = v.findViewById(R.id.nickname);
 
 
-        Log.d("EMAIL", profile.getEmail());
-        Log.d("NAME", profile.getName());
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
         ProfileTask profileTask = new ProfileTask();
         try {

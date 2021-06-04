@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.controller.FreeBoard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,15 +17,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class BoardTask {
-    public static ArrayList<Board> boardlist = Fragment_board.board;
-    Board board;
-    String nick, title, text;
+public class CommentTask {
+    public static ArrayList<Comment_Item> comment_items = FreeBoard.c_arr;
+    Comment_Item comment_item;
+    String nick, title, comment, co_nick;
 
-    public BoardTask() {
+    public CommentTask() {
         try {
             //Log.d("TTTTTTTTTT", downloadUrl());
-            jsonParsing(downloadUrl(), boardlist);
+            jsonParsing(downloadUrl(), comment_items);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,7 @@ public class BoardTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.75.92:8080/boardjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/commentjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();
@@ -55,25 +56,27 @@ public class BoardTask {
     }
 
     //Json Parsing
-    public void jsonParsing(String json, ArrayList<Board> board1)
+    public void jsonParsing(String json, ArrayList<Comment_Item> board1)
     {
         try{
-            JSONArray BoardArray = new JSONArray(json);
+            JSONArray CommentArray = new JSONArray(json);
 
-            for(int i=0; i<BoardArray.length(); i++)
+            for(int i=0; i<CommentArray.length(); i++)
             {
 
-                JSONObject BoardObject = BoardArray.getJSONObject(i);
-                nick = BoardObject.getString("nick");
-                title = BoardObject.getString("title");
-                text = BoardObject.getString("text");
+                JSONObject CommentObject = CommentArray.getJSONObject(i);
+                nick = CommentObject.getString("nick");
+                title = CommentObject.getString("title");
+                comment = CommentObject.getString("comment");
+                co_nick = CommentObject.getString("co_nick");
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
-                Log.d("TEXT", text);
 
-                board = new Board(nick, title, text);
+                if(nick.equals(FreeBoard.nick) && title.equals(FreeBoard.title)) {
+                    comment_item = new Comment_Item(co_nick, comment);
 
-                board1.add(board);
+                    comment_items.add(comment_item);
+                }
 
             }
         }catch (JSONException e) {

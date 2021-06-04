@@ -13,20 +13,32 @@
         android:background="#FAED7D"
         android:gravity="right">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/cookierun"
+            />
+
         <ImageView
             android:id="@+id/buysearch"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@drawable/ic_baseline_search_24" />
 
         <ImageView
             android:id="@+id/buynotify"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_marginTop="5dp"
-            app:srcCompat="@android:drawable/ic_popup_reminder" />
+            app:srcCompat="@drawable/ic_baseline_notifications_active_24" />
     </LinearLayout>
 
     <FrameLayout
@@ -56,13 +68,13 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="32dp"
                 android:foregroundGravity="center_vertical"
-                app:cardBackgroundColor="@color/com_kakao_button_background_press"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -71,7 +83,7 @@
                     android:id="@+id/buyadd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:drawable/ic_menu_add"
+                    android:background="@drawable/ic_baseline_add_circle_24"
                     android:gravity="center" />
             </androidx.cardview.widget.CardView>
 
@@ -79,5 +91,3 @@
     </FrameLayout>
 
 </LinearLayout>
-
-

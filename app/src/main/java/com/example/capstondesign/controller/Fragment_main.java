@@ -136,6 +136,7 @@ public class Fragment_main extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

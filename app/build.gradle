@@ -35,6 +35,8 @@ dependencies {
     //네이버 로그인
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
 
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+
     // naveridlogin dependencies
     def android_x_version = "1.0.0"
     implementation "androidx.appcompat:appcompat:$android_x_version"
@@ -50,9 +52,11 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 
     //파이어베이스
-    implementation 'com.google.firebase:firebase-database:19.7.0'
-    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-firestore'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 

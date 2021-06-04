@@ -108,6 +108,7 @@ public class Fragment_board extends Fragment {
                 Intent intent = new Intent(getContext(), FreeBoard.class);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
+                intent.putExtra("nick", nick);
                 startActivity(intent);
             }
         });

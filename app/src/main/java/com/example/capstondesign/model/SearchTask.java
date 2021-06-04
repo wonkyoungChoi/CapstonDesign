@@ -25,7 +25,7 @@ public class SearchTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://13.124.143.218:8080/search.jsp");
+            URL url = new URL("http://13.124.75.92:8080/search.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");

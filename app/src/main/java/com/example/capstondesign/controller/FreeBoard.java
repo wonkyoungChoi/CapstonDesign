@@ -19,22 +19,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.BoardTask;
+import com.example.capstondesign.model.CommentTask;
 import com.example.capstondesign.model.Comment_Adapter;
 import com.example.capstondesign.model.Comment_Item;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.addCommentTask;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class FreeBoard extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
+    public static String title, nick;
+    Profile profile = LoginAcitivity.profile;
+    String nickname, text;
     ListView comment_list;
     TextView time_text;
     EditText comment_edit;
     Comment_Adapter ca;
+    CommentTask commentTask;
     Bitmap img;
-    ArrayList<Comment_Item> c_arr = new ArrayList<Comment_Item>();
+    public static ArrayList<Comment_Item> c_arr = new ArrayList<Comment_Item>();
     View header, footer;
     Fragment_board ma;
     static final int GALLERY_PERMISSON = 200;
@@ -46,8 +55,17 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        c_arr.clear();
+        getNick();
 
         intent = getIntent();
+
+        title = getIntent().getStringExtra("title");
+        text = getIntent().getStringExtra("text");
+        nick = getIntent().getStringExtra("nick");
+
+        commentTask = new CommentTask();
+
         //setResult(RESULT_OK, intent);
         try {
             init();
@@ -66,29 +84,17 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         comment_list.addHeaderView(header);
         comment_list.addFooterView(footer);
         time_text = (TextView) header.findViewById(R.id.time_text);
-        setTest();
         setList(); // listview 세팅
         setHeader(); // header세팅
         setFooter(); // footer세팅
 
     }
 
-    private void setTest() {
-        Comment_Item ci = new Comment_Item();
-        ci.setContent("댓글이 존재하지 않습니다.");
-        ci.setNickname("김희재");
-        c_arr.add(ci);
-        ci = new Comment_Item(); //
-        ci.setContent("테스트를 위한 댓글");
-        ci.setNickname("김희재");
-        c_arr.add(ci);
-    }
     private void setHeader() throws IOException {
-        BoardTask boardTask = new BoardTask();
         TextView title_text = header.findViewById(R.id.title_text);
-        title_text.setText(getIntent().getStringExtra("title"));
+        title_text.setText(title);
         TextView content_text = header.findViewById(R.id.content_text);
-        content_text.setText(getIntent().getStringExtra("text"));
+        content_text.setText(text);
         //ImageView imgView = header.findViewById(R.id.imageHeader);
         //String str = getIntent().getStringExtra("image");
         //Log.d("STR", str);
@@ -131,9 +137,9 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
                 if(temp.equals("")) {
                     Toast.makeText(getApplicationContext(), "빈칸입니다.", Toast.LENGTH_LONG).show();
                 } else {
-                    Comment_Item ci = new Comment_Item();
-                    ci.setContent(temp);
-                    ci.setNickname("닉네임");
+                    addCommentTask addCommentTask = new addCommentTask();
+                    addCommentTask.execute(title, nick, temp, nickname);
+                    Comment_Item ci = new Comment_Item(nickname, temp);
                     c_arr.add(ci);
                     resetAdapter();
                     comment_edit.setText("");
@@ -156,6 +162,18 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
         parcelFileDescriptor.close();
         return image;
+    }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            nickname = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 

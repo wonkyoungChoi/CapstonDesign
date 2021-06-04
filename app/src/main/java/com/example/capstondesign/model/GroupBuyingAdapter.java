@@ -34,7 +34,8 @@ import com.example.capstondesign.R;
 import java.util.List;
 
 public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.MyViewHolder> {
-    static OnItemClickListener mListener = null;
+    static OnInterestClickListener mListener = null;
+    static OnItemClickListener mListener1 = null;
     public static String nick;
     public static Groupbuying groupbuying;
 
@@ -43,6 +44,14 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
     }
 
     public void setOnItemClickListener(GroupBuyingAdapter.OnItemClickListener listener) {
+        mListener1 = listener;
+    }
+
+    public interface OnInterestClickListener{
+        void onItemClick(View v, int pos);
+    }
+
+    public void setOnInterestClickListener(GroupBuyingAdapter.OnInterestClickListener listener) {
         mListener = listener;
     }
 
@@ -61,23 +70,40 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             area = (TextView) itemView.findViewById(R.id.area);
             interest_btn = (ImageView) itemView.findViewById(R.id.interest_btn);
 
-            /*
-            itemView.setOnClickListener(new View.OnClickListener() {
+
+            interest_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
-                            click_nickname = groupbuyingList.get(pos).nick;
-                            click_title = groupbuyingList.get(pos).title;
-                            click_text = groupbuyingList.get(pos).text;
                             mListener.onItemClick(v, pos);
                         }
                     }
                 }
             });
 
-             */
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        if(mListener1 != null) {
+                            click_area = groupbuyingList.get(pos).area;
+                            click_nickname = groupbuyingList.get(pos).nick;
+                            click_title = groupbuyingList.get(pos).title;
+                            click_text = groupbuyingList.get(pos).text;
+                            mListener1.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
+
+
+
+
+
         }
 
         public ImageView getInterest_btn() {
@@ -87,7 +113,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
 
     public static List<Groupbuying> groupbuyingList;
     public GroupBuyingAdapter(List<Groupbuying> items) { groupbuyingList = items; }
-    public static String click_nickname, click_title, click_text;
+    public static String click_nickname, click_title, click_text, click_area;
 
     @NonNull
     @Override
@@ -116,6 +142,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             }
         });
 
+
         /*
         if(groupbuyingList.get(position).image != null) {
             holder.nick.setText(groupbuyingList.get(position).nick);
@@ -124,13 +151,16 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             holder.text.setText(groupbuyingList.get(position).text);
         }
          else {
+
          */
+
             holder.title.setText(groupbuyingList.get(position).title);
             holder.price.setText(groupbuyingList.get(position).price);
             holder.headCount.setText(groupbuyingList.get(position).headcount);
             holder.nowCount.setText(groupbuyingList.get(position).nowCount);
             holder.area.setText(groupbuyingList.get(position).area);
             //holder.imageView.setVisibility(View.GONE);
+
 
 
     }

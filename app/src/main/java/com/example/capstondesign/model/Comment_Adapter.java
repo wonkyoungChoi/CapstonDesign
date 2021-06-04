@@ -53,9 +53,9 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
         pos = position;
         if(arr.size() != 0){
             TextView nickname_text = (TextView)convertView.findViewById(R.id.nickname_text);
-            nickname_text.setText(arr.get(pos).getNickname());
+            nickname_text.setText(arr.get(pos).getNick());
             TextView content_text = (TextView)convertView.findViewById(R.id.content_text);
-            content_text.setText(arr.get(pos).getContent());
+            content_text.setText(arr.get(pos).getComment());
             Button delete_btn = (Button)convertView.findViewById(R.id.delete_btn);
             delete_btn.setOnClickListener(this);
             delete_btn.setTag(pos+"");

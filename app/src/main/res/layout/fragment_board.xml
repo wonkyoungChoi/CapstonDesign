@@ -1,45 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/drawer"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/chatback"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start|left"
+        android:background="#751400"
         app:menu="@menu/board" />
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/bs_top"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="#FAED7D"
+
+            >
+
+            <Button
+                android:id="@+id/chatback"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/chatting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/cookierun"
+                android:gravity="center"
+                android:text="채팅"
+                android:textColor="@color/com_kakao_brown"
+                android:textSize="23sp" />
+
+        </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bs_top"
+            android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:orientation="vertical" />
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/custom_boardbutton"
+            android:fontFamily="@font/soldier"
+            android:gravity="center"
+            android:text="게시글 작성"
+            android:textColor="#751400"
+            android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="410dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="게시글 작성" />
+    </RelativeLayout>
 
-        </LinearLayout>
 
-    </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

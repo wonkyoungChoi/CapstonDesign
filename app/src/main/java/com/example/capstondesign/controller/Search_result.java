@@ -38,9 +38,10 @@ import java.util.concurrent.ExecutionException;
 public class Search_result extends AppCompatActivity {
     public static ArrayList<Board> board = new ArrayList<>();
     public static SearchResultAdapter searchResultAdapter;
+    String nick, title, text;
     ImageView button, back;
     EditText search;
-    SearchResultTask  searchResultTask;
+    SearchResultTask searchResultTask;
     String search_result, result1;
 
     @Override
@@ -57,7 +58,7 @@ public class Search_result extends AppCompatActivity {
         Intent intent = getIntent();
 
         String result = intent.getStringExtra("result");
-        if(result.equals("[]")) {
+        if (result.equals("[]")) {
             Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
         } else {
             board.clear();
@@ -71,64 +72,61 @@ public class Search_result extends AppCompatActivity {
             searchResultAdapter = new SearchResultAdapter(board);
 
             recyclerView.setAdapter(searchResultAdapter);
-        }
 
-        search = (EditText) findViewById(R.id.search);
-        button = (ImageView) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SearchTask searchTask = new SearchTask();
-                search_result = search.getText().toString();
-                try {
-                    result1 = searchTask.execute(search_result).get();
-                    if(result1.contains("[]")) {
-                        Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), Search_result.class);
-                        int idx = result1.indexOf("[");
-                        String re_result = result1.substring(idx);
-                        Log.d("RESULT", re_result);
-                        intent.putExtra("result", re_result);
-                        startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            searchResultAdapter.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int pos) {
+                    nick = board.get(pos).getNick();
+                    title = board.get(pos).getTitle();
+                    text = board.get(pos).getTitle();
+                    Intent intent = new Intent(getApplicationContext(), FreeBoard.class);
+                    intent.putExtra("title", title);
+                    intent.putExtra("text", text);
+                    intent.putExtra("nick", nick);
+                    startActivity(intent);
                 }
-
-            }
-        });
-
-        back = (ImageView) findViewById(R.id.backButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+            });
 
 
-        /*
-        boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                nick = BoardAdapter.click_nickname;
-                title = BoardAdapter.click_title;
-                text = BoardAdapter.click_text;
-                getPosition(position);
-                Intent intent = new Intent(getContext(), FreeBoard.class);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                startActivity(intent);
-            }
-        });
+            search = (EditText) findViewById(R.id.search);
+            button = (ImageView) findViewById(R.id.button);
 
-         */
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SearchTask searchTask = new SearchTask();
+                    search_result = search.getText().toString();
+                    try {
+                        result1 = searchTask.execute(search_result).get();
+                        if (result1.contains("[]")) {
+                            Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), Search_result.class);
+                            int idx = result1.indexOf("[");
+                            String re_result = result1.substring(idx);
+                            Log.d("RESULT", re_result);
+                            intent.putExtra("result", re_result);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+            back = (ImageView) findViewById(R.id.backButton);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
 
 
+        }
     }
 }
