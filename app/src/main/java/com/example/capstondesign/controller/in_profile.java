@@ -1,12 +1,12 @@
 package com.example.capstondesign.controller;
 
-import android.annotation.SuppressLint;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -14,28 +14,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.UpdatePictureTask;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.example.capstondesign.model.UploadFileAsync;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
 public class in_profile extends AppCompatActivity {
@@ -44,7 +34,7 @@ public class in_profile extends AppCompatActivity {
     TextView nameTv, phone_numTv, emailTv, nicknameTv, passwordTv, genderTv;
     ImageView showUserProfile;
     Uri uri, downloadUri;
-    String downuri;
+    static Uri file = null;
     Bitmap bitmap;
 
     String email_front, email_end;
@@ -52,8 +42,6 @@ public class in_profile extends AppCompatActivity {
     ProfileTask profileTask;
 
     Profile profile = LoginAcitivity.profile;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseStorage storage = FirebaseStorage.getInstance();
     int PICK_IMAGE_REQUEST = 1;
     ProgressDialog mProgressDialog;
 
@@ -77,10 +65,14 @@ public class in_profile extends AppCompatActivity {
         profileTask = new ProfileTask();
         try {
             result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-
-            profile.setPicture("http://13.124.75.92:8080/king.png");
-            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(showUserProfile);
-
+            try {
+                profile.setPicture("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg");
+                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg")).into(showUserProfile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                profile.setPicture("http://13.124.75.92:8080/king.png");
+                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(showUserProfile);
+            }
 
 
             name = profileTask.substringBetween(result, "name:", "/");
@@ -140,77 +132,63 @@ public class in_profile extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            uri = data.getData();
+            file = data.getData();
 
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), uri);
+                InputStream in = getContentResolver().openInputStream(data.getData());
+                Bitmap img = BitmapFactory.decodeStream(in);
+                in.close();
                 // Log.d(TAG, String.valueOf(bitmap));
                 Toast.makeText(this, "프로필 이미지 선택" , Toast.LENGTH_SHORT).show();
                 mProgressDialog = new ProgressDialog(this);
                 mProgressDialog.setMessage("업로드 중...");
                 mProgressDialog.show();
-                showUserProfile.setImageBitmap(bitmap);
-                addUserInDatabse();
+                showUserProfile.setImageBitmap(img);
+                try {
+                    InputStream ins = getContentResolver().openInputStream(file);
+                    // "/data/data/패키지 이름/files/copy.jpg" 저장
+                    FileOutputStream fos = openFileOutput( email + ".jpg", 0);
 
+                    byte[] buffer = new byte[1024 * 100];
 
+                    while (true) {
+                        int data1 = ins.read(buffer);
+                        if (data1 == -1) {
+                            break;
+                        }
 
+                        fos.write(buffer, 0, data1);
+                    }
+
+                    ins.close();
+                    fos.close();
+
+                    new UploadFileAsync().execute().get();
+                    Log.d("UploadFile", "됬다");
+                    mProgressDialog.dismiss();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("IOException", e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Log.d("InterrException", e.getMessage());
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    Log.d("ExecutionException", e.getMessage());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         }
+
     }
 
-    private void addUserInDatabse(){
-
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        byte[] data = bytes.toByteArray();
-
-        StorageReference storageRef = storage.getReference();
-        StorageReference ImagesRef = storageRef.child("users/" + email + "/profileImage.jpg");
-
-        UploadTask uploadTask = ImagesRef.putBytes(data);
-
-        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    Log.d("실패1", "실패");
-                    throw task.getException();
-                }
-
-                // Continue with the task to get the download URL
-                return ImagesRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-
-                    downloadUri = task.getResult();
-                    downuri = downloadUri.toString();
-                    Map<String, Object> docData = new HashMap<>();
-                    docData.put("profilePic", downuri);
-
-                    mProgressDialog.dismiss();
-                    startToast("프로필 사진등록을 성공하였습니다.");
-                    UpdatePictureTask updatePictureTask = new UpdatePictureTask();
-
-                    updatePictureTask.execute(profile.getName(), email_front, email_end, downuri);
-
-                    picture = profileTask.substringBetween(result, "picture:", "/");
-
-                    profile.setPicture(downuri);
-                    Picasso.get().load(Uri.parse(downuri)).into(showUserProfile);
 
 
-                    Log.d("성공", "성공" + downloadUri);
-                } else {
-                    Log.d("실패2", "실패");
-                }
-            }
-        });
-    }
 
     private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

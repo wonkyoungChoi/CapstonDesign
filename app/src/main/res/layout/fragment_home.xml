@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="#751400"
+            android:background="@color/white"
             android:orientation="vertical" />
 
         <FrameLayout
