@@ -100,16 +100,17 @@ public class LoginAcitivity extends AppCompatActivity {
 
         
         //카카오 간편 로그인
-        sessionCallback = new KakaoCallback(context, activity);
-        callback = sessionCallback.kakakoCallback(context, activity);
-        Session.getCurrentSession().addCallback(callback);
-        Session.getCurrentSession().checkAndImplicitOpen();
+
 
         kakao_login = (LinearLayout) findViewById(R.id.kakao_Log);
         kakao_button = (LoginButton) findViewById(R.id.login);
         kakao_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sessionCallback = new KakaoCallback(context, activity);
+                callback = sessionCallback.kakakoCallback(context, activity);
+                Session.getCurrentSession().addCallback(callback);
+                Session.getCurrentSession().checkAndImplicitOpen();
                 kakao_button.performClick();
             }
         });

@@ -44,10 +44,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center|left"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
                 android:background="@drawable/custom_button"
                 app:cardBackgroundColor="#FFD700"
                 app:cardCornerRadius="15dp">
@@ -115,10 +115,10 @@
             android:id="@+id/viewProfile"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_change"
             android:fontFamily="@font/cookierun"
@@ -135,23 +135,29 @@
                 android:id="@+id/tradebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_change"
                 android:fontFamily="@font/cookierun"
                 android:text="거래목록"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="20dp" />
 
             <Button
                 android:id="@+id/inrebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_change"
                 android:fontFamily="@font/cookierun"
                 android:text="관심목록"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="40dp" />
 
         </LinearLayout>
 

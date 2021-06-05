@@ -131,6 +131,7 @@ public class Fragment_profile extends Fragment {
 
 
     void logout() {
+        Log.d("LOGIN", String.valueOf(LoginAcitivity.login));
         //네이버 로그인시 login 값은 2
         if(login == 1) {
             //카카오 로그인시 login 값은 1
@@ -173,9 +174,12 @@ public class Fragment_profile extends Fragment {
             LoginAcitivity.login = 0;
             getActivity().finish();
         } else if(login==4) {
+            //이메일 로그인시 login 값은 4
             Intent intent = new Intent(getActivity(), Fragment_main.class);
+            Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             LoginAcitivity.Login = false;
+            LoginAcitivity.login = 0;
             getActivity().finish();
         }
     }

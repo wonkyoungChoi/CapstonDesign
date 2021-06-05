@@ -47,6 +47,8 @@ public class Phone_check extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phone_check);
 
+        AuthCodeTimer();
+
         Log.d("AUTH", mAuth.toString());
 
         phone_check = (TextView) findViewById(R.id.authClick);
@@ -64,7 +66,7 @@ public class Phone_check extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                     phoneNum = phone_num.getText().toString();
                     sendVerificationCode("+82"+phoneNum.substring(1));
-                    AuthCodeTimer();
+                    if(timer != null) timer.cancel();
                     timer.start();
                 } else {
                     Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -79,7 +81,7 @@ public class Phone_check extends AppCompatActivity {
                 if(phone_num.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                     sendVerificationCode(phone_num.getText().toString());
-                    AuthCodeTimer();
+                    if(timer != null) timer.cancel();
                     timer.start();
                 } else {
                     Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -171,23 +173,23 @@ public class Phone_check extends AppCompatActivity {
 
 
     public void AuthCodeTimer() {
-        value = 60;
         int delay = mnExitDelay * mnMilliSecond;
 
         timer = new CountDownTimer(delay, 1000) {
             @Override
             public void onTick(long l) {
-                value--;
+                long k =  l / 1000;
                 delay_tv.setVisibility(View.VISIBLE);
-                if(value >= 10) {
-                    delay_tv.setText("00 : " + value);
+                if(k >= 10) {
+                    delay_tv.setText("00 : " + k);
                 } else {
-                    delay_tv.setText(("00 : 0" + value));
+                    delay_tv.setText(("00 : 0" + k));
                 }
             }
 
             @Override
             public void onFinish() {
+                Log.d("FINISH", "FINISH");
                 delay_tv.setText("");
                 delay_tv.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "제한시간 종료", Toast.LENGTH_SHORT).show();

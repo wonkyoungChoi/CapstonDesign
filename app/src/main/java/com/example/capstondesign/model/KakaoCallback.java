@@ -69,6 +69,7 @@ public class KakaoCallback {
                                 gender = result.getKakaoAccount().getGender().getValue();
                                 email = result.getKakaoAccount().getEmail();
 
+
                                 profile.setName(name);
                                 profile.setGender(gender);
                                 profile.setEmail(email);

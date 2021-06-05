@@ -43,7 +43,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     Comment_Adapter ca;
     CommentTask commentTask;
     Bitmap img;
-    public static ArrayList<Comment_Item> c_arr = new ArrayList<Comment_Item>();
+    public static ArrayList<Comment_Item> c_arr = new ArrayList<>();
     View header, footer;
     Fragment_board ma;
     static final int GALLERY_PERMISSON = 200;
@@ -57,6 +57,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_comment);
         c_arr.clear();
         getNick();
+
 
         intent = getIntent();
 
@@ -147,6 +148,8 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
+
+
     public void resetAdapter() {
         ca.notifyDataSetChanged();
     }
