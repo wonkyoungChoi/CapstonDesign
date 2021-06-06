@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/achome"
+        android:orderInCategory="100"
+        android:title="홈" />
+    <item
+        android:id="@+id/acsearch"
+        android:title="검색"
+        android:orderInCategory="100"/>
+    <item
+        android:id="@+id/acnotifi"
+        android:title="알림"
+        android:orderInCategory="100"/>
+</menu>

@@ -21,6 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardAdapter;
+import com.example.capstondesign.model.ChatRoomData;
+import com.example.capstondesign.model.ChatTask;
+import com.example.capstondesign.model.GroupBuyingTask;
+import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addBoardTask;
@@ -78,11 +82,13 @@ public class add_GroupBuying extends AppCompatActivity {
                 areastr = area.getText().toString();
 
                 addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
-
-                addgroupbuyingtask.execute(nick, titlestr, pricestr,headcountstr, textstr, areastr);
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                intent.putExtra("groupbuyingNum", 2);
-                startActivity(intent);
+                addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr);
+                Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "");
+                GroupBuyingTask.groupbuyinglist.add(groupbuying);
+                Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
+//                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+//                intent.putExtra("groupbuyingNum", 2);
+//                startActivity(intent);
 
                 finish();
             }

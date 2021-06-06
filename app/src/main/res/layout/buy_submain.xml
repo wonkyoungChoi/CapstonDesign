@@ -6,37 +6,39 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     app:layoutDescription="@xml/buy_submain_scene2"
-    tools:context=".controller.BuySubmain">
+    tools:context=".controller.BuySubMain">
 
-    <FrameLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/bs_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#FAED7D"
+        android:background="#FFBB00"
 
-        >
+        />
 
-        <TextView
-            android:id="@+id/mynotice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFD700"
-            android:fontFamily="@font/cookierun"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/sub_buy_back"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/ic_baseline_arrow_back_24" />
 
-        <Button
-            android:id="@+id/buyback"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/abc_vector_test" />
-
-    </FrameLayout>
+    <TextView
+        android:id="@+id/sub_buy_nick"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/cookierun"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <RelativeLayout
         android:id="@+id/bs_mid"
@@ -124,7 +126,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="250dp"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
@@ -159,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/buynick"
-                        android:background="@drawable/custom_buy"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                         <TextView
@@ -175,6 +177,105 @@
                             android:text="제목"
                             android:textColor="@color/black"
                             android:textSize="24sp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center|left"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text="모집인원:"
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:id="@+id/nowCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text="3"
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text="명"
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text=" / "
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+
+                            <TextView
+                                android:id="@+id/headCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text="4"
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:fontFamily="@font/cookierun"
+                                android:gravity="center"
+                                android:text="명"
+                                android:textColor="@color/black"
+                                android:textSize="22sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <Button
+                                    android:id="@+id/Countaddbtn"
+                                    android:layout_width="50dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:background="@drawable/ic_baseline_expand_less_24"
+                                    android:text="Button" />
+
+                                <Button
+                                    android:id="@+id/Countdelbtn"
+                                    android:layout_width="50dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:background="@drawable/ic_baseline_keyboard_arrow_down_24"
+                                    android:text="Button" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/sub_Contents"

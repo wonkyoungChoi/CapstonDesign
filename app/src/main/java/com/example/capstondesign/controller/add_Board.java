@@ -18,6 +18,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Board;
+import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -68,13 +70,12 @@ public class add_Board extends AppCompatActivity {
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
+                Board board = new Board(nick, title, text);
+
                 addBoardTask addBoardTask = new addBoardTask();
                 addBoardTask.execute(nick, title, text);
-
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                intent.putExtra("boardNum", 1);
-
-                startActivity(intent);
+                BoardTask.boardlist.add(board);
+                Fragment_board.boardAdapter.notifyDataSetChanged();
 
                 finish();
             }

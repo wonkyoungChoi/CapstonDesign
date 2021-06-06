@@ -8,9 +8,12 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.ChatAdapter;
+import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.ChatRoomAdapter;
 import com.example.capstondesign.model.ChatRoomData;
+import com.example.capstondesign.model.ChatTask;
 import com.example.capstondesign.model.ChattingRoomTask;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,9 +54,13 @@ public class add_chat extends AppCompatActivity {
 
                 //채팅방의 값을 데이터베이스에 저장하는 Task
                 chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                intent.putExtra("chatNum", 3);
-                startActivity(intent);
+                ChatRoomData chatRoomData = new ChatRoomData(other_nick, "", true);
+                ChatTask.chatlist.add(chatRoomData);
+                Fragment_chatting.chatRoomAdapter.notifyDataSetChanged();
+
+//                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+//                intent.putExtra("chatNum", 3);
+//                startActivity(intent);
                 finish();
             }
         });
