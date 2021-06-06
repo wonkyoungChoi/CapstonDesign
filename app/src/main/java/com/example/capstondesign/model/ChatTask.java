@@ -54,6 +54,8 @@ public class ChatTask {
     //Json Parsing
     public void jsonParsing(String json, ArrayList<ChatRoomData> chatlist)
     {
+        int k = 0;
+
         try{
             JSONArray ChatArray = new JSONArray(json);
 
@@ -65,15 +67,51 @@ public class ChatTask {
                 nickname2 = ChatObject.getString("othernick");
 
                 if(nickname.equals(ChatAdapter.nick)) {
+
                     chatRoomData.setNickname(nickname2);
                     chatRoomData.setRoom_check(true);
                     chatRoomData.setMessage(ChatObject.getString("last_msg"));
-                    chatlist.add(chatRoomData);
+                    Log.d("CHATDATA1", chatRoomData.getNickname());
+                    if(nickname2 != null && !nickname2.equals("null")) {
+                        if(chatlist.size() == 0) chatlist.add(chatRoomData);
+                        else {
+                            for (int j = 0; j < chatlist.size(); j++) {
+                                Log.d("LISTNICK1", chatlist.get(j).getNickname());
+                                Log.d("NICK1", nickname);
+                                if (!chatlist.get(j).getNickname().equals(nickname2)){
+                                    k++;
+                                }
+                            }
+                            if(chatlist.size()==k) {
+                                Log.d("KK", String.valueOf(k));
+                                chatlist.add(chatRoomData);
+                            }
+                            k=0;
+                        }
+                    }
+
                 } else if (nickname2.equals(ChatAdapter.nick)) {
                     chatRoomData.setNickname(nickname);
                     chatRoomData.setRoom_check(false);
                     chatRoomData.setMessage(ChatObject.getString("last_msg"));
-                    chatlist.add(chatRoomData);
+                    Log.d("CHATDATA2", chatRoomData.getNickname());
+                    if(nickname != null && !nickname.equals("null")) {
+                        if(chatlist.size() == 0) chatlist.add(chatRoomData);
+                        else {
+                            for (int j = 0; j < chatlist.size(); j++) {
+                                Log.d("LISTNICK2", chatlist.get(j).getNickname());
+                                Log.d("NICK2", nickname);
+                                if (!chatlist.get(j).getNickname().equals(nickname)) {
+                                    k++;
+                                }
+                            }
+                            if(chatlist.size()==k) {
+                                Log.d("KK", String.valueOf(k));
+                                chatlist.add(chatRoomData);
+                            }
+                            k=0;
+                        }
+                    }
                 }
             }
         }catch (JSONException e) {
