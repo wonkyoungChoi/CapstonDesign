@@ -17,14 +17,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.ChattingRoomTask;
+import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -37,13 +41,14 @@ import java.util.concurrent.ExecutionException;
 
 public class BuySubMain extends AppCompatActivity {
 
-    Button add, cancel, buyback;
+    Button add, cancel, buyback, countadd, countdel;
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
     String mynick = ChatAdapter.nick;
     String real_nick;
     String message;
     Intent intent;
+    int set, max_count;
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
 
@@ -76,6 +81,44 @@ public class BuySubMain extends AppCompatActivity {
         price = findViewById(R.id.sub_price);
         headCount = findViewById(R.id.headCount);
         nowCount = findViewById(R.id.nowCount);
+        countadd = findViewById(R.id.Countaddbtn);
+        countdel = findViewById(R.id.Countdelbtn);
+
+        if(!real_nick.equals(intent.getStringExtra("nick"))) {
+            countadd.setVisibility(View.INVISIBLE);
+            countdel.setVisibility(View.INVISIBLE);
+        }
+
+        set = Integer.parseInt(intent.getStringExtra("nowcount"));
+        max_count = Integer.parseInt(intent.getStringExtra("headcount"));
+
+        countadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(set>=max_count) {
+                    Toast.makeText(getApplicationContext(), "모집인원보다 많이 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    AddNowCountTask addNowCountTask = new AddNowCountTask();
+                    addNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
+                    set = set + 1;
+                    nowCount.setText(String.valueOf(set));
+                }
+            }
+        });
+
+        countdel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(set<=1) {
+                    Toast.makeText(getApplicationContext(), "최소인원보다 적게 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    DelNowCountTask delNowCountTask = new DelNowCountTask();
+                    delNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
+                    set = set - 1;
+                    nowCount.setText(String.valueOf(set));
+                }
+            }
+        });
 
         nick.setText(intent.getStringExtra("nick"));
         title.setText(intent.getStringExtra("title"));
