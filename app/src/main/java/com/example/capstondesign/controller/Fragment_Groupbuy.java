@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Fragment_Groupbuy extends Fragment {
 
-    public String mynick, nick, title, text, area, price, headCount, nowCount;
+    public String mynick, nick, title, text, area, price, headCount, nowCount, watchlist;
     ImageView buysearch;
     ImageView buynotify;
     public static Uri image;
@@ -143,7 +143,22 @@ public class Fragment_Groupbuy extends Fragment {
                 String nick = groupbuying.get(pos).getNick();
                 Log.d("관심목록 클릭", "title");
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
-                addWatchlistTask.execute(mynick, title, nick);
+                try {
+                    String result = addWatchlistTask.execute(mynick, title, nick).get();
+                    Log.d("결과", result);
+                    if(result.contains("추가")) {
+
+                        //하트 빨간색
+                        Log.d("추가", result);
+                    } else if(result.contains("삭제")){
+                        //하트 흰색
+                        Log.d("삭제", result);
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

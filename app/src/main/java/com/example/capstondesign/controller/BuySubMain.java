@@ -56,6 +56,16 @@ public class BuySubMain extends AppCompatActivity {
     int list[];
     TextView nick, text, area, title, price, headCount, nowCount;
     DotsIndicator dotsIndicator;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        intent.putExtra("groupbuyingNum", 2);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +82,6 @@ public class BuySubMain extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         intent = getIntent();
-
 
         nick = findViewById(R.id.sub_name);
         title = findViewById(R.id.sub_title);
@@ -99,6 +108,7 @@ public class BuySubMain extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "모집인원보다 많이 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     AddNowCountTask addNowCountTask = new AddNowCountTask();
+                    Log.d("SET", String.valueOf(set));
                     addNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
                     set = set + 1;
                     nowCount.setText(String.valueOf(set));
@@ -113,6 +123,7 @@ public class BuySubMain extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "최소인원보다 적게 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     DelNowCountTask delNowCountTask = new DelNowCountTask();
+                    Log.d("SET", String.valueOf(set));
                     delNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
                     set = set - 1;
                     nowCount.setText(String.valueOf(set));
@@ -146,6 +157,9 @@ public class BuySubMain extends AppCompatActivity {
         buyback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("groupbuyingNum", 2);
+                startActivity(intent);
                 finish();
             }
         });

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/chatback"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,14 +12,20 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#FAED7D">
+        android:background="#FFCD12"
 
-        <Button
-            android:id="@+id/chatback"
-            android:layout_width="45dp"
+        >
+
+        <TextView
+            android:id="@+id/chatting"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/abc_vector_test" />
+            android:layout_gravity="center"
+            android:fontFamily="@font/cookierun"
+            android:gravity="center"
+            android:text="채팅"
+            android:textColor="#751400"
+            android:textSize="23sp" />
 
     </FrameLayout>
 
@@ -50,8 +56,8 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="32dp"
@@ -65,13 +71,12 @@
                     android:id="@+id/add"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/ic_baseline_add_circle_24"
+                    android:background="@drawable/ic_baseline_add_circleoutline_24"
                     android:gravity="center" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
 
 
 </RelativeLayout>

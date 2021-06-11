@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.controller.Fragment_Groupbuy;
+import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.model.Board;
 
 import android.os.Build;
@@ -32,12 +34,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstondesign.R;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.MyViewHolder> {
     static OnInterestClickListener mListener = null;
     static OnItemClickListener mListener1 = null;
     public static String nick;
+    static String mynick1;
     public static Groupbuying groupbuying;
+
 
     public interface OnItemClickListener{
         void onItemClick(View v, int pos);
@@ -78,6 +83,8 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
                             mListener.onItemClick(v, pos);
+
+
                         }
                     }
                 }
@@ -139,6 +146,28 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             @Override
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
+                getNick();
+                String title = Fragment_Groupbuy.groupbuying.get(position).getTitle();
+                String nick = Fragment_Groupbuy.groupbuying.get(position).getNick();
+
+                Log.d("관심목록 클릭", "title");
+                addWatchlistTask addWatchlistTask = new addWatchlistTask();
+                try {
+                    String result = addWatchlistTask.execute(mynick1, title, nick).get();
+                    Log.d("결과", result);
+                    if(result.contains("추가")) {
+                        holder.getInterest_btn().setBackgroundResource(R.drawable.interest_aft);
+                        Log.d("추가", result);
+                    } else if(result.contains("삭제")){
+                        holder.getInterest_btn().setBackgroundResource(R.drawable.interest_prv);
+                        //하트 흰색
+                        Log.d("삭제", result);
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -178,6 +207,19 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
     public void addGroupbuying(Groupbuying groupbuying) {
         groupbuyingList.add(groupbuying);
         notifyItemInserted(groupbuyingList.size()-1);
+    }
+
+    public static void getNick() {
+        Profile profile = LoginAcitivity.profile;
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            mynick1 = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 

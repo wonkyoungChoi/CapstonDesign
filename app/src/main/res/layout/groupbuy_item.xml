@@ -45,7 +45,7 @@
                         android:fontFamily="@font/cookierun"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -53,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
                         android:layout_height="25dp"
-                        app:srcCompat="@drawable/interest_aft" />
+                        android:background="@drawable/interest_prv" />
                 </LinearLayout>
 
                 <TextView
@@ -64,7 +64,7 @@
                     android:fontFamily="@font/cookierun"
                     android:text="가격"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                         android:fontFamily="@font/cookierun"
                         android:text="모집인원:"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/nowCount"
@@ -90,7 +90,8 @@
                         android:fontFamily="@font/cookierun"
                         android:text="3"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -98,7 +99,7 @@
                         android:fontFamily="@font/cookierun"
                         android:text="명"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -109,7 +110,7 @@
                         android:fontFamily="@font/cookierun"
                         android:text=" / "
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
 
                     <TextView
@@ -122,7 +123,8 @@
                         android:fontFamily="@font/cookierun"
                         android:text="4"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -130,7 +132,7 @@
                         android:fontFamily="@font/cookierun"
                         android:text="명"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <TextView
@@ -140,7 +142,7 @@
                     android:fontFamily="@font/cookierun"
                     android:text="지역"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

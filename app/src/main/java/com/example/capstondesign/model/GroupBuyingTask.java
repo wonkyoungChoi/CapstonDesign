@@ -1,7 +1,10 @@
 package com.example.capstondesign.model;
 
+import android.media.Image;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Fragment_Groupbuy;
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
@@ -22,6 +25,7 @@ public class GroupBuyingTask {
     public static ArrayList<Groupbuying> groupbuyinglist = Fragment_Groupbuy.groupbuying;
 
     Groupbuying groupbuying;
+    ImageView button;
     String nick, price, title, text, headCount, nowCount, area, watchnick;
 
     public GroupBuyingTask() {
@@ -66,6 +70,7 @@ public class GroupBuyingTask {
             {
 
                 JSONObject GroupbuyingObject = GroupbuyingArray.getJSONObject(i);
+
                 nick = GroupbuyingObject.getString("nick");
                 title = GroupbuyingObject.getString("title");
                 price = GroupbuyingObject.getString("price");

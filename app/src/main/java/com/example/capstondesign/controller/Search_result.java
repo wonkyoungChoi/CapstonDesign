@@ -107,6 +107,7 @@ public class Search_result extends AppCompatActivity {
                             Log.d("RESULT", re_result);
                             intent.putExtra("result", re_result);
                             startActivity(intent);
+                            finish();
                             Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
                         }
                     } catch (ExecutionException e) {
@@ -114,7 +115,6 @@ public class Search_result extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
             });
 

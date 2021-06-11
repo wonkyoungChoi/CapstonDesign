@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,10 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/file_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:background="#FAED7D"
         android:orientation="vertical">
 
@@ -19,7 +21,7 @@
             android:id="@+id/myinfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFD700"
+            android:background="#FFBB00"
             android:fontFamily="@font/cookierun"
             android:gravity="center"
             android:text="내정보"
@@ -29,27 +31,36 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/top_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/file_top"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/white">
 
         <FrameLayout
+            android:id="@+id/main_top"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center|left"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/custom_button"
-                app:cardBackgroundColor="#FFD700"
+                app:cardBackgroundColor="#FFDF24"
                 app:cardCornerRadius="15dp">
 
 
@@ -115,10 +126,12 @@
             android:id="@+id/viewProfile"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_below="@id/main_top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_change"
             android:fontFamily="@font/cookierun"
@@ -127,43 +140,47 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/main_mid"
             android:layout_width="match_parent"
             android:layout_height="120dp"
+            android:layout_below="@id/viewProfile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/tradebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_change"
                 android:fontFamily="@font/cookierun"
                 android:text="거래목록"
-                android:textColor="@color/black"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="20dp" />
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/inrebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="40dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_change"
                 android:fontFamily="@font/cookierun"
                 android:text="관심목록"
-                android:textColor="@color/black"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="40dp" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/main_btn"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="250dp"
+            android:layout_below="@id/main_mid"
+            android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,11 +191,11 @@
                     android:id="@+id/noticebtn"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
                     android:background="@drawable/custom_change"
                     android:fontFamily="@font/cookierun"
                     android:text="공지사항"
@@ -193,11 +210,11 @@
                         android:id="@+id/setupbtn"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginRight="40dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
                         android:background="@drawable/custom_change"
                         android:fontFamily="@font/cookierun"
                         android:text="설정"
@@ -213,11 +230,11 @@
                             android:id="@+id/logoutbtn"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="40dp"
-                            android:layout_marginRight="40dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
                             android:background="@drawable/custom_change"
                             android:fontFamily="@font/cookierun"
                             android:text="로그아웃"
@@ -232,6 +249,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/main_btn"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:background="#FFFACD"
             android:orientation="vertical">
 
@@ -256,6 +276,6 @@
                 android:textSize="13sp" />
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

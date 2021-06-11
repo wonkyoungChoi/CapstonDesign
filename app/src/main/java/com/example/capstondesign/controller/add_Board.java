@@ -1,8 +1,10 @@
 package com.example.capstondesign.controller;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,15 +25,20 @@ import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.UploadFileAsync;
 import com.example.capstondesign.model.addBoardTask;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
 public class add_Board extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
     Profile profile = LoginAcitivity.profile;
     Uri image;
+    static Uri file[];
     ImageView imgView;
     String nick, nickname, title, text;
     ProgressDialog mProgressDialog;
@@ -54,10 +61,12 @@ public class add_Board extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                // 갤러리를 열기위해 타입을 지정
                 intent.setType("image/*");
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+
             }
         });
 
@@ -70,10 +79,45 @@ public class add_Board extends AppCompatActivity {
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
+                for(int i = 0; i < file.length; i++) {
+                    try {
+                        InputStream ins = getContentResolver().openInputStream(file[0]);
+                        // "/data/data/패키지 이름/files/copy.jpg" 저장
+                        FileOutputStream fos = add_Board.this.openFileOutput("copy.jpg", 0);
+
+                        byte[] buffer = new byte[1024 * 100];
+
+                        while (true) {
+                            int data = ins.read(buffer);
+                            if (data == -1) {
+                                break;
+                            }
+
+                            fos.write(buffer, 0, data);
+                        }
+
+                        ins.close();
+                        fos.close();
+
+                        new UploadFileAsync().execute().get();
+                        Log.d("UploadFile", "됬다");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d("IOException", e.getMessage());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.d("InterrException", e.getMessage());
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        Log.d("ExecutionException", e.getMessage());
+                    }
+                }
+
                 Board board = new Board(nick, title, text);
 
                 addBoardTask addBoardTask = new addBoardTask();
                 addBoardTask.execute(nick, title, text);
+
                 BoardTask.boardlist.add(board);
                 Fragment_board.boardAdapter.notifyDataSetChanged();
 
@@ -100,30 +144,45 @@ public class add_Board extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
 
             imgView.setVisibility(View.VISIBLE);
             image = data.getData();
 
             try {
-                final int takeFlags = intent.getFlags()
-                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(image, takeFlags);
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), image);
-                Log.d("IMAGE", String.valueOf(image));
                 Toast.makeText(this, "이미지 선택" , Toast.LENGTH_SHORT).show();
 //                mProgressDialog = new ProgressDialog(this);
 //                mProgressDialog.setMessage("업로드 중...");
 //                mProgressDialog.show();
-                imgView.setImageBitmap(bitmap);
+                Log.e("Data" , data.toString());
+                //Log.e("Data" , data.getData().toString());
+                Log.d("possible", "여기서?");
+                //file = data.getData();
+                ClipData clipData = data.getClipData();
+                Log.d("possible", clipData.getItemAt(0).getUri().toString());
+                Log.d("possible", clipData.getItemAt(1).getUri().toString());
+                String item = Integer.toString(clipData.getItemCount());
+                Log.d("possible", item);
+                file = new Uri[clipData.getItemCount()];
+                for(int i = 0; i < clipData.getItemCount(); i++) {
+                    file[i] = clipData.getItemAt(i).getUri();
+                    // 선택한 이미지에서 비트맵 생성
+                    InputStream in = getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
+                    Bitmap img = BitmapFactory.decodeStream(in);
+                    in.close();
+                    // 이미지 표시
+
+                    imgView.setImageBitmap(img);
 
 
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
     }
-
-
 }

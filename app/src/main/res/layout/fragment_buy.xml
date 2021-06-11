@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/top_buy"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#FAED7D"
+        android:layout_alignParentTop="true"
+        android:background="#FFCD12"
         android:gravity="right">
 
         <TextView
@@ -20,11 +22,11 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:textColor="@color/black"
-            android:textSize="20sp"
             android:fontFamily="@font/cookierun"
-            />
+            android:gravity="left|center_vertical"
+            android:text="초월읍"
+            android:textColor="#751400"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/buysearch"
@@ -42,8 +44,10 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/mid_buy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_buy">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,12 +58,11 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="1"
                 android:scrollbarFadeDuration="0"
                 android:scrollbarSize="5dp"
                 android:scrollbarThumbVertical="@android:color/darker_gray"
-                android:scrollbars="vertical"
-                android:layout_weight="1"
-                />
+                android:scrollbars="vertical" />
 
         </LinearLayout>
 
@@ -68,8 +71,8 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="32dp"
@@ -83,11 +86,12 @@
                     android:id="@+id/buyadd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/ic_baseline_add_circle_24"
+                    android:background="@drawable/ic_baseline_add_circle_outline_24"
                     android:gravity="center" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
-</LinearLayout>
+</RelativeLayout>
+
