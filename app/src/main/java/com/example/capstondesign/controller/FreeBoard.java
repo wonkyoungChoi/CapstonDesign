@@ -25,6 +25,7 @@ import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addCommentTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -96,6 +97,8 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         title_text.setText(title);
         TextView content_text = header.findViewById(R.id.content_text);
         content_text.setText(text);
+        ImageView imgView = header.findViewById(R.id.imageHeader);
+        Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + "testBoard.jpg")).into(imgView);
         //ImageView imgView = header.findViewById(R.id.imageHeader);
         //String str = getIntent().getStringExtra("image");
         //Log.d("STR", str);

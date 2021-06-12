@@ -143,15 +143,22 @@ public class BuySubMain extends AppCompatActivity {
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         pager2 = findViewById(R.id.pager2);
 
+//        List<BuySubSlideritem> itemList = new ArrayList<>();
+//        itemList.add(new BuySubSlideritem(R.drawable.one));
+//        itemList.add(new BuySubSlideritem(R.drawable.two));
+//        itemList.add(new BuySubSlideritem(R.drawable.three));
+//        itemList.add(new BuySubSlideritem(R.drawable.four));
+
+
+
         List<BuySubSlideritem> itemList = new ArrayList<>();
-        itemList.add(new BuySubSlideritem(R.drawable.one));
-        itemList.add(new BuySubSlideritem(R.drawable.two));
-        itemList.add(new BuySubSlideritem(R.drawable.three));
-        itemList.add(new BuySubSlideritem(R.drawable.four));
+        for(int i = 0; i < 5; i++) { // MySQL 길이
+            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + "test.jpg"));
+            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + "test" + i + ".jpg"));
+        }
 
         pager2.setAdapter(new com.example.capstondesign.controller.BuySubAdapter(itemList,pager2));
         dotsIndicator.setViewPager2(pager2);
-
 
         buyback = (Button)findViewById(R.id.sub_buy_back);
         buyback.setOnClickListener(new View.OnClickListener() {

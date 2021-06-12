@@ -41,12 +41,12 @@ import java.util.concurrent.ExecutionException;
 
 public class LoginAcitivity extends AppCompatActivity {
     public static Boolean Login = false;
-    LinearLayout naver_login, kakao_login, facebook_login, email_login;
+    LinearLayout naver_login, kakao_login, facebook_login;
     NaverLogin naverLogin;
     LoginButton kakao_button;
     com.facebook.login.widget.LoginButton btn_Facebook_Login;
 
-    Button exit;
+    Button exit, email_login;
     Context context;
     Activity activity;
     KakaoCallback sessionCallback;
@@ -56,6 +56,9 @@ public class LoginAcitivity extends AppCompatActivity {
     public static Profile profile = new Profile();
     public static int login = 0;
 
+    EditText id, password;
+    TextView signup;
+    String id_str, id_end;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -115,13 +118,11 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
-        email_login = (LinearLayout) findViewById(R.id.ll_email_login);
+        email_login = (Button) findViewById(R.id.loginbtn);
         email_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Email_Login.class);
-                startActivity(intent);
-                finish();
+                email_Login();
             }
         });
 
@@ -153,6 +154,62 @@ public class LoginAcitivity extends AppCompatActivity {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(callback);
         LoginManager.getInstance().logOut();
+    }
+
+    private String substringBetween(String str, String open, String close, int i) {
+        if (str == null || open == null || close == null) {
+            return null;
+        }
+        int start = str.indexOf(open);
+        if (start != -1) {
+            int end = str.indexOf(close, start + open.length()) + i;
+            return str.substring(start + open.length(), end);
+        }
+        return null;
+    }
+
+    void email_Login() {
+        id = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        id_str = id.getText().toString();
+        if(id_str.contains("@")) {
+            String id_front = substringBetween(id_str, "", "@", 0);
+            if(id_str.contains(".com")) {
+                id_end = substringBetween(id_str, "@", ".com", 4);
+            } else if(id_str.contains(".net")) {
+                id_end = substringBetween(id_str, "@", ".net", 4);
+            }
+
+            String pwd_str = password.getText().toString();
+            LoginTask loginTask = new LoginTask();
+            if (id_front.trim().length() > 0 && pwd_str.trim().length() > 0) {
+                try {
+                    String result = loginTask.execute(id_front, id_end, pwd_str).get();
+                    Log.i("리턴 값", result);
+                    if (result.contains("true")) {
+                        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                        String name = loginTask.substringBetween(result, "name:", "/");
+                        profile.setName(name);
+                        profile.setEmail(id_str);
+                        id.setText("");
+                        password.setText("");
+                        Login = true;
+                        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                        startActivity(intent);
+                        finish();
+                        login = 4;
+                    } else {
+                        Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "이메일을 제대로 입력하세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

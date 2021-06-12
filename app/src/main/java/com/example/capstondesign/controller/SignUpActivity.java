@@ -93,27 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
         nick_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userNickname = nickname.getText().toString();
-                if (userNickname.trim().length() > 0) {
-                    String result;
-                    NickCheckTask task = new NickCheckTask();
-                    try {
-                        result = task.execute(userNickname).get();
-                        if (result.contains("sameNick")) {
-                            Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            nick_click = true;
-                            Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
+                nick_check();
             }
         });
 
@@ -129,39 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ABC", "ABC");
-                String username = name.getText().toString();
-                String useremail_front = email_front.getText().toString();
-                String useremail_end = email_end.getText().toString();
-                String userNickname = nickname.getText().toString();
-                String userPassword = password.getText().toString();
-                String passwordcheck = passwordCheck.getText().toString();
-
-                if (username.trim().length() > 0 && useremail_front.trim().length() > 0 && useremail_end.trim().length() > 0 && userPassword.trim().length() > 0
-                        && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && nick_click && Phone_check.check) {
-
-                    try {
-                        String result;
-                        SignUpTask signUpTask = new SignUpTask();
-                        String userNum = Phone_check.phone;
-                        result = signUpTask.execute(username, userNum, useremail_front, useremail_end, userNickname, userPassword, radioButton.getText().toString()).get();
-                        ChatAdapter.nick = userNickname;
-                        new SignUpTask.DuplicateCheck(result, context, activity);
-
-                    } catch (Exception ignored) {
-
-                    }
-
-                } else if (!Phone_check.check) {
-                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
-                } else if (!userPassword.equals(passwordcheck)) {
-                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                } else if (!nick_click) {
-                    Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }
-
+                sign_up();
             }
 
 
@@ -178,6 +126,68 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
+    void nick_check() {
+        String userNickname = nickname.getText().toString();
+        if (userNickname.trim().length() > 0) {
+            String result;
+            NickCheckTask task = new NickCheckTask();
+            try {
+                result = task.execute(userNickname).get();
+                if (result.contains("sameNick")) {
+                    Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    nick_click = true;
+                    Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    void sign_up() {
+        Log.d("ABC", "ABC");
+        String username = name.getText().toString();
+        String useremail_front = email_front.getText().toString();
+        String useremail_end = email_end.getText().toString();
+        String userNickname = nickname.getText().toString();
+        String userPassword = password.getText().toString();
+        String passwordcheck = passwordCheck.getText().toString();
+
+        if (username.trim().length() > 0 && useremail_front.trim().length() > 0 && useremail_end.trim().length() > 0 && userPassword.trim().length() > 0
+                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && nick_click && Phone_check.check) {
+
+            try {
+                String result;
+                SignUpTask signUpTask = new SignUpTask();
+                String userNum = Phone_check.phone;
+                result = signUpTask.execute(username, userNum, useremail_front, useremail_end, userNickname, userPassword, radioButton.getText().toString()).get();
+                ChatAdapter.nick = userNickname;
+                new SignUpTask.DuplicateCheck(result, context, activity);
+
+            } catch (Exception ignored) {
+
+            }
+
+        } else if (!Phone_check.check) {
+            Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
+        } else if (!userPassword.equals(passwordcheck)) {
+            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        } else if (!nick_click) {
+            Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

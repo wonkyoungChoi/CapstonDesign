@@ -186,7 +186,7 @@ public class Fragment_Groupbuy extends Fragment {
 
 
 
-        final Button addButton = v.findViewById(R.id.buyadd);
+        final Button addButton = v.findViewById(R.id.addbutton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

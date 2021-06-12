@@ -1,9 +1,16 @@
-package com.example.capstondesign.controller;
+package com.example.capstondesign.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.model.Profile;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +18,14 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.BuySubSlideritem;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class BuySubAdapter extends RecyclerView.Adapter<BuySubAdapter.BuySubViewHolder> {
+
+    Profile profile = LoginAcitivity.profile;
 
     public BuySubAdapter(List<BuySubSlideritem> itemList, ViewPager2 pager2) {
         this.itemList = itemList;
@@ -51,7 +62,9 @@ public class BuySubAdapter extends RecyclerView.Adapter<BuySubAdapter.BuySubView
             imageView = itemView.findViewById(R.id.pagerimage);
         }
         void setImage(BuySubSlideritem buySubSlideritem) {
-            imageView.setImageResource(buySubSlideritem.getImage());
+//            imageView.setImageURI(buySubSlideritem.getImage());
+            Picasso.get().load(Uri.parse(buySubSlideritem.getImage())).into(imageView);
+            Log.d("picasoo", Uri.parse(buySubSlideritem.getImage()).toString());
         }
     }
 }

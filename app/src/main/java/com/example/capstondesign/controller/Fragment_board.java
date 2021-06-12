@@ -115,7 +115,7 @@ public class Fragment_board extends Fragment {
 
 
 
-        final Button addButton = v.findViewById(R.id.addButton);
+        final Button addButton = v.findViewById(R.id.addbutton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

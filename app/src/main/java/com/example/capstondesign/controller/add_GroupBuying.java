@@ -1,8 +1,10 @@
 package com.example.capstondesign.controller;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +32,10 @@ import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addBoardTask;
 import com.example.capstondesign.model.addGroupbuyingTask;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
@@ -40,6 +45,7 @@ public class add_GroupBuying extends AppCompatActivity {
     Uri image;
     ImageView imgView;
     String nick, nickname, titlestr, textstr, pricestr, headcountstr, areastr;
+    static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
@@ -62,10 +68,12 @@ public class add_GroupBuying extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent = new Intent();
                 intent.setType("image/*");
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                Log.d("plz", "왜 안되나요,");
+                startActivityForResult(Intent.createChooser(intent, "Select Picture3"), 1);
             }
         });
 
@@ -73,6 +81,7 @@ public class add_GroupBuying extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("에러 찾기", "여기서?0");
                 getNick();
                 nick = nickname;
                 titlestr = title.getText().toString();
@@ -80,6 +89,45 @@ public class add_GroupBuying extends AppCompatActivity {
                 headcountstr = headcount.getText().toString();
                 textstr = text.getText().toString();
                 areastr = area.getText().toString();
+                Log.d("에러 찾기", "여기서?");
+
+                for(int i = 0; i < fileGroupBuying.length; i++) {
+                    try {
+                        InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
+                        // "/data/data/패키지 이름/files/copy.jpg" 저장
+                        Log.d("에러 찾기", "여기서?3");
+                        FileOutputStream fos = getApplicationContext().openFileOutput( "test.jpg", 0);
+
+
+                        Log.d("에러 찾기", "여기서?4");
+
+                        byte[] buffer = new byte[1024 * 100];
+
+                        while (true) {
+                            int data = ins.read(buffer);
+                            if (data == -1) {
+                                break;
+                            }
+
+                            fos.write(buffer, 0, data);
+                        }
+
+                        ins.close();
+                        fos.close();
+
+                        new UploadFileAsyncGroupBuying().execute().get();
+                        Log.d("UploadFile", "됬다");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d("IOException", e.getMessage());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.d("InterrException", e.getMessage());
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        Log.d("ExecutionException", e.getMessage());
+                    }
+                }
 
                 addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
                 addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr);
@@ -112,28 +160,66 @@ public class add_GroupBuying extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            imgView.setVisibility(View.VISIBLE);
-            image = data.getData();
-
-            try {
-                final int takeFlags = intent.getFlags()
-                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(image, takeFlags);
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), image);
-                Log.d("IMAGE", String.valueOf(image));
-                Toast.makeText(this, "이미지 선택" , Toast.LENGTH_SHORT).show();
-//                mProgressDialog = new ProgressDialog(this);
-//                mProgressDialog.setMessage("업로드 중...");
-//                mProgressDialog.show();
-                imgView.setImageBitmap(bitmap);
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                try {
+                    Log.e("Data" , data.toString());
+                    //Log.e("Data" , data.getData().toString());
+                    Log.d("possible", "여기서?");
+                    //file = data.getData();
+                    ClipData clipData = data.getClipData();
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                    if(clipData.getItemCount() > 1 && clipData.getItemCount() < 9) {
+
+                        Log.d("count", Integer.toString(clipData.getItemCount()));
+                        fileGroupBuying = new Uri[clipData.getItemCount()];
+                        for(int i = 0; i < clipData.getItemCount(); i++) {
+                            fileGroupBuying[i] = clipData.getItemAt(i).getUri();
+                            // 선택한 이미지에서 비트맵 생성
+                            InputStream in = getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
+                            Bitmap img = BitmapFactory.decodeStream(in);
+                            in.close();
+                            // 이미지 표시
+                            imgView.setVisibility(View.VISIBLE);
+                            imgView.setImageBitmap(img);
+
+                        }
+                    } else {
+                        fileGroupBuying = new Uri[1];
+                        fileGroupBuying[0] = data.getData();
+
+                        InputStream in = getContentResolver().openInputStream(data.getData());
+                        Bitmap img = BitmapFactory.decodeStream(in);
+                        in.close();
+                        // 이미지 표시
+                        imgView.setVisibility(View.VISIBLE);
+                        imgView.setImageBitmap(img);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                    fileGroupBuying = new Uri[1];
+                    fileGroupBuying[0] = data.getData();
+
+                    InputStream in = null;
+                    try {
+                        in = getContentResolver().openInputStream(data.getData());
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
+                    Bitmap img = BitmapFactory.decodeStream(in);
+                    try {
+                        in.close();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    // 이미지 표시
+                    imgView.setVisibility(View.VISIBLE);
+                    imgView.setImageBitmap(img);
+                }
             }
         }
     }
