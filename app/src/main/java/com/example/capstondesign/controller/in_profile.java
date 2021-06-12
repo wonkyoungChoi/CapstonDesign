@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +41,7 @@ public class in_profile extends AppCompatActivity {
     static Uri file = null;
     Bitmap bitmap;
 
-    String email_front, email_end;
+    String email_front, email_end, strurl;
 
     ProfileTask profileTask;
     ProfileCountjsonTask profileCountjsonTask;
@@ -55,6 +56,10 @@ public class in_profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.in_profile);
 
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         nameTv = findViewById(R.id.name);
         phone_numTv = findViewById(R.id.phone_num);
         emailTv = findViewById(R.id.email);
@@ -66,21 +71,28 @@ public class in_profile extends AppCompatActivity {
 
         Log.d("EMAIL", profile.getEmail());
         Log.d("NAME", profile.getName());
-        //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
-        //profileCountTask = new ProfileCountTask();
+
+        profileCountTask = new ProfileCountTask();
         profileCountjsonTask = new ProfileCountjsonTask();
         profileTask = new ProfileTask();
 
         try {
             result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            //result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get();
+            //
             try {
-                //profileCountTask.execute(profile.getName())
+                //
                 //String a = profileTask.substringBetween(result1, "number:", "/");
 
                 Log.d("TEST", number);
-                profile.setPicture("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg");
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg")).into(showUserProfile);
+                if(number.equals("0")) {
+                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg";
+                    Log.d("NUM0", strurl);
+                } else {
+                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
+                    Log.d("NUM", strurl);
+                }
+                profile.setPicture(strurl);
+                Picasso.get().load(Uri.parse(strurl)).into(showUserProfile);
             } catch (Exception e) {
                 e.printStackTrace();
                 profile.setPicture("http://13.124.75.92:8080/king.png");
@@ -154,6 +166,8 @@ public class in_profile extends AppCompatActivity {
                 in.close();
                 // Log.d(TAG, String.valueOf(bitmap));
                 Toast.makeText(this, "프로필 이미지 선택" , Toast.LENGTH_SHORT).show();
+                result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get();
+                Log.d("RESULT", result1);
                 mProgressDialog = new ProgressDialog(this);
                 mProgressDialog.setMessage("업로드 중...");
                 mProgressDialog.show();
@@ -193,6 +207,10 @@ public class in_profile extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
                 e.printStackTrace();
             }
 

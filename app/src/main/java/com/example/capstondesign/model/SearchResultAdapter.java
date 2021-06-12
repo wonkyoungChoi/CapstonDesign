@@ -99,14 +99,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         if(boardList.get(position).image != null) {
             holder.nick.setText(boardList.get(position).nick);
-            holder.imageView.setImageURI(boardList.get(position).image);
+            //holder.imageView.setImageURI(boardList.get(position).image);
             holder.title.setText(boardList.get(position).title);
             holder.text.setText(boardList.get(position).text);
         } else {
             holder.nick.setText(boardList.get(position).nick);
             holder.title.setText(boardList.get(position).title);
             holder.text.setText(boardList.get(position).text);
-            holder.imageView.setVisibility(View.GONE);
+            //holder.imageView.setVisibility(View.GONE);
         }
 
 

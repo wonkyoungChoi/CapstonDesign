@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.BoardAdapter;
 import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.CommentTask;
 import com.example.capstondesign.model.Comment_Adapter;
@@ -98,7 +99,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         TextView content_text = header.findViewById(R.id.content_text);
         content_text.setText(text);
         ImageView imgView = header.findViewById(R.id.imageHeader);
-        Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + "testBoard.jpg")).into(imgView);
+        Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title + ".jpg")).into(imgView);
         //ImageView imgView = header.findViewById(R.id.imageHeader);
         //String str = getIntent().getStringExtra("image");
         //Log.d("STR", str);

@@ -5,7 +5,7 @@ public class Board {
     String title;
     String nick;
     String text;
-    Uri image;
+    String image;
 
     public String getTitle() {
         return title;
@@ -23,7 +23,7 @@ public class Board {
     public void setNick(String nick) {this.nick = nick;}
     public void setText(String text) { this.text = text; }
 
-    public Board(String title, String nick, String text, Uri image) {
+    public Board(String title, String nick, String text, String image) {
         this.title = title;
         this.nick = nick;
         this.text = text;

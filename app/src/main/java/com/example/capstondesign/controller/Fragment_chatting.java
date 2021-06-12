@@ -85,8 +85,6 @@ public class Fragment_chatting extends Fragment {
         StrictMode.setThreadPolicy(policy);
         View v = inflater.inflate(R.layout.fragment_chatting, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
-        Button button_add;
-        button_add = v.findViewById(R.id.add);
 
         chatlist.clear();
         chatTask = new ChatTask();
@@ -123,15 +121,6 @@ public class Fragment_chatting extends Fragment {
             }
         });
 
-        //채팅방 추가 버튼
-        button_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), add_chat.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
 
         // Inflate the layout for this fragment
         return v;

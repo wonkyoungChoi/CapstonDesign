@@ -25,10 +25,12 @@ import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
+import com.example.capstondesign.model.GroupBuyingAdapter;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.UploadFileAsyncGroupBuying;
 import com.example.capstondesign.model.addBoardTask;
 import com.example.capstondesign.model.addGroupbuyingTask;
 
@@ -44,7 +46,8 @@ public class add_GroupBuying extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     Uri image;
     ImageView imgView;
-    String nick, nickname, titlestr, textstr, pricestr, headcountstr, areastr;
+    public static String titlestr;
+    String nick, nickname, textstr, pricestr, headcountstr, areastr;
     static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
@@ -96,7 +99,8 @@ public class add_GroupBuying extends AppCompatActivity {
                         InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
                         // "/data/data/패키지 이름/files/copy.jpg" 저장
                         Log.d("에러 찾기", "여기서?3");
-                        FileOutputStream fos = getApplicationContext().openFileOutput( "test.jpg", 0);
+                        Log.d("ABCDE", titlestr);
+                        FileOutputStream fos = getApplicationContext().openFileOutput( titlestr + ".jpg", 0);
 
 
                         Log.d("에러 찾기", "여기서?4");

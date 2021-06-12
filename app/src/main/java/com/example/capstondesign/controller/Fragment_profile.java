@@ -2,6 +2,7 @@ package com.example.capstondesign.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,10 @@ public class Fragment_profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         nicknameTv = v.findViewById(R.id.nickname);
@@ -83,9 +88,12 @@ public class Fragment_profile extends Fragment {
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
         ProfileTask profileTask = new ProfileTask();
         try {
+            Log.d("PROFILENAME", profile.getName());
+            Log.d("PROFILENAME", profile.getEmail());
             String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
 
             nickname = profileTask.substringBetween(result, "nickname:", "/");
+            Log.d("NICKNAME", nickname);
             profile.setNickname(nickname);
             nicknameTv.setText(nickname);
         } catch (ExecutionException e) {

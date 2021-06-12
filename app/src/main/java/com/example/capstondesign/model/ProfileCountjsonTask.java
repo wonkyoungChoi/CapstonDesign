@@ -33,7 +33,7 @@ public class ProfileCountjsonTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.75.92:8080/chattingjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/profileCountjson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();
@@ -66,9 +66,12 @@ public class ProfileCountjsonTask {
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
+                Log.d("PROFILEGETNAME", profile.getName());
+                Log.d("PROFILEGETEMAIL", profile.getEmail());
 
                 if(profile.getName().equals(name) && profile.getEmail().equals(email_front+"@"+email_end)) {
                     in_profile.number = number;
+                    Log.d("NUMBER!!!", number);
                     }
 
                 }

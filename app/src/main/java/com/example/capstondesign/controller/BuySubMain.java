@@ -25,11 +25,13 @@ import android.widget.Toast;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.AddNowCountTask;
+import com.example.capstondesign.model.BuySubAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.ChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
+import com.example.capstondesign.model.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.UpdateGroupbuyingTask;
@@ -153,11 +155,11 @@ public class BuySubMain extends AppCompatActivity {
 
         List<BuySubSlideritem> itemList = new ArrayList<>();
         for(int i = 0; i < 5; i++) { // MySQL 길이
-            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + "test.jpg"));
-            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + "test" + i + ".jpg"));
+            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + ".jpg"));
+            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + i + ".jpg"));
         }
 
-        pager2.setAdapter(new com.example.capstondesign.controller.BuySubAdapter(itemList,pager2));
+        pager2.setAdapter(new BuySubAdapter(itemList,pager2));
         dotsIndicator.setViewPager2(pager2);
 
         buyback = (Button)findViewById(R.id.sub_buy_back);

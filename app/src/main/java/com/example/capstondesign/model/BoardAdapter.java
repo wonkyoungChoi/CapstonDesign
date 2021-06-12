@@ -1,6 +1,7 @@
 package com.example.capstondesign.model;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,14 +100,13 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
         if(boardList.get(position).image != null) {
             holder.nick.setText(boardList.get(position).nick);
-            holder.imageView.setImageURI(boardList.get(position).image);
             holder.title.setText(boardList.get(position).title);
             holder.text.setText(boardList.get(position).text);
         } else {
             holder.nick.setText(boardList.get(position).nick);
             holder.title.setText(boardList.get(position).title);
             holder.text.setText(boardList.get(position).text);
-            holder.imageView.setVisibility(View.GONE);
+            //holder.imageView.setVisibility(View.GONE);
         }
 
 
