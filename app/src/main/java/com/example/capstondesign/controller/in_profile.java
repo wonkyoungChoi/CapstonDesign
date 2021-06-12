@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileCountTask;
+import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.UploadFileAsync;
 import com.squareup.picasso.Picasso;
@@ -29,7 +31,8 @@ import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
 public class in_profile extends AppCompatActivity {
-    String name, phone_num, email , nickname, password, gender, result, url;
+    String name, phone_num, email , nickname, password, gender, result, result1, url;
+    public static String number;
     String picture = "";
     TextView nameTv, phone_numTv, emailTv, nicknameTv, passwordTv, genderTv;
     ImageView showUserProfile;
@@ -40,6 +43,8 @@ public class in_profile extends AppCompatActivity {
     String email_front, email_end;
 
     ProfileTask profileTask;
+    ProfileCountjsonTask profileCountjsonTask;
+    ProfileCountTask profileCountTask;
 
     Profile profile = LoginAcitivity.profile;
     int PICK_IMAGE_REQUEST = 1;
@@ -62,10 +67,18 @@ public class in_profile extends AppCompatActivity {
         Log.d("EMAIL", profile.getEmail());
         Log.d("NAME", profile.getName());
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
+        //profileCountTask = new ProfileCountTask();
+        profileCountjsonTask = new ProfileCountjsonTask();
         profileTask = new ProfileTask();
+
         try {
             result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            //result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get();
             try {
+                //profileCountTask.execute(profile.getName())
+                //String a = profileTask.substringBetween(result1, "number:", "/");
+
+                Log.d("TEST", number);
                 profile.setPicture("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg");
                 Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg")).into(showUserProfile);
             } catch (Exception e) {

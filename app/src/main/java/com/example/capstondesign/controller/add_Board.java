@@ -79,6 +79,7 @@ public class add_Board extends AppCompatActivity {
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
+                /*
                 for(int i = 0; i < file.length; i++) {
                     try {
                         InputStream ins = getContentResolver().openInputStream(file[0]);
@@ -112,6 +113,8 @@ public class add_Board extends AppCompatActivity {
                         Log.d("ExecutionException", e.getMessage());
                     }
                 }
+                
+                 */
 
                 Board board = new Board(nick, title, text);
 

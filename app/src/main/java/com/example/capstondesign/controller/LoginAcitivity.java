@@ -45,6 +45,7 @@ public class LoginAcitivity extends AppCompatActivity {
     NaverLogin naverLogin;
     LoginButton kakao_button;
     com.facebook.login.widget.LoginButton btn_Facebook_Login;
+    TextView sign_up;
 
     Button exit;
     Context context;
@@ -72,6 +73,15 @@ public class LoginAcitivity extends AppCompatActivity {
 
         context = this;
         activity = LoginAcitivity.this;
+
+        sign_up = findViewById(R.id.sign_up);
+        sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         facebook_login = (LinearLayout) findViewById(R.id.facebook_login);
         btn_Facebook_Login = (com.facebook.login.widget.LoginButton) findViewById(R.id.login_button);

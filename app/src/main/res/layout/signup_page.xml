@@ -33,7 +33,8 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:background="@drawable/border"
+                android:paddingLeft="10dp"
+                android:background="@drawable/custom_button"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
 
@@ -70,11 +71,12 @@
 
                 <EditText
                     android:id="@+id/email_front"
-                    android:background="@drawable/border"
+                    android:background="@drawable/custom_button"
                     android:layout_weight="0.35"
                     android:layout_width="0dp"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"/>
@@ -86,9 +88,10 @@
                     android:text="  \@"/>
                 <EditText
                     android:id="@+id/email_end"
-                    android:background="@drawable/border"
+                    android:background="@drawable/custom_button"
                     android:layout_weight="0.35"
                     android:layout_width="0dp"
+                    android:paddingLeft="10dp"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -110,10 +113,11 @@
                 android:orientation="horizontal">
                 <EditText
                     android:id="@+id/nickname"
-                    android:background="@drawable/border"
+                    android:background="@drawable/custom_button"
                     android:layout_weight="0.6"
                     android:layout_width="0dp"
                     android:textColor="@color/black"
+                    android:paddingLeft="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
@@ -139,9 +143,10 @@
                 android:text="비밀번호"/>
             <EditText
                 android:id="@+id/password"
-                android:background="@drawable/border"
+                android:background="@drawable/custom_button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -157,10 +162,11 @@
 
             <EditText
                 android:id="@+id/password_check"
-                android:background="@drawable/border"
+                android:background="@drawable/custom_button"
                 android:layout_marginTop="10dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"/>
