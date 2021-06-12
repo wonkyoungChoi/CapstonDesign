@@ -38,7 +38,7 @@ public class add_Board extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
     Profile profile = LoginAcitivity.profile;
     Uri image;
-    static Uri fileBoard[];
+    static Uri file[];
     ImageView imgView;
     String nick, nickname, title, text;
     ProgressDialog mProgressDialog;
@@ -79,15 +79,11 @@ public class add_Board extends AppCompatActivity {
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
-                for(int i = 0; i < fileBoard.length; i++) {
+                for(int i = 0; i < file.length; i++) {
                     try {
-                        InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
+                        InputStream ins = getContentResolver().openInputStream(file[0]);
                         // "/data/data/패키지 이름/files/copy.jpg" 저장
-                        Log.d("에러 찾기", "여기서?3");
-                        FileOutputStream fos = getApplicationContext().openFileOutput( "testBoard.jpg", 0);
-
-
-                        Log.d("에러 찾기", "여기서?4");
+                        FileOutputStream fos = add_Board.this.openFileOutput("copy.jpg", 0);
 
                         byte[] buffer = new byte[1024 * 100];
 
@@ -103,7 +99,7 @@ public class add_Board extends AppCompatActivity {
                         ins.close();
                         fos.close();
 
-                        new UploadFileAsyncBoard().execute().get();
+                        new UploadFileAsync().execute().get();
                         Log.d("UploadFile", "됬다");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -116,7 +112,6 @@ public class add_Board extends AppCompatActivity {
                         Log.d("ExecutionException", e.getMessage());
                     }
                 }
-
 
                 Board board = new Board(nick, title, text);
 
@@ -149,66 +144,42 @@ public class add_Board extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                try {
-                    Log.e("Data" , data.toString());
-                    //Log.e("Data" , data.getData().toString());
-                    Log.d("possible", "여기서?");
-                    //file = data.getData();
-                    ClipData clipData = data.getClipData();
+        if (requestCode == 1 && resultCode == RESULT_OK) {
 
+            imgView.setVisibility(View.VISIBLE);
+            image = data.getData();
 
-                    if(clipData.getItemCount() > 1 && clipData.getItemCount() < 9) {
-
-                        Log.d("count", Integer.toString(clipData.getItemCount()));
-                        fileBoard= new Uri[clipData.getItemCount()];
-                        for(int i = 0; i < clipData.getItemCount(); i++) {
-                            fileBoard[i] = clipData.getItemAt(i).getUri();
-                            // 선택한 이미지에서 비트맵 생성
-                            InputStream in = getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
-                            Bitmap img = BitmapFactory.decodeStream(in);
-                            in.close();
-                            // 이미지 표시
-                            imgView.setVisibility(View.VISIBLE);
-                            imgView.setImageBitmap(img);
-
-                        }
-                    } else {
-                        fileBoard = new Uri[1];
-                        fileBoard[0] = data.getData();
-
-                        InputStream in = getContentResolver().openInputStream(data.getData());
-                        Bitmap img = BitmapFactory.decodeStream(in);
-                        in.close();
-                        // 이미지 표시
-                        imgView.setVisibility(View.VISIBLE);
-                        imgView.setImageBitmap(img);
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                    fileBoard = new Uri[1];
-                    fileBoard[0] = data.getData();
-
-                    InputStream in = null;
-                    try {
-                        in = getContentResolver().openInputStream(data.getData());
-                    } catch (FileNotFoundException fileNotFoundException) {
-                        fileNotFoundException.printStackTrace();
-                    }
+            try {
+                Toast.makeText(this, "이미지 선택" , Toast.LENGTH_SHORT).show();
+//                mProgressDialog = new ProgressDialog(this);
+//                mProgressDialog.setMessage("업로드 중...");
+//                mProgressDialog.show();
+                Log.e("Data" , data.toString());
+                //Log.e("Data" , data.getData().toString());
+                Log.d("possible", "여기서?");
+                //file = data.getData();
+                ClipData clipData = data.getClipData();
+                Log.d("possible", clipData.getItemAt(0).getUri().toString());
+                Log.d("possible", clipData.getItemAt(1).getUri().toString());
+                String item = Integer.toString(clipData.getItemCount());
+                Log.d("possible", item);
+                file = new Uri[clipData.getItemCount()];
+                for(int i = 0; i < clipData.getItemCount(); i++) {
+                    file[i] = clipData.getItemAt(i).getUri();
+                    // 선택한 이미지에서 비트맵 생성
+                    InputStream in = getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
                     Bitmap img = BitmapFactory.decodeStream(in);
-                    try {
-                        in.close();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
+                    in.close();
                     // 이미지 표시
-                    imgView.setVisibility(View.VISIBLE);
+
                     imgView.setImageBitmap(img);
+
+
                 }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

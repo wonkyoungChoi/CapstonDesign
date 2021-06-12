@@ -21,21 +21,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.SignUpTask;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.nhn.android.naverlogin.OAuthLogin;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
