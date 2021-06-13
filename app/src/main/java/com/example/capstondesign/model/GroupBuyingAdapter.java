@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -137,6 +138,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("position", String.valueOf(position));
+        getNick();
 
         holder.setIsRecyclable(false);
 
@@ -156,10 +158,10 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                     String result = addWatchlistTask.execute(mynick1, title, nick).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
-                        holder.getInterest_btn().setBackgroundResource(R.drawable.interest_aft);
+                        holder.getInterest_btn().setImageResource(R.drawable.interest_aft);
                         Log.d("추가", result);
                     } else if(result.contains("삭제")){
-                        holder.getInterest_btn().setBackgroundResource(R.drawable.interest_prv);
+                        holder.getInterest_btn().setImageResource(R.drawable.interest_prv);
                         //하트 흰색
                         Log.d("삭제", result);
                     }
@@ -182,7 +184,12 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
          else {
 
          */
-
+            Log.d("WATCHNICK", groupbuyingList.get(position).watchnick);
+            Log.d("MYNICK", mynick1);
+            if(groupbuyingList.get(position).watchnick.contains(mynick1 + ",")) {
+                Log.d("등록", "등록");
+                holder.interest_btn.setImageResource(R.drawable.interest_aft);
+            }
             holder.title.setText(groupbuyingList.get(position).title);
             holder.price.setText(groupbuyingList.get(position).price);
             holder.headCount.setText(groupbuyingList.get(position).headcount);

@@ -3,6 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.controller.Fragment_profile;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.in_profile;
 
@@ -70,7 +71,16 @@ public class ProfileCountjsonTask {
                 Log.d("PROFILEGETEMAIL", profile.getEmail());
 
                 if(profile.getName().equals(name) && profile.getEmail().equals(email_front+"@"+email_end)) {
+                    if(number.equals("0")) {
+                        number = "-1";
+                    } else if (number.equals("1")){
+                        number = "";
+                    }
+                    else {
+                        number =(Integer.parseInt(number) - 1) + "";
+                    }
                     in_profile.number = number;
+                    Fragment_profile.number = number;
                     Log.d("NUMBER!!!", number);
                     }
 

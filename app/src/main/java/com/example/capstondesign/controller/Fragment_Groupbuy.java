@@ -1,6 +1,7 @@
 package com.example.capstondesign.controller;
 
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -121,7 +123,7 @@ public class Fragment_Groupbuy extends Fragment {
                 nowCount = groupbuying.get(pos).getNowCount();
 
                 getPosition(position);
-                Intent intent = new Intent(getContext(), BuySubMain.class);
+                Intent intent = new Intent(getActivity(), BuySubMain.class);
                 intent.putExtra("price", price);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
@@ -139,26 +141,8 @@ public class Fragment_Groupbuy extends Fragment {
         groupBuyingAdapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                String title = groupbuying.get(pos).getTitle();
-                String nick = groupbuying.get(pos).getNick();
-                Log.d("관심목록 클릭", "title");
-                addWatchlistTask addWatchlistTask = new addWatchlistTask();
-                try {
-                    String result = addWatchlistTask.execute(mynick, title, nick).get();
-                    Log.d("결과", result);
-                    if(result.contains("추가")) {
 
-                        //하트 빨간색
-                        Log.d("추가", result);
-                    } else if(result.contains("삭제")){
-                        //하트 흰색
-                        Log.d("삭제", result);
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Toast.makeText(getContext(), "관심목록 버튼 클릭", Toast.LENGTH_SHORT).show();
             }
         });
 

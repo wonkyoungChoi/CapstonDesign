@@ -52,6 +52,15 @@ public class in_profile extends AppCompatActivity {
     ProgressDialog mProgressDialog;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        intent.putExtra("groupbuyingNum", 4);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.in_profile);
@@ -84,8 +93,8 @@ public class in_profile extends AppCompatActivity {
                 //String a = profileTask.substringBetween(result1, "number:", "/");
 
                 Log.d("TEST", number);
-                if(number.equals("0")) {
-                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + ".jpg";
+                if(number.equals("-1")) {
+                    strurl = "http://13.124.75.92:8080/king.png";
                     Log.d("NUM0", strurl);
                 } else {
                     strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
@@ -194,6 +203,9 @@ public class in_profile extends AppCompatActivity {
                     new UploadFileAsync().execute().get();
                     Log.d("UploadFile", "됬다");
                     mProgressDialog.dismiss();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), in_profile.class);
+                    startActivity(intent);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("IOException", e.getMessage());

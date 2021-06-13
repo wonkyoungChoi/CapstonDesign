@@ -94,55 +94,52 @@ public class add_GroupBuying extends AppCompatActivity {
                 areastr = area.getText().toString();
                 Log.d("에러 찾기", "여기서?");
 
-                for(int i = 0; i < fileGroupBuying.length; i++) {
-                    try {
-                        InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
-                        // "/data/data/패키지 이름/files/copy.jpg" 저장
-                        Log.d("에러 찾기", "여기서?3");
-                        Log.d("ABCDE", titlestr);
-                        FileOutputStream fos = getApplicationContext().openFileOutput( titlestr + ".jpg", 0);
+                if(fileGroupBuying != null) {
+
+                    for (int i = 0; i < fileGroupBuying.length; i++) {
+                        try {
+                            InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
+                            // "/data/data/패키지 이름/files/copy.jpg" 저장
+                            Log.d("에러 찾기", "여기서?3");
+                            Log.d("ABCDE", titlestr);
+                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr + ".jpg", 0);
 
 
-                        Log.d("에러 찾기", "여기서?4");
+                            Log.d("에러 찾기", "여기서?4");
 
-                        byte[] buffer = new byte[1024 * 100];
+                            byte[] buffer = new byte[1024 * 100];
 
-                        while (true) {
-                            int data = ins.read(buffer);
-                            if (data == -1) {
-                                break;
+                            while (true) {
+                                int data = ins.read(buffer);
+                                if (data == -1) {
+                                    break;
+                                }
+
+                                fos.write(buffer, 0, data);
                             }
 
-                            fos.write(buffer, 0, data);
+                            ins.close();
+                            fos.close();
+
+                            new UploadFileAsyncGroupBuying().execute().get();
+                            Log.d("UploadFile", "됬다");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("IOException", e.getMessage());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            Log.d("InterrException", e.getMessage());
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            Log.d("ExecutionException", e.getMessage());
                         }
-
-                        ins.close();
-                        fos.close();
-
-                        new UploadFileAsyncGroupBuying().execute().get();
-                        Log.d("UploadFile", "됬다");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("IOException", e.getMessage());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.d("InterrException", e.getMessage());
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        Log.d("ExecutionException", e.getMessage());
                     }
+                    addGroupTask();
+                }  else {
+                    Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();
                 }
 
-                addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
-                addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr);
-                Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "");
-                GroupBuyingTask.groupbuyinglist.add(groupbuying);
-                Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
-//                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-//                intent.putExtra("groupbuyingNum", 2);
-//                startActivity(intent);
 
-                finish();
             }
         });
     }
@@ -158,6 +155,16 @@ public class add_GroupBuying extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    void addGroupTask() {
+        addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
+        addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr);
+        Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "");
+        GroupBuyingTask.groupbuyinglist.add(groupbuying);
+        Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
+        finish();
+    }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

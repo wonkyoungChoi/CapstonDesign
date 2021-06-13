@@ -154,7 +154,7 @@ public class BuySubMain extends AppCompatActivity {
 
 
         List<BuySubSlideritem> itemList = new ArrayList<>();
-        for(int i = 0; i < 5; i++) { // MySQL 길이
+        for(int i = 0; i < 4; i++) { // MySQL 길이
             if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + ".jpg"));
             else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + i + ".jpg"));
         }

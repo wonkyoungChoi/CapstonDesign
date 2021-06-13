@@ -8,6 +8,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Fragment_Groupbuy;
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.in_watchlist;
 
 import org.json.JSONArray;
@@ -20,13 +21,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class GroupBuyingTask {
     public static ArrayList<Groupbuying> groupbuyinglist = Fragment_Groupbuy.groupbuying;
 
     Groupbuying groupbuying;
-    ImageView button;
-    String nick, price, title, text, headCount, nowCount, area, watchnick;
+
+    Profile profile = LoginAcitivity.profile;
+    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick;
 
     public GroupBuyingTask() {
         try {
@@ -63,6 +66,7 @@ public class GroupBuyingTask {
     //Json Parsing
     public void jsonParsing(String json, ArrayList<Groupbuying> board1)
     {
+        getNick();
         try{
             JSONArray GroupbuyingArray = new JSONArray(json);
 
@@ -93,5 +97,18 @@ public class GroupBuyingTask {
             e.printStackTrace();
         }
     }
+
+    void getNick() {
+        ProfileTask profileTask = new ProfileTask();
+        try {
+            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
+            mynick = profileTask.substringBetween(result, "nickname:", "/");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

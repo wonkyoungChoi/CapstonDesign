@@ -52,8 +52,7 @@
                         android:id="@+id/interest_btn"
                         android:layout_width="match_parent"
                         android:layout_marginTop="5dp"
-                        android:layout_height="25dp"
-                        android:background="@drawable/interest_prv" />
+                        android:layout_height="25dp" />
                 </LinearLayout>
 
                 <TextView

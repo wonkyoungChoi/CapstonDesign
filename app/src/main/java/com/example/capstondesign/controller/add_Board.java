@@ -79,53 +79,48 @@ public class add_Board extends AppCompatActivity {
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
-                for(int i = 0; i < fileBoard.length; i++) {
-                    try {
-                        InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
-                        // "/data/data/패키지 이름/files/copy.jpg" 저장
-                        Log.d("에러 찾기", "여기서?3");
-                        FileOutputStream fos = getApplicationContext().openFileOutput( title + ".jpg", 0);
+                if(fileBoard != null) {
+
+                    for (int i = 0; i < fileBoard.length; i++) {
+                        try {
+                            InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
+                            // "/data/data/패키지 이름/files/copy.jpg" 저장
+                            Log.d("에러 찾기", "여기서?3");
+                            FileOutputStream fos = getApplicationContext().openFileOutput(title + ".jpg", 0);
 
 
-                        Log.d("에러 찾기", "여기서?4");
+                            Log.d("에러 찾기", "여기서?4");
 
-                        byte[] buffer = new byte[1024 * 100];
+                            byte[] buffer = new byte[1024 * 100];
 
-                        while (true) {
-                            int data = ins.read(buffer);
-                            if (data == -1) {
-                                break;
+                            while (true) {
+                                int data = ins.read(buffer);
+                                if (data == -1) {
+                                    break;
+                                }
+
+                                fos.write(buffer, 0, data);
                             }
 
-                            fos.write(buffer, 0, data);
+                            ins.close();
+                            fos.close();
+
+                            new UploadFileAsyncBoard().execute().get();
+                            Log.d("UploadFile", "됬다");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("IOException", e.getMessage());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            Log.d("InterrException", e.getMessage());
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            Log.d("ExecutionException", e.getMessage());
                         }
-
-                        ins.close();
-                        fos.close();
-
-                        new UploadFileAsyncBoard().execute().get();
-                        Log.d("UploadFile", "됬다");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("IOException", e.getMessage());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.d("InterrException", e.getMessage());
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        Log.d("ExecutionException", e.getMessage());
                     }
                 }
+                addBoardTask();
 
-                Board board = new Board(nick, title, text);
-
-                addBoardTask addBoardTask = new addBoardTask();
-                addBoardTask.execute(nick, title, text);
-
-                BoardTask.boardlist.add(board);
-                Fragment_board.boardAdapter.notifyDataSetChanged();
-
-                finish();
             }
         });
     }
@@ -140,6 +135,17 @@ public class add_Board extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    void addBoardTask() {
+        Board board = new Board(nick, title, text);
+
+        addBoardTask addBoardTask = new addBoardTask();
+        addBoardTask.execute(nick, title, text);
+
+        BoardTask.boardlist.add(board);
+        Fragment_board.boardAdapter.notifyDataSetChanged();
+        finish();
     }
 
 

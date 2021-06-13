@@ -44,6 +44,10 @@ public class Fragment_main extends AppCompatActivity {
             i = intent.getIntExtra("chatNum", 0);
             Log.d("CHATNUM", String.valueOf(i));
         }
+        if(i == 0) {
+            i = intent.getIntExtra("profileNum", 0);
+            Log.d("profileNum", String.valueOf(i));
+        }
         Log.d("NUM", String.valueOf(i));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
