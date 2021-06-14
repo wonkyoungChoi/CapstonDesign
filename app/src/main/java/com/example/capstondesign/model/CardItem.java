@@ -1,4 +1,4 @@
-package com.example.capstondesign.controller;
+package com.example.capstondesign.model;
 
 public class CardItem {     //아이템 객체생성
 

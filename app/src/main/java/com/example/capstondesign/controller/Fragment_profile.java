@@ -16,7 +16,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.ChatAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.ProfileTask;

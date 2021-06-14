@@ -1,11 +1,9 @@
 package com.example.capstondesign.controller;
 
 import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,15 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Board;
-import com.example.capstondesign.model.BoardAdapter;
-import com.example.capstondesign.model.BoardTask;
-import com.example.capstondesign.model.GroupBuyingAdapter;
+import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.addWatchlistTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

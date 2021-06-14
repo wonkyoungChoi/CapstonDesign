@@ -1,19 +1,12 @@
 package com.example.capstondesign.controller;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,16 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
-import com.example.capstondesign.model.BoardAdapter;
-import com.example.capstondesign.model.BoardTask;
-import com.example.capstondesign.model.Comment_Adapter;
-import com.example.capstondesign.model.Comment_Item;
-import com.example.capstondesign.model.SearchResultAdapter;
+import com.example.capstondesign.view.SearchResultAdapter;
 import com.example.capstondesign.model.SearchResultTask;
 import com.example.capstondesign.model.SearchTask;
 
-import java.io.FileDescriptor;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 

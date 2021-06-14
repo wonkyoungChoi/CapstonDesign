@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatRoomData;
 
 import java.util.ArrayList;
 

@@ -1,27 +1,15 @@
 package com.example.capstondesign.controller;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.BoardTask;
-import com.example.capstondesign.model.ChatAdapter;
-import com.example.capstondesign.model.ChatData;
-import com.example.capstondesign.model.ChatRoomAdapter;
+import com.example.capstondesign.view.ChatAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
 import com.example.capstondesign.model.ChattingRoomTask;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.concurrent.ExecutionException;
 
 
 public class add_chat extends AppCompatActivity {

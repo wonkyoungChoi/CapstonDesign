@@ -7,9 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,24 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.AddNowCountTask;
-import com.example.capstondesign.model.BuySubAdapter;
+import com.example.capstondesign.view.BuySubAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
-import com.example.capstondesign.model.ChatAdapter;
+import com.example.capstondesign.view.ChatAdapter;
 import com.example.capstondesign.model.ChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
-import com.example.capstondesign.model.GroupBuyingAdapter;
+import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.UpdateGroupbuyingTask;
+import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
@@ -43,6 +38,7 @@ import java.util.concurrent.ExecutionException;
 
 public class BuySubMain extends AppCompatActivity {
 
+    public static String numberGroupBuying;
     Button add, cancel, buyback, countadd, countdel;
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
@@ -53,6 +49,7 @@ public class BuySubMain extends AppCompatActivity {
     int set, max_count;
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
+    GroupBuyingCountjsonTask groupBuyingCountjsonTask;
 
     ViewPager2 pager2;
     int list[];
@@ -141,6 +138,7 @@ public class BuySubMain extends AppCompatActivity {
         headCount.setText(intent.getStringExtra("headcount"));
         nowCount.setText(intent.getStringExtra("nowcount"));
 
+        groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
 
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         pager2 = findViewById(R.id.pager2);
@@ -154,7 +152,7 @@ public class BuySubMain extends AppCompatActivity {
 
 
         List<BuySubSlideritem> itemList = new ArrayList<>();
-        for(int i = 0; i < 4; i++) { // MySQL 길이
+        for(int i = 0; i < Integer.parseInt(numberGroupBuying); i++) { // MySQL 길이
             if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + ".jpg"));
             else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + i + ".jpg"));
         }

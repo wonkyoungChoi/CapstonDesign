@@ -1,10 +1,8 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,24 +13,15 @@ import com.example.capstondesign.model.Board;
 
 import android.os.Build;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.capstondesign.R;
 
 import java.util.List;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.MyViewHolder> {
-    static SearchResultAdapter.OnItemClickListener mListener = null;
+public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
+    static BoardAdapter.OnItemClickListener mListener = null;
     public static String nick;
     public static Board board;
 
@@ -41,7 +30,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(SearchResultAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(BoardAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -62,9 +51,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
-                            click_nickname = boardList.get(pos).nick;
-                            click_title = boardList.get(pos).title;
-                            click_text = boardList.get(pos).text;
+                            click_nickname = boardList.get(pos).getNick();
+                            click_title = boardList.get(pos).getTitle();
+                            click_text = boardList.get(pos).getText();
                             mListener.onItemClick(v, pos);
                         }
                     }
@@ -73,13 +62,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         }
     }
 
+
     public static List<Board> boardList;
-    public SearchResultAdapter(List<Board> items) { boardList = items; }
+    public BoardAdapter(List<Board> items) { boardList = items; }
     public static String click_nickname, click_title, click_text;
 
     @NonNull
     @Override
-    public SearchResultAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.board_layout, parent, false);
 
@@ -94,18 +84,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         Log.d("position", String.valueOf(position));
 
         holder.setIsRecyclable(false);
-
         board = boardList.get(position);
 
-        if(boardList.get(position).image != null) {
-            holder.nick.setText(boardList.get(position).nick);
-            //holder.imageView.setImageURI(boardList.get(position).image);
-            holder.title.setText(boardList.get(position).title);
-            holder.text.setText(boardList.get(position).text);
+        if(boardList.get(position).getImage() != null) {
+            holder.nick.setText(boardList.get(position).getNick());
+            holder.title.setText(boardList.get(position).getTitle());
+            holder.text.setText(boardList.get(position).getText());
         } else {
-            holder.nick.setText(boardList.get(position).nick);
-            holder.title.setText(boardList.get(position).title);
-            holder.text.setText(boardList.get(position).text);
+            holder.nick.setText(boardList.get(position).getNick());
+            holder.title.setText(boardList.get(position).getTitle());
+            holder.text.setText(boardList.get(position).getText());
             //holder.imageView.setVisibility(View.GONE);
         }
 

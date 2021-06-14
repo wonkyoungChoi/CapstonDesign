@@ -1,12 +1,8 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,23 +10,15 @@ import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.model.Board;
 
 import android.os.Build;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.R;
+import com.example.capstondesign.model.Groupbuying;
 
 import java.util.List;
 
@@ -112,7 +100,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
 
         groupbuying = watchlistList.get(position);
 
-        if(groupbuying.watchnick.contains(LoginAcitivity.profile.nickname + ",")) {
+        if(groupbuying.getWatchnick().contains(LoginAcitivity.profile.getNickname() + ",")) {
 
             holder.getInterest_btn().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,11 +119,11 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
          else {
          */
 
-            holder.title.setText(watchlistList.get(position).title);
-            holder.price.setText(watchlistList.get(position).price);
-            holder.headCount.setText(watchlistList.get(position).headcount);
-            holder.nowCount.setText(watchlistList.get(position).nowCount);
-            holder.area.setText(watchlistList.get(position).area);
+            holder.title.setText(watchlistList.get(position).getTitle());
+            holder.price.setText(watchlistList.get(position).getPrice());
+            holder.headCount.setText(watchlistList.get(position).getHeadcount());
+            holder.nowCount.setText(watchlistList.get(position).getNowCount());
+            holder.area.setText(watchlistList.get(position).getArea());
             //holder.imageView.setVisibility(View.GONE);
 
         }

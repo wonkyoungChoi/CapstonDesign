@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
 import android.view.LayoutInflater;
 import android.view.View;

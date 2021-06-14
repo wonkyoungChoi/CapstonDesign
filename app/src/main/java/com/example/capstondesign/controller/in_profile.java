@@ -175,8 +175,8 @@ public class in_profile extends AppCompatActivity {
                 in.close();
                 // Log.d(TAG, String.valueOf(bitmap));
                 Toast.makeText(this, "프로필 이미지 선택" , Toast.LENGTH_SHORT).show();
-                result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get();
-                Log.d("RESULT", result1);
+                result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get(); // 숫자 넣기 파일 길이도 넣어야 돼
+                Log.d("RESULTLOG", result1);
                 mProgressDialog = new ProgressDialog(this);
                 mProgressDialog.setMessage("업로드 중...");
                 mProgressDialog.show();

@@ -10,6 +10,7 @@ import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.in_watchlist;
+import com.example.capstondesign.controller.add_GroupBuying;
 
 import org.json.JSONArray;
 import org.json.JSONException;

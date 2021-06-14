@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
-import com.example.capstondesign.model.BoardAdapter;
+import com.example.capstondesign.view.BoardAdapter;
 import com.example.capstondesign.model.BoardTask;
 
 import java.util.ArrayList;

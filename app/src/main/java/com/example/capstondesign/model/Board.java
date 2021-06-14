@@ -23,6 +23,14 @@ public class Board {
     public void setNick(String nick) {this.nick = nick;}
     public void setText(String text) { this.text = text; }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Board(String title, String nick, String text, String image) {
         this.title = title;
         this.nick = nick;

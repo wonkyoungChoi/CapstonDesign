@@ -3,6 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.view.ChatAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

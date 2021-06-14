@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
 import android.os.Build;
 import android.util.Log;
@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.ChatData;
 
 import java.util.List;
 

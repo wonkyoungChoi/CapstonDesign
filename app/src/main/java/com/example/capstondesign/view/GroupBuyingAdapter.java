@@ -1,12 +1,8 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,24 +11,18 @@ import androidx.annotation.NonNull;
 import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Fragment_Groupbuy;
 import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.model.Board;
 
 import android.os.Build;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.R;
+import com.example.capstondesign.model.Groupbuying;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.addWatchlistTask;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -98,10 +88,10 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener1 != null) {
-                            click_area = groupbuyingList.get(pos).area;
-                            click_nickname = groupbuyingList.get(pos).nick;
-                            click_title = groupbuyingList.get(pos).title;
-                            click_text = groupbuyingList.get(pos).text;
+                            click_area = groupbuyingList.get(pos).getArea();
+                            click_nickname = groupbuyingList.get(pos).getNick();
+                            click_title = groupbuyingList.get(pos).getTitle();
+                            click_text = groupbuyingList.get(pos).getText();
                             mListener1.onItemClick(v, pos);
                         }
                     }
@@ -184,17 +174,17 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
          else {
 
          */
-            Log.d("WATCHNICK", groupbuyingList.get(position).watchnick);
+            Log.d("WATCHNICK", groupbuyingList.get(position).getWatchnick());
             Log.d("MYNICK", mynick1);
-            if(groupbuyingList.get(position).watchnick.contains(mynick1 + ",")) {
+            if(groupbuyingList.get(position).getWatchnick().contains(mynick1 + ",")) {
                 Log.d("등록", "등록");
                 holder.interest_btn.setImageResource(R.drawable.interest_aft);
             }
-            holder.title.setText(groupbuyingList.get(position).title);
-            holder.price.setText(groupbuyingList.get(position).price);
-            holder.headCount.setText(groupbuyingList.get(position).headcount);
-            holder.nowCount.setText(groupbuyingList.get(position).nowCount);
-            holder.area.setText(groupbuyingList.get(position).area);
+            holder.title.setText(groupbuyingList.get(position).getTitle());
+            holder.price.setText(groupbuyingList.get(position).getPrice());
+            holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
+            holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
+            holder.area.setText(groupbuyingList.get(position).getArea());
             //holder.imageView.setVisibility(View.GONE);
 
 

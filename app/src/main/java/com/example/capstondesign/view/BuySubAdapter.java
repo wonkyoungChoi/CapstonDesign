@@ -1,7 +1,5 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
 import java.util.List;
 
 public class BuySubAdapter extends RecyclerView.Adapter<BuySubAdapter.BuySubViewHolder> {

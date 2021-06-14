@@ -9,7 +9,6 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -17,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.ChatAdapter;
-import com.example.capstondesign.model.ChatRoomAdapter;
+import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.view.ChatRoomAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
 import com.example.capstondesign.model.Profile;

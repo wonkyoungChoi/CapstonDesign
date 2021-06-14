@@ -8,37 +8,30 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Board;
-import com.example.capstondesign.model.BoardAdapter;
-import com.example.capstondesign.model.ChatRoomData;
-import com.example.capstondesign.model.ChatTask;
-import com.example.capstondesign.model.GroupBuyingAdapter;
+import com.example.capstondesign.model.GroupBuyingCountTask;
+import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.UploadFileAsyncGroupBuying;
-import com.example.capstondesign.model.addBoardTask;
 import com.example.capstondesign.model.addGroupbuyingTask;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
 public class add_GroupBuying extends AppCompatActivity {
@@ -46,12 +39,17 @@ public class add_GroupBuying extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     Uri image;
     ImageView imgView;
+    String result;
     public static String titlestr;
-    String nick, nickname, textstr, pricestr, headcountstr, areastr;
+    public static String nickstr;
+    String nick, nickname, textstr, pricestr, headcountstr, areastr, number;
     static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
+
+    GroupBuyingCountTask groupBuyingCountTask;
+    GroupBuyingCountjsonTask groupBuyingCountjsonTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +85,8 @@ public class add_GroupBuying extends AppCompatActivity {
                 Log.d("에러 찾기", "여기서?0");
                 getNick();
                 nick = nickname;
+                nickstr = nickname;
+                Log.d("nickstr", nickstr);
                 titlestr = title.getText().toString();
                 pricestr = price.getText().toString();
                 headcountstr = headcount.getText().toString();
@@ -135,6 +135,17 @@ public class add_GroupBuying extends AppCompatActivity {
                         }
                     }
                     addGroupTask();
+//                    GroupBuyingCountTask groupBuyingCountTask = new GroupBuyingCountTask();
+//                    try {
+//                        groupBuyingCountTask.execute(profile.getName(), titlestr, number).get(); // 숫자 넣기 파일 길이도 넣어야 돼
+//                        String a = groupBuyingCountTask.execute(profile.getName(), titlestr, number).get();
+//                        Log.d("testtest", a);
+//                        finish();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }  else {
                     Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -158,7 +169,7 @@ public class add_GroupBuying extends AppCompatActivity {
 
     void addGroupTask() {
         addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
-        addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr);
+        addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr, number);
         Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "");
         GroupBuyingTask.groupbuyinglist.add(groupbuying);
         Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
@@ -187,6 +198,8 @@ public class add_GroupBuying extends AppCompatActivity {
 
                         Log.d("count", Integer.toString(clipData.getItemCount()));
                         fileGroupBuying = new Uri[clipData.getItemCount()];
+                        number = Integer.toString(clipData.getItemCount());
+//                        result = groupBuyingCountTask.execute(profile.getName(), titlestr, Integer.toString(clipData.getItemCount())).get(); // 숫자 넣기 파일 길이도 넣어야 돼
                         for(int i = 0; i < clipData.getItemCount(); i++) {
                             fileGroupBuying[i] = clipData.getItemAt(i).getUri();
                             // 선택한 이미지에서 비트맵 생성
@@ -200,7 +213,9 @@ public class add_GroupBuying extends AppCompatActivity {
                         }
                     } else {
                         fileGroupBuying = new Uri[1];
+//                        result = groupBuyingCountTask.execute(profile.getName(), titlestr, Integer.toString(1)).get();
                         fileGroupBuying[0] = data.getData();
+                        number = "1";
 
                         InputStream in = getContentResolver().openInputStream(data.getData());
                         Bitmap img = BitmapFactory.decodeStream(in);
@@ -213,6 +228,15 @@ public class add_GroupBuying extends AppCompatActivity {
                     e.printStackTrace();
 
                     fileGroupBuying = new Uri[1];
+                    number = "1";
+//                    try {
+//                        result = groupBuyingCountTask.execute(profile.getName(), titlestr, "1").get();
+//                        Log.d("resultCheck", result);
+//                    } catch (ExecutionException executionException) {
+//                        executionException.printStackTrace();
+//                    } catch (InterruptedException interruptedException) {
+//                        interruptedException.printStackTrace();
+//                    }
                     fileGroupBuying[0] = data.getData();
 
                     InputStream in = null;

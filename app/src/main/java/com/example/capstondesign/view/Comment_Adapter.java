@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,10 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.FreeBoard;
 import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.model.Comment_Item;
+import com.example.capstondesign.model.DeleteCommentTask;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.model.ProfileTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
