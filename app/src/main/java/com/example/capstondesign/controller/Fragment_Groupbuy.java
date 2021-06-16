@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -33,11 +35,12 @@ public class Fragment_Groupbuy extends Fragment {
     ImageView buynotify;
     public static Uri image;
     Profile profile = LoginAcitivity.profile;
+    public static int position;
 
+    public GroupBuyingCountjsonTask groupBuyingCountjsonTask;
     public static GroupBuyingAdapter groupBuyingAdapter;
     GroupBuyingTask groupBuyingTask;
     public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();;
-    int position;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,6 +111,8 @@ public class Fragment_Groupbuy extends Fragment {
         groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                position = pos;
+                GroupBuyingCountjsonTask.position = pos + 1;
                 nick = groupbuying.get(pos).getNick();
                 title = groupbuying.get(pos).getTitle();
                 text = groupbuying.get(pos).getText();
@@ -115,6 +120,7 @@ public class Fragment_Groupbuy extends Fragment {
                 price = groupbuying.get(pos).getPrice();
                 headCount = groupbuying.get(pos).getHeadcount();
                 nowCount = groupbuying.get(pos).getNowCount();
+                Log.d("onItemClick", Integer.toString(pos));
 
                 getPosition(position);
                 Intent intent = new Intent(getActivity(), BuySubMain.class);
@@ -125,6 +131,7 @@ public class Fragment_Groupbuy extends Fragment {
                 intent.putExtra("area", area);
                 intent.putExtra("headcount", headCount);
                 intent.putExtra("nowcount", nowCount);
+                //intent.putExtra("count", pos);
                 startActivity(intent);
             }
         });

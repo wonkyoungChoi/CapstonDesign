@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,11 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.AddNowCountTask;
+import com.example.capstondesign.model.InGroupBuyProfileCountTask;
+import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.view.BuySubAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.example.capstondesign.view.ChatAdapter;
@@ -30,6 +34,7 @@ import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.GroupBuyingCountjsonTask;
+import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
@@ -40,9 +45,13 @@ public class BuySubMain extends AppCompatActivity {
 
     public static String numberGroupBuying;
     Button add, cancel, buyback, countadd, countdel;
+    ImageView Myinfoimage;
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
     String mynick = ChatAdapter.nick;
+    public static String number, nickname, email, count;
+    String strurl;
+    InGroupBuyProfileCountTask inGroupBuyProfileCountTask;
     String real_nick;
     String message;
     Intent intent;
@@ -72,6 +81,8 @@ public class BuySubMain extends AppCompatActivity {
 
         getNick();
 
+        Myinfoimage = findViewById(R.id.Myinfoimage);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.bs_top);
         setSupportActionBar(toolbar);
 
@@ -91,6 +102,30 @@ public class BuySubMain extends AppCompatActivity {
         nowCount = findViewById(R.id.nowCount);
         countadd = findViewById(R.id.Countaddbtn);
         countdel = findViewById(R.id.Countdelbtn);
+
+        nickname = intent.getStringExtra("nick");
+
+        inGroupBuyProfileCountTask = new InGroupBuyProfileCountTask();
+
+        try {
+            //
+            //String a = profileTask.substringBetween(result1, "number:", "/");
+            Log.d("TEST", email);
+            Log.d("TEST", number);
+            if (number.equals("-1")) {
+                strurl = "http://13.124.75.92:8080/king.png";
+                Log.d("NUM0", strurl);
+            } else {
+                strurl = "http://13.124.75.92:8080/upload/" + email + number + ".jpg";
+                Log.d("NUM", strurl);
+            }
+            profile.setPicture(strurl);
+            Picasso.get().load(Uri.parse(strurl)).into(Myinfoimage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            profile.setPicture("http://13.124.75.92:8080/king.png");
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(Myinfoimage);
+        }
 
         if(!real_nick.equals(intent.getStringExtra("nick"))) {
             countadd.setVisibility(View.INVISIBLE);
@@ -138,6 +173,9 @@ public class BuySubMain extends AppCompatActivity {
         headCount.setText(intent.getStringExtra("headcount"));
         nowCount.setText(intent.getStringExtra("nowcount"));
 
+//        String positionNum = intent.getStringExtra("count");
+//        Log.d("positionNum", positionNum);
+
         groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
 
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
@@ -148,13 +186,13 @@ public class BuySubMain extends AppCompatActivity {
 //        itemList.add(new BuySubSlideritem(R.drawable.two));
 //        itemList.add(new BuySubSlideritem(R.drawable.three));
 //        itemList.add(new BuySubSlideritem(R.drawable.four));
-
-
-
+        Log.d("counthashcode", count);
+        Log.d("counthashcode", GroupBuyingAdapter.click_title.hashCode() + count);
         List<BuySubSlideritem> itemList = new ArrayList<>();
+        Log.d("numberGroupbyuing", numberGroupBuying);
         for(int i = 0; i < Integer.parseInt(numberGroupBuying); i++) { // MySQL 길이
-            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + ".jpg"));
-            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title + i + ".jpg"));
+            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count + ".jpg"));
+            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count +  i + ".jpg"));
         }
 
         pager2.setAdapter(new BuySubAdapter(itemList,pager2));

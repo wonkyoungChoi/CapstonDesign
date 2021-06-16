@@ -18,11 +18,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ProfileCountjsonTask {
+public class InGroupBuyProfileCountTask {
     Profile profile = LoginAcitivity.profile;
-    String name, email_front, email_end, number;
+    String nickname, email_front, email_end, number;
 
-    public ProfileCountjsonTask() {
+    public InGroupBuyProfileCountTask() {
         try {
             jsonParsing(downloadUrl());
         } catch (IOException e) {
@@ -64,29 +64,28 @@ public class ProfileCountjsonTask {
             for(int i=0; i<countArray.length(); i++)
             {
                 JSONObject CountObject = countArray.getJSONObject(i);
-                name = CountObject.getString("name");
+                nickname = CountObject.getString("nickname");
+                number = CountObject.getString("number");
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
-                number = CountObject.getString("number");
-                Log.d("PROFILEGETNAME", profile.getName());
-                Log.d("PROFILEGETEMAIL", profile.getEmail());
 
-                if(profile.getName().equals(name) && profile.getEmail().equals(email_front+"@"+email_end)) {
+                if(BuySubMain.nickname.equals(nickname)) {
                     if(number.equals("0")) {
                         number = "-1";
                     } else if (number.equals("1")){
                         number = "";
+                        BuySubMain.email = email_front + "@" + email_end;
                     }
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
+                        BuySubMain.email = email_front + "@" + email_end;
                     }
-                    in_profile.number = number;
-                    Fragment_profile.number = number;
+                    BuySubMain.number = number;
                     Log.d("NUMBER!!!", number);
-                    }
-
                 }
-            } catch (JSONException jsonException) {
+
+            }
+        } catch (JSONException jsonException) {
             jsonException.printStackTrace();
         }
     }

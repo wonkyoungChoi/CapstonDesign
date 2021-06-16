@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,14 +43,16 @@ public class add_GroupBuying extends AppCompatActivity {
     String result;
     public static String titlestr;
     public static String nickstr;
+    public static String count;
+    public static String subMainCount;
     String nick, nickname, textstr, pricestr, headcountstr, areastr, number;
     static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
     Bitmap bitmap;
 
-    GroupBuyingCountTask groupBuyingCountTask;
     GroupBuyingCountjsonTask groupBuyingCountjsonTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +85,6 @@ public class add_GroupBuying extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("에러 찾기", "여기서?0");
                 getNick();
                 nick = nickname;
                 nickstr = nickname;
@@ -95,6 +97,10 @@ public class add_GroupBuying extends AppCompatActivity {
                 Log.d("에러 찾기", "여기서?");
 
                 if(fileGroupBuying != null) {
+                    addGroupTask(); // count가 1으로 설정이 되고
+                    GroupBuyingCountjsonTask.position = 0;
+                    groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
+                    Log.d("countTask", count);
 
                     for (int i = 0; i < fileGroupBuying.length; i++) {
                         try {
@@ -102,8 +108,9 @@ public class add_GroupBuying extends AppCompatActivity {
                             // "/data/data/패키지 이름/files/copy.jpg" 저장
                             Log.d("에러 찾기", "여기서?3");
                             Log.d("ABCDE", titlestr);
-                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr + ".jpg", 0);
-
+                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr.hashCode() + count + ".jpg", 0);
+                            Log.d("countadd", titlestr.hashCode() + "");
+                            Log.d("countadd", titlestr.hashCode() + count);
 
                             Log.d("에러 찾기", "여기서?4");
 
@@ -134,18 +141,7 @@ public class add_GroupBuying extends AppCompatActivity {
                             Log.d("ExecutionException", e.getMessage());
                         }
                     }
-                    addGroupTask();
-//                    GroupBuyingCountTask groupBuyingCountTask = new GroupBuyingCountTask();
-//                    try {
-//                        groupBuyingCountTask.execute(profile.getName(), titlestr, number).get(); // 숫자 넣기 파일 길이도 넣어야 돼
-//                        String a = groupBuyingCountTask.execute(profile.getName(), titlestr, number).get();
-//                        Log.d("testtest", a);
-//                        finish();
-//                    } catch (ExecutionException e) {
-//                        e.printStackTrace();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
+                    //addGroupTask();
                 }  else {
                     Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();
                 }

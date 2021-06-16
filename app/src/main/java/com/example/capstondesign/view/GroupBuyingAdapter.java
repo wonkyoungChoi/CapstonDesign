@@ -174,18 +174,18 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
          else {
 
          */
-            Log.d("WATCHNICK", groupbuyingList.get(position).getWatchnick());
-            Log.d("MYNICK", mynick1);
-            if(groupbuyingList.get(position).getWatchnick().contains(mynick1 + ",")) {
-                Log.d("등록", "등록");
-                holder.interest_btn.setImageResource(R.drawable.interest_aft);
-            }
-            holder.title.setText(groupbuyingList.get(position).getTitle());
-            holder.price.setText(groupbuyingList.get(position).getPrice());
-            holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
-            holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
-            holder.area.setText(groupbuyingList.get(position).getArea());
-            //holder.imageView.setVisibility(View.GONE);
+        Log.d("WATCHNICK", groupbuyingList.get(position).getWatchnick());
+//            Log.d("MYNICK", mynick1);
+        if(groupbuyingList.get(position).getWatchnick().contains(mynick1 + ",")) {
+            Log.d("등록", "등록");
+            holder.interest_btn.setImageResource(R.drawable.interest_aft);
+        }
+        holder.title.setText(groupbuyingList.get(position).getTitle());
+        holder.price.setText(groupbuyingList.get(position).getPrice());
+        holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
+        holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
+        holder.area.setText(groupbuyingList.get(position).getArea());
+        //holder.imageView.setVisibility(View.GONE);
 
 
 
