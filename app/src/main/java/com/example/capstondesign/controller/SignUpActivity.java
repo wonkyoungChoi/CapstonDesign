@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.EmailCheckTask;
 import com.example.capstondesign.view.ChatAdapter;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.SignUpTask;
@@ -41,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText name, password, nickname, passwordCheck, email;
     RadioGroup gender;
     RadioButton radioButton;
-    Button auth_check;
+    Button auth_check, email_check;
     String phoneNum, phone;
     private String verificationId;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -86,6 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
         nickname = (EditText) findViewById(R.id.nickname);
 
         nick_check = (Button) findViewById(R.id.nick_check);
+        email_check = (Button) findViewById(R.id.email_check);
         phone_num = (EditText) findViewById(R.id.phone_num);
 
         re_check = (Button) findViewById(R.id.re_authClick);
@@ -106,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(phone_num.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                     phoneNum = phone_num.getText().toString();
+                    Log.d("NUM", "+82"+phoneNum.substring(1));
                     sendVerificationCode("+82"+phoneNum.substring(1));
                     if(timer != null) timer.cancel();
                     timer.start();
@@ -124,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(phone_num.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    sendVerificationCode(phone_num.getText().toString());
+                    sendVerificationCode("+82"+phoneNum.substring(1));
                     if(timer != null) timer.cancel();
                     timer.start();
                 } else {
@@ -149,6 +152,13 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nick_check();
+            }
+        });
+
+        email_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email_check();
             }
         });
 
@@ -189,14 +199,14 @@ public class SignUpActivity extends AppCompatActivity {
         String userEmail = email.getText().toString();
         if (userEmail.trim().length() > 0 && userEmail.contains("@")) {
             String result;
-            NickCheckTask task = new NickCheckTask();
+            EmailCheckTask task = new EmailCheckTask();
             try {
                 result = task.execute(userEmail).get();
                 if (result.contains("sameEmail")) {
-                    Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "중복된 이메일입니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     email_click = true;
-                    Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "사용가능한 이메일입니다.", Toast.LENGTH_SHORT).show();
                 }
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -245,7 +255,7 @@ public class SignUpActivity extends AppCompatActivity {
         String passwordcheck = passwordCheck.getText().toString();
 
         if (username.trim().length() > 0 && useremail.trim().length() > 0 && useremail.contains("@") && userPassword.trim().length() > 0
-                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && nick_click && check) {
+                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click && check) {
 
             try {
                 String result;
@@ -261,13 +271,15 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
 
-        } else if (!check) {
-            Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
-        } else if (!userPassword.equals(passwordcheck)) {
-            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        } else if (!email_click) {
+            Toast.makeText(getApplicationContext(), "이메일 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
         } else if (!nick_click) {
             Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (!userPassword.equals(passwordcheck)) {
+            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        } else if (!check) {
+            Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
+        }  else {
             Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
