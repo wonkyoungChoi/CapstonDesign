@@ -2,6 +2,7 @@ package com.example.capstondesign.controller;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.view.ChatAdapter;
 import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.LastMsgTask;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +36,14 @@ public class in_chat_room extends AppCompatActivity {
     List<ChatData> chatlist = new ArrayList<>();
     ChatData chatData;
     private EditText EditText_chat;
+    Profile profile = LoginAcitivity.profile;
     private static final String TAG = "Fragment_chatting";
     ChildEventListener childEventListener;
     public static String key;
     String othername, name;
     Boolean check;
     LastMsgTask lastMsgTask;
+
 
     @Override
     public void onPause() {
@@ -80,6 +85,8 @@ public class in_chat_room extends AppCompatActivity {
             name = name + "&" + ChatAdapter.nick;
             Log.d("ELSE", name);
         }
+
+
 
 
         Button Button_send;
@@ -139,7 +146,7 @@ public class in_chat_room extends AppCompatActivity {
                 try {
                     key = myRef.push().getKey();
                     String msg = EditText_chat.getText().toString();
-                    ChatData chat = new ChatData(ChatAdapter.nick , msg, key);
+                    ChatData chat = new ChatData(ChatAdapter.nick , msg, key, profile.getEmail(), profile.getName());
                     Log.d("SEND", ChatAdapter.nick + "msg" + msg);
                     //Realtime Database의 Chat 안의 name안의 key에 값을 저장
                     //key는 보내기 할 때마다 값이 변경되므로 값이 중복 저장되지 않음

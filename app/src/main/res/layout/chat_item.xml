@@ -6,18 +6,50 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/TextView_nickname"
+    <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:gravity="right"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:visibility="invisible"
-        tools:ignore="RtlHardcoded" />
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/TextView_othernickname"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:padding="3dp"
+            android:layout_height="50dp"
+            android:text="상대 닉네임"
+            android:fontFamily="@font/soldier"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            tools:ignore="RtlHardcoded" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+
+        <TextView
+            android:id="@+id/TextView_mynickname"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:padding="3dp"
+            android:layout_height="50dp"
+            android:text="내 닉네임"
+            android:fontFamily="@font/soldier"
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +67,8 @@
 
             <ImageView
                 android:id="@+id/otherImage"
-                android:layout_width="25dp"
-                android:layout_height="25dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
         </androidx.cardview.widget.CardView>
 
         <View
@@ -62,28 +94,48 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center|right"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/custom_chat"
-        android:orientation="vertical">
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
 
         <TextView
-            android:id="@+id/TextView_msg"
+            android:id="@+id/TextView_othermsg"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
+            android:padding="5dp"
             android:layout_height="50dp"
-            android:layout_gravity="center|right"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             android:background="@drawable/custom_chat"
+            android:text="상대 채팅"
             android:fontFamily="@font/soldier"
-            android:gravity="clip_horizontal|center|clip_vertical"
             android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:textSize="15sp"
             tools:ignore="RtlHardcoded" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+
+        <TextView
+            android:id="@+id/TextView_mymsg"
+            android:visibility="invisible"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_chat"
+            android:fontFamily="@font/soldier"
+            android:text="내 채팅"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="15sp"
+            tools:ignore="RtlHardcoded" />
+
     </LinearLayout>
+
 </LinearLayout>

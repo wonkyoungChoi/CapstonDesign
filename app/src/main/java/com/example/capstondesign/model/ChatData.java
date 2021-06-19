@@ -4,16 +4,22 @@ public class ChatData {
     private String message;
     private String nickname;
     private String key;
-
-    public ChatData(String nickname, String message, String key) {
-        this.nickname = nickname;
-        this.message = message;
-        this.key = key;
-    }
+    private String email;
+    private String name;
 
     public ChatData() { }
 
-    public String getMessage() { return message; }
+    public ChatData(String nickname, String message, String key, String email, String name) {
+        this.message = message;
+        this.nickname = nickname;
+        this.key = key;
+        this.email = email;
+        this.name = name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
     public void setMessage(String message) {
         this.message = message;
@@ -27,8 +33,27 @@ public class ChatData {
         this.nickname = nickname;
     }
 
-    public String getKey() { return key; }
+    public String getKey() {
+        return key;
+    }
 
-    public void setKey(String key) { this.key = key; }
+    public void setKey(String key) {
+        this.key = key;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
