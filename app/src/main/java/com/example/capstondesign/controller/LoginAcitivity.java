@@ -60,13 +60,6 @@ public class LoginAcitivity extends AppCompatActivity {
     EditText id, password;
     TextView signup;
     String id_str, id_end;
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-        startActivity(intent);
-    }
 
 
     @Override
@@ -141,8 +134,6 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                startActivity(intent);
             }
         });
 
@@ -205,8 +196,8 @@ public class LoginAcitivity extends AppCompatActivity {
                         password.setText("");
                         Login = true;
                         Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
                         login = 4;
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();

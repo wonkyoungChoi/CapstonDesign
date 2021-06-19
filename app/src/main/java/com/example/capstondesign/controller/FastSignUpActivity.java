@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
@@ -21,29 +24,58 @@ import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.SignUpTask;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class FastSignUpActivity extends AppCompatActivity {
     TextView name, email;
-    EditText phone_num, password, nickname, passwordCheck;
+    EditText password, nickname, passwordCheck;
     RadioGroup gender;
     RadioButton radioButton;
     Context context;
     Activity activity;
     Button sign_up, sign_cancel, nick_check, phone_check;
+    Button auth_check;
+
     Boolean nick_click = false;
     Profile profile = LoginAcitivity.profile;
+
+    private String verificationId;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     CheckTask.Logout logout;
+
+    String phoneNum, phone;
+
+    TextView re_check, delay_tv;
+    EditText auth,phone_num;
+    private int mnMilliSecond = 1000;
+    private int value;
+    private int mnExitDelay = 60;
+
+    Boolean check;
+
+    private CountDownTimer timer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fast_signup_page);
+
+        AuthCodeTimer();
 
         context = this;
         activity = FastSignUpActivity.this;
@@ -59,6 +91,10 @@ public class FastSignUpActivity extends AppCompatActivity {
         sign_cancel = (Button) findViewById(R.id.cancel);
         nick_check = (Button) findViewById(R.id.nick_check);
         phone_check = (Button) findViewById(R.id.authClick);
+        re_check = findViewById(R.id.re_authClick);
+        delay_tv = findViewById(R.id.DelayTextView);
+        auth_check = (Button) findViewById(R.id.auth_check);
+        auth = findViewById(R.id.auth);
 
         //간편로그인으로 가져온 값들을 세팅해줌
         name.setText(profile.getName());
@@ -74,11 +110,53 @@ public class FastSignUpActivity extends AppCompatActivity {
         phone_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignUpActivity.phone = 2;
-                Intent intent = new Intent(getApplicationContext(), Phone_check.class);
-                startActivity(intent);
+                if(phone_num.length() > 6) {
+                    Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    phoneNum = phone_num.getText().toString();
+                    sendVerificationCode("+82"+phoneNum.substring(1));
+                    if(timer != null) timer.cancel();
+                    timer.start();
+                    phone_check.setVisibility(View.GONE);
+                    re_check.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
+        //재전송 클릭
+        re_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(phone_num.length() > 6) {
+                    Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    phoneNum = phone_num.getText().toString();
+                    sendVerificationCode("+82"+phoneNum.substring(1));
+                    if(timer != null) timer.cancel();
+                    timer.start();
+                    phone_check.setVisibility(View.GONE);
+                    re_check.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        //인증하기 클릭
+        auth_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String code = auth.getText().toString();
+                if(code.isEmpty() || code.length()<6) {
+                    Toast.makeText(getApplicationContext(),"인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+                verifyCode(code);
+            }
+        });
+
 
 
         //취소를 누를 경우 간편 로그인을 로그아웃함.
@@ -161,7 +239,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                 String username = name.getText().toString();
                 String userEmail_front = email_front(email.getText().toString());
                 String userEmail_end = email_end(email.getText().toString());
-                String userNum = Phone_check.phone;
+                String userNum = phone;
                 String userNickname = nickname.getText().toString();
                 String userPassword = password.getText().toString();
                 String passwordcheck = passwordCheck.getText().toString();
@@ -197,6 +275,99 @@ public class FastSignUpActivity extends AppCompatActivity {
 
     String email_end(String email) {
         return email.substring(email.lastIndexOf("@")+1);
+    }
+
+    private void sendVerificationCode(String number) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(number)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    }
+
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential credential) {
+
+            String code = credential.getSmsCode();
+            if(code != null) {
+                auth.setText(code);
+                verifyCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+
+            // Invalid request
+            // The SMS quota for the project has been exceeded
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+            // Show a message and update the UI
+        }
+
+        @Override
+        public void onCodeSent(@NonNull String verificationid,
+                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
+            super.onCodeSent(verificationid, token);
+            verificationId = verificationid;
+
+        }
+    };
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            phone = phone_num.getText().toString();
+                            check = true;
+                            Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+
+    public void AuthCodeTimer() {
+        int delay = mnExitDelay * mnMilliSecond;
+
+        timer = new CountDownTimer(delay, 1000) {
+            @Override
+            public void onTick(long l) {
+                long k =  l / 1000;
+                delay_tv.setVisibility(View.VISIBLE);
+                if(k >= 10) {
+                    delay_tv.setText("00 : " + k);
+                } else {
+                    delay_tv.setText(("00 : 0" + k));
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d("FINISH", "FINISH");
+                delay_tv.setText("");
+                delay_tv.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "제한시간 종료", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
 }

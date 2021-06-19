@@ -62,15 +62,7 @@ public class Phone_check extends AppCompatActivity {
         phone_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(phone_num.length() > 6) {
-                    Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    phoneNum = phone_num.getText().toString();
-                    sendVerificationCode("+82"+phoneNum.substring(1));
-                    if(timer != null) timer.cancel();
-                    timer.start();
-                } else {
-                    Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
 

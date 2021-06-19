@@ -139,7 +139,7 @@
                 android:fontFamily="@font/cookierun"
                 android:gravity="center"
                 android:text="로그인"
-                android:textColor="@color/black"></Button>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -159,7 +159,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="217dp"
+                android:layout_width="190dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="아직 회원이 아니신가요?"
@@ -307,7 +307,7 @@
             android:layout_below="@id/login_coll"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/login"
+            android:background="@color/white"
             android:orientation="vertical" />
     </RelativeLayout>
 

@@ -47,8 +47,8 @@ public class add_Board extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addboard);
 
-        final EditText EDTITLE = findViewById(R.id.editTitle);
-        final EditText EDTEXT = findViewById(R.id.editText);
+        final EditText EDTITLE = findViewById(R.id.addboard_title);
+        final EditText EDTEXT = findViewById(R.id.addboard_text);
         imgView = findViewById(R.id.addImageView);
 
         imgView.setOnClickListener(new View.OnClickListener() {

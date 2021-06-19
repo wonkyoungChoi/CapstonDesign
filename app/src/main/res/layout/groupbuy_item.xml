@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -12,7 +12,7 @@
         android:layout_height="130dp"
         android:layout_margin="10dp"
         android:background="@drawable/custom_buy"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,9 +50,12 @@
 
                     <ImageView
                         android:id="@+id/interest_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_height="25dp" />
+                        android:background="@drawable/interest_prv" />
                 </LinearLayout>
 
                 <TextView

@@ -159,6 +159,17 @@ public class in_chat_room extends AppCompatActivity {
                 EditText_chat.setText(null);
             }
         });
+
+        Button chat_exit;
+
+        chat_exit = (Button)findViewById(R.id.chat_exit);
+        chat_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
     }
 }
 

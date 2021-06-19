@@ -181,7 +181,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             holder.interest_btn.setImageResource(R.drawable.interest_aft);
         }
         holder.title.setText(groupbuyingList.get(position).getTitle());
-        holder.price.setText(groupbuyingList.get(position).getPrice());
+        holder.price.setText(groupbuyingList.get(position).getPrice() + "원");
         holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
         holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
         holder.area.setText(groupbuyingList.get(position).getArea());

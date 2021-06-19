@@ -9,7 +9,7 @@
     android:padding="5dp">
 
     <RelativeLayout
-        android:id="@+id/boardplus_top"
+        android:id="@+id/chatmain_top"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
@@ -17,7 +17,7 @@
         android:background="#FFBB00">
 
         <Button
-            android:id="@+id/exit"
+            android:id="@+id/chat_exit"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/boardplus_top"
+        android:layout_below="@id/chatmain_top"
         android:background="@color/white">
 
         <LinearLayout
@@ -63,7 +63,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/boardplus_mid"
+            android:id="@+id/buy_mid"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_below="@id/boardplus_mid1"
@@ -72,7 +72,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTitle"
+                android:id="@+id/addboard_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -87,25 +87,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/boardplus_mid2"
+            android:id="@+id/buy_mid4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/boardplus_mid"
+            android:layout_below="@id/buy_mid"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/border1"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
+                android:id="@+id/addboard_text"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/border1"
                 android:hint="내용"
                 android:textColor="#000000"
                 android:textColorHint="#939393"

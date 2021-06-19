@@ -39,7 +39,6 @@ public class add_GroupBuying extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 200;
     Profile profile = LoginAcitivity.profile;
     Uri image;
-    ImageView imgView;
     String result;
     public static String titlestr;
     public static String nickstr;
@@ -49,6 +48,7 @@ public class add_GroupBuying extends AppCompatActivity {
     static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
+    ImageView addPhoto;
     Bitmap bitmap;
 
     GroupBuyingCountjsonTask groupBuyingCountjsonTask;
@@ -58,16 +58,13 @@ public class add_GroupBuying extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_board_group_buying);
 
-        final EditText title = findViewById(R.id.title);
-        final EditText text = findViewById(R.id.text);
-        final EditText price = findViewById(R.id.price);
-        final EditText headcount = findViewById(R.id.headCount);
-        final EditText area = findViewById(R.id.area);
-        imgView = findViewById(R.id.addImageView);
+        final EditText title = findViewById(R.id.addbuy_title);
+        final EditText text = findViewById(R.id.addbuy_text);
+        final EditText price = findViewById(R.id.addbuy_price);
+        final EditText headcount = findViewById(R.id.addbuy_headCount);
+        final EditText area = findViewById(R.id.addbuy_area);
 
-        imgView.setVisibility(View.GONE);
-
-        Button addPhoto = findViewById(R.id.photo);
+        addPhoto = findViewById(R.id.buyimageview);
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -203,8 +200,7 @@ public class add_GroupBuying extends AppCompatActivity {
                             Bitmap img = BitmapFactory.decodeStream(in);
                             in.close();
                             // 이미지 표시
-                            imgView.setVisibility(View.VISIBLE);
-                            imgView.setImageBitmap(img);
+                            addPhoto.setImageBitmap(img);
 
                         }
                     } else {
@@ -217,8 +213,7 @@ public class add_GroupBuying extends AppCompatActivity {
                         Bitmap img = BitmapFactory.decodeStream(in);
                         in.close();
                         // 이미지 표시
-                        imgView.setVisibility(View.VISIBLE);
-                        imgView.setImageBitmap(img);
+                        addPhoto.setImageBitmap(img);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -248,8 +243,7 @@ public class add_GroupBuying extends AppCompatActivity {
                         ioException.printStackTrace();
                     }
                     // 이미지 표시
-                    imgView.setVisibility(View.VISIBLE);
-                    imgView.setImageBitmap(img);
+                    addPhoto.setImageBitmap(img);
                 }
             }
         }

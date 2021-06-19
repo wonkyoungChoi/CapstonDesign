@@ -11,6 +11,7 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class in_profile extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     int PICK_IMAGE_REQUEST = 1;
     ProgressDialog mProgressDialog;
+    Button inprofile_exit;
 
     @Override
     public void onBackPressed() {
@@ -84,6 +86,19 @@ public class in_profile extends AppCompatActivity {
         profileCountTask = new ProfileCountTask();
         profileCountjsonTask = new ProfileCountjsonTask();
         profileTask = new ProfileTask();
+
+
+        inprofile_exit = (Button)findViewById(R.id.inprofile_exit);
+        inprofile_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("groupbuyingNum", 4);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         try {
             result = profileTask.execute(profile.getName(), profile.getEmail()).get();

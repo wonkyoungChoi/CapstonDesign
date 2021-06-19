@@ -6,7 +6,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +31,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -38,7 +43,6 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     Profile profile = LoginAcitivity.profile;
     String nickname, text;
     ListView comment_list;
-    TextView time_text;
     EditText comment_edit;
     Comment_Adapter ca;
     CommentTask commentTask;
@@ -65,6 +69,23 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
 
+        TextView content_text = findViewById(R.id.content_text);
+        content_text.setText(text);
+
+        TextView title_text = findViewById(R.id.title_text);
+        title_text.setText(title);
+
+        ImageView imgView = findViewById(R.id.imageHeader);
+        try {
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title + ".jpg")).into(imgView);
+        } catch (Exception e) {
+            Log.d("NOPICTURE", "NOPICTURE");
+        }
+
+
+
+
+
         commentTask = new CommentTask();
 
         //setResult(RESULT_OK, intent);
@@ -80,42 +101,13 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     public void init() throws IOException {
         comment_list = findViewById(R.id.comment_list);
 
-        header = getLayoutInflater().inflate(R.layout.header, null, false);
         footer = getLayoutInflater().inflate(R.layout.footer, null, false);
-        comment_list.addHeaderView(header);
         comment_list.addFooterView(footer);
-        time_text = (TextView) header.findViewById(R.id.time_text);
         setList(); // listview 세팅
-        setHeader(); // header세팅
         setFooter(); // footer세팅
 
     }
 
-    private void setHeader() throws IOException {
-        TextView title_text = header.findViewById(R.id.title_text);
-        title_text.setText(title);
-        TextView content_text = header.findViewById(R.id.content_text);
-        content_text.setText(text);
-        ImageView imgView = header.findViewById(R.id.imageHeader);
-        Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title + ".jpg")).into(imgView);
-        //ImageView imgView = header.findViewById(R.id.imageHeader);
-        //String str = getIntent().getStringExtra("image");
-        //Log.d("STR", str);
-        //Uri uri;
-        // uri = Uri.parse(str);
-        /*
-        Bitmap bitmap = null;
-        try {
-            //Log.d("AAAAA", String.valueOf(uri));
-            image = uri;
-            bitmap = getBitmapFromUri(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        imgView.setImageBitmap(bitmap);
-
-         */
-    }
 
     private void setFooter() {
         comment_edit = (EditText)footer.findViewById(R.id.comment_edit);

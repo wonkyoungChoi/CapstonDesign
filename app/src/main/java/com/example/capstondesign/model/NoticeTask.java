@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.capstondesign.controller.Fragment_board;
 import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.controller.in_notice;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,15 +17,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class BoardTask {
-    public static ArrayList<Board> boardlist = Fragment_board.board;
+public class NoticeTask {
+    public static ArrayList<Board> noticelist = in_notice.board;
     Board board;
     String nick, title, text;
 
-    public BoardTask() {
+    public NoticeTask() {
         try {
             //Log.d("TTTTTTTTTT", downloadUrl());
-            jsonParsing(downloadUrl(), boardlist);
+            jsonParsing(downloadUrl(), noticelist);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,7 @@ public class BoardTask {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url = new URL("http://13.124.75.92:8080/boardjson.jsp");
+            URL url = new URL("http://13.124.75.92:8080/noticejson.jsp");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.connect();

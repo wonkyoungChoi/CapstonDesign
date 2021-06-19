@@ -19,19 +19,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class SignUpTask extends AsyncTask<String, Void, String> {
+public class ChangePasswordTask extends AsyncTask<String, Void, String> {
     String sendMsg, receiveMsg;
     @Override
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://13.124.75.92:8080/sign_up.jsp");
+            URL url = new URL("http://13.124.75.92:8080/change_password.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "name="+strings[0]+"&phone_num="+strings[1]+"&email_front="+strings[2]+"&email_end="+strings[3]+"&nick="+strings[4]
-                    +"&pwd="+strings[5] +"&gender="+strings[6];
+            sendMsg = "nick=" + strings[0] + "&password=" + strings[1] + "&change_password=" + strings[2];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {
@@ -53,23 +52,5 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
         return receiveMsg;
-    }
-
-    public static class DuplicateCheck {
-        public DuplicateCheck(String result, Context context, Activity activity) {
-            if(result.contains("sameNumEmail/")) {
-                Toast.makeText(context, "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
-            } else if (result.contains("sameNum/")){
-                Toast.makeText(context, "폰번호 중복", Toast.LENGTH_SHORT).show();
-            }  else if (result.contains("sameEmail/")) {
-                Toast.makeText(context, "이메일 중복", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(context, "회원가입 완료", Toast.LENGTH_SHORT).show();
-                Log.d("리턴 값", result);
-                Intent intent = new Intent(context, LoginAcitivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                activity.startActivity(intent);
-            }
-        }
     }
 }

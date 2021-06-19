@@ -17,18 +17,16 @@
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="#FFCD12"
-
-            >
+            android:background="#FFCD12">
 
             <TextView
-                android:id="@+id/chatting"
+                android:id="@+id/notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/cookierun"
                 android:gravity="center"
-                android:text="게시판"
+                android:text="공지사항"
                 android:textColor="#751400"
                 android:textSize="23sp" />
 
@@ -46,34 +44,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/bs_top"
-            android:layout_centerInParent="true">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="32dp"
-                android:foregroundGravity="center_vertical"
-                app:cardBackgroundColor="#751400"
-                app:cardCornerRadius="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <Button
-                    android:id="@+id/addbutton"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_baseline_create_24"
-                    android:gravity="center" />
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </RelativeLayout>
