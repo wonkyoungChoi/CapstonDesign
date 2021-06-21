@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.InGroupBuyProfileCountTask;
+import com.example.capstondesign.model.InWatchlistProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
+import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.model.addWatchlistTask;
 import com.example.capstondesign.view.BuySubAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
@@ -35,6 +37,7 @@ import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.GroupBuyingCountjsonTask;
+import com.example.capstondesign.view.WatchlistAdapter;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -42,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class BuySubMain extends AppCompatActivity {
+public class BuySubMain_watchlist extends AppCompatActivity {
 
     public static String numberGroupBuying;
     Button add, cancel, buyback, countadd, countdel;
@@ -52,14 +55,14 @@ public class BuySubMain extends AppCompatActivity {
     String mynick = ChatAdapter.nick;
     public static String number, nickname, email, count;
     String strurl;
-    InGroupBuyProfileCountTask inGroupBuyProfileCountTask;
+    InWatchlistProfileCountTask inWatchlistProfileCountTask;
     String real_nick;
     String message;
     Intent intent;
     int set, max_count;
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
-    GroupBuyingCountjsonTask groupBuyingCountjsonTask;
+    WatchlistCountjson watchlistCountjson;
     addWatchlistTask addWatchlistTask;
 
     ImageView interest_btn;
@@ -71,9 +74,6 @@ public class BuySubMain extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-        intent.putExtra("groupbuyingNum", 2);
-        startActivity(intent);
         finish();
     }
 
@@ -108,7 +108,7 @@ public class BuySubMain extends AppCompatActivity {
 
         nickname = intent.getStringExtra("nick");
 
-        inGroupBuyProfileCountTask = new InGroupBuyProfileCountTask();
+        inWatchlistProfileCountTask = new InWatchlistProfileCountTask();
 
         try {
             //
@@ -208,10 +208,11 @@ public class BuySubMain extends AppCompatActivity {
             }
         });
 
-        groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
 
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         pager2 = findViewById(R.id.pager2);
+
+        watchlistCountjson = new WatchlistCountjson();
 
 //        List<BuySubSlideritem> itemList = new ArrayList<>();
 //        itemList.add(new BuySubSlideritem(R.drawable.one));
@@ -219,12 +220,12 @@ public class BuySubMain extends AppCompatActivity {
 //        itemList.add(new BuySubSlideritem(R.drawable.three));
 //        itemList.add(new BuySubSlideritem(R.drawable.four));
         Log.d("counthashcode", count);
-        Log.d("counthashcode", GroupBuyingAdapter.click_title.hashCode() + count);
+        Log.d("counthashcode", WatchlistAdapter.click_title.hashCode() + count);
         List<BuySubSlideritem> itemList = new ArrayList<>();
         Log.d("numberGroupbyuing", numberGroupBuying);
         for(int i = 0; i < Integer.parseInt(numberGroupBuying); i++) { // MySQL 길이
-            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count + ".jpg"));
-            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count +  i + ".jpg"));
+            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + WatchlistAdapter.click_title.hashCode() + count + ".jpg"));
+            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + WatchlistAdapter.click_title.hashCode() + count +  i + ".jpg"));
         }
 
         pager2.setAdapter(new BuySubAdapter(itemList,pager2));
@@ -234,8 +235,7 @@ public class BuySubMain extends AppCompatActivity {
         buyback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                intent.putExtra("groupbuyingNum", 2);
+                Intent intent = new Intent(getApplicationContext(), in_watchlist.class);
                 startActivity(intent);
                 finish();
             }

@@ -78,6 +78,8 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
         DeleteCommentTask deleteCommentTask = new DeleteCommentTask();
         final int tag = Integer.parseInt(v.getTag().toString());
         Log.d("FFFFFFFF", nickname);
+        Log.d("AAAAAA", arr.get(tag).getNick());
+        Log.d("TAG", String.valueOf(tag));
         switch(v.getId()){
             case R.id.delete_btn:
                 AlertDialog.Builder alertDlg = new AlertDialog.Builder(mActivity);
@@ -87,8 +89,8 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
 
                         String result = null;
                         try {
-                            result = deleteCommentTask.execute(arr.get(pos).getNick(), FreeBoard.title , arr.get(pos).getComment()).get();
-                            if(arr.get(pos).getNick().equals(nickname)) {
+                            if(arr.get(tag).getNick().equals(nickname)) {
+                                result = deleteCommentTask.execute(arr.get(tag).getNick(), FreeBoard.title , arr.get(tag).getComment(), arr.get(tag).getTime()).get();
                                 if (result.contains("delete")) {
                                     deleteArr(tag);
                                     Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.example.capstondesign.view;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addWatchlistTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -65,7 +67,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             nowCount = (TextView) itemView.findViewById(R.id.nowCount);
             area = (TextView) itemView.findViewById(R.id.area);
             interest_btn = (ImageView) itemView.findViewById(R.id.interest_btn);
-
+            imageView = (ImageView) itemView.findViewById(R.id.buyimage);
 
             interest_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,11 +143,14 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                 getNick();
                 String title = Fragment_Groupbuy.groupbuying.get(position).getTitle();
                 String nick = Fragment_Groupbuy.groupbuying.get(position).getNick();
+                String text = Fragment_Groupbuy.groupbuying.get(position).getText();
+                String price = Fragment_Groupbuy.groupbuying.get(position).getPrice();
+                String area = Fragment_Groupbuy.groupbuying.get(position).getArea();
 
-                Log.d("관심목록 클릭", "title");
+                Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, nick).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);
@@ -164,18 +169,8 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         });
 
 
-        /*
-        if(groupbuyingList.get(position).image != null) {
-            holder.nick.setText(groupbuyingList.get(position).nick);
-            holder.imageView.setImageURI(groupbuyingList.get(position).image);
-            holder.title.setText(groupbuyingList.get(position).title);
-            holder.text.setText(groupbuyingList.get(position).text);
-        }
-         else {
-
-         */
         Log.d("WATCHNICK", groupbuyingList.get(position).getWatchnick());
-//            Log.d("MYNICK", mynick1);
+
         if(groupbuyingList.get(position).getWatchnick().contains(mynick1 + ",")) {
             Log.d("등록", "등록");
             holder.interest_btn.setImageResource(R.drawable.interest_aft);
@@ -185,8 +180,10 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
         holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
         holder.area.setText(groupbuyingList.get(position).getArea());
-        //holder.imageView.setVisibility(View.GONE);
 
+        String get = "http://13.124.75.92:8080/upload/" + groupbuyingList.get(position).getBuy_image();
+        Log.d("getPhoto", get);
+        Picasso.get().load(Uri.parse(get)).into(holder.imageView);
 
 
     }

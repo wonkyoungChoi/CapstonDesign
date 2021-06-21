@@ -45,6 +45,7 @@ public class add_GroupBuying extends AppCompatActivity {
     public static String count;
     public static String subMainCount;
     String nick, nickname, textstr, pricestr, headcountstr, areastr, number;
+    Button back;
     static Uri fileGroupBuying[];
     ProgressDialog mProgressDialog;
     Intent intent;
@@ -63,6 +64,14 @@ public class add_GroupBuying extends AppCompatActivity {
         final EditText price = findViewById(R.id.addbuy_price);
         final EditText headcount = findViewById(R.id.addbuy_headCount);
         final EditText area = findViewById(R.id.addbuy_area);
+
+        back = (Button)findViewById(R.id.group_exit);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         addPhoto = findViewById(R.id.buyimageview);
         addPhoto.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +172,7 @@ public class add_GroupBuying extends AppCompatActivity {
     void addGroupTask() {
         addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
         addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr, number);
-        Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "");
+        Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "", titlestr.hashCode() + count + ".jpg");
         GroupBuyingTask.groupbuyinglist.add(groupbuying);
         Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
         finish();

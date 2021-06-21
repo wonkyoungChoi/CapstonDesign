@@ -28,6 +28,7 @@ import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addCommentTask;
 import com.squareup.picasso.Picasso;
+import com.example.capstondesign.model.BoardCountjsonTask;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -39,7 +40,7 @@ import java.util.concurrent.ExecutionException;
 public class FreeBoard extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
-    public static String title, nick;
+    public static String title, nick, countBoard;
     Profile profile = LoginAcitivity.profile;
     String nickname, text;
     ListView comment_list;
@@ -47,6 +48,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     Comment_Adapter ca;
     CommentTask commentTask;
     Bitmap img;
+    BoardCountjsonTask boardCountjsonTask;
     public static ArrayList<Comment_Item> c_arr = new ArrayList<>();
     View header, footer;
     Fragment_board ma;
@@ -54,7 +56,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     private final int GET_STRING = 1;
     Uri image;
     int REQUEST = 111;
-
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +64,13 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         c_arr.clear();
         getNick();
 
-
         intent = getIntent();
 
         title = getIntent().getStringExtra("title");
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
+
+        boardCountjsonTask = new BoardCountjsonTask();
 
         TextView content_text = findViewById(R.id.content_text);
         content_text.setText(text);
@@ -77,12 +80,21 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
 
         ImageView imgView = findViewById(R.id.imageHeader);
         try {
-            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title + ".jpg")).into(imgView);
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title.hashCode() + countBoard + ".jpg")).into(imgView);
         } catch (Exception e) {
             Log.d("NOPICTURE", "NOPICTURE");
         }
 
-
+        back = (Button)findViewById(R.id.inboard_exit);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("boardNum", 1);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
 
@@ -98,9 +110,10 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
 
     }
 
+
+
     public void init() throws IOException {
         comment_list = findViewById(R.id.comment_list);
-
         footer = getLayoutInflater().inflate(R.layout.footer, null, false);
         comment_list.addFooterView(footer);
         setList(); // listview 세팅
@@ -128,13 +141,14 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.input_btn:
+                long now = System.currentTimeMillis();
                 String temp = comment_edit.getText().toString();
                 if(temp.equals("")) {
                     Toast.makeText(getApplicationContext(), "빈칸입니다.", Toast.LENGTH_LONG).show();
                 } else {
                     addCommentTask addCommentTask = new addCommentTask();
-                    addCommentTask.execute(title, nick, temp, nickname);
-                    Comment_Item ci = new Comment_Item(nickname, temp);
+                    addCommentTask.execute(title, nick, temp, nickname, String.valueOf(now));
+                    Comment_Item ci = new Comment_Item(nickname, temp, String.valueOf(now));
                     c_arr.add(ci);
                     resetAdapter();
                     comment_edit.setText("");
@@ -146,19 +160,6 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
 
     public void resetAdapter() {
         ca.notifyDataSetChanged();
-    }
-    public void deleteArr(int p) {
-        c_arr.remove(p);
-        ca.notifyDataSetChanged();
-    }
-
-    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
-        ParcelFileDescriptor parcelFileDescriptor =
-                getContentResolver().openFileDescriptor(uri, "r");
-        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-        parcelFileDescriptor.close();
-        return image;
     }
 
     void getNick() {

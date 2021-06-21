@@ -30,7 +30,7 @@ public class addCommentTask extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "title="+strings[0]+"&nick="+strings[1]+"&comment="+strings[2]+"&co_nick="+strings[3];
+            sendMsg = "title="+strings[0]+"&nick="+strings[1]+"&comment="+strings[2]+"&co_nick="+strings[3] +"&time="+strings[4];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {

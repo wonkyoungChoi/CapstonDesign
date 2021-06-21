@@ -75,6 +75,7 @@ public class in_setting extends AppCompatActivity {
         builder.setTitle("회원탈퇴").setMessage("비밀번호를 입력해주세요.");
 
         final EditText et = new EditText(in_setting.this);
+
         builder.setView(et);
 
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {

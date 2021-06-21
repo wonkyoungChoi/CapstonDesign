@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
+import com.example.capstondesign.model.BoardCountjsonTask;
 import com.example.capstondesign.view.BoardAdapter;
 import com.example.capstondesign.model.BoardTask;
 
@@ -101,6 +102,7 @@ public class Fragment_board extends Fragment {
         boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                BoardCountjsonTask.positionBoard = pos + 1;
                 nick = BoardAdapter.click_nickname;
                 title = BoardAdapter.click_title;
                 text = BoardAdapter.click_text;

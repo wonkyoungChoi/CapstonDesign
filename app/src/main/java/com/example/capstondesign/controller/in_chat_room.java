@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class in_chat_room extends AppCompatActivity {
     String othername, name;
     Boolean check;
     LastMsgTask lastMsgTask;
+    TextView chat_nick_name;
 
 
     @Override
@@ -67,11 +69,15 @@ public class in_chat_room extends AppCompatActivity {
         setContentView(R.layout.chat_page);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        chat_nick_name = findViewById(R.id.chat_nick_name);
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         Log.d("NAME", name);
         Log.d("NAME1111", ChatAdapter.nick);
+
+        chat_nick_name.setText(name + "님과의 대화");
+
         //방 이름을 미리 저장해둠
         othername = name;
         check = intent.getExtras().getBoolean("check");

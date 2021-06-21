@@ -30,7 +30,7 @@ public class DeleteCommentTask extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "co_nick="+strings[0]+"&title="+strings[1]+"&comment="+strings[2];
+            sendMsg = "co_nick="+strings[0]+"&title="+strings[1]+"&comment="+strings[2] +"&time="+strings[3];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {

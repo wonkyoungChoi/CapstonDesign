@@ -50,7 +50,6 @@
         <activity android:name=".controller.Fragment_main" />
         <activity android:name=".controller.SignUpActivity" />
         <activity android:name=".controller.FastSignUpActivity" />
-        <activity android:name=".controller.add_chat" />
         <activity android:name=".controller.in_chat_room"/>
         <activity android:name=".controller.LoginAcitivity" />
         <activity android:name=".controller.add_Board"/>
@@ -69,6 +68,7 @@
         <activity android:name=".controller.in_notice"/>
         <activity android:name=".controller.notice_inside"/>
         <activity android:name=".controller.in_withdraw"/>
+        <activity android:name=".controller.BuySubMain_watchlist"/>
 
     </application>
 

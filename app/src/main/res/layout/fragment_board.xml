@@ -42,7 +42,12 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:scrollbarFadeDuration="1"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbars="vertical"
+            >
 
         </androidx.recyclerview.widget.RecyclerView>
 

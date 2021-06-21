@@ -17,7 +17,7 @@
         android:background="#FFBB00">
 
         <Button
-            android:id="@+id/chat_exit"
+            android:id="@+id/board_exit"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"

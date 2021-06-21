@@ -6,16 +6,21 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.WatchlistCountjson;
+import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.view.WatchlistAdapter;
 import com.example.capstondesign.model.WatchlistTask;
 import com.example.capstondesign.model.addWatchlistTask;
@@ -25,11 +30,13 @@ import java.util.concurrent.ExecutionException;
 
 public class in_watchlist extends AppCompatActivity {
 
-    public String mynick, nick, title, text;
+    public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
     ImageView buynotify;
     public static Uri image;
     Profile profile = LoginAcitivity.profile;
+    Button back;
+    public static int position;
 
     public static WatchlistAdapter watchlistAdapter;
     WatchlistTask watchlistTask;
@@ -48,6 +55,18 @@ public class in_watchlist extends AppCompatActivity {
 
         getNick();
 
+
+        back = (Button)findViewById(R.id.listback);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.putExtra("profileNum", 4);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         //GALLERY(); // 허가
         watchlist.clear();
         watchlistTask = new WatchlistTask();
@@ -62,19 +81,44 @@ public class in_watchlist extends AppCompatActivity {
         recyclerView.setAdapter(watchlistAdapter);
 
 
-        //관심목록 클릭
         watchlistAdapter.setOnItemClickListener(new WatchlistAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                position = pos;
+                WatchlistCountjson.position = pos + 1;
+                nick = watchlist.get(pos).getNick();
+                title = watchlist.get(pos).getTitle();
+                text = watchlist.get(pos).getText();
+                area = watchlist.get(pos).getArea();
+                price = watchlist.get(pos).getPrice();
+                headCount = watchlist.get(pos).getHeadcount();
+                nowCount = watchlist.get(pos).getNowCount();
+                watchnick = watchlist.get(pos).getWatchnick();
+                Log.d("onItemClick", Integer.toString(pos));
 
-                String title = watchlist.get(pos).getTitle();
-                String nick = watchlist.get(pos).getNick();
-                Log.d("관심목록 클릭", "title");
-                addWatchlistTask addWatchlistTask = new addWatchlistTask();
-                addWatchlistTask.execute(mynick, title, nick);
-                finish();
-                Intent intent = new Intent(getApplicationContext(), in_watchlist.class);
+                getPosition(position);
+                Intent intent = new Intent(getApplicationContext(), BuySubMain_watchlist.class);
+                intent.putExtra("price", price);
+                intent.putExtra("title", title);
+                intent.putExtra("text", text);
+                intent.putExtra("nick", nick);
+                intent.putExtra("area", area);
+                intent.putExtra("headcount", headCount);
+                intent.putExtra("nowcount", nowCount);
+                intent.putExtra("watchnick", watchnick);
+                //intent.putExtra("count", pos);
                 startActivity(intent);
+            }
+        });
+
+
+
+        //관심목록 클릭
+        watchlistAdapter.setOnInterestClickListener(new WatchlistAdapter.OnInterestClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+
+                Toast.makeText(getApplicationContext(), "관심목록 버튼 클릭", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,18 +129,26 @@ public class in_watchlist extends AppCompatActivity {
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 이동
+                Intent intent = new Intent(getApplicationContext(),Search.class);
+                startActivity(intent);
+                finish();
             }
         });
 
         buynotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //이동
+                Intent intent = new Intent(getApplicationContext(),Notice.class);
+                startActivity(intent);
+                finish();
             }
         });
 
 
+    }
+
+    private void getPosition(int position) {
+        this.position = position;
     }
 
     void getNick() {

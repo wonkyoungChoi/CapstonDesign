@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class WatchlistTask {
     public static ArrayList<Groupbuying> watchlist = in_watchlist.watchlist;
     Groupbuying groupbuying;
-    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick;
+    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick, count;
     Profile profile = LoginAcitivity.profile;
 
     public WatchlistTask() {
@@ -76,17 +76,17 @@ public class WatchlistTask {
                 area = GroupbuyingObject.getString("area");
                 text = GroupbuyingObject.getString("text");
                 watchnick = GroupbuyingObject.getString("watchnick");
+                count = GroupbuyingObject.getString("count");
                 Log.d("PRICE", price);
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
                 Log.d("WATCHNICK", watchnick);
                 Log.d("MYNICK", LoginAcitivity.profile.nickname + ",");
 
-                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick);
+                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + count + ".jpg");
 
                 if(groupbuying.watchnick.contains(profile.nickname + ",")) {
-
-                board1.add(groupbuying);
+                    board1.add(groupbuying);
             }
 
             }

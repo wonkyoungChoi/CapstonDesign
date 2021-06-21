@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Fragment_Groupbuy extends Fragment {
 
-    public String mynick, nick, title, text, area, price, headCount, nowCount, watchlist;
+    public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
     ImageView buynotify;
     public static Uri image;
@@ -120,6 +120,7 @@ public class Fragment_Groupbuy extends Fragment {
                 price = groupbuying.get(pos).getPrice();
                 headCount = groupbuying.get(pos).getHeadcount();
                 nowCount = groupbuying.get(pos).getNowCount();
+                watchnick = groupbuying.get(pos).getWatchnick();
                 Log.d("onItemClick", Integer.toString(pos));
 
                 getPosition(position);
@@ -131,6 +132,7 @@ public class Fragment_Groupbuy extends Fragment {
                 intent.putExtra("area", area);
                 intent.putExtra("headcount", headCount);
                 intent.putExtra("nowcount", nowCount);
+                intent.putExtra("watchnick", watchnick);
                 //intent.putExtra("count", pos);
                 startActivity(intent);
             }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class CommentTask {
     public static ArrayList<Comment_Item> comment_items = FreeBoard.c_arr;
     Comment_Item comment_item;
-    String nick, title, comment, co_nick;
+    String nick, title, comment, co_nick, time;
 
     public CommentTask() {
         try {
@@ -69,12 +69,12 @@ public class CommentTask {
                 title = CommentObject.getString("title");
                 comment = CommentObject.getString("comment");
                 co_nick = CommentObject.getString("co_nick");
+                time = CommentObject.getString("time");
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
 
                 if(nick.equals(FreeBoard.nick) && title.equals(FreeBoard.title)) {
-                    comment_item = new Comment_Item(co_nick, comment);
-
+                    comment_item = new Comment_Item(co_nick, comment, time);
                     comment_items.add(comment_item);
                 }
 

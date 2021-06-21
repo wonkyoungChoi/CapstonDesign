@@ -19,18 +19,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class addWatchlistTask extends AsyncTask<String, Void, String> {
+public class SearchGroupbuyingTask extends AsyncTask<String, Void, String> {
     String sendMsg, receiveMsg;
     @Override
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://13.124.75.92:8080/add_watchlist.jsp");
+            URL url = new URL("http://13.124.75.92:8080/search_groupbuy.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "watchnick="+strings[0]+"&title="+strings[1] +"&text="+strings[2] +"&price="+strings[3] +"&area="+strings[4] +"&nick="+strings[5];
+            sendMsg = "search="+strings[0];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {
@@ -53,4 +53,5 @@ public class addWatchlistTask extends AsyncTask<String, Void, String> {
         }
         return receiveMsg;
     }
+
 }

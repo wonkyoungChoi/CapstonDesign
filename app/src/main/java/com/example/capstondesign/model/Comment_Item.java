@@ -1,11 +1,12 @@
 package com.example.capstondesign.model;
 
 public class Comment_Item {
-    private String nick, comment;
+    private String nick, comment, time;
 
-    public Comment_Item(String nick, String comment) {
+    public Comment_Item(String nick, String comment, String time) {
         this.nick = nick;
         this.comment = comment;
+        this.time = time;
     }
 
     public String getNick() {
@@ -22,5 +23,13 @@ public class Comment_Item {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
