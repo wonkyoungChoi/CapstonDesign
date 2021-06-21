@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="1"
-                android:background="#FFDF24">
+                android:background="#FFBB00">
 
                 <TextView
                     android:id="@+id/title"

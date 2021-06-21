@@ -75,22 +75,6 @@ public class Fragment_home extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        // bell
-        animationView = v.findViewById(R.id.bell);
-        animationView.setVisibility(animationView.VISIBLE);
-        animationView.playAnimation();
-
-        //bell onclick
-        bellclick = (FrameLayout) v.findViewById(R.id.bellclick);
-        bellclick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(),Notice.class);
-                startActivity(intent);
-            }
-        });
-
-
         //sliderview
         sliderView = v.findViewById(R.id.image_slider);
 

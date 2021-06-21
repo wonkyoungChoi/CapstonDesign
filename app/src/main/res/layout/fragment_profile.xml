@@ -159,7 +159,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/custom_change"
                 android:fontFamily="@font/cookierun"
-                android:text="거래목록"
+                android:text="내가 쓴 글"
                 android:textColor="@color/black" />
 
             <Button

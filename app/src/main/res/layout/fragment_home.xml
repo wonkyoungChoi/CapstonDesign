@@ -18,26 +18,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="110dp"
             android:background="@color/white"
             android:orientation="vertical" />
 
-        <FrameLayout
-            android:id="@+id/bellclick"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="right">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/bell"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="right"
-                android:scaleType="centerCrop"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/bell" />
-        </FrameLayout>
 
     </LinearLayout>
 

@@ -99,45 +99,49 @@ public class add_GroupBuying extends AppCompatActivity {
                 Log.d("에러 찾기", "여기서?");
 
                 if (fileGroupBuying != null) {
-                    addGroupTask(); // count가 1으로 설정이 되고
+                    if(titlestr.trim().length() > 3 && pricestr.trim().length() >0 && headcountstr.trim().length() > 0 && textstr.trim().length() > 3 && areastr.trim().length() >1) {
+                        addGroupTask(); // count가 1으로 설정이 되고
 
-                    for (int i = 0; i < fileGroupBuying.length; i++) {
-                        try {
-                            InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
-                            // "/data/data/패키지 이름/files/copy.jpg" 저장
-                            Log.d("에러 찾기", "여기서?3");
-                            Log.d("ABCDE", titlestr);
-                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr.hashCode() + time + ".jpg", 0);
-                            Log.d("countadd", titlestr.hashCode() + "");
+                        for (int i = 0; i < fileGroupBuying.length; i++) {
+                            try {
+                                InputStream ins = getContentResolver().openInputStream(fileGroupBuying[i]);
+                                // "/data/data/패키지 이름/files/copy.jpg" 저장
+                                Log.d("에러 찾기", "여기서?3");
+                                Log.d("ABCDE", titlestr);
+                                FileOutputStream fos = getApplicationContext().openFileOutput(titlestr.hashCode() + time + ".jpg", 0);
+                                Log.d("countadd", titlestr.hashCode() + "");
 
-                            Log.d("에러 찾기", "여기서?4");
+                                Log.d("에러 찾기", "여기서?4");
 
-                            byte[] buffer = new byte[1024 * 100];
+                                byte[] buffer = new byte[1024 * 100];
 
-                            while (true) {
-                                int data = ins.read(buffer);
-                                if (data == -1) {
-                                    break;
+                                while (true) {
+                                    int data = ins.read(buffer);
+                                    if (data == -1) {
+                                        break;
+                                    }
+
+                                    fos.write(buffer, 0, data);
                                 }
 
-                                fos.write(buffer, 0, data);
+                                ins.close();
+                                fos.close();
+
+                                new UploadFileAsyncGroupBuying().execute().get();
+                                Log.d("UploadFile", "됬다");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.d("IOException", e.getMessage());
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                Log.d("InterrException", e.getMessage());
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                                Log.d("ExecutionException", e.getMessage());
                             }
-
-                            ins.close();
-                            fos.close();
-
-                            new UploadFileAsyncGroupBuying().execute().get();
-                            Log.d("UploadFile", "됬다");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.d("IOException", e.getMessage());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Log.d("InterrException", e.getMessage());
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                            Log.d("ExecutionException", e.getMessage());
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "내용을 제대로 작성해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();

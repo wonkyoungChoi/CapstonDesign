@@ -18,15 +18,15 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.WatchlistCountjson;
+import com.example.capstondesign.model.ShowGroupBuyingTask;
+import com.example.capstondesign.model.ShowGroupBuyingjson;
+import com.example.capstondesign.view.ShowGroupBuyingAdapter;
 import com.example.capstondesign.view.WatchlistAdapter;
-import com.example.capstondesign.model.WatchlistTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class in_watchlist extends AppCompatActivity {
-
+public class showMyGroupBuying extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
     ImageView buynotify;
@@ -35,66 +35,64 @@ public class in_watchlist extends AppCompatActivity {
     Button back;
     public static int position;
 
-    public static WatchlistAdapter watchlistAdapter;
-    WatchlistTask watchlistTask;
-    public static ArrayList<Groupbuying> watchlist = new ArrayList<>();;
+    public static ShowGroupBuyingAdapter showGroupBuyingAdapter;
+    ShowGroupBuyingTask showGroupBuyingTask;
+    public static ArrayList<Groupbuying> showGroupBuying = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.in_watchlist);
+        setContentView(R.layout.show_groupbuying);
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
-
+        RecyclerView recyclerView = findViewById(R.id.rvshowgroupbuying);
+        getNick();
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        getNick();
-
-
-        back = (Button)findViewById(R.id.listback);
+        back = findViewById(R.id.listbackshowgroupbuying);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
                 intent.putExtra("profileNum", 4);
                 startActivity(intent);
-                finish();
             }
         });
 
         //GALLERY(); // 허가
-        watchlist.clear();
-        watchlistTask = new WatchlistTask();
+        showGroupBuying.clear();
+        showGroupBuyingTask = new ShowGroupBuyingTask();
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        watchlistAdapter = new WatchlistAdapter(watchlist);
+        Log.d("CHECK", showGroupBuying.get(0).getNick());
 
+        showGroupBuyingAdapter = new ShowGroupBuyingAdapter(showGroupBuying);
+        recyclerView.setAdapter(showGroupBuyingAdapter);
 
-        recyclerView.setAdapter(watchlistAdapter);
+        showGroupBuyingAdapter.setOnItemClickListener(new ShowGroupBuyingAdapter.OnItemClickListener(){
 
-
-        watchlistAdapter.setOnItemClickListener(new WatchlistAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 position = pos;
-                WatchlistCountjson.position = pos + 1;
-                nick = watchlist.get(pos).getNick();
-                title = watchlist.get(pos).getTitle();
-                text = watchlist.get(pos).getText();
-                area = watchlist.get(pos).getArea();
-                price = watchlist.get(pos).getPrice();
-                headCount = watchlist.get(pos).getHeadcount();
-                nowCount = watchlist.get(pos).getNowCount();
-                watchnick = watchlist.get(pos).getWatchnick();
+                ShowGroupBuyingjson.position = pos + 1;
+                nick = showGroupBuying.get(pos).getNick();
+                title = showGroupBuying.get(pos).getTitle();
+                text = showGroupBuying.get(pos).getText();
+                area = showGroupBuying.get(pos).getArea();
+                price = showGroupBuying.get(pos).getPrice();
+                headCount = showGroupBuying.get(pos).getHeadcount();
+                nowCount = showGroupBuying.get(pos).getNowCount();
+                watchnick = showGroupBuying.get(pos).getWatchnick();
+                Log.d("CheckItem", nick + title + price);
                 Log.d("onItemClick", Integer.toString(pos));
 
                 getPosition(position);
-                Intent intent = new Intent(getApplicationContext(), BuySubMain_watchlist.class);
+                Intent intent = new Intent(getApplicationContext(), BuySubMain_showGroupBuying.class);
                 intent.putExtra("price", price);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
@@ -108,10 +106,8 @@ public class in_watchlist extends AppCompatActivity {
             }
         });
 
-
-
         //관심목록 클릭
-        watchlistAdapter.setOnInterestClickListener(new WatchlistAdapter.OnInterestClickListener() {
+        showGroupBuyingAdapter.setOnInterestClickListener(new ShowGroupBuyingAdapter.OnInterestClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
 
@@ -119,19 +115,16 @@ public class in_watchlist extends AppCompatActivity {
             }
         });
 
-
-        buysearch = (ImageView) findViewById(R.id.buysearch);
+        buysearch = (ImageView) findViewById(R.id.show_groupbuying_search);
 
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Search.class);
+                Intent intent = new Intent(getApplicationContext(), Search.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-
 
     }
 

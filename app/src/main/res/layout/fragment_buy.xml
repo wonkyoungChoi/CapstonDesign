@@ -23,10 +23,10 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:fontFamily="@font/cookierun"
-            android:gravity="left|center_vertical"
-            android:text="초월읍"
+            android:gravity="center"
+            android:text="공동구매"
             android:textColor="#751400"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
 
         <ImageView
             android:id="@+id/buysearch"
@@ -34,13 +34,6 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             app:srcCompat="@drawable/ic_baseline_search_24" />
-
-        <ImageView
-            android:id="@+id/buynotify"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            app:srcCompat="@drawable/ic_baseline_notifications_active_24" />
     </LinearLayout>
 
     <FrameLayout

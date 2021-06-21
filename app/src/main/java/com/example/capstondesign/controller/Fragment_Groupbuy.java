@@ -33,12 +33,10 @@ public class Fragment_Groupbuy extends Fragment {
 
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
-    ImageView buynotify;
     public static Uri image;
     Profile profile = LoginAcitivity.profile;
     public static int position;
 
-    public GroupBuyingTimejsonTask groupBuyingTimejsonTask;
     public static GroupBuyingAdapter groupBuyingAdapter;
     GroupBuyingTask groupBuyingTask;
     public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();;
@@ -155,7 +153,6 @@ public class Fragment_Groupbuy extends Fragment {
 
 
         buysearch = (ImageView)v.findViewById(R.id.buysearch);
-        buynotify = (ImageView)v.findViewById(R.id.buynotify);
 
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,12 +162,6 @@ public class Fragment_Groupbuy extends Fragment {
             }
         });
 
-        buynotify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이동
-            }
-        });
 
 
 

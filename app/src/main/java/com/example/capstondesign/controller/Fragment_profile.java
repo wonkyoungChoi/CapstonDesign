@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 public class Fragment_profile extends Fragment {
     String nickname;
     TextView nicknameTv;
-    Button logout, in_profilebtn, in_watchlist, setupbtn, noticebtn;
+    Button logout, in_profilebtn, in_watchlist, setupbtn, noticebtn, tradebtn;
     int login = LoginAcitivity.login;
     public static String number;
     String strurl;
@@ -170,6 +170,16 @@ public class Fragment_profile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), in_setting.class);
+                startActivity(intent);
+            }
+        });
+
+        tradebtn = v.findViewById(R.id.tradebtn);
+
+        tradebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), in_board.class);
                 startActivity(intent);
             }
         });

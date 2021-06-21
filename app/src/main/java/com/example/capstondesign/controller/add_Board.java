@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,48 +89,52 @@ public class add_Board extends AppCompatActivity {
                 nick = nickname;
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
+                if(title.trim().length() >3 || text.trim().length() >3) {
+                    if(fileBoard != null) {
 
-                if(fileBoard != null) {
-
-                    for (int i = 0; i < fileBoard.length; i++) {
-                        try {
-                            InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
-                            // "/data/data/패키지 이름/files/copy.jpg" 저장
-                            Log.d("에러 찾기", "여기서?3");
-                            FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
+                        for (int i = 0; i < fileBoard.length; i++) {
+                            try {
+                                InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
+                                // "/data/data/패키지 이름/files/copy.jpg" 저장
+                                Log.d("에러 찾기", "여기서?3");
+                                FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
 
 
-                            Log.d("에러 찾기", "여기서?4");
+                                Log.d("에러 찾기", "여기서?4");
 
-                            byte[] buffer = new byte[1024 * 100];
+                                byte[] buffer = new byte[1024 * 100];
 
-                            while (true) {
-                                int data = ins.read(buffer);
-                                if (data == -1) {
-                                    break;
+                                while (true) {
+                                    int data = ins.read(buffer);
+                                    if (data == -1) {
+                                        break;
+                                    }
+
+                                    fos.write(buffer, 0, data);
                                 }
 
-                                fos.write(buffer, 0, data);
+                                ins.close();
+                                fos.close();
+
+                                new UploadFileAsyncBoard().execute().get();
+                                Log.d("UploadFile", "됬다");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.d("IOException", e.getMessage());
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                Log.d("InterrException", e.getMessage());
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                                Log.d("ExecutionException", e.getMessage());
                             }
-
-                            ins.close();
-                            fos.close();
-
-                            new UploadFileAsyncBoard().execute().get();
-                            Log.d("UploadFile", "됬다");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.d("IOException", e.getMessage());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Log.d("InterrException", e.getMessage());
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                            Log.d("ExecutionException", e.getMessage());
                         }
                     }
+
+                    addBoardTask();
+                } else {
+                    Toast.makeText(getApplicationContext(), "제목이나 내용이 너무 짧습니다.", Toast.LENGTH_SHORT).show();
                 }
-                addBoardTask();
 
             }
         });

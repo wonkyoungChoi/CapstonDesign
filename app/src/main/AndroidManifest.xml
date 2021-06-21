@@ -71,6 +71,10 @@
         <activity android:name=".controller.BuySubMain_watchlist"/>
         <activity android:name=".controller.Search_Groupbuy"/>
         <activity android:name=".controller.Search_Groupbuy_result"/>
+        <activity android:name=".controller.in_board"/>
+        <activity android:name=".controller.showMyGroupBuying"/>
+        <activity android:name=".controller.showMyBoard"/>
+        <activity android:name=".controller.BuySubMain_showGroupBuying"/>
 
     </application>
 

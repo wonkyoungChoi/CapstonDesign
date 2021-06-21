@@ -98,7 +98,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
 
         ImageView imgView = findViewById(R.id.imageHeader);
         try {
-
+            Log.d("URL","http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg" );
             Picasso.get().load(Uri.parse("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg")).into(imgView);
 
         } catch (Exception e) {

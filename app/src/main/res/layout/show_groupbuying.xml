@@ -16,7 +16,7 @@
         android:background="#FFBB00">
 
         <Button
-            android:id="@+id/listback"
+            android:id="@+id/listbackshowgroupbuying"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
@@ -27,16 +27,15 @@
             android:gravity="center" />
 
         <ImageView
-            android:id="@+id/buysearch"
+            android:id="@+id/show_groupbuying_search"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentLeft="false"
             android:layout_alignParentRight="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/ic_baseline_search_24" />
 
@@ -52,7 +51,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+            android:id="@+id/rvshowgroupbuying"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -64,4 +63,3 @@
     </LinearLayout>
 
 </RelativeLayout>
-
