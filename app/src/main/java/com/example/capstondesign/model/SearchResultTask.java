@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SearchResultTask {
     public static ArrayList<Board> searchlist = Search_result.board;
     Board board;
-    String nick, title, text;
+    String nick, title, text, time;
 
     public SearchResultTask(String result) {
             jsonParsing(result , searchlist);
@@ -32,11 +32,12 @@ public class SearchResultTask {
                 nick = BoardObject.getString("nick");
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
+                time = BoardObject.getString("count");
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
 
-                board = new Board(nick, title, text);
+                board = new Board(nick, title, text, time);
 
                 board1.add(board);
 

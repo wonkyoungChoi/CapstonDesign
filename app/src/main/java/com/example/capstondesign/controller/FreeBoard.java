@@ -2,14 +2,10 @@ package com.example.capstondesign.controller;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,19 +24,16 @@ import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.addCommentTask;
 import com.squareup.picasso.Picasso;
-import com.example.capstondesign.model.BoardCountjsonTask;
+import com.example.capstondesign.model.BoardTimejsonTask;
 
-import java.io.FileDescriptor;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class FreeBoard extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
-    public static String title, nick, countBoard;
+    public static String title, nick, time;
     Profile profile = LoginAcitivity.profile;
     String nickname, text;
     ListView comment_list;
@@ -48,7 +41,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
     Comment_Adapter ca;
     CommentTask commentTask;
     Bitmap img;
-    BoardCountjsonTask boardCountjsonTask;
+    BoardTimejsonTask boardTimejsonTask;
     public static ArrayList<Comment_Item> c_arr = new ArrayList<>();
     View header, footer;
     Fragment_board ma;
@@ -70,7 +63,7 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
 
-        boardCountjsonTask = new BoardCountjsonTask();
+        boardTimejsonTask = new BoardTimejsonTask();
 
         TextView content_text = findViewById(R.id.content_text);
         content_text.setText(text);
@@ -80,7 +73,9 @@ public class FreeBoard extends AppCompatActivity implements View.OnClickListener
 
         ImageView imgView = findViewById(R.id.imageHeader);
         try {
-            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/upload/" + BoardAdapter.click_title.hashCode() + countBoard + ".jpg")).into(imgView);
+
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg")).into(imgView);
+
         } catch (Exception e) {
             Log.d("NOPICTURE", "NOPICTURE");
         }

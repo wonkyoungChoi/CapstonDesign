@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,7 @@ import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
+import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -37,7 +38,7 @@ public class Fragment_Groupbuy extends Fragment {
     Profile profile = LoginAcitivity.profile;
     public static int position;
 
-    public GroupBuyingCountjsonTask groupBuyingCountjsonTask;
+    public GroupBuyingTimejsonTask groupBuyingTimejsonTask;
     public static GroupBuyingAdapter groupBuyingAdapter;
     GroupBuyingTask groupBuyingTask;
     public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();;
@@ -112,7 +113,7 @@ public class Fragment_Groupbuy extends Fragment {
             @Override
             public void onItemClick(View v, int pos) {
                 position = pos;
-                GroupBuyingCountjsonTask.position = pos + 1;
+                GroupBuyingTimejsonTask.position = pos + 1;
                 nick = groupbuying.get(pos).getNick();
                 title = groupbuying.get(pos).getTitle();
                 text = groupbuying.get(pos).getText();
@@ -159,7 +160,8 @@ public class Fragment_Groupbuy extends Fragment {
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 이동
+                Intent intent = new Intent(getContext(), Search_Groupbuy.class);
+                startActivity(intent);
             }
         });
 
@@ -181,6 +183,7 @@ public class Fragment_Groupbuy extends Fragment {
                 startActivity(intent);
             }
         });
+
         return v;
     }
 

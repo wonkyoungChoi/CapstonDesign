@@ -54,6 +54,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                             click_nickname = boardList.get(pos).getNick();
                             click_title = boardList.get(pos).getTitle();
                             click_text = boardList.get(pos).getText();
+                            click_time = boardList.get(pos).getTime();
                             mListener.onItemClick(v, pos);
                         }
                     }
@@ -65,7 +66,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
     public static List<Board> boardList;
     public BoardAdapter(List<Board> items) { boardList = items; }
-    public static String click_nickname, click_title, click_text;
+    public static String click_nickname, click_title, click_text, click_time;
 
     @NonNull
     @Override

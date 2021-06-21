@@ -30,7 +30,7 @@ public class GroupBuyingTask {
     Groupbuying groupbuying;
 
     Profile profile = LoginAcitivity.profile;
-    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick, count;
+    String nick, price, title, text, headCount, nowCount, area, watchnick, mynick, time;
 
     public GroupBuyingTask() {
         try {
@@ -84,12 +84,12 @@ public class GroupBuyingTask {
                 area = GroupbuyingObject.getString("area");
                 text = GroupbuyingObject.getString("text");
                 watchnick = GroupbuyingObject.getString("watchnick");
-                count = GroupbuyingObject.getString("count");
+                time = GroupbuyingObject.getString("count");
                 Log.d("PRICE", price);
                 Log.d("TEXT", text);
                 Log.d("WATCHNICK", watchnick);
 
-                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + count + ".jpg");
+                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
 
                 board1.add(groupbuying);
 

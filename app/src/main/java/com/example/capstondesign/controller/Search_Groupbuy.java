@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.SearchGroupbuyingTask;
 import com.example.capstondesign.model.SearchTask;
 
 import java.util.concurrent.ExecutionException;
@@ -34,14 +35,14 @@ public class Search_Groupbuy extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SearchTask searchTask = new SearchTask();
+                SearchGroupbuyingTask searchGroupbuyingTask = new SearchGroupbuyingTask();
                 search_result = search.getText().toString();
                 try {
-                    result = searchTask.execute(search_result).get();
+                    result = searchGroupbuyingTask.execute(search_result).get();
                     if(result.contains("[]")) {
                         Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(), Search_result.class);
+                        Intent intent = new Intent(getApplicationContext(), Search_Groupbuy_result.class);
                         int idx = result.indexOf("[");
                         String re_result = result.substring(idx);
                         Log.d("RESULT", re_result);

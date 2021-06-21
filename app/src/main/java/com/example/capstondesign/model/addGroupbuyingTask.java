@@ -31,7 +31,7 @@ public class addGroupbuyingTask extends AsyncTask<String, Void, String> {
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
             sendMsg = "nick="+strings[0]+"&title="+strings[1]+"&price="+strings[2]+"&headcount="+strings[3]
-                    +"&text="+strings[4]+"&area="+strings[5]+"&number="+strings[6];
+                    +"&text="+strings[4]+"&area="+strings[5]+"&number="+strings[6] + "&count="+strings[7];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {

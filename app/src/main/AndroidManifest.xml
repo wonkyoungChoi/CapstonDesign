@@ -69,6 +69,8 @@
         <activity android:name=".controller.notice_inside"/>
         <activity android:name=".controller.in_withdraw"/>
         <activity android:name=".controller.BuySubMain_watchlist"/>
+        <activity android:name=".controller.Search_Groupbuy"/>
+        <activity android:name=".controller.Search_Groupbuy_result"/>
 
     </application>
 

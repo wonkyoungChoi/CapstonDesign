@@ -20,12 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardTask;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.model.UploadFileAsync;
 import com.example.capstondesign.model.UploadFileAsyncBoard;
 import com.example.capstondesign.model.addBoardTask;
-import com.example.capstondesign.model.BoardCountjsonTask;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,19 +37,18 @@ public class add_Board extends AppCompatActivity {
     Uri image;
     static Uri fileBoard[];
     ImageView imgView;
-    public static String title, countBoard;
+    public static String title, time;
     String nick, nickname, text;
     Button back;
-    ProgressDialog mProgressDialog;
+    long now;
 
-    Bitmap bitmap;
-
-    BoardCountjsonTask boardCountjsonTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addboard);
+
+        now = System.currentTimeMillis();
 
         final EditText EDTITLE = findViewById(R.id.addboard_title);
         final EditText EDTEXT = findViewById(R.id.addboard_text);
@@ -85,21 +83,20 @@ public class add_Board extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getNick();
+                time = String.valueOf(now);
+                Log.d("TIMEBOARD", time);
                 nick = nickname;
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
 
                 if(fileBoard != null) {
-                    addBoardTask();
-                    BoardCountjsonTask.positionBoard = 0;
-                    boardCountjsonTask = new BoardCountjsonTask();
 
                     for (int i = 0; i < fileBoard.length; i++) {
                         try {
                             InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
                             // "/data/data/패키지 이름/files/copy.jpg" 저장
                             Log.d("에러 찾기", "여기서?3");
-                            FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + countBoard + ".jpg", 0);
+                            FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
 
 
                             Log.d("에러 찾기", "여기서?4");
@@ -132,7 +129,7 @@ public class add_Board extends AppCompatActivity {
                         }
                     }
                 }
-//                addBoardTask();
+                addBoardTask();
 
             }
         });
@@ -151,10 +148,11 @@ public class add_Board extends AppCompatActivity {
     }
 
     void addBoardTask() {
-        Board board = new Board(nick, title, text);
+
+        Board board = new Board(nick, title, text, time);
 
         addBoardTask addBoardTask = new addBoardTask();
-        addBoardTask.execute(nick, title, text);
+        addBoardTask.execute(nick, title, text, time);
 
         BoardTask.boardlist.add(board);
         Fragment_board.boardAdapter.notifyDataSetChanged();

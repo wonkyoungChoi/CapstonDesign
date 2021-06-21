@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.capstondesign.controller.add_Board;
-import com.example.capstondesign.model.BoardCountjsonTask;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,14 +13,13 @@ import java.net.URL;
 
 public class UploadFileAsyncBoard extends AsyncTask<String, Void, String> {
 
-    BoardCountjsonTask boardCountjsonTask;
 
     @Override
     protected String doInBackground(String... params) {
 
         try {
-            boardCountjsonTask = new BoardCountjsonTask();
-            String count = boardCountjsonTask.count;
+            String count = add_Board.time;
+            Log.d("UPLOADTIME", count);
             //                      앱 저장 주소  / 앱 PackegeName            / 폴더  / 파일 이름
             String sourceFileUri = "/data/data/com.example.capstondesign/files/" + add_Board.title.hashCode() + count + ".jpg"; // Main에 있는  copy.jpg와 같이 바꾸셔야 합니다
 
@@ -42,7 +40,7 @@ public class UploadFileAsyncBoard extends AsyncTask<String, Void, String> {
                 Log.d("sourceFile", "sourceFIle여기까지2");
                 try {
                     //                        JSP URL
-                    String upLoadServerUri = "http://13.124.75.92:8080/multi.jsp";
+                    String upLoadServerUri = "http://13.124.75.92:8080/multiBoard.jsp";
                     Log.d("sourceFile", "sourceFIle여기까지3");
 
                     // open a URL connection to the Servlet

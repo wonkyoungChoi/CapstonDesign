@@ -1,6 +1,5 @@
 package com.example.capstondesign.controller;
 
-import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +18,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.GroupBuyingCountTask;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
@@ -40,19 +36,15 @@ public class add_GroupBuying extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
     Uri image;
     String result;
-    public static String titlestr;
-    public static String nickstr;
-    public static String count;
+    public static String titlestr, nickstr, time;
     public static String subMainCount;
     String nick, nickname, textstr, pricestr, headcountstr, areastr, number;
     Button back;
     static Uri fileGroupBuying[];
-    ProgressDialog mProgressDialog;
     Intent intent;
     ImageView addPhoto;
     Bitmap bitmap;
-
-    GroupBuyingCountjsonTask groupBuyingCountjsonTask;
+    long now;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +56,8 @@ public class add_GroupBuying extends AppCompatActivity {
         final EditText price = findViewById(R.id.addbuy_price);
         final EditText headcount = findViewById(R.id.addbuy_headCount);
         final EditText area = findViewById(R.id.addbuy_area);
+
+        now = System.currentTimeMillis();
 
         back = (Button)findViewById(R.id.group_exit);
         back.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +86,7 @@ public class add_GroupBuying extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getNick();
+                time = String.valueOf(now);
                 nick = nickname;
                 nickstr = nickname;
                 Log.d("nickstr", nickstr);
@@ -104,9 +99,6 @@ public class add_GroupBuying extends AppCompatActivity {
 
                 if(fileGroupBuying != null) {
                     addGroupTask(); // count가 1으로 설정이 되고
-                    GroupBuyingCountjsonTask.position = 0;
-                    groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
-                    Log.d("countTask", count);
 
                     for (int i = 0; i < fileGroupBuying.length; i++) {
                         try {
@@ -114,9 +106,8 @@ public class add_GroupBuying extends AppCompatActivity {
                             // "/data/data/패키지 이름/files/copy.jpg" 저장
                             Log.d("에러 찾기", "여기서?3");
                             Log.d("ABCDE", titlestr);
-                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr.hashCode() + count + ".jpg", 0);
+                            FileOutputStream fos = getApplicationContext().openFileOutput(titlestr.hashCode() + time + ".jpg", 0);
                             Log.d("countadd", titlestr.hashCode() + "");
-                            Log.d("countadd", titlestr.hashCode() + count);
 
                             Log.d("에러 찾기", "여기서?4");
 
@@ -171,8 +162,8 @@ public class add_GroupBuying extends AppCompatActivity {
 
     void addGroupTask() {
         addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
-        addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr, number);
-        Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "", titlestr.hashCode() + count + ".jpg");
+        addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr, number, time);
+        Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "", titlestr.hashCode() + time + ".jpg", time);
         GroupBuyingTask.groupbuyinglist.add(groupbuying);
         Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
         finish();

@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.InGroupBuyProfileCountTask;
-import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.addWatchlistTask;
 import com.example.capstondesign.view.BuySubAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
@@ -34,7 +33,7 @@ import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
+import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -50,7 +49,7 @@ public class BuySubMain extends AppCompatActivity {
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
     String mynick = ChatAdapter.nick;
-    public static String number, nickname, email, count;
+    public static String number, nickname, email, time;
     String strurl;
     InGroupBuyProfileCountTask inGroupBuyProfileCountTask;
     String real_nick;
@@ -59,7 +58,7 @@ public class BuySubMain extends AppCompatActivity {
     int set, max_count;
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
-    GroupBuyingCountjsonTask groupBuyingCountjsonTask;
+    GroupBuyingTimejsonTask groupBuyingTimejsonTask;
     addWatchlistTask addWatchlistTask;
 
     ImageView interest_btn;
@@ -178,6 +177,8 @@ public class BuySubMain extends AppCompatActivity {
         headCount.setText(intent.getStringExtra("headcount"));
         nowCount.setText(intent.getStringExtra("nowcount"));
 
+        groupBuyingTimejsonTask = new GroupBuyingTimejsonTask();
+
         if(intent.getStringExtra("watchnick").contains(real_nick + ",")) {
             interest_btn.setImageResource(R.drawable.interest_aft);
         }
@@ -190,7 +191,7 @@ public class BuySubMain extends AppCompatActivity {
             public void onClick(View v) {
                 addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(real_nick, title.getText().toString(), text.getText().toString() , price.getText().toString() , area.getText().toString(), nick.getText().toString()).get();
+                    String result = addWatchlistTask.execute(real_nick, title.getText().toString(), text.getText().toString() , price.getText().toString() , area.getText().toString(), nick.getText().toString(), time).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         interest_btn.setImageResource(R.drawable.interest_aft);
@@ -208,8 +209,6 @@ public class BuySubMain extends AppCompatActivity {
             }
         });
 
-        groupBuyingCountjsonTask = new GroupBuyingCountjsonTask();
-
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         pager2 = findViewById(R.id.pager2);
 
@@ -218,13 +217,13 @@ public class BuySubMain extends AppCompatActivity {
 //        itemList.add(new BuySubSlideritem(R.drawable.two));
 //        itemList.add(new BuySubSlideritem(R.drawable.three));
 //        itemList.add(new BuySubSlideritem(R.drawable.four));
-        Log.d("counthashcode", count);
-        Log.d("counthashcode", GroupBuyingAdapter.click_title.hashCode() + count);
+        Log.d("counthashcode", time);
+        Log.d("counthashcode", GroupBuyingAdapter.click_title.hashCode() + time);
         List<BuySubSlideritem> itemList = new ArrayList<>();
         Log.d("numberGroupbyuing", numberGroupBuying);
         for(int i = 0; i < Integer.parseInt(numberGroupBuying); i++) { // MySQL 길이
-            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count + ".jpg"));
-            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + count +  i + ".jpg"));
+            if(i == 0) itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + time + ".jpg"));
+            else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + GroupBuyingAdapter.click_title.hashCode() + time +  i + ".jpg"));
         }
 
         pager2.setAdapter(new BuySubAdapter(itemList,pager2));

@@ -30,7 +30,7 @@ public class addWatchlistTask extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "watchnick="+strings[0]+"&title="+strings[1] +"&text="+strings[2] +"&price="+strings[3] +"&area="+strings[4] +"&nick="+strings[5];
+            sendMsg = "watchnick="+strings[0]+"&title="+strings[1] +"&text="+strings[2] +"&price="+strings[3] +"&area="+strings[4] +"&nick="+strings[5] +"&count="+strings[6] ;
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {

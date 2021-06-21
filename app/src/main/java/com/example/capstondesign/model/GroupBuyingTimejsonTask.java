@@ -17,13 +17,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GroupBuyingCountjsonTask {
+public class GroupBuyingTimejsonTask {
     Profile profile = LoginAcitivity.profile;
-    String nick, title, email_end, number, count;
+    String nick, title, email_end, number, time;
     String fileLength;
     public static int position = 0;
 
-    public GroupBuyingCountjsonTask() {
+    public GroupBuyingTimejsonTask() {
         try {
             jsonParsing(downloadUrl());
         } catch (IOException e) {
@@ -62,7 +62,6 @@ public class GroupBuyingCountjsonTask {
         try{
             JSONArray countArray = new JSONArray(json);
 //            String titleArray[] = new String[countArray.length()];//1
-            int titleNum = 0;
             for(int i=0; i<countArray.length(); i++)
             {
                 JSONObject CountObject = countArray.getJSONObject(i);
@@ -71,31 +70,17 @@ public class GroupBuyingCountjsonTask {
                 Log.d("positionTask", Integer.toString(position));
                 //email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
-                count = CountObject.getString("count"); // 1
-                if(position != 0) {
-                    if(GroupBuyingAdapter.click_title.equals(title) && i < position) {
-                        titleNum += 1;
-                        BuySubMain.numberGroupBuying = number;
-                    }
-                }
-                Log.d("countError", count);
+                time = CountObject.getString("count"); // 1
+
                 Log.d("nick", nick);
                 Log.d("nick2", title);
-                Log.d("count", count);
-                // 제목이 같으면 아래 주는 숫자도 처음 게시글의 개수만큼 줌.
-                add_GroupBuying.count = count;
-                if(GroupBuyingAdapter.click_nickname == null) { // 추가 할 때 NULL Exception 방지 1 ~ 저장
-                    add_GroupBuying.count = count;
-                    Log.d("positionNum", Integer.toString(position));
-                    Log.d("titleNum", Integer.toString(titleNum));
-                }
-                else if(GroupBuyingAdapter.click_nickname.equals(nick) && GroupBuyingAdapter.click_title.equals(title) && i < position) {
+                Log.d("CLCICK", GroupBuyingAdapter.click_time);
+
+                if(GroupBuyingAdapter.click_nickname.equals(nick) && GroupBuyingAdapter.click_title.equals(title) && GroupBuyingAdapter.click_time.equals(time)) {
                     BuySubMain.numberGroupBuying = number;
                     Log.d("numberEroor", number);
-                    BuySubMain.count = Integer.toString(titleNum); //count
-                    Log.d("titleNum", Integer.toString(titleNum));
-                    Log.d("positionNum", Integer.toString(position));
-                    Log.d("NUMBER!!!", number);
+                    BuySubMain.time = time; //count
+
                 }
             }
         } catch (JSONException jsonException) {

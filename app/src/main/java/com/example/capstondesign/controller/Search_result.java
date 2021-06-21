@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
+import com.example.capstondesign.view.BoardAdapter;
 import com.example.capstondesign.view.SearchResultAdapter;
 import com.example.capstondesign.model.SearchResultTask;
 import com.example.capstondesign.model.SearchTask;
@@ -24,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Search_result extends AppCompatActivity {
     public static ArrayList<Board> board = new ArrayList<>();
-    public static SearchResultAdapter searchResultAdapter;
+    public static BoardAdapter boardAdapter;
     String nick, title, text;
     ImageView button, back;
     EditText search;
@@ -56,11 +57,11 @@ public class Search_result extends AppCompatActivity {
                     LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
 
-            searchResultAdapter = new SearchResultAdapter(board);
+            boardAdapter = new BoardAdapter(board);
 
-            recyclerView.setAdapter(searchResultAdapter);
+            recyclerView.setAdapter(boardAdapter);
 
-            searchResultAdapter.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
+            boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int pos) {
                     nick = board.get(pos).getNick();
@@ -70,6 +71,7 @@ public class Search_result extends AppCompatActivity {
                     intent.putExtra("title", title);
                     intent.putExtra("text", text);
                     intent.putExtra("nick", nick);
+                    intent.putExtra("location", "search");
                     startActivity(intent);
                 }
             });

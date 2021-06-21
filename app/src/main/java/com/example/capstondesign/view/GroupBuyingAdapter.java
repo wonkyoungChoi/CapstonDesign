@@ -94,6 +94,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                             click_nickname = groupbuyingList.get(pos).getNick();
                             click_title = groupbuyingList.get(pos).getTitle();
                             click_text = groupbuyingList.get(pos).getText();
+                            click_time = groupbuyingList.get(pos).getTime();
                             mListener1.onItemClick(v, pos);
                         }
                     }
@@ -113,7 +114,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
 
     public static List<Groupbuying> groupbuyingList;
     public GroupBuyingAdapter(List<Groupbuying> items) { groupbuyingList = items; }
-    public static String click_nickname, click_title, click_text, click_area;
+    public static String click_nickname, click_title, click_text, click_area, click_time;
 
     @NonNull
     @Override
@@ -150,7 +151,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                 Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, Fragment_Groupbuy.groupbuying.get(position).getTime()).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);

@@ -58,12 +58,12 @@
             android:layout_centerInParent="true">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="32dp"
-                android:foregroundGravity="center_vertical"
+                android:foregroundGravity="center"
                 app:cardBackgroundColor="#751400"
                 app:cardCornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -71,8 +71,8 @@
 
                 <Button
                     android:id="@+id/addbutton"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:background="@drawable/ic_baseline_create_24"
                     android:gravity="center" />

@@ -11,8 +11,9 @@ public class Groupbuying {
     String nowCount;
     String area;
     String watchnick;
+    String time;
 
-    public Groupbuying(String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String buy_image) {
+    public Groupbuying(String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String buy_image, String time) {
         this.nick = nick;
         this.title = title;
         this.text = text;
@@ -22,6 +23,7 @@ public class Groupbuying {
         this.area = area;
         this.watchnick = watchnick;
         this.buy_image = buy_image;
+        this.time = time;
     }
 
     public String getText() {
@@ -94,6 +96,14 @@ public class Groupbuying {
 
     public void setWatchnick(String watchnick) {
         this.watchnick = watchnick;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

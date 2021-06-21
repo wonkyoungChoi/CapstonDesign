@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
+import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.SearchGroupResultTask;
 import com.example.capstondesign.model.SearchTask;
@@ -64,7 +64,7 @@ public class Search_Groupbuy_result extends AppCompatActivity {
             groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int pos) {
-                    GroupBuyingCountjsonTask.position = pos + 1;
+                    GroupBuyingTimejsonTask.position = pos + 1;
                     nick = group.get(pos).getNick();
                     title = group.get(pos).getTitle();
                     text = group.get(pos).getText();

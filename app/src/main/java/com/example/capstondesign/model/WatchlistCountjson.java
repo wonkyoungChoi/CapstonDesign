@@ -21,7 +21,7 @@ import java.net.URL;
 
 public class WatchlistCountjson {
     Profile profile = LoginAcitivity.profile;
-    String nick, title, email_end, number, count;
+    String nick, title, email_end, number, time;
     String fileLength;
     public static int position = 0;
 
@@ -73,33 +73,14 @@ public class WatchlistCountjson {
                 Log.d("positionTask", Integer.toString(position));
                 //email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
-                count = CountObject.getString("count"); // 1
-                if(position != 0) {
-                    if(WatchlistAdapter.click_title.equals(title) && i < position) {
-                        titleNum += 1;
-                        BuySubMain.numberGroupBuying = number;
-                    }
-                }
-                Log.d("countError", count);
-                Log.d("nick", nick);
-                Log.d("nick2", title);
-                Log.d("count", count);
-                // 제목이 같으면 아래 주는 숫자도 처음 게시글의 개수만큼 줌.
-                add_GroupBuying.count = count;
-                Log.d("NICKNAME!!@!@!", WatchlistAdapter.click_nickname);
+                time = CountObject.getString("count"); // 1
 
-                if(WatchlistAdapter.click_nickname == null) { // 추가 할 때 NULL Exception 방지 1 ~ 저장
-                    add_GroupBuying.count = count;
-                    Log.d("positionNum", Integer.toString(position));
-                    Log.d("titleNum", Integer.toString(titleNum));
-                }
-                else if(WatchlistAdapter.click_nickname.equals(nick) && WatchlistAdapter.click_title.equals(title) && i < position) {
+
+                if(WatchlistAdapter.click_nickname.equals(nick) && WatchlistAdapter.click_title.equals(title) && WatchlistAdapter.click_time.equals(time)) {
                     BuySubMain_watchlist.numberGroupBuying = number;
                     Log.d("numberEroor", number);
-                    BuySubMain_watchlist.count = Integer.toString(titleNum); //count
-                    Log.d("titleNum", Integer.toString(titleNum));
-                    Log.d("positionNum", Integer.toString(position));
-                    Log.d("NUMBER!!!", number);
+                    BuySubMain_watchlist.time = time; //count
+
                 }
             }
         } catch (JSONException jsonException) {

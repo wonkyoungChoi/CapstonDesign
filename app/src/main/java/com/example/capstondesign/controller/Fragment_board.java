@@ -9,14 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Board;
-import com.example.capstondesign.model.BoardCountjsonTask;
+import com.example.capstondesign.model.BoardTimejsonTask;
 import com.example.capstondesign.view.BoardAdapter;
 import com.example.capstondesign.model.BoardTask;
 
@@ -102,7 +104,7 @@ public class Fragment_board extends Fragment {
         boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                BoardCountjsonTask.positionBoard = pos + 1;
+                BoardTimejsonTask.positionBoard = pos + 1;
                 nick = BoardAdapter.click_nickname;
                 title = BoardAdapter.click_title;
                 text = BoardAdapter.click_text;
@@ -121,10 +123,12 @@ public class Fragment_board extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "CLICK", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), add_Board.class);
                 startActivity(intent);
             }
         });
+
         return v;
     }
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class BoardTask {
     public static ArrayList<Board> boardlist = Fragment_board.board;
     Board board;
-    String nick, title, text;
+    String nick, title, text, time;
 
     public BoardTask() {
         try {
@@ -67,8 +67,9 @@ public class BoardTask {
                 nick = BoardObject.getString("nick");
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
+                time = BoardObject.getString("count");
 
-                board = new Board(nick, title, text);
+                board = new Board(nick, title, text, time);
 
                 board1.add(board);
 

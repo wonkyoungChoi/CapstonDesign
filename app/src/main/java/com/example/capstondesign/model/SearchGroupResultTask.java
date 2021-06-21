@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SearchGroupResultTask {
     public static ArrayList<Groupbuying> searchlist = Search_Groupbuy_result.group;
     Groupbuying groupbuying;
-    String nick, title, text, area, headcount, nowCount, price, watchnick, count;
+    String nick, title, text, area, headcount, nowCount, price, watchnick, count, time;
 
     public SearchGroupResultTask(String result) {
         jsonParsing(result , searchlist);
@@ -39,13 +39,13 @@ public class SearchGroupResultTask {
                 nowCount = GroupbuyingObject.getString("nowCount");
                 price = GroupbuyingObject.getString("price");
                 watchnick = GroupbuyingObject.getString("watchnick");
-                count = GroupbuyingObject.getString("count");
+                time = GroupbuyingObject.getString("count");
 
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
 
-                groupbuying = new Groupbuying(nick, title, text, price, headcount, nowCount, area, watchnick, title.hashCode() + count + ".jpg");
+                groupbuying = new Groupbuying(nick, title, text, price, headcount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
 
                 board1.add(groupbuying);
 

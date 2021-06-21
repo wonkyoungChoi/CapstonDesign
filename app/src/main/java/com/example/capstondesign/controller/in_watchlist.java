@@ -15,15 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.GroupBuyingCountjsonTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.WatchlistCountjson;
-import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.view.WatchlistAdapter;
 import com.example.capstondesign.model.WatchlistTask;
-import com.example.capstondesign.model.addWatchlistTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

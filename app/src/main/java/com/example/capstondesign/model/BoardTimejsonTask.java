@@ -16,13 +16,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class BoardCountjsonTask {
+public class BoardTimejsonTask {
     Profile profile = LoginAcitivity.profile;
-    public String nick, title, number, count;
+    public String nick, title, number, time;
     String fileLength;
     public static int positionBoard = 0;
 
-    public BoardCountjsonTask() {
+    public BoardTimejsonTask() {
         try {
             jsonParsing(downloadUrl());
         } catch (IOException e) {
@@ -60,36 +60,24 @@ public class BoardCountjsonTask {
 
         try{
             JSONArray countArray = new JSONArray(json);
-//            String titleArray[] = new String[countArray.length()];//1
-            int titleNum = 0;
+
             for(int i=0; i<countArray.length(); i++)
             {
                 JSONObject CountObject = countArray.getJSONObject(i);
                 nick = CountObject.getString("nick");
                 title = CountObject.getString("title");
                 Log.d("positionTask", Integer.toString(positionBoard));
-                count = CountObject.getString("count"); // 1
-                if(positionBoard != 0) {
-                    if(BoardAdapter.click_title.equals(title) && i < positionBoard) {
-                        titleNum += 1;
-//                        BuySubMain.numberGroupBuying = number;
-                    }
-                }
-                Log.d("countError", count);
+                time = CountObject.getString("count"); // 1
+
+                Log.d("countError", time);
                 Log.d("nick", nick);
                 Log.d("nick2", title);
-                // 제목이 같으면 아래 주는 숫자도 처음 게시글의 개수만큼 줌.
-                FreeBoard.countBoard = count;
-                if(BoardAdapter.click_nickname == null) { // 추가 할 때 NULL Exception 방지 1 ~ 저장
-                    FreeBoard.countBoard = count;
-                    Log.d("positionNum", Integer.toString(positionBoard));
-                    Log.d("titleNum", Integer.toString(titleNum));
-                }
-                else if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && i < positionBoard) {
+                Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
+
+                if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && BoardAdapter.click_time.equals(time)) {
 //                    BuySubMain.numberGroupBuying = number;
-                    FreeBoard.countBoard = Integer.toString(titleNum); //count
-                    Log.d("titleNum", Integer.toString(titleNum));
-                    Log.d("positionNum", Integer.toString(positionBoard));
+                    FreeBoard.time = time; //count
+
                 }
             }
         } catch (JSONException jsonException) {
