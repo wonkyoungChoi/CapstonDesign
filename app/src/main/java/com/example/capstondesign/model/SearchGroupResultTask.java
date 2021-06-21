@@ -2,14 +2,13 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
+import com.example.capstondesign.controller.Search_Groupbuy;
 import com.example.capstondesign.controller.Search_Groupbuy_result;
-import com.example.capstondesign.controller.Search_result;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class SearchGroupResultTask {

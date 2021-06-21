@@ -30,6 +30,14 @@
                 android:layout_centerHorizontal="true"
                 android:background="#FFDF24">
 
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/bd_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFBB00"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme" />
+
                 <Button
                     android:id="@+id/inboard_exit"
                     android:layout_width="50dp"

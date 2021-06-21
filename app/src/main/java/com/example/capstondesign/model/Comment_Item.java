@@ -1,7 +1,7 @@
 package com.example.capstondesign.model;
 
 public class Comment_Item {
-    private String nick, comment, time;
+    private String nick, comment, time, number, email;
 
     public Comment_Item(String nick, String comment, String time) {
         this.nick = nick;
@@ -31,5 +31,21 @@ public class Comment_Item {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String name) {
+        this.number = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

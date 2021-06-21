@@ -5,9 +5,10 @@ import android.util.Log;
 import com.example.capstondesign.controller.BuySubMain;
 import com.example.capstondesign.controller.Fragment_chatting;
 import com.example.capstondesign.controller.Fragment_profile;
-import com.example.capstondesign.controller.FreeBoard;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.in_profile;
+import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.view.Comment_Adapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +20,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ProfileCountjsonTask {
+public class CommentProfileCountTask {
     Profile profile = LoginAcitivity.profile;
-    String name, email_front, email_end, number;
+    String nickname, email_front, email_end, number;
 
-    public ProfileCountjsonTask() {
+    public CommentProfileCountTask() {
         try {
             jsonParsing(downloadUrl());
         } catch (IOException e) {
@@ -65,30 +66,32 @@ public class ProfileCountjsonTask {
             for(int i=0; i<countArray.length(); i++)
             {
                 JSONObject CountObject = countArray.getJSONObject(i);
-                name = CountObject.getString("name");
+                nickname = CountObject.getString("nickname");
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
-                Log.d("PROFILEGETNAME", profile.getName());
-                Log.d("PROFILEGETEMAIL", profile.getEmail());
 
-                if(profile.getName().equals(name) && profile.getEmail().equals(email_front+"@"+email_end)) {
+                Log.d("TTTTEEEESSSSTTTT", Comment_Adapter.nick);
+
+                if(Comment_Adapter.nick.equals(nickname)) {
                     if(number.equals("0")) {
                         number = "-1";
                     } else if (number.equals("1")){
                         number = "";
+                        Comment_Adapter.email = email_front + "@" + email_end;
                     }
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
+                        Comment_Adapter.email = email_front + "@" + email_end;
                     }
-                    in_profile.number = number;
-                    Fragment_profile.number = number;
-                    FreeBoard.number = number;
-                    Log.d("NUMBER!!!", number);
-                    }
-
+                    Comment_Adapter.number = number;
                 }
-            } catch (JSONException jsonException) {
+
+                Log.d("EEEEMMMAAAAIIIILLL", Comment_Adapter.email);
+                Log.d("NUMBER!!!", number);
+
+            }
+        } catch (JSONException jsonException) {
             jsonException.printStackTrace();
         }
     }

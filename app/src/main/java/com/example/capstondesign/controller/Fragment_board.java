@@ -5,12 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -137,65 +140,7 @@ public class Fragment_board extends Fragment {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-//            case R.id.action_search:
-//                Toast.makeText(this.getContext(), "hi", Toast.LENGTH_LONG).show();
-//                return true;
-//            case R.id.action_seemore:
-//                Toast.makeText(this.getContext(), "hi2", Toast.LENGTH_LONG).show();
-//                return true;
-            case R.id.action_board1:
-                Intent intent = new Intent(getContext(), FreeBoard.class);
-                startActivity(intent);
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-/*
-    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GET_STRING && resultCode == RESULT_OK && data != null) {
-            if(data.getStringExtra("Input_Image") != null) {
-                Uri selectImage = Uri.parse(data.getStringExtra("Input_Image"));
-                Log.d("SELECTED", String.valueOf(selectImage));
-                boardAdapter.add(new Board(data.getStringExtra("Input_Text"), data.getStringExtra("Input_Title"), selectImage));
-                image = selectImage;
-
-            } else boardAdapter.add(new Board(data.getStringExtra("Input_Text"), data.getStringExtra("Input_Title")));
-
-            title = data.getStringExtra("Input_Title");
-            text = data.getStringExtra("Input_Text");
-            boardAdapter.notifyDataSetChanged();
-        }
-    }
-    */
-    /*
-    void GALLERY() {
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-        }
-        else if(shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(getContext(), "갤러리 접근 권한이 필요합니다", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSON);
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == GALLERY_PERMISSON) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "갤러리 접근 권한 승인됨", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-     */
 
 
 

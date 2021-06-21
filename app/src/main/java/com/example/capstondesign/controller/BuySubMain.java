@@ -68,15 +68,6 @@ public class BuySubMain extends AppCompatActivity {
     DotsIndicator dotsIndicator;
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-        intent.putExtra("groupbuyingNum", 2);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buy_submain);
@@ -234,6 +225,7 @@ public class BuySubMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);
                 finish();
@@ -280,14 +272,9 @@ public class BuySubMain extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
-
         switch (item.getItemId()) {
             case R.id.achome:
                 startActivity(Fragment_main.class);
-                break;
-            case R.id.acnotifi:
-                startActivity(Notice.class);
                 break;
             case R.id.acsearch:
                 startActivity(Search.class);
@@ -298,15 +285,12 @@ public class BuySubMain extends AppCompatActivity {
             case R.id.acDelete:
                 DeleteGroupbuyingTask deleteGroupbuyingTask = new DeleteGroupbuyingTask();
                 deleteGroupbuyingTask.execute(intent.getStringExtra("nick"),
-                        intent.getStringExtra("title"), intent.getStringExtra("text"));
+                        intent.getStringExtra("title"), intent.getStringExtra("text"), time);
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);
-                finish();
-                break;
-            case R.id.acRevise:
-                //startActivity(update_groupbuying.class);
                 break;
 
         }

@@ -72,8 +72,10 @@ public class CommentTask {
                 time = CommentObject.getString("time");
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
+                Log.d("JSONTIME", time);
+                Log.d("BOARDTIME", FreeBoard.time);
 
-                if(nick.equals(FreeBoard.nick) && title.equals(FreeBoard.title)) {
+                if(nick.equals(FreeBoard.nick) && title.equals(FreeBoard.title) && time.equals(FreeBoard.time)) {
                     comment_item = new Comment_Item(co_nick, comment, time);
                     comment_items.add(comment_item);
                 }

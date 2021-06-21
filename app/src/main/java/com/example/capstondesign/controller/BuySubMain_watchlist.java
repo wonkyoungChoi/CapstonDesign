@@ -223,8 +223,6 @@ public class BuySubMain_watchlist extends AppCompatActivity {
         buyback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), in_watchlist.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -275,15 +273,10 @@ public class BuySubMain_watchlist extends AppCompatActivity {
             case R.id.achome:
                 startActivity(Fragment_main.class);
                 break;
-            case R.id.acnotifi:
-                startActivity(Notice.class);
-                break;
             case R.id.acsearch:
                 startActivity(Search.class);
                 break;
-            case R.id.action_home:
-                finish();
-                break;
+
             case R.id.acDelete:
                 DeleteGroupbuyingTask deleteGroupbuyingTask = new DeleteGroupbuyingTask();
                 deleteGroupbuyingTask.execute(intent.getStringExtra("nick"),
@@ -293,9 +286,6 @@ public class BuySubMain_watchlist extends AppCompatActivity {
                 intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);
                 finish();
-                break;
-            case R.id.acRevise:
-                //startActivity(update_groupbuying.class);
                 break;
 
         }

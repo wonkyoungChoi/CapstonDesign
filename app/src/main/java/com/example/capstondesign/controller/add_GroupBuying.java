@@ -85,6 +85,7 @@ public class add_GroupBuying extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getNick();
                 time = String.valueOf(now);
                 nick = nickname;
@@ -97,7 +98,7 @@ public class add_GroupBuying extends AppCompatActivity {
                 areastr = area.getText().toString();
                 Log.d("에러 찾기", "여기서?");
 
-                if(fileGroupBuying != null) {
+                if (fileGroupBuying != null) {
                     addGroupTask(); // count가 1으로 설정이 되고
 
                     for (int i = 0; i < fileGroupBuying.length; i++) {
@@ -138,12 +139,11 @@ public class add_GroupBuying extends AppCompatActivity {
                             Log.d("ExecutionException", e.getMessage());
                         }
                     }
-                    //addGroupTask();
-                }  else {
+                } else {
                     Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();
+
+
                 }
-
-
             }
         });
     }
