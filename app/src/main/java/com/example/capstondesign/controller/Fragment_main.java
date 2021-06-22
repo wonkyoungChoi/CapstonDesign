@@ -37,6 +37,10 @@ public class Fragment_main extends AppCompatActivity {
         Intent intent = getIntent();
         i = intent.getIntExtra("boardNum", 0);
         if(i == 0) {
+            i = intent.getIntExtra("boardNum", 0);
+            Log.d("GROUPNUM", String.valueOf(i));
+        }
+        if(i == 0) {
             i = intent.getIntExtra("groupbuyingNum", 0);
             Log.d("GROUPNUM", String.valueOf(i));
         }

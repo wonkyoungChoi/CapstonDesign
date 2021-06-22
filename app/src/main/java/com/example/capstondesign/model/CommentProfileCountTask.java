@@ -87,9 +87,6 @@ public class CommentProfileCountTask {
                     Comment_Adapter.number = number;
                 }
 
-                Log.d("EEEEMMMAAAAIIIILLL", Comment_Adapter.email);
-                Log.d("NUMBER!!!", number);
-
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

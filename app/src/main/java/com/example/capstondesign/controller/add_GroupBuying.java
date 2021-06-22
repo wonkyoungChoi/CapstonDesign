@@ -99,7 +99,7 @@ public class add_GroupBuying extends AppCompatActivity {
                 Log.d("에러 찾기", "여기서?");
 
                 if (fileGroupBuying != null) {
-                    if(titlestr.trim().length() > 3 && pricestr.trim().length() >0 && headcountstr.trim().length() > 0 && textstr.trim().length() > 3 && areastr.trim().length() >1) {
+                    if(titlestr.trim().length() > 0 && pricestr.trim().length() >0 && headcountstr.trim().length() > 0 && textstr.trim().length() > 0 && areastr.trim().length() >0) {
                         addGroupTask(); // count가 1으로 설정이 되고
 
                         for (int i = 0; i < fileGroupBuying.length; i++) {
@@ -140,8 +140,10 @@ public class add_GroupBuying extends AppCompatActivity {
                                 Log.d("ExecutionException", e.getMessage());
                             }
                         }
+                        fileGroupBuying = null;
+
                     } else {
-                        Toast.makeText(getApplicationContext(), "내용을 제대로 작성해주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "공동구매 글 작성을 하려면 최소한 하나의 사진이 있어야 합니다.", Toast.LENGTH_SHORT).show();
@@ -170,7 +172,10 @@ public class add_GroupBuying extends AppCompatActivity {
         Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "", titlestr.hashCode() + time + ".jpg", time);
         GroupBuyingTask.groupbuyinglist.add(groupbuying);
         Fragment_Groupbuy.groupBuyingAdapter.notifyDataSetChanged();
-        finish();
+        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        intent.putExtra("groupbuyingNum", 2);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 

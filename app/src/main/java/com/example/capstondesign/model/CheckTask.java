@@ -30,7 +30,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            sendMsg = "name="+strings[0]+"&email="+strings[1]+"&gender="+strings[2];
+            sendMsg = "&email="+strings[0];
             osw.write(sendMsg);
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {

@@ -101,10 +101,6 @@ public class BuySubMain extends AppCompatActivity {
         inGroupBuyProfileCountTask = new InGroupBuyProfileCountTask();
 
         try {
-            //
-            //String a = profileTask.substringBetween(result1, "number:", "/");
-            Log.d("TEST", email);
-            Log.d("TEST", number);
             if (number.equals("-1")) {
                 strurl = "http://13.124.75.92:8080/king.png";
                 Log.d("NUM0", strurl);
@@ -164,7 +160,7 @@ public class BuySubMain extends AppCompatActivity {
         title.setText(intent.getStringExtra("title"));
         area.setText(intent.getStringExtra("area"));
         text.setText(intent.getStringExtra("text"));
-        price.setText(intent.getStringExtra("price"));
+        price.setText(intent.getStringExtra("price") + "원");
         headCount.setText(intent.getStringExtra("headcount"));
         nowCount.setText(intent.getStringExtra("nowcount"));
 

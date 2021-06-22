@@ -1,6 +1,7 @@
 package com.example.capstondesign.controller;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ public class Fragment_board extends Fragment {
     BoardTask boardTask;
     public static ArrayList<Board> board = new ArrayList<>();;
     int position;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,7 +104,15 @@ public class Fragment_board extends Fragment {
 
         recyclerView.setAdapter(boardAdapter);
 
+        ImageView search = v.findViewById(R.id.board_search);
 
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),Search.class);
+                startActivity(intent);
+            }
+        });
 
 
         boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {

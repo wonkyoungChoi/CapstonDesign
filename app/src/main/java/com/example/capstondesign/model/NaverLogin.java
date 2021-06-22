@@ -88,7 +88,7 @@ public class NaverLogin {
                                     gender = "여성";
                                 }
 
-                                check = checkTask.execute(name1, email1, gender).get();
+                                check = checkTask.execute(email1).get();
 
                                 //회원가입 했는지 확인하는 부분
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {

@@ -170,7 +170,7 @@ public class BuySubMain_watchlist extends AppCompatActivity {
         title.setText(intent.getStringExtra("title"));
         area.setText(intent.getStringExtra("area"));
         text.setText(intent.getStringExtra("text"));
-        price.setText(intent.getStringExtra("price"));
+        price.setText(intent.getStringExtra("price") + "원");
         headCount.setText(intent.getStringExtra("headcount"));
         nowCount.setText(intent.getStringExtra("nowcount"));
 

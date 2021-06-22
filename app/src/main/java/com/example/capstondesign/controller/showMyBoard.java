@@ -71,8 +71,6 @@ public class showMyBoard extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        Log.d("CHECK", showboard.get(0).getNick());
-
         showBoardAdapter = new ShowBoardAdapter(showboard);
         recyclerView.setAdapter(showBoardAdapter);
 

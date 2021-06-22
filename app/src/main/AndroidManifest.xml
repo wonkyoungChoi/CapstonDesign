@@ -57,7 +57,6 @@
         <activity android:name=".controller.FreeBoard"/>
         <activity android:name=".controller.Search"/>
         <activity android:name=".controller.Search_result"/>
-        <activity android:name=".controller.Email_Login"/>
         <activity android:name=".controller.Notice"/>
         <activity android:name=".controller.add_GroupBuying"/>
         <activity android:name=".controller.in_profile"/>

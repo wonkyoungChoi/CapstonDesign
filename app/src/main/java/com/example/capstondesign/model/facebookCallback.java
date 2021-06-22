@@ -73,7 +73,7 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                             profile.setGender(gender);
                             CheckTask checkTask = new CheckTask();
                             String check;
-                            check = checkTask.execute(name, email, gender).get();
+                            check = checkTask.execute(email).get();
 
                             //회원가입 했는지 확인하는 부분
                             new CheckTask.SignUpCheck(check, context, activity);

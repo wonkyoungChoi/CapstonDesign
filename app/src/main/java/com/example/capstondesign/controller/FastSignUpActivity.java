@@ -77,6 +77,8 @@ public class FastSignUpActivity extends AppCompatActivity {
 
         AuthCodeTimer();
 
+        check = false;
+
         context = this;
         activity = FastSignUpActivity.this;
 
@@ -261,7 +263,9 @@ public class FastSignUpActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 } else if (!nick_click) {
                     Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (!check) {
+                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
                     Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }

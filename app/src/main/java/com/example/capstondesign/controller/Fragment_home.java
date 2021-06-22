@@ -85,6 +85,21 @@ public class Fragment_home extends Fragment {
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
 
+        // bell
+        animationView = v.findViewById(R.id.bell);
+        animationView.setVisibility(animationView.VISIBLE);
+        animationView.playAnimation();
+
+        //bell onclick
+        bellclick = (FrameLayout) v.findViewById(R.id.bellclick);
+        bellclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),Notice.class);
+                startActivity(intent);
+            }
+        });
+
 
         search = v.findViewById(R.id.search);
 

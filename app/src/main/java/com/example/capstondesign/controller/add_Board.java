@@ -72,7 +72,13 @@ public class add_Board extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                } else {
+                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                }
+
                 // Always show the chooser (if there are multiple options available)
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
 
@@ -89,7 +95,7 @@ public class add_Board extends AppCompatActivity {
                 nick = nickname;
                 title = EDTITLE.getText().toString();
                 text = EDTEXT.getText().toString();
-                if(title.trim().length() >3 || text.trim().length() >3) {
+                if(title.trim().length() >0 || text.trim().length() >0) {
                     if(fileBoard != null) {
 
                         for (int i = 0; i < fileBoard.length; i++) {
@@ -117,6 +123,7 @@ public class add_Board extends AppCompatActivity {
                                 fos.close();
 
                                 new UploadFileAsyncBoard().execute().get();
+
                                 Log.d("UploadFile", "됬다");
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -129,11 +136,12 @@ public class add_Board extends AppCompatActivity {
                                 Log.d("ExecutionException", e.getMessage());
                             }
                         }
+                        fileBoard = null;
                     }
 
                     addBoardTask();
                 } else {
-                    Toast.makeText(getApplicationContext(), "제목이나 내용이 너무 짧습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -161,7 +169,10 @@ public class add_Board extends AppCompatActivity {
 
         BoardTask.boardlist.add(board);
         Fragment_board.boardAdapter.notifyDataSetChanged();
-        finish();
+        Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        intent.putExtra("boardNum", 1);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 

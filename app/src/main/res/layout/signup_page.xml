@@ -36,7 +36,7 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/sign_mid"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -47,17 +47,17 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/border3"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:background="@drawable/border3">
 
         <EditText
             android:id="@+id/email_name"
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/email_check"
             android:background="@color/white"
             android:gravity="center|left"
             android:hint="아이디 ( 이메일 주소 )"
@@ -69,15 +69,16 @@
             android:id="@+id/email_check"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
             android:background="#FFBB00"
             android:fontFamily="@font/soldier"
             android:text="중복확인"
             android:textColor="@color/white"
             android:textSize="18sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/sign_mid1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -88,17 +89,17 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/border3"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:background="@drawable/border3">
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="210dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/gender"
             android:background="@color/white"
             android:gravity="center|left"
             android:hint="이름 (실명 입력)"
@@ -108,8 +109,9 @@
 
         <RadioGroup
             android:id="@+id/gender"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:orientation="horizontal">
 
             <RadioButton
@@ -135,11 +137,11 @@
         </RadioGroup>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/sign_mid3"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_below="@id/sign_mid1"
         android:layout_centerHorizontal="true"
@@ -148,16 +150,17 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/border3"
-        android:orientation="horizontal">
+        android:background="@drawable/border3">
 
         <EditText
             android:id="@+id/nickname"
             android:layout_width="280dp"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/nick_check"
             android:background="@color/white"
             android:gravity="center|left"
             android:hint="닉네임"
@@ -169,13 +172,14 @@
             android:id="@+id/nick_check"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
             android:background="#FFBB00"
             android:fontFamily="@font/soldier"
             android:text="중복확인"
             android:textColor="@color/white"
             android:textSize="18sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/sign_mid4"
@@ -245,7 +249,7 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/sign_mid6"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -258,79 +262,88 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/border3">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/phone_num_clear"
-                    android:layout_width="260dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:autoText="false"
-                    android:gravity="center|left"
-                    android:text="01063928576"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:visibility="invisible" />
-
-                <EditText
-
-                    android:id="@+id/phone_num"
-                    android:layout_width="260dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/white"
-                    android:gravity="center|left"
-                    android:hint="휴대전화번호('_'제외)"
-                    android:textColor="@color/black"
-                    android:textColorHint="#BDBDBD"
-                    android:textSize="18sp" />
-
-            </FrameLayout>
-
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-
-                    android:id="@+id/authClick"
-                    android:layout_width="120dp"
+                <FrameLayout
+                    android:id="@+id/f11"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:background="#FFBB00"
-                    android:fontFamily="@font/soldier"
-                    android:text="인증번호 전송"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/f22">
 
-                <Button
+                    <TextView
+                        android:id="@+id/phone_num_clear"
+                        android:layout_width="260dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:autoText="false"
+                        android:gravity="center|left"
+                        android:text="01063928576"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:visibility="invisible" />
 
-                    android:id="@+id/re_authClick"
-                    android:layout_width="120dp"
+                    <EditText
+
+                        android:id="@+id/phone_num"
+                        android:layout_width="260dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/white"
+                        android:gravity="center|left"
+                        android:hint="휴대전화번호('_'제외)"
+                        android:textColor="@color/black"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="18sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/f22"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:background="#FFBB00"
-                    android:fontFamily="@font/soldier"
-                    android:text="재전송"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="invisible" />
-            </FrameLayout>
+                    android:layout_alignParentRight="true">
 
-        </LinearLayout>
+                    <Button
 
-    </FrameLayout>
+                        android:id="@+id/authClick"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:background="#FFBB00"
+                        android:fontFamily="@font/soldier"
+                        android:text="인증번호 전송"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Button
+
+                        android:id="@+id/re_authClick"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:background="#FFBB00"
+                        android:fontFamily="@font/soldier"
+                        android:text="재전송"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+            </RelativeLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/DelayTextView"
@@ -356,61 +369,68 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/border3">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="match_parent">
 
-                <EditText
-
-                    android:id="@+id/auth"
-                    android:layout_width="280dp"
+                <FrameLayout
+                    android:id="@+id/left77"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/auth_check">
+
+                    <EditText
+
+                        android:id="@+id/auth"
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:hint="인증번호 확인"
+                        android:textColor="@color/black"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/auth_clear"
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/custom_button2"
+                        android:fontFamily="@font/soldier"
+                        android:gravity="center"
+                        android:text="휴대폰 인증완료"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible" />
+
+                </FrameLayout>
+
+                <Button
+
+                    android:id="@+id/auth_check"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
                     android:layout_marginBottom="5dp"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:hint="인증번호 확인"
-                    android:textColor="@color/black"
-                    android:textColorHint="#BDBDBD"
+                    android:background="#FFBB00"
+                    android:fontFamily="@font/soldier"
+                    android:text="인증하기"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/auth_clear"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/custom_button2"
-                    android:fontFamily="@font/soldier"
-                    android:gravity="center"
-                    android:text="휴대폰 인증완료"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="invisible" />
-
-            </FrameLayout>
-
-            <Button
-
-                android:id="@+id/auth_check"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:background="#FFBB00"
-                android:fontFamily="@font/soldier"
-                android:text="인증하기"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-        </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
 
 
     </FrameLayout>

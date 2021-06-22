@@ -67,8 +67,6 @@ public class showMyGroupBuying extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        Log.d("CHECK", showGroupBuying.get(0).getNick());
-
         showGroupBuyingAdapter = new ShowGroupBuyingAdapter(showGroupBuying);
         recyclerView.setAdapter(showGroupBuyingAdapter);
 

@@ -91,7 +91,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyView
 
         @SuppressLint("SetTextI18n")
         public void setItem(ChatRoomData item) {
-            name.setText(item.getNickname() + " 님과의 대화");
+            name.setText(item.getNickname());
             TextView_msg.setText(item.getMessage());
         }
     }

@@ -60,8 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     TextView phone_num_auth, auth_finish;
 
-    Boolean check = false;
-    Boolean email_click = false;
+    Boolean check;
+    Boolean email_click;
 
     private CountDownTimer timer;
 
@@ -72,6 +72,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         AuthCodeTimer();
 
+        check = false;
+        email_click = false;
 
         phone_num_auth = (TextView) findViewById(R.id.phone_num_clear);
         auth_finish = (TextView) findViewById(R.id.auth_clear);
@@ -254,6 +256,8 @@ public class SignUpActivity extends AppCompatActivity {
         String userPassword = password.getText().toString();
         String passwordcheck = passwordCheck.getText().toString();
 
+        Log.d("BOOLEAN", String.valueOf(check));
+
         if (username.trim().length() > 0 && useremail.trim().length() > 0 && useremail.contains("@") && userPassword.trim().length() > 0
                 && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click && check) {
 
@@ -360,7 +364,6 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             phone = phone_num.getText().toString();
-                            check = true;
 
                             timer.onFinish();
 
@@ -376,6 +379,7 @@ public class SignUpActivity extends AppCompatActivity {
                             phone_num_auth.setText(phone);
                             auth_finish.setVisibility(View.VISIBLE);
 
+                            check = true;
                             Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();

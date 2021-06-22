@@ -49,7 +49,6 @@ public class Search_Groupbuy extends AppCompatActivity {
                         intent.putExtra("result", re_result);
                         startActivity(intent);
                         finish();
-                        Toast.makeText(getApplicationContext(), "결과 있음", Toast.LENGTH_SHORT).show();
                     }
                 } catch (ExecutionException e) {
                     e.printStackTrace();

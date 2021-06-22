@@ -58,6 +58,7 @@ public class in_chat_room extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("chatNum", 3);
         startActivity(intent);
         finish();
@@ -76,7 +77,7 @@ public class in_chat_room extends AppCompatActivity {
         Log.d("NAME", name);
         Log.d("NAME1111", ChatAdapter.nick);
 
-        chat_nick_name.setText(name + "님과의 대화");
+        chat_nick_name.setText(name);
 
         //방 이름을 미리 저장해둠
         othername = name;
@@ -179,7 +180,10 @@ public class in_chat_room extends AppCompatActivity {
         chat_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("chatNum", 3);
+                startActivity(intent);
                 finish();
             }
         });

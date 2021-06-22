@@ -154,16 +154,19 @@ public class Fragment_profile extends Fragment {
             // i가 쓴 게시글 갯수(게시글, 공동구매글 포함한 숫자임)
 
             if(i < 5) {
-                classImage.setImageResource(R.drawable.afacebook);
+                classImage.setImageResource(R.drawable.mbs_b);
                 myInfoclass.setText("자취준비생");
-            } else if(i < 30) {
-                classImage.setImageResource(R.drawable.interest_aft);
+            } else if(i < 20) {
+                classImage.setImageResource(R.drawable.mbs_c);
                 myInfoclass.setText("자취초보");
-            } else if(i < 50) {
-                classImage.setImageResource(R.drawable.interest_aft);
+            } else if(i < 40) {
+                classImage.setImageResource(R.drawable.mbs_s);
                 myInfoclass.setText("자취중수");
-            } else {
-                classImage.setImageResource(R.drawable.interest_aft);
+            } else if(i < 60) {
+                classImage.setImageResource(R.drawable.mbs_g);
+                myInfoclass.setText("자취고수");
+            }else {
+                classImage.setImageResource(R.drawable.mbs_k);
                 myInfoclass.setText("자취왕");
             }
 
