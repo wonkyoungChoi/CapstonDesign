@@ -107,7 +107,6 @@ public class Fragment_board extends Fragment {
         boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                BoardTimejsonTask.positionBoard = pos + 1;
                 nick = BoardAdapter.click_nickname;
                 title = BoardAdapter.click_title;
                 text = BoardAdapter.click_text;

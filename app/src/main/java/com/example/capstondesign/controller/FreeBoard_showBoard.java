@@ -43,7 +43,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class  FreeBoard extends AppCompatActivity implements View.OnClickListener {
+public class  FreeBoard_showBoard extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
     public static String title, nick, time;

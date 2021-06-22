@@ -3,9 +3,12 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.controller.FreeBoard;
+import com.example.capstondesign.controller.FreeBoard_showBoard;
 import com.example.capstondesign.controller.LoginAcitivity;
 import com.example.capstondesign.controller.add_Board;
+import com.example.capstondesign.controller.showMyBoard;
 import com.example.capstondesign.view.BoardAdapter;
+import com.example.capstondesign.view.ShowBoardAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,12 +19,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class BoardTimejsonTask {
+public class ShowBoardjson {
     Profile profile = LoginAcitivity.profile;
     public String nick, title, number, time;
+    String fileLength;
+    public static int positionBoard = 0;
 
-
-    public BoardTimejsonTask() {
+    public ShowBoardjson() {
         try {
             jsonParsing(downloadUrl());
         } catch (IOException e) {
@@ -65,6 +69,7 @@ public class BoardTimejsonTask {
                 JSONObject CountObject = countArray.getJSONObject(i);
                 nick = CountObject.getString("nick");
                 title = CountObject.getString("title");
+                Log.d("positionTask", Integer.toString(positionBoard));
                 time = CountObject.getString("count"); // 1
 
                 Log.d("countError", time);
@@ -72,9 +77,9 @@ public class BoardTimejsonTask {
                 Log.d("nick2", title);
                 Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
 
-                if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && BoardAdapter.click_time.equals(time)) {
+                if(ShowBoardAdapter.click_nickname.equals(nick) && ShowBoardAdapter.click_title.equals(title) && ShowBoardAdapter.click_time.equals(time)) {
 //                    BuySubMain.numberGroupBuying = number;
-                    FreeBoard.time = time; //count
+                    FreeBoard_showBoard.time = time; //count
 
                 }
             }

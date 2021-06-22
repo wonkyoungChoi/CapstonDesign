@@ -79,6 +79,7 @@
 
             <TextView
                 android:id="@+id/content_text"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageHeader"
@@ -88,6 +89,7 @@
                 android:textSize="18sp" />
 
             <ListView
+                android:layout_marginTop="30dp"
                 android:id="@+id/comment_list"
                 android:layout_below="@id/content_text"
                 android:layout_width="match_parent"

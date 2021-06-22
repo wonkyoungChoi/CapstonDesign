@@ -50,6 +50,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="또한 작성한 모든 게시글이 삭제됩니다."/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:textColor="#000000"
             android:textStyle="bold"
             android:text="정말 회원탈퇴 하시겠습니까??"/>

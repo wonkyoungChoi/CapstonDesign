@@ -90,13 +90,13 @@
 
                 <TextView
                     android:id="@+id/myinfoclass"
-                    android:layout_width="86dp"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginStart="180dp"
                     android:layout_marginLeft="180dp"
                     android:layout_marginTop="50dp"
                     android:fontFamily="@font/cookierun"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:text="자취왕"
                     android:textColor="@color/black"
                     android:textSize="20sp"

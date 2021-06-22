@@ -54,9 +54,7 @@ public class showMyGroupBuying extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Fragment_main.class);
-                intent.putExtra("profileNum", 4);
-                startActivity(intent);
+                finish();
             }
         });
 

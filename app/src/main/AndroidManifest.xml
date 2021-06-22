@@ -75,6 +75,7 @@
         <activity android:name=".controller.showMyGroupBuying"/>
         <activity android:name=".controller.showMyBoard"/>
         <activity android:name=".controller.BuySubMain_showGroupBuying"/>
+        <activity android:name=".controller.FreeBoard_showBoard"/>
 
     </application>
 

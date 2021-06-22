@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.CountWriteTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.ProfileTask;
@@ -29,11 +30,15 @@ import java.util.concurrent.ExecutionException;
 
 public class Fragment_profile extends Fragment {
     String nickname;
-    TextView nicknameTv;
+    TextView nicknameTv, myInfoclass;
     Button logout, in_profilebtn, in_watchlist, setupbtn, noticebtn, tradebtn;
+    ImageView classImage;
     int login = LoginAcitivity.login;
     public static String number;
     String strurl;
+    CountWriteTask countWriteTask;
+
+    String count;
 
     ImageView showUserProfile;
 
@@ -95,6 +100,9 @@ public class Fragment_profile extends Fragment {
         profileCountjsonTask = new ProfileCountjsonTask();
         showUserProfile = v.findViewById(R.id.Myinfoimage);
 
+        classImage = v.findViewById(R.id.classimage);
+        myInfoclass = v.findViewById(R.id.myinfoclass);
+
         try {
             //
             //String a = profileTask.substringBetween(result1, "number:", "/");
@@ -128,6 +136,37 @@ public class Fragment_profile extends Fragment {
             Log.d("NICKNAME", nickname);
             profile.setNickname(nickname);
             nicknameTv.setText(nickname);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        countWriteTask = new CountWriteTask();
+        try {
+            String result = countWriteTask.execute(nickname).get();
+            int a = result.indexOf(":");
+            count =  result.substring(a+1);
+            int i = Integer.parseInt(count);
+            Log.d("NICKNAME", count);
+
+            // i가 쓴 게시글 갯수(게시글, 공동구매글 포함한 숫자임)
+
+            if(i < 5) {
+                classImage.setImageResource(R.drawable.afacebook);
+                myInfoclass.setText("자취준비생");
+            } else if(i < 30) {
+                classImage.setImageResource(R.drawable.interest_aft);
+                myInfoclass.setText("자취초보");
+            } else if(i < 50) {
+                classImage.setImageResource(R.drawable.interest_aft);
+                myInfoclass.setText("자취중수");
+            } else {
+                classImage.setImageResource(R.drawable.interest_aft);
+                myInfoclass.setText("자취왕");
+            }
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -194,7 +233,6 @@ public class Fragment_profile extends Fragment {
                 logout();
             }
         });
-
 
         return v;
     }
