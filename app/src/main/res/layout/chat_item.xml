@@ -111,7 +111,7 @@
             android:fontFamily="@font/soldier"
             android:textColor="@color/black"
             android:layout_marginLeft="10dp"
-            android:gravity="left"
+            android:gravity="left|center_vertical"
             android:textSize="15sp"
             tools:ignore="RtlHardcoded" />
 
@@ -130,10 +130,9 @@
             android:background="@drawable/custom_chat"
             android:fontFamily="@font/soldier"
             android:text="내 채팅"
-
             android:layout_marginRight="10dp"
             android:textColor="@color/black"
-            android:gravity="left"
+            android:gravity="left|center_vertical"
             android:textSize="15sp"
             tools:ignore="RtlHardcoded" />
 
