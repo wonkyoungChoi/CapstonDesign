@@ -2,16 +2,13 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.showMyBoard;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -20,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ShowBoardTask {
-    public static ArrayList<Board> boardlist = showMyBoard.showboard;
+    public static ArrayList<Board> boardlist = MyBoard.showboard;
     Board board;
     String nick, title, text, time, mynick;
     Profile profile = LoginAcitivity.profile;

@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.controller.BuySubMain_showGroupBuying;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.ShowGroupBuyingAdapter;
 
 import org.json.JSONArray;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

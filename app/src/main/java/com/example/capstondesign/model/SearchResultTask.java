@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Search_result;
+import com.example.capstondesign.ui.board.search.SearchBoardResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class SearchResultTask {
-    public static ArrayList<Board> searchlist = Search_result.board;
+    public static ArrayList<Board> searchlist = SearchBoardResult.board;
     Board board;
     String nick, title, text, time;
 

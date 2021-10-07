@@ -2,11 +2,9 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.BuySubMain;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.GroupBuyingAdapter;
-import com.example.capstondesign.controller.add_GroupBuying;
-import com.example.capstondesign.controller.Fragment_Groupbuy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,9 +75,9 @@ public class GroupBuyingTimejsonTask {
                 Log.d("CLCICK", GroupBuyingAdapter.click_time);
 
                 if(GroupBuyingAdapter.click_nickname.equals(nick) && GroupBuyingAdapter.click_title.equals(title) && GroupBuyingAdapter.click_time.equals(time)) {
-                    BuySubMain.numberGroupBuying = number;
+                    InGroupBuying.numberGroupBuying = number;
                     Log.d("numberEroor", number);
-                    BuySubMain.time = time; //count
+                    InGroupBuying.time = time; //count
 
                 }
             }

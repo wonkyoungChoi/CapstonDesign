@@ -10,8 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_Groupbuy;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import android.os.Build;
 import android.util.Log;
@@ -20,7 +19,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.controller.in_watchlist;
+import com.example.capstondesign.ui.profile.myactivity.mywatchlist.WatchlistActivity;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -141,16 +140,16 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
                 getNick();
-                String title = in_watchlist.watchlist.get(position).getTitle();
-                String nick = in_watchlist.watchlist.get(position).getNick();
-                String text = in_watchlist.watchlist.get(position).getText();
-                String price = in_watchlist.watchlist.get(position).getPrice();
-                String area = in_watchlist.watchlist.get(position).getArea();
+                String title = WatchlistActivity.watchlist.get(position).getTitle();
+                String nick = WatchlistActivity.watchlist.get(position).getNick();
+                String text = WatchlistActivity.watchlist.get(position).getText();
+                String price = WatchlistActivity.watchlist.get(position).getPrice();
+                String area = WatchlistActivity.watchlist.get(position).getArea();
 
                 Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, in_watchlist.watchlist.get(position).getTime()).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, WatchlistActivity.watchlist.get(position).getTime()).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);

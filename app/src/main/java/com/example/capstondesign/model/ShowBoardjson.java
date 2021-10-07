@@ -2,11 +2,8 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.FreeBoard;
-import com.example.capstondesign.controller.FreeBoard_showBoard;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.add_Board;
-import com.example.capstondesign.controller.showMyBoard;
+import com.example.capstondesign.ui.board.inboard.FreeBoard_showBoard;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.BoardAdapter;
 import com.example.capstondesign.view.ShowBoardAdapter;
 

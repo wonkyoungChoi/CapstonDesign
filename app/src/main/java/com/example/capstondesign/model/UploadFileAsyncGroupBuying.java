@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstondesign.controller.add_GroupBuying;
+import com.example.capstondesign.ui.groupbuying.AddGroupBuying;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -18,10 +18,10 @@ public class UploadFileAsyncGroupBuying extends AsyncTask<String, Void, String> 
     protected String doInBackground(String... params) {
 
         try {
-            String time = add_GroupBuying.time;
+            String time = AddGroupBuying.time;
             Log.d("timeUpload", time);
             //                      앱 저장 주소  / 앱 PackegeName            / 폴더  / 파일 이름
-            String sourceFileUri = "/data/data/com.example.capstondesign/files/" + add_GroupBuying.titlestr.hashCode() + time + ".jpg"; // Main에 있는  copy.jpg와 같이 바꾸셔야 합니다
+            String sourceFileUri = "/data/data/com.example.capstondesign/files/" + AddGroupBuying.titlestr.hashCode() + time + ".jpg"; // Main에 있는  copy.jpg와 같이 바꾸셔야 합니다
 
 
 

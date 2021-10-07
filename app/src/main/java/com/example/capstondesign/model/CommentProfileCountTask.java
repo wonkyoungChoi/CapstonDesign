@@ -2,12 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.BuySubMain;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.Fragment_profile;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.in_profile;
-import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.Comment_Adapter;
 
 import org.json.JSONArray;
@@ -18,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class CommentProfileCountTask {
     Profile profile = LoginAcitivity.profile;

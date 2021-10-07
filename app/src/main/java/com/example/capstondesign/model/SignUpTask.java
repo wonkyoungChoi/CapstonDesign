@@ -7,17 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.capstondesign.controller.FastSignUpActivity;
-import com.example.capstondesign.controller.Fragment_main;
-import com.example.capstondesign.controller.LoginAcitivity;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 public class SignUpTask extends AsyncTask<String, Void, String> {
     Task task = new Task();

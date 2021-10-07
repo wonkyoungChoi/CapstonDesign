@@ -7,9 +7,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.capstondesign.controller.FastSignUpActivity;
-import com.example.capstondesign.controller.Fragment_main;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
+import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 
 public class CheckTask extends AsyncTask<String, Void, String> {
@@ -28,7 +28,7 @@ public class CheckTask extends AsyncTask<String, Void, String> {
             Intent intent;
             Log.d("CHECK", String.valueOf(LoginAcitivity.login));
             if(check.contains("signup")) {
-                intent = new Intent(activity, Fragment_main.class);
+                intent = new Intent(activity, FragmentMain.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginAcitivity.Login = true;
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();

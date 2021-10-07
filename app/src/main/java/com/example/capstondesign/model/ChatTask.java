@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.ui.chatting.ChattingFragment;
 import com.example.capstondesign.view.ChatAdapter;
 
 import org.json.JSONArray;
@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ChatTask {
-    public static ArrayList<ChatRoomData> chatlist = Fragment_chatting.chatlist;
+    public static ArrayList<ChatRoomData> chatlist = ChattingFragment.chatlist;
     ChatRoomData chatRoomData;
     String nickname, nickname2;
 

@@ -2,12 +2,10 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.BuySubMain;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.Fragment_profile;
-import com.example.capstondesign.controller.FreeBoard;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.in_profile;
+import com.example.capstondesign.ui.profile.FragmentProfile;
+import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.inprofile.in_profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class ProfileCountjsonTask {
     Profile profile = LoginAcitivity.profile;
@@ -82,8 +79,8 @@ public class ProfileCountjsonTask {
                         number =(Integer.parseInt(number) - 1) + "";
                     }
                     in_profile.number = number;
-                    Fragment_profile.number = number;
-                    FreeBoard.number = number;
+                    FragmentProfile.number = number;
+                    InBoard.number = number;
                     Log.d("NUMBER!!!", number);
                     }
 

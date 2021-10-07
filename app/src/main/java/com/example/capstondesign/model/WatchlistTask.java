@@ -2,17 +2,13 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_Groupbuy;
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.in_watchlist;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.myactivity.mywatchlist.WatchlistActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -21,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class WatchlistTask {
-    public static ArrayList<Groupbuying> watchlist = in_watchlist.watchlist;
+    public static ArrayList<Groupbuying> watchlist = WatchlistActivity.watchlist;
     Groupbuying groupbuying;
     String nick, price, title, text, headCount, nowCount, area, watchnick, mynick, time;
     Profile profile = LoginAcitivity.profile;

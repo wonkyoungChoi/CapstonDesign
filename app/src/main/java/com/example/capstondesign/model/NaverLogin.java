@@ -3,17 +3,13 @@ package com.example.capstondesign.model;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.FastSignUpActivity;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.Fragment_main;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
@@ -24,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstondesign.controller.add_Board;
+import com.example.capstondesign.ui.board.AddBoard;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -18,10 +18,10 @@ public class UploadFileAsyncBoard extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            String count = add_Board.time;
+            String count = AddBoard.time;
             Log.d("UPLOADTIME", count);
             //                      앱 저장 주소  / 앱 PackegeName            / 폴더  / 파일 이름
-            String sourceFileUri = "/data/data/com.example.capstondesign/files/" + add_Board.title.hashCode() + count + ".jpg"; // Main에 있는  copy.jpg와 같이 바꾸셔야 합니다
+            String sourceFileUri = "/data/data/com.example.capstondesign/files/" + AddBoard.title.hashCode() + count + ".jpg"; // Main에 있는  copy.jpg와 같이 바꾸셔야 합니다
 
 
 

@@ -2,9 +2,8 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.FreeBoard;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.add_Board;
+import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.BoardAdapter;
 
 import org.json.JSONArray;
@@ -74,7 +73,7 @@ public class BoardTimejsonTask {
 
                 if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && BoardAdapter.click_time.equals(time)) {
 //                    BuySubMain.numberGroupBuying = number;
-                    FreeBoard.time = time; //count
+                    InBoard.time = time; //count
 
                 }
             }

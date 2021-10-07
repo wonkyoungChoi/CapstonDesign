@@ -16,8 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.model.ChatProfileCountjson;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatRoomProfileCountjson;
 import com.example.capstondesign.model.Profile;

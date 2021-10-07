@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.FreeBoard;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.model.ChatProfileCountjson;
+import com.example.capstondesign.ui.board.FragmentBoard;
+import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.CommentProfileCountTask;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.DeleteCommentTask;
@@ -40,10 +38,10 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
     String strurl;
     public static ArrayList<Comment_Item> arr;
     private int pos;
-    private Fragment_board ma;
+    private FragmentBoard ma;
     CommentProfileCountTask commentProfileCountTask;
     //	private Typeface myFont;
-    public Comment_Adapter(Context mContext, Activity mActivity, Fragment_board mc, ArrayList<Comment_Item> arr_item) {
+    public Comment_Adapter(Context mContext, Activity mActivity, FragmentBoard mc, ArrayList<Comment_Item> arr_item) {
         this.mContext = mContext;
         this.mActivity = mActivity;
         this.arr = arr_item;
@@ -122,7 +120,7 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
                         String result = null;
                         try {
                             if(arr.get(tag).getNick().equals(nickname)) {
-                                result = deleteCommentTask.execute(arr.get(tag).getNick(), FreeBoard.title , arr.get(tag).getComment(), arr.get(tag).getTime()).get();
+                                result = deleteCommentTask.execute(arr.get(tag).getNick(), InBoard.title , arr.get(tag).getComment(), arr.get(tag).getTime()).get();
                                 if (result.contains("delete")) {
                                     deleteArr(tag);
                                     Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();

@@ -2,15 +2,12 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.FreeBoard;
+import com.example.capstondesign.ui.board.inboard.InBoard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -18,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class CommentTask {
-    public static ArrayList<Comment_Item> comment_items = FreeBoard.c_arr;
+    public static ArrayList<Comment_Item> comment_items = InBoard.c_arr;
     Comment_Item comment_item;
     String nick, title, comment, co_nick, time;
 
@@ -73,9 +70,9 @@ public class CommentTask {
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
                 Log.d("JSONTIME", time);
-                Log.d("BOARDTIME", FreeBoard.time);
+                Log.d("BOARDTIME", InBoard.time);
 
-                if(nick.equals(FreeBoard.nick) && title.equals(FreeBoard.title) && time.equals(FreeBoard.time)) {
+                if(nick.equals(InBoard.nick) && title.equals(InBoard.title) && time.equals(InBoard.time)) {
                     comment_item = new Comment_Item(co_nick, comment, time);
                     comment_items.add(comment_item);
                 }

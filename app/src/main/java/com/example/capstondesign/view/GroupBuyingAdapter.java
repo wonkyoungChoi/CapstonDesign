@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_Groupbuy;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import android.os.Build;
 import android.util.Log;
@@ -142,16 +142,16 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
                 getNick();
-                String title = Fragment_Groupbuy.groupbuying.get(position).getTitle();
-                String nick = Fragment_Groupbuy.groupbuying.get(position).getNick();
-                String text = Fragment_Groupbuy.groupbuying.get(position).getText();
-                String price = Fragment_Groupbuy.groupbuying.get(position).getPrice();
-                String area = Fragment_Groupbuy.groupbuying.get(position).getArea();
+                String title = GroupbuyingFragment.groupbuying.get(position).getTitle();
+                String nick = GroupbuyingFragment.groupbuying.get(position).getNick();
+                String text = GroupbuyingFragment.groupbuying.get(position).getText();
+                String price = GroupbuyingFragment.groupbuying.get(position).getPrice();
+                String area = GroupbuyingFragment.groupbuying.get(position).getArea();
 
                 Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, Fragment_Groupbuy.groupbuying.get(position).getTime()).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, GroupbuyingFragment.groupbuying.get(position).getTime()).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);

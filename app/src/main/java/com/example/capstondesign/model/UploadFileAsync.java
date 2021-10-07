@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.io.DataOutputStream;
 import java.io.File;

@@ -9,7 +9,7 @@ public class LoginTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         url = "http://13.124.75.92:8080/login_cp.jsp";
-        sendMsg = "email_front="+strings[0]+"&email_end="+strings[1]+"&password="+strings[2];
+        sendMsg = "userId="+strings[0]+"&password="+strings[1];
 
         return task.start(url, sendMsg);
     }

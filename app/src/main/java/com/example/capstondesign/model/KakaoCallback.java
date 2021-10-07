@@ -2,15 +2,10 @@ package com.example.capstondesign.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.capstondesign.controller.FastSignUpActivity;
-import com.example.capstondesign.controller.Fragment_main;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.SignUpActivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ApiErrorCode;
 import com.kakao.network.ErrorResult;
@@ -19,13 +14,6 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class KakaoCallback {

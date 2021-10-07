@@ -2,11 +2,8 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.BuySubMain;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.Fragment_profile;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.in_profile;
+import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class InGroupBuyProfileCountTask {
     Profile profile = LoginAcitivity.profile;
@@ -69,18 +65,18 @@ public class InGroupBuyProfileCountTask {
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
 
-                if(BuySubMain.nickname.equals(nickname)) {
+                if(InGroupBuying.nickname.equals(nickname)) {
                     if(number.equals("0")) {
                         number = "-1";
                     } else if (number.equals("1")){
                         number = "";
-                        BuySubMain.email = email_front + "@" + email_end;
+                        InGroupBuying.email = email_front + "@" + email_end;
                     }
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
-                        BuySubMain.email = email_front + "@" + email_end;
+                        InGroupBuying.email = email_front + "@" + email_end;
                     }
-                    BuySubMain.number = number;
+                    InGroupBuying.number = number;
                     Log.d("NUMBER!!!", number);
                 }
 

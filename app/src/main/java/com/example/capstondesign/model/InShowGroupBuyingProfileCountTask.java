@@ -1,10 +1,7 @@
 package com.example.capstondesign.model;
 
 import android.util.Log;
-
-import com.example.capstondesign.controller.BuySubMain_showGroupBuying;
-import com.example.capstondesign.controller.BuySubMain_watchlist;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +60,7 @@ public class InShowGroupBuyingProfileCountTask {
                 number = CountObject.getString("number");
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
+                /*
 
                 if (BuySubMain_showGroupBuying.nickname.equals(nickname)) {
                     if (number.equals("0")) {
@@ -77,6 +75,8 @@ public class InShowGroupBuyingProfileCountTask {
                     BuySubMain_showGroupBuying.number = number;
                     Log.d("NUMBER!!!", number);
                 }
+
+                 */
 
             }
         } catch (JSONException jsonException) {

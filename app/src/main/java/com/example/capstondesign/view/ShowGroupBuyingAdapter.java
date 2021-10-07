@@ -15,8 +15,8 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.showMyGroupBuying;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuying;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -133,16 +133,16 @@ public static class MyViewHolder extends RecyclerView.ViewHolder{
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
                 getNick();
-                String title = showMyGroupBuying.showGroupBuying.get(position).getTitle();
-                String nick = showMyGroupBuying.showGroupBuying.get(position).getNick();
-                String text = showMyGroupBuying.showGroupBuying.get(position).getText();
-                String price = showMyGroupBuying.showGroupBuying.get(position).getPrice();
-                String area = showMyGroupBuying.showGroupBuying.get(position).getArea();
+                String title = MyGroupBuying.showGroupBuying.get(position).getTitle();
+                String nick = MyGroupBuying.showGroupBuying.get(position).getNick();
+                String text = MyGroupBuying.showGroupBuying.get(position).getText();
+                String price = MyGroupBuying.showGroupBuying.get(position).getPrice();
+                String area = MyGroupBuying.showGroupBuying.get(position).getArea();
 
                 Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, showMyGroupBuying.showGroupBuying.get(position).getTime()).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, MyGroupBuying.showGroupBuying.get(position).getTime()).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);

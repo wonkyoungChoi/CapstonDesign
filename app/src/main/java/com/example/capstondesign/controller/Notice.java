@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.FragmentMain;
 
 public class Notice extends AppCompatActivity {
-
 
 
     @Override
@@ -29,7 +29,7 @@ public class Notice extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(Notice.this,Fragment_main.class);
+                Intent back = new Intent(Notice.this, FragmentMain.class);
                 startActivity(back);
             }
         });

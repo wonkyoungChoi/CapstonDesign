@@ -1,22 +1,14 @@
 package com.example.capstondesign.model;
 
-import android.media.Image;
 import android.util.Log;
-import android.widget.ImageView;
 
-import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_Groupbuy;
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.controller.in_watchlist;
-import com.example.capstondesign.controller.add_GroupBuying;
+import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class GroupBuyingTask {
-    public static ArrayList<Groupbuying> groupbuyinglist = Fragment_Groupbuy.groupbuying;
+    public static ArrayList<Groupbuying> groupbuyinglist = GroupbuyingFragment.groupbuying;
 
     Groupbuying groupbuying;
 

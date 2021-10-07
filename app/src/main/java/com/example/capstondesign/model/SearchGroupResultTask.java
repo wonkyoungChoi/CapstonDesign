@@ -2,8 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Search_Groupbuy;
-import com.example.capstondesign.controller.Search_Groupbuy_result;
+import com.example.capstondesign.ui.groupbuying.search.SearchGroupbuyingResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class SearchGroupResultTask {
-    public static ArrayList<Groupbuying> searchlist = Search_Groupbuy_result.group;
+    public static ArrayList<Groupbuying> searchlist = SearchGroupbuyingResult.group;
     Groupbuying groupbuying;
     String nick, title, text, area, headcount, nowCount, price, watchnick, count, time;
 

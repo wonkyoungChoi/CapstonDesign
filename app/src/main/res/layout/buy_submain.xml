@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     app:layoutDescription="@xml/buy_submain_scene2"
-    tools:context=".controller.BuySubMain">
+    tools:context=".ui.groupbuying.ingroupbuying.InGroupBuying">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bs_top"

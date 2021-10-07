@@ -2,12 +2,8 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.BuySubMain;
-import com.example.capstondesign.controller.BuySubMain_watchlist;
-import com.example.capstondesign.controller.LoginAcitivity;
-import com.example.capstondesign.view.GroupBuyingAdapter;
-import com.example.capstondesign.controller.add_GroupBuying;
-import com.example.capstondesign.controller.Fragment_Groupbuy;
+import com.example.capstondesign.ui.profile.myactivity.mywatchlist.InMyWatchlist;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.view.WatchlistAdapter;
 
 import org.json.JSONArray;
@@ -77,9 +73,9 @@ public class WatchlistCountjson {
 
 
                 if(WatchlistAdapter.click_nickname.equals(nick) && WatchlistAdapter.click_title.equals(title) && WatchlistAdapter.click_time.equals(time)) {
-                    BuySubMain_watchlist.numberGroupBuying = number;
+                    InMyWatchlist.numberGroupBuying = number;
                     Log.d("numberEroor", number);
-                    BuySubMain_watchlist.time = time; //count
+                    InMyWatchlist.time = time; //count
 
                 }
             }

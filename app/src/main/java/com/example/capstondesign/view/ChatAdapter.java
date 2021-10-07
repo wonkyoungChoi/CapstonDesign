@@ -16,8 +16,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.controller.Fragment_profile;
-import com.example.capstondesign.controller.LoginAcitivity;
+import com.example.capstondesign.ui.profile.FragmentProfile;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.ChatProfileCountjson;
 import com.example.capstondesign.model.Profile;
@@ -91,12 +91,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         if(chat.getNickname()!=null && chat.getNickname().equals(nick)) {
             profileCountjsonTask = new ProfileCountjsonTask();
             try {
-                Log.d("TEST", Fragment_profile.number);
-                if (Fragment_profile.number.equals("-1")) {
+                Log.d("TEST", FragmentProfile.number);
+                if (FragmentProfile.number.equals("-1")) {
                     strurl = "http://13.124.75.92:8080/king.png";
                     Log.d("NUM0", strurl);
                 } else {
-                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + Fragment_profile.number + ".jpg";
+                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + FragmentProfile.number + ".jpg";
                     Log.d("NUM", strurl);
                 }
                 Picasso.get().load(Uri.parse(strurl)).into(holder.myImage);

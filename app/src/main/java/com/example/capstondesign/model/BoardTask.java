@@ -2,14 +2,12 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
+import com.example.capstondesign.ui.board.FragmentBoard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -17,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class BoardTask {
-    public static ArrayList<Board> boardlist = Fragment_board.board;
+    public static ArrayList<Board> boardlist = FragmentBoard.board;
     Board board;
     String nick, title, text, time;
 

@@ -2,15 +2,12 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.controller.Fragment_board;
-import com.example.capstondesign.controller.Fragment_chatting;
-import com.example.capstondesign.controller.in_notice;
+import com.example.capstondesign.ui.profile.notice.Notice;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -18,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NoticeTask {
-    public static ArrayList<Board> noticelist = in_notice.board;
+    public static ArrayList<Board> noticelist = Notice.board;
     Board board;
     String nick, title, text;
 
