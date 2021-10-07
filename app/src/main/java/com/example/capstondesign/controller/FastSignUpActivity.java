@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FastSignUpActivity extends AppCompatActivity {
     TextView name, email;
-    EditText password, nickname, passwordCheck;
+    EditText nickname;
     RadioGroup gender;
     RadioButton radioButton;
     Context context;
@@ -86,8 +86,6 @@ public class FastSignUpActivity extends AppCompatActivity {
         email = (TextView) findViewById(R.id.email);
         phone_num = (EditText) findViewById(R.id.phone_num);
         gender = (RadioGroup) findViewById(R.id.gender);
-        password = (EditText) findViewById(R.id.password);
-        passwordCheck = (EditText) findViewById(R.id.password_check);
         nickname = (EditText) findViewById(R.id.nickname);
         sign_up = (Button) findViewById(R.id.sign_up);
         sign_cancel = (Button) findViewById(R.id.cancel);
@@ -243,15 +241,12 @@ public class FastSignUpActivity extends AppCompatActivity {
                 String userEmail_end = email_end(email.getText().toString());
                 String userNum = phone;
                 String userNickname = nickname.getText().toString();
-                String userPassword = password.getText().toString();
-                String passwordcheck = passwordCheck.getText().toString();
 
-                if(username.trim().length()>0 && userPassword.trim().length()>0
-                        && userNickname.trim().length()>0 && userPassword.equals(passwordcheck) && nick_click) {
+                if(username.trim().length()>0 && userNickname.trim().length()>0 &&  nick_click) {
                     try {
                         String result;
                         SignUpTask task = new SignUpTask();
-                        result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname ,userPassword, radioButton.getText().toString()).get();
+                        result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname, radioButton.getText().toString()).get();
                         ChatAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
@@ -259,9 +254,7 @@ public class FastSignUpActivity extends AppCompatActivity {
 
                     }
 
-                } else if (!userPassword.equals(passwordcheck)){
-                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                } else if (!nick_click) {
+                }  else if (!nick_click) {
                     Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (!check) {
                     Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
