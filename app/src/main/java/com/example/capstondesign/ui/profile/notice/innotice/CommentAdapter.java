@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.profile.notice.innotice;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class Comment_Adapter extends BaseAdapter implements View.OnClickListener {
+public class CommentAdapter extends BaseAdapter implements View.OnClickListener {
     private Context mContext;
     private Activity mActivity;
     Profile profile = LoginAcitivity.profile;
@@ -41,7 +41,7 @@ public class Comment_Adapter extends BaseAdapter implements View.OnClickListener
     private FragmentBoard ma;
     CommentProfileCountTask commentProfileCountTask;
     //	private Typeface myFont;
-    public Comment_Adapter(Context mContext, Activity mActivity, FragmentBoard mc, ArrayList<Comment_Item> arr_item) {
+    public CommentAdapter(Context mContext, Activity mActivity, FragmentBoard mc, ArrayList<Comment_Item> arr_item) {
         this.mContext = mContext;
         this.mActivity = mActivity;
         this.arr = arr_item;

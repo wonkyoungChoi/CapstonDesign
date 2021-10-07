@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.chatting;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -27,9 +27,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyViewHolder> {
+public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapter.MyViewHolder> {
     public static String nick, name, email;
-    static ChatRoomAdapter.OnItemClickListener mListener = null;
+    static ChattingRoomAdapter.OnItemClickListener mListener = null;
     public static ArrayList<ChatRoomData> items = null;
     public static String number;
     Profile profile = LoginAcitivity.profile;
@@ -42,10 +42,10 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyView
         void onItemLongClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(ChatRoomAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(ChattingRoomAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
-    public void setOnItemLongClickListener(ChatRoomAdapter.OnItemClickListener listener) {
+    public void setOnItemLongClickListener(ChattingRoomAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -96,12 +96,12 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.MyView
     }
 
 
-    public ChatRoomAdapter(ArrayList<ChatRoomData> item) { items = item; }
+    public ChattingRoomAdapter(ArrayList<ChatRoomData> item) { items = item; }
 
 
     @NonNull
     @Override
-    public ChatRoomAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChattingRoomAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chatting_room_item, parent, false);
 

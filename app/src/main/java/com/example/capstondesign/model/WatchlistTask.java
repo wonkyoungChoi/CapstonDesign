@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.myactivity.mywatchlist.WatchlistActivity;
+import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

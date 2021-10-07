@@ -20,12 +20,11 @@ import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.ShowBoardTask;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.ShowBoardAdapter;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MyBoard extends AppCompatActivity {
+public class MyBoardActivity extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
     public static Uri image;

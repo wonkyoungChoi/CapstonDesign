@@ -17,7 +17,6 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.ChatAdapter;
 import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.LastMsgTask;
 import com.google.firebase.database.ChildEventListener;
@@ -33,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 public class InChattingRoom extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference myRef = database.getReference();
-    ChatAdapter chatAdapter;
+    ChattingAdapter chatAdapter;
     List<ChatData> chatlist = new ArrayList<>();
     ChatData chatData;
     private EditText EditText_chat;
@@ -75,7 +74,7 @@ public class InChattingRoom extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         Log.d("NAME", name);
-        Log.d("NAME1111", ChatAdapter.nick);
+        Log.d("NAME1111", ChattingAdapter.nick);
 
         chat_nick_name.setText(name);
 
@@ -86,10 +85,10 @@ public class InChattingRoom extends AppCompatActivity {
         //othername일 경우 파이어채팅방 이름을 다시 othername으로 바꿔줌
         // mynick과 othernick의 채팅방이 두개로 만들어지면 안되기 때문
         if(!check) {
-            name = ChatAdapter.nick + "&" +  name;
+            name = ChattingAdapter.nick + "&" +  name;
             Log.d("IF", name);
         } else {
-            name = name + "&" + ChatAdapter.nick;
+            name = name + "&" + ChattingAdapter.nick;
             Log.d("ELSE", name);
         }
 
@@ -142,7 +141,7 @@ public class InChattingRoom extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        chatAdapter = new ChatAdapter(chatlist);
+        chatAdapter = new ChattingAdapter(chatlist);
 
         recyclerView.setAdapter(chatAdapter);
 
@@ -153,21 +152,21 @@ public class InChattingRoom extends AppCompatActivity {
                 try {
                     key = myRef.push().getKey();
                     String msg = EditText_chat.getText().toString();
-                    ChatData chat = new ChatData(ChatAdapter.nick , msg, key, profile.getEmail(), profile.getName());
-                    Log.d("SEND", ChatAdapter.nick + "msg" + msg);
+                    ChatData chat = new ChatData(ChattingAdapter.nick , msg, key, profile.getEmail(), profile.getName());
+                    Log.d("SEND", ChattingAdapter.nick + "msg" + msg);
                     //Realtime Database의 Chat 안의 name안의 key에 값을 저장
                     //key는 보내기 할 때마다 값이 변경되므로 값이 중복 저장되지 않음
                     myRef.child("Chat").child(name).child(key).setValue(chat);
                     Log.d("NAME", name);
                     //마지막 메시지를 데이터베이스에 업데이트 하는 Task
                     lastMsgTask = new LastMsgTask();
-                    lastMsgTask.execute(msg, othername, ChatAdapter.nick, othername).get();
+                    lastMsgTask.execute(msg, othername, ChattingAdapter.nick, othername).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(ChatAdapter.chatData.size()>1) {
+                if(ChattingAdapter.chatData.size()>1) {
                     recyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
                 }
                 EditText_chat.setText(null);

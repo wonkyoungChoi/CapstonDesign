@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.groupbuying;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.ui.profile.myactivity.mywatchlist.WatchlistActivity;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -29,7 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyViewHolder> {
+public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.MyViewHolder> {
     static OnInterestClickListener mListener = null;
     static OnItemClickListener mListener1 = null;
     public static String nick;
@@ -41,7 +40,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(WatchlistAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(GroupBuyingAdapter.OnItemClickListener listener) {
         mListener1 = listener;
     }
 
@@ -49,7 +48,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
         void onItemClick(View v, int pos);
     }
 
-    public void setOnInterestClickListener(WatchlistAdapter.OnInterestClickListener listener) {
+    public void setOnInterestClickListener(GroupBuyingAdapter.OnInterestClickListener listener) {
         mListener = listener;
     }
 
@@ -76,6 +75,8 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
                             mListener.onItemClick(v, pos);
+
+
                         }
                     }
                 }
@@ -111,12 +112,12 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
     }
 
     public static List<Groupbuying> groupbuyingList;
-    public WatchlistAdapter(List<Groupbuying> items) { groupbuyingList = items; }
+    public GroupBuyingAdapter(List<Groupbuying> items) { groupbuyingList = items; }
     public static String click_nickname, click_title, click_text, click_area, click_time;
 
     @NonNull
     @Override
-    public WatchlistAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupBuyingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.groupbuy_item, parent, false);
 
@@ -140,16 +141,16 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
                 getNick();
-                String title = WatchlistActivity.watchlist.get(position).getTitle();
-                String nick = WatchlistActivity.watchlist.get(position).getNick();
-                String text = WatchlistActivity.watchlist.get(position).getText();
-                String price = WatchlistActivity.watchlist.get(position).getPrice();
-                String area = WatchlistActivity.watchlist.get(position).getArea();
+                String title = GroupbuyingFragment.groupbuying.get(position).getTitle();
+                String nick = GroupbuyingFragment.groupbuying.get(position).getNick();
+                String text = GroupbuyingFragment.groupbuying.get(position).getText();
+                String price = GroupbuyingFragment.groupbuying.get(position).getPrice();
+                String area = GroupbuyingFragment.groupbuying.get(position).getArea();
 
                 Log.d("관심목록 클릭", area);
                 addWatchlistTask addWatchlistTask = new addWatchlistTask();
                 try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, WatchlistActivity.watchlist.get(position).getTime()).get();
+                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, GroupbuyingFragment.groupbuying.get(position).getTime()).get();
                     Log.d("결과", result);
                     if(result.contains("추가")) {
                         holder.getInterest_btn().setImageResource(R.drawable.interest_aft);
@@ -173,17 +174,17 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
         if(groupbuyingList.get(position).getWatchnick().contains(mynick1 + ",")) {
             Log.d("등록", "등록");
             holder.interest_btn.setImageResource(R.drawable.interest_aft);
-            holder.title.setText(groupbuyingList.get(position).getTitle());
-            holder.price.setText(groupbuyingList.get(position).getPrice() + "원");
-            holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
-            holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
-            holder.area.setText(groupbuyingList.get(position).getArea());
-
-            String get = "http://13.124.75.92:8080/upload/" + groupbuyingList.get(position).getBuy_image();
-            Log.d("getPhoto", get);
-            Picasso.get().load(Uri.parse(get)).into(holder.imageView);
-
         }
+        holder.title.setText(groupbuyingList.get(position).getTitle());
+        holder.price.setText(groupbuyingList.get(position).getPrice() + "원");
+        holder.headCount.setText(groupbuyingList.get(position).getHeadcount());
+        holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
+        holder.area.setText(groupbuyingList.get(position).getArea());
+
+        String get = "http://13.124.75.92:8080/upload/" + groupbuyingList.get(position).getBuy_image();
+        Log.d("getPhoto", get);
+        Picasso.get().load(Uri.parse(get)).into(holder.imageView);
+
 
     }
 

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.BoardAdapter;
+import com.example.capstondesign.ui.board.BoardAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

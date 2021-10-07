@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.chatting.ChattingFragment;
-import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +67,7 @@ public class ChatTask {
                 nickname = ChatObject.getString("mynick");
                 nickname2 = ChatObject.getString("othernick");
 
-                if(nickname.equals(ChatAdapter.nick)) {
+                if(nickname.equals(ChattingAdapter.nick)) {
 
                     chatRoomData.setNickname(nickname2);
                     chatRoomData.setRoom_check(true);
@@ -91,7 +91,7 @@ public class ChatTask {
                         }
                     }
 
-                } else if (nickname2.equals(ChatAdapter.nick)) {
+                } else if (nickname2.equals(ChattingAdapter.nick)) {
                     chatRoomData.setNickname(nickname);
                     chatRoomData.setRoom_check(false);
                     chatRoomData.setMessage(ChatObject.getString("last_msg"));

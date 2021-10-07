@@ -29,7 +29,7 @@ import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.model.CommentTask;
 import com.example.capstondesign.ui.board.FragmentBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.Comment_Adapter;
+import com.example.capstondesign.ui.profile.notice.innotice.CommentAdapter;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
@@ -53,7 +53,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
     String nickname, text, strurl;
     ListView comment_list;
     EditText comment_edit;
-    Comment_Adapter ca;
+    CommentAdapter ca;
     CommentTask commentTask;
     ImageView imageView;
 
@@ -201,7 +201,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setList() {
-        ca = new Comment_Adapter(getApplicationContext(), this, ma, c_arr);
+        ca = new CommentAdapter(getApplicationContext(), this, ma, c_arr);
         comment_list.setAdapter(ca);
         comment_list.setSelection(c_arr.size()-1);
         comment_list.setDivider(null);

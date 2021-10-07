@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.groupbuying.ingroupbuying;
 
 import android.net.Uri;
 import android.util.Log;
@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.model.Profile;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class BuySubAdapter extends RecyclerView.Adapter<BuySubAdapter.BuySubViewHolder> {
+public class GroupBuyingSliderAdapter extends RecyclerView.Adapter<GroupBuyingSliderAdapter.BuySubViewHolder> {
 
-    Profile profile = LoginAcitivity.profile;
-
-    public BuySubAdapter(List<BuySubSlideritem> itemList, ViewPager2 pager2) {
+    public GroupBuyingSliderAdapter(List<BuySubSlideritem> itemList, ViewPager2 pager2) {
         this.itemList = itemList;
         this.pager2 = pager2;
     }

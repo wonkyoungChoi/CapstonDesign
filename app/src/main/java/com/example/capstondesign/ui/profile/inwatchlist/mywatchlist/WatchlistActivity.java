@@ -1,4 +1,4 @@
-package com.example.capstondesign.ui.profile.myactivity.mywatchlist;
+package com.example.capstondesign.ui.profile.inwatchlist.mywatchlist;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,8 +22,6 @@ import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.myactivity.mywatchlist.InMyWatchlist;
-import com.example.capstondesign.view.WatchlistAdapter;
 import com.example.capstondesign.model.WatchlistTask;
 
 import java.util.ArrayList;

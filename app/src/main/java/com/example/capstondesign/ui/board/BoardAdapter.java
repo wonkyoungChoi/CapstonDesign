@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.board;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.MyViewHolder> {
-    static SearchResultAdapter.OnItemClickListener mListener = null;
+public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
+    static BoardAdapter.OnItemClickListener mListener = null;
     public static String nick;
     public static Board board;
 
@@ -30,7 +30,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(SearchResultAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(BoardAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -63,13 +63,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         }
     }
 
+
     public static List<Board> boardList;
-    public SearchResultAdapter(List<Board> items) { boardList = items; }
+    public BoardAdapter(List<Board> items) { boardList = items; }
     public static String click_nickname, click_title, click_text, click_time;
 
     @NonNull
     @Override
-    public SearchResultAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.board_layout, parent, false);
 
@@ -84,12 +85,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         Log.d("position", String.valueOf(position));
 
         holder.setIsRecyclable(false);
-
         board = boardList.get(position);
 
         if(boardList.get(position).getImage() != null) {
             holder.nick.setText(boardList.get(position).getNick());
-            //holder.imageView.setImageURI(boardList.get(position).image);
             holder.title.setText(boardList.get(position).getTitle());
             holder.text.setText(boardList.get(position).getText());
         } else {

@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.EmailCheckTask;
-import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.SignUpTask;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -266,7 +266,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String useremail_front = useremail.substring(0,useremail.indexOf("@"));
                 String useremail_end = useremail.substring(useremail.indexOf("@")+1);
                 result = signUpTask.execute(username, userNum, useremail_front, useremail_end, userNickname, userPassword, radioButton.getText().toString()).get();
-                ChatAdapter.nick = userNickname;
+                ChattingAdapter.nick = userNickname;
                 new SignUpTask.DuplicateCheck(result, context, activity);
 
             } catch (Exception ignored) {

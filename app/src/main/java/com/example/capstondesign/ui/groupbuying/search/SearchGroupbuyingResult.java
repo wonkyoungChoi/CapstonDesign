@@ -19,7 +19,7 @@ import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.SearchGroupResultTask;
 import com.example.capstondesign.model.SearchTask;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
-import com.example.capstondesign.view.GroupBuyingAdapter;
+import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

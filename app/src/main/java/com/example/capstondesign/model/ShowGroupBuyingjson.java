@@ -1,10 +1,7 @@
 package com.example.capstondesign.model;
 
 import android.util.Log;
-
-import com.example.capstondesign.controller.BuySubMain_showGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.ShowGroupBuyingAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +68,7 @@ public class ShowGroupBuyingjson {
                 number = CountObject.getString("number");
                 time = CountObject.getString("count"); // 1
 
+                /*
 
                 if(ShowGroupBuyingAdapter.click_nickname.equals(nick) && ShowGroupBuyingAdapter.click_title.equals(title) && ShowGroupBuyingAdapter.click_time.equals(time)) {
                     BuySubMain_showGroupBuying.numberGroupBuying = number;
@@ -78,6 +76,8 @@ public class ShowGroupBuyingjson {
                     BuySubMain_showGroupBuying.time = time; //count
 
                 }
+
+                 */
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

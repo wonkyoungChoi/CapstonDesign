@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.ui.profile.notice.Notice;
+import com.example.capstondesign.ui.profile.notice.NoticeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NoticeTask {
-    public static ArrayList<Board> noticelist = Notice.board;
+    public static ArrayList<Board> noticelist = NoticeActivity.board;
     Board board;
     String nick, title, text;
 

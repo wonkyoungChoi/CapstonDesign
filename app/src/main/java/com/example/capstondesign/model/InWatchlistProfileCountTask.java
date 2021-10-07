@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.ui.profile.myactivity.mywatchlist.InMyWatchlist;
+import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.InMyWatchlist;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import org.json.JSONArray;

@@ -1,11 +1,8 @@
 package com.example.capstondesign.model;
 
 import android.util.Log;
-
-import com.example.capstondesign.ui.board.inboard.FreeBoard_showBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.BoardAdapter;
-import com.example.capstondesign.view.ShowBoardAdapter;
+import com.example.capstondesign.ui.board.BoardAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,12 +70,15 @@ public class ShowBoardjson {
                 Log.d("nick", nick);
                 Log.d("nick2", title);
                 Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
+                /*
 
                 if(ShowBoardAdapter.click_nickname.equals(nick) && ShowBoardAdapter.click_title.equals(title) && ShowBoardAdapter.click_time.equals(time)) {
 //                    BuySubMain.numberGroupBuying = number;
                     FreeBoard_showBoard.time = time; //count
 
                 }
+
+                 */
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

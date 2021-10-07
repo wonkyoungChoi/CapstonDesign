@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.chatting.inchattingroom;
 
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
+public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyViewHolder> {
     public static String nick, name, email;
     private static final String TAG = "ChatAdapter";
     public ChatData chat;
@@ -58,12 +58,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     }
 
     public static List<ChatData> chatData;
-    public ChatAdapter(List<ChatData> items) { chatData = items; }
+    public ChattingAdapter(List<ChatData> items) { chatData = items; }
 
 
     @NonNull
     @Override
-    public ChatAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChattingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chat_item, parent, false);
 

@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import com.example.capstondesign.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
-public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
+public class HomeSliderAdapter extends SliderViewAdapter<HomeSliderAdapter.Holder> {
 
     int[] images;
 
-    public  SliderAdapter(int[] images){
+    public HomeSliderAdapter(int[] images){
         this.images = images;
     }
 

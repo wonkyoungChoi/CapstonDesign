@@ -20,7 +20,6 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
-import com.example.capstondesign.view.GroupBuyingAdapter;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;

@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
-public class in_profile extends AppCompatActivity {
+public class InProfileActivity extends AppCompatActivity {
     String name, phone_num, email , nickname, password, gender, result, result1, url;
     public static String number;
     String picture = "";
@@ -223,7 +223,7 @@ public class in_profile extends AppCompatActivity {
                     Log.d("UploadFile", "됬다");
                     mProgressDialog.dismiss();
                     finish();
-                    Intent intent = new Intent(getApplicationContext(), in_profile.class);
+                    Intent intent = new Intent(getApplicationContext(), InProfileActivity.class);
                     startActivity(intent);
                 } catch (IOException e) {
                     e.printStackTrace();

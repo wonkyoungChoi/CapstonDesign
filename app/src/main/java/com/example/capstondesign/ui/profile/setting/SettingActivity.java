@@ -12,8 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.profile.setting.changepassword.in_change_password;
-import com.example.capstondesign.ui.profile.setting.withdraw.in_withdraw;
+import com.example.capstondesign.ui.profile.setting.changepassword.InChangePasswordActivity;
+import com.example.capstondesign.ui.profile.setting.withdraw.InWithdrawActivity;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
@@ -56,7 +56,7 @@ public class SettingActivity extends AppCompatActivity {
         builder.setPositiveButton("변경하기", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(getApplicationContext(), in_change_password.class);
+                Intent intent = new Intent(getApplicationContext(), InChangePasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,7 +85,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 getPassword();
                 if(et.getText().toString().equals(password)) {
-                    Intent intent = new Intent(getApplicationContext(), in_withdraw.class);
+                    Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "비밀번호를 올바르게 입력하세요.", Toast.LENGTH_SHORT).show();

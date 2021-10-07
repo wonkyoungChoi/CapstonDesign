@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.Comment_Adapter;
+import com.example.capstondesign.ui.profile.notice.innotice.CommentAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,20 +65,20 @@ public class CommentProfileCountTask {
                 email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
 
-                Log.d("TTTTEEEESSSSTTTT", Comment_Adapter.nick);
+                Log.d("TTTTEEEESSSSTTTT", CommentAdapter.nick);
 
-                if(Comment_Adapter.nick.equals(nickname)) {
+                if(CommentAdapter.nick.equals(nickname)) {
                     if(number.equals("0")) {
                         number = "-1";
                     } else if (number.equals("1")){
                         number = "";
-                        Comment_Adapter.email = email_front + "@" + email_end;
+                        CommentAdapter.email = email_front + "@" + email_end;
                     }
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
-                        Comment_Adapter.email = email_front + "@" + email_end;
+                        CommentAdapter.email = email_front + "@" + email_end;
                     }
-                    Comment_Adapter.number = number;
+                    CommentAdapter.number = number;
                 }
 
             }

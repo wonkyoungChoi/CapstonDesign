@@ -1,4 +1,4 @@
-package com.example.capstondesign.ui.profile.myactivity.mywatchlist;
+package com.example.capstondesign.ui.profile.inwatchlist.mywatchlist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -28,15 +28,14 @@ import com.example.capstondesign.model.addWatchlistTask;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.BuySubAdapter;
+import com.example.capstondesign.ui.groupbuying.ingroupbuying.GroupBuyingSliderAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
-import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.model.ChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.view.WatchlistAdapter;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -51,7 +50,7 @@ public class InMyWatchlist extends AppCompatActivity {
     ImageView Myinfoimage;
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
-    String mynick = ChatAdapter.nick;
+    String mynick = ChattingAdapter.nick;
     public static String number, nickname, email, time;
     String strurl;
     InWatchlistProfileCountTask inWatchlistProfileCountTask;
@@ -223,7 +222,7 @@ public class InMyWatchlist extends AppCompatActivity {
             else itemList.add(new BuySubSlideritem("http://13.124.75.92:8080/upload/" + WatchlistAdapter.click_title.hashCode() + time +  i + ".jpg"));
         }
 
-        pager2.setAdapter(new BuySubAdapter(itemList,pager2));
+        pager2.setAdapter(new GroupBuyingSliderAdapter(itemList,pager2));
         dotsIndicator.setViewPager2(pager2);
 
         buyback = (Button)findViewById(R.id.sub_buy_back);

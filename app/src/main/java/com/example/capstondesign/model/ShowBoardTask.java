@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoard;
+import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoardActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ShowBoardTask {
-    public static ArrayList<Board> boardlist = MyBoard.showboard;
+    public static ArrayList<Board> boardlist = MyBoardActivity.showboard;
     Board board;
     String nick, title, text, time, mynick;
     Profile profile = LoginAcitivity.profile;

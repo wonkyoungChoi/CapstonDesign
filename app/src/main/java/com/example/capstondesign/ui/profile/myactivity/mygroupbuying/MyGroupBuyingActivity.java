@@ -23,12 +23,11 @@ import com.example.capstondesign.model.ShowGroupBuyingTask;
 import com.example.capstondesign.model.ShowGroupBuyingjson;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.ShowGroupBuyingAdapter;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MyGroupBuying extends AppCompatActivity {
+public class MyGroupBuyingActivity extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
     ImageView buysearch;
     ImageView buynotify;

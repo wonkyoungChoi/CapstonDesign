@@ -18,9 +18,9 @@ import androidx.fragment.app.Fragment;
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.myactivity.MyActivity;
-import com.example.capstondesign.ui.profile.myactivity.mywatchlist.WatchlistActivity;
-import com.example.capstondesign.ui.profile.notice.Notice;
-import com.example.capstondesign.ui.profile.inprofile.in_profile;
+import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
+import com.example.capstondesign.ui.profile.notice.NoticeActivity;
+import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
 import com.example.capstondesign.ui.profile.setting.SettingActivity;
 import com.example.capstondesign.model.CountWriteTask;
 import com.example.capstondesign.model.Profile;
@@ -188,7 +188,7 @@ public class FragmentProfile extends Fragment {
         in_profilebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), in_profile.class);
+                Intent intent = new Intent(getContext(), InProfileActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -207,7 +207,7 @@ public class FragmentProfile extends Fragment {
         noticebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Notice.class);
+                Intent intent = new Intent(getContext(), NoticeActivity.class);
                 startActivity(intent);
             }
         });

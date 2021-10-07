@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.GroupBuyingAdapter;
+import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

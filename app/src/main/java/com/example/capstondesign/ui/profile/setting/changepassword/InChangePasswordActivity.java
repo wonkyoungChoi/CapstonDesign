@@ -17,7 +17,7 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;
 
-public class in_change_password extends AppCompatActivity {
+public class InChangePasswordActivity extends AppCompatActivity {
 
     EditText password, change_password, change_password_re;
     Button change, cancel;

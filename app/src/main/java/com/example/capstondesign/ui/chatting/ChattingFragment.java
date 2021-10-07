@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.chatting.inchattingroom.InChattingRoom;
-import com.example.capstondesign.view.ChatAdapter;
-import com.example.capstondesign.view.ChatRoomAdapter;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
 import com.example.capstondesign.model.Profile;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ChattingFragment extends Fragment {
-    public static ChatRoomAdapter chatRoomAdapter;
+    public static ChattingRoomAdapter chatRoomAdapter;
     public static ArrayList<ChatRoomData> chatlist = new ArrayList<>();
     static int clicked_item;
     public static String name;
@@ -94,14 +93,14 @@ public class ChattingFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        chatRoomAdapter = new ChatRoomAdapter(chatlist);
+        chatRoomAdapter = new ChattingRoomAdapter(chatlist);
 
         recyclerView.setAdapter(chatRoomAdapter);
 
 
 
         //채팅방을 클릭했을 경우의 이벤트
-        chatRoomAdapter.setOnItemClickListener(new ChatRoomAdapter.OnItemClickListener() {
+        chatRoomAdapter.setOnItemClickListener(new ChattingRoomAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 clicked_item = pos;
@@ -148,7 +147,7 @@ public class ChattingFragment extends Fragment {
         ProfileTask profileTask = new ProfileTask();
         try {
             String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            ChatAdapter.nick = profileTask.substringBetween(result, "nickname:", "/");
+            ChattingAdapter.nick = profileTask.substringBetween(result, "nickname:", "/");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

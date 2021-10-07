@@ -13,11 +13,10 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.profile.notice.innotice.NoticeInside;
 import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.NoticeTask;
-import com.example.capstondesign.view.NoticeAdapter;
 
 import java.util.ArrayList;
 
-public class Notice extends AppCompatActivity {
+public class NoticeActivity extends AppCompatActivity {
 
     public static ArrayList<Board> board = new ArrayList<>();
     public static NoticeAdapter noticeAdapter;

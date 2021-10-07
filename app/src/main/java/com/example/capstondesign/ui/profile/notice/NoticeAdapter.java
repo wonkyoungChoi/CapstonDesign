@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.profile.notice;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
-    static BoardAdapter.OnItemClickListener mListener = null;
-    public static String nick;
-    public static Board board;
+public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHolder> {
+    static NoticeAdapter.OnItemClickListener mListener = null;
+    public String nick;
+    public Board board;
 
 
     public interface OnItemClickListener{
         void onItemClick(View v, int pos);
     }
 
-    public void setOnItemClickListener(BoardAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(NoticeAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -54,7 +54,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                             click_nickname = boardList.get(pos).getNick();
                             click_title = boardList.get(pos).getTitle();
                             click_text = boardList.get(pos).getText();
-                            click_time = boardList.get(pos).getTime();
                             mListener.onItemClick(v, pos);
                         }
                     }
@@ -65,12 +64,12 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
 
     public static List<Board> boardList;
-    public BoardAdapter(List<Board> items) { boardList = items; }
-    public static String click_nickname, click_title, click_text, click_time;
+    public NoticeAdapter(List<Board> items) { boardList = items; }
+    public static String click_nickname, click_title, click_text;
 
     @NonNull
     @Override
-    public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NoticeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.board_layout, parent, false);
 
@@ -87,18 +86,9 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         holder.setIsRecyclable(false);
         board = boardList.get(position);
 
-        if(boardList.get(position).getImage() != null) {
-            holder.nick.setText(boardList.get(position).getNick());
-            holder.title.setText(boardList.get(position).getTitle());
-            holder.text.setText(boardList.get(position).getText());
-        } else {
-            holder.nick.setText(boardList.get(position).getNick());
-            holder.title.setText(boardList.get(position).getTitle());
-            holder.text.setText(boardList.get(position).getText());
-            //holder.imageView.setVisibility(View.GONE);
-        }
-
-
+        holder.nick.setText(boardList.get(position).getNick());
+        holder.title.setText(boardList.get(position).getTitle());
+        holder.text.setText(boardList.get(position).getText());
     }
 
     @Override
@@ -107,14 +97,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     }
 
 
-    public Board getChat(int position) {
-        return boardList != null ? boardList.get(position) : null;
-    }
-
-    public void addBoard(Board board1) {
-        boardList.add(board1);
-        notifyItemInserted(boardList.size()-1);
-    }
 
 
 

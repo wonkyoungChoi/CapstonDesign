@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.view.ChatRoomAdapter;
+import com.example.capstondesign.ui.chatting.ChattingRoomAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +64,7 @@ public class ChatRoomProfileCountjson {
                 email_end = CountObject.getString("email_end");
                 number = CountObject.getString("number");
 
-                if(ChatRoomAdapter.name.equals(name) && ChatRoomAdapter.email.equals(email_front+"@"+email_end)) {
+                if(ChattingRoomAdapter.name.equals(name) && ChattingRoomAdapter.email.equals(email_front+"@"+email_end)) {
                     if(number.equals("0")) {
                         number = "-1";
                     } else if (number.equals("1")){
@@ -73,7 +73,7 @@ public class ChatRoomProfileCountjson {
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
                     }
-                    ChatRoomAdapter.number = number;
+                    ChattingRoomAdapter.number = number;
                     Log.d("NUMBER!!!", number);
                 }
 

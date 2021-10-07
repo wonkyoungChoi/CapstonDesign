@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.view.ChatAdapter;
+import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.model.CheckTask;
 import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.model.Profile;
@@ -247,7 +247,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                         String result;
                         SignUpTask task = new SignUpTask();
                         result = task.execute(username, userNum, userEmail_front,  userEmail_end, userNickname, radioButton.getText().toString()).get();
-                        ChatAdapter.nick = userNickname;
+                        ChattingAdapter.nick = userNickname;
                         new SignUpTask.DuplicateCheck(result, context, activity);
 
                     } catch (Exception e) {

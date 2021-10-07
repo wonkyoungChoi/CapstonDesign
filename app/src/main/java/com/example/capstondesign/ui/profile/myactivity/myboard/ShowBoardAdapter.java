@@ -1,4 +1,4 @@
-package com.example.capstondesign.view;
+package com.example.capstondesign.ui.profile.myactivity.myboard;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,18 +98,6 @@ public class ShowBoardAdapter extends RecyclerView.Adapter<ShowBoardAdapter.MyVi
     public int getItemCount() {
         return boardList.size();
     }
-
-
-    public Board getChat(int position) {
-        return boardList != null ? boardList.get(position) : null;
-    }
-
-    public void addBoard(Board board1) {
-        boardList.add(board1);
-        notifyItemInserted(boardList.size()-1);
-    }
-
-
 
 }
 

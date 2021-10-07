@@ -14,7 +14,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Notice;
 import com.example.capstondesign.ui.board.search.SearchBoard;
-import com.example.capstondesign.view.SliderAdapter;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -80,7 +79,7 @@ public class FragmentHome extends Fragment {
         //sliderview
         sliderView = v.findViewById(R.id.image_slider);
 
-        SliderAdapter sliderAdapter = new SliderAdapter(images);
+        HomeSliderAdapter sliderAdapter = new HomeSliderAdapter(images);
 
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);

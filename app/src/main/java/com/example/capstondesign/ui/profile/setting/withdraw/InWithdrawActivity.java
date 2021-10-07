@@ -17,7 +17,7 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;
 
-public class in_withdraw extends AppCompatActivity {
+public class InWithdrawActivity extends AppCompatActivity {
 
     Button withdraw, cancel, back;
     String nickname;

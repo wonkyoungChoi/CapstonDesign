@@ -7,8 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoard;
-import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuying;
+import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoardActivity;
+import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity;
 
 public class MyActivity extends AppCompatActivity {
 
@@ -45,12 +45,12 @@ public class MyActivity extends AppCompatActivity {
     }
 
     private void showBoardClickHandler() {
-        Intent intent = new Intent(getApplicationContext(), MyBoard.class);
+        Intent intent = new Intent(getApplicationContext(), MyBoardActivity.class);
         startActivity(intent);
     }
 
     private void showGroupBuyingClickHandler() {
-        Intent intent = new Intent(getApplicationContext(), MyGroupBuying.class);
+        Intent intent = new Intent(getApplicationContext(), MyGroupBuyingActivity.class);
         startActivity(intent);
     }
 }

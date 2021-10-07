@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuying;
+import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class ShowGroupBuyingTask {
-        public static ArrayList<Groupbuying> groupbuyingList = MyGroupBuying.showGroupBuying;
+        public static ArrayList<Groupbuying> groupbuyingList = MyGroupBuyingActivity.showGroupBuying;
 
         Groupbuying groupbuying;
         String nick, price, title, text, headCount, nowCount, area, watchnick, mynick, time;

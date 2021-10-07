@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.inprofile.in_profile;
+import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +78,7 @@ public class ProfileCountjsonTask {
                     else {
                         number =(Integer.parseInt(number) - 1) + "";
                     }
-                    in_profile.number = number;
+                    InProfileActivity.number = number;
                     FragmentProfile.number = number;
                     InBoard.number = number;
                     Log.d("NUMBER!!!", number);
