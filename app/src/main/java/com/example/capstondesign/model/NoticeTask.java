@@ -2,6 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
+import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.ui.profile.notice.NoticeActivity;
 
 import org.json.JSONArray;

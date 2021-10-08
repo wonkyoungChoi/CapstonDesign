@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
-import com.example.capstondesign.model.Board;
+import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.ShowBoardTask;

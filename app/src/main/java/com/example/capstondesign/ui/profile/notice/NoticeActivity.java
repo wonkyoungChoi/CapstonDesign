@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.profile.notice.innotice.NoticeInside;
-import com.example.capstondesign.model.Board;
+import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.NoticeTask;
 
 import java.util.ArrayList;

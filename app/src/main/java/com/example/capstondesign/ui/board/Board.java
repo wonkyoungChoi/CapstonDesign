@@ -1,12 +1,25 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.ui.board;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 public class Board {
+    ArrayList<Board> list;
     String title;
     String nick;
     String text;
     String image;
     String time;
+
+    public Board(){};
+
+    public ArrayList<Board> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Board> list) {
+        this.list = list;
+    }
 
     public String getTitle() {
         return title;
@@ -20,22 +33,20 @@ public class Board {
         return text;
     }
 
-    public void setTitle(String title) { this.title = title; }
-    public void setNick(String nick) {this.nick = nick;}
-    public void setText(String text) { this.text = text; }
-
     public String getTime() {
         return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getImage() {
         return image;
     }
 
+    public void setTitle(String title) { this.title = title; }
+    public void setNick(String nick) {this.nick = nick;}
+    public void setText(String text) { this.text = text; }
+    public void setTime(String time) {
+        this.time = time;
+    }
     public void setImage(String image) {
         this.image = image;
     }
@@ -55,10 +66,8 @@ public class Board {
         this.time = time;
     }
 
-    public Board(String nick, String title, String text) {
-        this.title = title;
-        this.nick = nick;
-        this.text = text;
+    public Board(ArrayList<Board> list) {
+        this.list = list;
     }
 }
 

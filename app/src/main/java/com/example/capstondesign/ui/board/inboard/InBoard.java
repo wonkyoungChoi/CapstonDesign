@@ -27,7 +27,7 @@ import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.model.CommentTask;
-import com.example.capstondesign.ui.board.FragmentBoard;
+import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.notice.innotice.CommentAdapter;
 import com.example.capstondesign.model.Comment_Item;
@@ -66,7 +66,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
     public static ArrayList<Comment_Item> c_arr = new ArrayList<>();
     View footer;
-    FragmentBoard ma;
+    BoardFragment ma;
     Button back;
 
     @Override

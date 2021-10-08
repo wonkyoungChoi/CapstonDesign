@@ -5,25 +5,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Board;
-
 import android.os.Build;
 import android.util.Log;
 import android.widget.LinearLayout;
-
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
     static BoardAdapter.OnItemClickListener mListener = null;
-    public static String nick;
-    public static Board board;
+    public String nick;
+    public Board board;
 
 
     public interface OnItemClickListener{
@@ -40,6 +34,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             nick = (TextView) itemView.findViewById(R.id.nick);
             title = (TextView) itemView.findViewById(R.id.title);
@@ -56,6 +51,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                             click_text = boardList.get(pos).getText();
                             click_time = boardList.get(pos).getTime();
                             mListener.onItemClick(v, pos);
+
                         }
                     }
                 }

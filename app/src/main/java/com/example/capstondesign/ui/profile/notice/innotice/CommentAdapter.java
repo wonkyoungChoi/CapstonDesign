@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.board.FragmentBoard;
+import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.CommentProfileCountTask;
@@ -38,10 +38,10 @@ public class CommentAdapter extends BaseAdapter implements View.OnClickListener 
     String strurl;
     public static ArrayList<Comment_Item> arr;
     private int pos;
-    private FragmentBoard ma;
+    private BoardFragment ma;
     CommentProfileCountTask commentProfileCountTask;
     //	private Typeface myFont;
-    public CommentAdapter(Context mContext, Activity mActivity, FragmentBoard mc, ArrayList<Comment_Item> arr_item) {
+    public CommentAdapter(Context mContext, Activity mActivity, BoardFragment mc, ArrayList<Comment_Item> arr_item) {
         this.mContext = mContext;
         this.mActivity = mActivity;
         this.arr = arr_item;

@@ -12,18 +12,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.FragmentBoardBinding;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
-import com.example.capstondesign.model.Board;
 import com.example.capstondesign.model.BoardTask;
 
 import java.util.ArrayList;
 
-public class FragmentBoard extends Fragment {
+public class BoardFragment extends Fragment {
 
     public String nick, title, text;
 
@@ -31,7 +33,7 @@ public class FragmentBoard extends Fragment {
 
     public static BoardAdapter boardAdapter;
     BoardTask boardTask;
-    public static ArrayList<Board> board = new ArrayList<>();;
+    public ArrayList<Board> board = new ArrayList<>();;
     int position;
 
 
@@ -44,7 +46,7 @@ public class FragmentBoard extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentBoard() {
+    public BoardFragment() {
         // Required empty public constructor
     }
 
@@ -57,8 +59,8 @@ public class FragmentBoard extends Fragment {
      * @return A new instance of fragment BlankFragment_second.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentBoard newInstance(String param1, String param2) {
-        FragmentBoard fragment = new FragmentBoard();
+    public static BoardFragment newInstance(String param1, String param2) {
+        BoardFragment fragment = new BoardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,28 +81,40 @@ public class FragmentBoard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_board, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
-
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
+        FragmentBoardBinding binding = FragmentBoardBinding.inflate(inflater, container, false);
+
+
+
+        View v = binding.getRoot();
+
+        BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
+
+        model.loadBoard();
+
+        model.getAll().observe(getViewLifecycleOwner(), board -> {
+            boardAdapter = new BoardAdapter(board.list);
+        });
+        //진행중
+
+
         //GALLERY(); // 허가
         board.clear();
         boardTask = new BoardTask();
-        recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setLayoutManager(layoutManager);
 
-        boardAdapter = new BoardAdapter(board);
 
-        recyclerView.setAdapter(boardAdapter);
 
-        ImageView search = v.findViewById(R.id.board_search);
+        binding.recyclerView.setAdapter(boardAdapter);
 
-        search.setOnClickListener(new View.OnClickListener() {
+        binding.boardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SearchBoard.class);

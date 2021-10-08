@@ -1,27 +1,32 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.repository;
 
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
+import com.example.capstondesign.network.BoardService;
 import com.example.capstondesign.ui.board.Board;
-import com.example.capstondesign.ui.board.search.SearchBoardResult;
+import com.example.capstondesign.ui.board.BoardFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class SearchResultTask {
-    public static ArrayList<Board> searchlist = SearchBoardResult.board;
-    Board board;
+public class BoardRepository {
+    BoardService boardService = new BoardService();
+
+    public MutableLiveData<Board> _board = new MutableLiveData<>();
+    ArrayList<Board> items = new ArrayList<>();
     String nick, title, text, time;
 
-    public SearchResultTask(String result) {
-            jsonParsing(result , searchlist);
+    public void loadBoard() throws IOException {
+        jsonParsing(boardService.download());
     }
 
+
     //Json Parsing
-    public void jsonParsing(String json, ArrayList<Board> board1)
+    private void jsonParsing(String json)
     {
         try{
             JSONArray BoardArray = new JSONArray(json);
@@ -34,19 +39,12 @@ public class SearchResultTask {
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
                 time = BoardObject.getString("count");
-                Log.d("NICK", nick);
-                Log.d("TITLE", title);
-                Log.d("TEXT", text);
 
-                board = new Board(nick, title, text, time);
-
-                board1.add(board);
-
+                items.add(new Board(nick,title,text,time));
             }
+            _board.setValue(new Board(items));
         }catch (JSONException e) {
-
             e.printStackTrace();
         }
     }
 }
-

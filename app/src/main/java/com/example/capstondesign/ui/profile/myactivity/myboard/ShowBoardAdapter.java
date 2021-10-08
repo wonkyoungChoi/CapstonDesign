@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Board;
+import com.example.capstondesign.ui.board.Board;
 
 import android.os.Build;
 import android.util.Log;

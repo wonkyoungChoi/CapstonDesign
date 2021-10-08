@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
-import com.example.capstondesign.ui.board.FragmentBoard;
+import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.chatting.ChattingFragment;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
@@ -26,7 +26,7 @@ public class FragmentMain extends AppCompatActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private FragmentHome frag1;
-    private FragmentBoard frag2;
+    private BoardFragment frag2;
     private GroupbuyingFragment frag3;
     private ChattingFragment frag4;
     private FragmentProfile frag5;
@@ -92,7 +92,7 @@ public class FragmentMain extends AppCompatActivity {
         });
 
         frag1 = new FragmentHome();
-        frag2 = new FragmentBoard();
+        frag2 = new BoardFragment();
         frag3 = new GroupbuyingFragment();
         frag4 = new ChattingFragment();
         frag5 = new FragmentProfile();

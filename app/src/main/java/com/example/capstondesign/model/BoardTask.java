@@ -2,7 +2,8 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.ui.board.FragmentBoard;
+import com.example.capstondesign.ui.board.Board;
+import com.example.capstondesign.ui.board.BoardFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,13 +16,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class BoardTask {
-    public static ArrayList<Board> boardlist = FragmentBoard.board;
+    /*
+    public static ArrayList<Board> boardlist = BoardFragment.board;
     Board board;
     String nick, title, text, time;
 
     public BoardTask() {
         try {
-            //Log.d("TTTTTTTTTT", downloadUrl());
             jsonParsing(downloadUrl(), boardlist);
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,5 +78,7 @@ public class BoardTask {
             e.printStackTrace();
         }
     }
+    
+     */
 }
 
