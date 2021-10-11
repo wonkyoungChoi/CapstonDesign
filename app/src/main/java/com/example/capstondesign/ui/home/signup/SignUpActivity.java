@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.SignupPageBinding;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.EmailCheckTask;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
@@ -54,6 +55,8 @@ public class SignUpActivity extends AppCompatActivity {
     private int mnMilliSecond = 1000;
     private int value;
     private int mnExitDelay = 60;
+
+    SignupPageBinding binding = SignupPageBinding.inflate(getLayoutInflater());
 
 
     TextView phone_num_auth, auth_finish;
@@ -102,18 +105,17 @@ public class SignUpActivity extends AppCompatActivity {
         activity = SignUpActivity.this;
 
 
-        phone_check.setOnClickListener(new View.OnClickListener() {
+        binding.authClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(phone_num.length() > 6) {
+                if(binding.phoneNum.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    phoneNum = phone_num.getText().toString();
                     Log.d("NUM", "+82"+phoneNum.substring(1));
-                    sendVerificationCode("+82"+phoneNum.substring(1));
+                    sendVerificationCode("+82"+binding.phoneNum.getText().toString().substring(1));
                     if(timer != null) timer.cancel();
                     timer.start();
-                    phone_check.setVisibility(View.GONE);
-                    re_check.setVisibility(View.VISIBLE);
+                    binding.authClick.setVisibility(View.GONE);
+                    binding.reAuthClick.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -122,12 +124,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         //휴대폰 인증번호 재전송
-        re_check.setOnClickListener(new View.OnClickListener() {
+        binding.reAuthClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(phone_num.length() > 6) {
+                if(binding.phoneNum.length() > 6) {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    sendVerificationCode("+82"+phoneNum.substring(1));
+                    sendVerificationCode("+82"+binding.phoneNum.getText().toString().substring(1));
                     if(timer != null) timer.cancel();
                     timer.start();
                 } else {
@@ -137,10 +139,10 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         //인증하기 클릭
-        auth_check.setOnClickListener(new View.OnClickListener() {
+        binding.authCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String code = auth.getText().toString();
+                String code = binding.auth.getText().toString();
                 if(code.isEmpty() || code.length()<6) {
                     Toast.makeText(getApplicationContext(),"인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -148,21 +150,21 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        nick_check.setOnClickListener(new View.OnClickListener() {
+        binding.nickCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nick_check();
             }
         });
 
-        email_check.setOnClickListener(new View.OnClickListener() {
+        binding.emailCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 email_check();
             }
         });
 
-        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        binding.gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 gender_click = true;
@@ -171,7 +173,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        sign_up.setOnClickListener(new View.OnClickListener() {
+        binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -181,7 +183,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignUpActivity.this, LoginAcitivity.class);
@@ -196,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //이메일 중복확인 버튼 메소드
     void email_check() {
-        String userEmail = email.getText().toString();
+        String userEmail = binding.emailName.getText().toString();
         if (userEmail.trim().length() > 0 && userEmail.contains("@")) {
             String result;
             EmailCheckTask task = new EmailCheckTask();
@@ -222,7 +224,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     void nick_check() {
-        String userNickname = nickname.getText().toString();
+        String userNickname = binding.nickname.getText().toString();
         if (userNickname.trim().length() > 0) {
             String result;
             NickCheckTask task = new NickCheckTask();
@@ -248,11 +250,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     void sign_up() {
         Log.d("ABC", "ABC");
-        String username = name.getText().toString();
-        String useremail = email.getText().toString();
-        String userNickname = nickname.getText().toString();
-        String userPassword = password.getText().toString();
-        String passwordcheck = passwordCheck.getText().toString();
+        String username = binding.name.getText().toString();
+        String useremail = binding.emailName.getText().toString();
+        String userNickname = binding.nickname.getText().toString();
+        String userPassword = binding.password.getText().toString();
+        String passwordcheck = binding.passwordCheck.getText().toString();
 
         Log.d("BOOLEAN", String.valueOf(check));
 
@@ -309,7 +311,7 @@ public class SignUpActivity extends AppCompatActivity {
                 auth.setText(code);
                 verifyCode(code);
 
-                phone = phone_num.getText().toString();
+                phone = binding.phoneNum.getText().toString();
                 check = true;
 
                 timer.onFinish();
@@ -391,7 +393,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void AuthCodeTimer() {
         int delay = mnExitDelay * mnMilliSecond;
 
-        timer = new CountDownTimer(delay, 1000) {
+        timer = new CountDownTimer(delay , 1000) {
             @Override
             public void onTick(long l) {
                 long k =  l / 1000;
