@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -71,12 +72,12 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                             }
                             LoginAcitivity.login = 3;
                             profile.setGender(gender);
-                            CheckTask checkTask = new CheckTask();
+                            SignUpCheckService checkTask = new SignUpCheckService();
                             String check;
                             check = checkTask.execute(email).get();
 
                             //회원가입 했는지 확인하는 부분
-                            new CheckTask.SignUpCheck(check, context, activity);
+                            new SignUpCheckService.SignUpCheck(check, context, activity);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -31,7 +31,6 @@ import java.util.concurrent.ExecutionException;
 public class LoginAcitivity extends AppCompatActivity {
     public static Boolean Login = false;
     NaverLogin naverLogin;
-    Button exit, email_login;
     Context context;
     Activity activity;
     KakaoCallback sessionCallback;

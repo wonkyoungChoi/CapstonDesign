@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -72,7 +73,7 @@ public class NaverLogin {
                                 Log.d("NAVERLOGIN", responseBody);
                                 NaverUserInfo(responseBody, context);
                                 LoginAcitivity.login = 2;
-                                CheckTask checkTask = new CheckTask();
+                                SignUpCheckService checkTask = new SignUpCheckService();
                                 String check;
                                 name1 = profile.getName();
                                 email1 = profile.getEmail();
@@ -89,7 +90,7 @@ public class NaverLogin {
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        new CheckTask.SignUpCheck(check, context, activity);
+                                        new SignUpCheckService.SignUpCheck(check, context, activity);
                                     }
                                 });
 

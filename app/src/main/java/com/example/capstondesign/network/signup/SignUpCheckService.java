@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.signup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,20 +7,24 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.capstondesign.model.Task;
+import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
+import java.io.IOException;
 
-public class CheckTask extends AsyncTask<String, Void, String> {
+
+public class SignUpCheckService extends AsyncTaskExecutor<String> {
     String sendMsg, url;
-    Task task = new Task();
+
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(String... strings) throws IOException {
         url = "http://13.124.75.92:8080/fast_sign_up_check.jsp";
         sendMsg = "&email="+strings[0];
 
-        return task.start(url, sendMsg);
+        return start(url, sendMsg);
     }
 
     public static class SignUpCheck {
@@ -41,12 +45,4 @@ public class CheckTask extends AsyncTask<String, Void, String> {
         }
     }
 
-    public static class Logout {
-        public Logout(Context context, Activity activity) {
-            Intent intent = new Intent(context, LoginAcitivity.class);
-            activity.startActivity(intent);
-            LoginAcitivity.login = 0;
-            activity.finish();
-        }
-    }
 }

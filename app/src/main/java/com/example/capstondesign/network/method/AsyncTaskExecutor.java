@@ -1,9 +1,11 @@
 package com.example.capstondesign.network.method;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
@@ -12,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -22,7 +25,7 @@ public abstract class AsyncTaskExecutor<Params> {
 
     private static final Executor THREAD_POOL_EXECUTOR =
             new ThreadPoolExecutor(5, 128, 1,
-                    TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+                    TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private boolean mIsInterrupted = false;
@@ -71,6 +74,7 @@ public abstract class AsyncTaskExecutor<Params> {
         mIsInterrupted = interrupted;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String start(String jsp_url, String sendMsg) throws IOException {
         String str, receiveMsg = null;
         URL url = new URL(jsp_url);
@@ -80,10 +84,10 @@ public abstract class AsyncTaskExecutor<Params> {
         OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
         osw.write(sendMsg);
         osw.flush();
-        if (conn.getResponseCode() == conn.HTTP_OK) {
-            InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(tmp);
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             while ((str = reader.readLine()) != null) {
                 buffer.append(str);
             }
