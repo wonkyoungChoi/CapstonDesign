@@ -1,4 +1,4 @@
-package com.example.capstondesign.network;
+package com.example.capstondesign.network.method;
 
 import android.util.Log;
 
