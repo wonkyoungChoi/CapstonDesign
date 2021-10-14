@@ -2,14 +2,11 @@ package com.example.capstondesign.ui.profile.notice.innotice;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.WithdrawTask;
 
 public class NoticeInside extends AppCompatActivity {
 

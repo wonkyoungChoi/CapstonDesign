@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.login.naver;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -84,15 +85,15 @@ public class NaverLogin {
                                     gender = "여성";
                                 }
 
-                                check = checkTask.execute(email1).get();
-
-                                //회원가입 했는지 확인하는 부분
-                                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        new SignUpCheckService.SignUpCheck(check, context, activity);
-                                    }
-                                });
+//                                check = checkTask.execute(email1).get();
+//
+//                                //회원가입 했는지 확인하는 부분
+//                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        new SignUpCheckService.SignUpCheck(check, context, activity);
+//                                    }
+//                                });
 
 
                             } catch (Exception e) {

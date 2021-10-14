@@ -44,7 +44,6 @@ public class FastSignUpActivity extends AppCompatActivity {
     Context context;
     Activity activity;
 
-
     Boolean nick_click = false;
     Profile profile = LoginAcitivity.profile;
 
@@ -52,11 +51,8 @@ public class FastSignUpActivity extends AppCompatActivity {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     String phoneNum, phone;
-
     Boolean check;
-
     private CountDownTimer timer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +60,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fast_signup);
         binding = ActivityFastSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Log.d("OPEN", "OPEN");
 
         FastSignUpViewModel model = new ViewModelProvider(this).get(FastSignUpViewModel.class);
 
@@ -123,7 +120,6 @@ public class FastSignUpActivity extends AppCompatActivity {
         });
 
 
-
         //인증하기 클릭
         binding.authCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +131,6 @@ public class FastSignUpActivity extends AppCompatActivity {
                 verifyCode(code);
             }
         });
-
 
 
         //취소를 누를 경우 간편 로그인을 로그아웃함.
@@ -240,14 +235,14 @@ public class FastSignUpActivity extends AppCompatActivity {
 
     }
 
-    public void Logout(Context context, Activity activity) {
+    private void Logout(Context context, Activity activity) {
         Intent intent = new Intent(context, LoginAcitivity.class);
         activity.startActivity(intent);
         LoginAcitivity.login = 0;
         activity.finish();
     }
 
-    public void DuplicateCheck(String result, Context context, Activity activity) {
+    private void DuplicateCheck(String result, Context context, Activity activity) {
         if(result.contains("sameNumEmail/")) {
             Toast.makeText(context, "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
         } else if (result.contains("sameNum/")){
@@ -332,7 +327,7 @@ public class FastSignUpActivity extends AppCompatActivity {
     }
 
 
-    public void AuthCodeTimer() {
+    private void AuthCodeTimer() {
         int mnMilliSecond = 1000;
         int mnExitDelay = 60;
         int delay = mnExitDelay * mnMilliSecond;

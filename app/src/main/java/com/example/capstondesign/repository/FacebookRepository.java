@@ -1,12 +1,23 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.repository;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.network.signup.SignUpCheckService;
+import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -19,15 +30,16 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class facebookCallback implements FacebookCallback<LoginResult> {
+public class FacebookRepository implements FacebookCallback<LoginResult> {
     Profile profile = LoginAcitivity.profile;
     Context context;
     Activity activity;
     String name, email, gender;
+    public MutableLiveData<Boolean> check = new MutableLiveData<>();
 
-    public facebookCallback(Activity activity1, Context context1) {
-        activity = activity1;
-        context = context1;
+    public FacebookRepository(Activity activity, Context context) {
+        this.activity = activity;
+        this.context = context;
     }
     @Override
     public void onSuccess(LoginResult loginResult)
@@ -58,6 +70,7 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
                         try {
+                            check.setValue(false);
                             email = object.getString("email");
                             profile.setEmail(email);
 
@@ -71,19 +84,12 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
                                 gender = "여성";
                             }
                             LoginAcitivity.login = 3;
-                            profile.setGender(gender);
-                            SignUpCheckService checkTask = new SignUpCheckService();
-                            String check;
-                            check = checkTask.execute(email).get();
 
-                            //회원가입 했는지 확인하는 부분
-                            new SignUpCheckService.SignUpCheck(check, context, activity);
+                            profile.setGender(gender);
+
+                            check.setValue(true);
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
 
@@ -95,6 +101,5 @@ public class facebookCallback implements FacebookCallback<LoginResult> {
         graphRequest.setParameters(parameters);
         graphRequest.executeAsync();
     }
-
-
 }
+

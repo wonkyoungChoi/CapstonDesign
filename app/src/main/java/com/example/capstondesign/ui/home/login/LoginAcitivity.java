@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
-import com.example.capstondesign.model.KakaoCallback;
-import com.example.capstondesign.model.NaverLogin;
+import com.example.capstondesign.network.login.kakao.KakaoCallback;
+import com.example.capstondesign.network.login.naver.NaverLogin;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.facebookCallback;
+import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.Intro;
+import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.home.signup.SignUpActivity;
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
@@ -26,7 +27,6 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 public class LoginAcitivity extends AppCompatActivity {
     public static Boolean Login = false;
@@ -35,15 +35,15 @@ public class LoginAcitivity extends AppCompatActivity {
     Activity activity;
     KakaoCallback sessionCallback;
     ISessionCallback callback;
-    facebookCallback facebookCallback;
+    FacebookRepository facebookRepository;
     CallbackManager callbackManager;
     public static Profile profile = new Profile();
     public static int login = 0;
     private ActivityLoginBinding binding;
+    private LoginViewModel model;
 
+    int i = 0;
     String id_str;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,8 @@ public class LoginAcitivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        model = new ViewModelProvider(this).get(LoginViewModel.class);
 
         context = this;
         activity = LoginAcitivity.this;
@@ -65,13 +67,28 @@ public class LoginAcitivity extends AppCompatActivity {
 
         //페이스북 간편 로그인
         callbackManager = CallbackManager.Factory.create();
-        binding.facebookBtn.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
-        facebookCallback = new facebookCallback(activity, context);
+
+        facebookRepository = new FacebookRepository(activity, context);
         binding.facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.facebookBtn.performClick();
-                binding.facebookBtn.registerCallback(callbackManager, facebookCallback);
+                binding.facebookBtn.callOnClick();
+                binding.facebookBtn.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
+                binding.facebookBtn.registerCallback(callbackManager, facebookRepository);
+
+                facebookRepository.check.observe(LoginAcitivity.this, set -> {
+                    if(set && i == 0) {
+                        i = 1;
+                        Log.d("SET", set.toString());
+                        facebookRepository.check.setValue(false);
+                        model.loadCheck(profile.getEmail());
+                        model.getCheckResult().observe(LoginAcitivity.this, result -> {
+                            SignUpCheck(result);
+
+                        });
+                    }
+                });
+                i = 0;
             }
         });
 
@@ -113,6 +130,22 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
+    public void SignUpCheck(String result) {
+        Intent intent;
+        Log.d("CHECK", String.valueOf(LoginAcitivity.login));
+        if(result.contains("signup")) {
+            intent = new Intent(activity, FragmentMain.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            LoginAcitivity.Login = true;
+            Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
+        } else {
+            intent = new Intent(activity, FastSignUpActivity.class);
+            Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
+        }
+        activity.startActivity(intent);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
@@ -131,8 +164,7 @@ public class LoginAcitivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
     }
 
-    void email_Login() {
-        LoginViewModel model = new ViewModelProvider(this).get(LoginViewModel.class);
+    private void email_Login() {
 
         id_str = binding.id.getText().toString();
 
@@ -142,7 +174,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
             if (id_str.trim().length() > 0 && pwd_str.trim().length() > 0) {
                 model.loadLogin(id_str, pwd_str);
-                model.getResult().observe(this, result -> {
+                model.getLoginResult().observe(this, result -> {
                     Log.d("RESULT", result);
                     if (result.contains("true")) {
                         Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();

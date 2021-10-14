@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:name=".model.KakaoSDKInit"
+        android:name=".network.login.kakao.KakaoSDKInit"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="m">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -43,7 +43,6 @@
         <activity android:name=".ui.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,7 +52,6 @@
         <activity android:name=".ui.chatting.inchattingroom.InChattingRoom"/>
         <activity android:name=".ui.home.login.LoginAcitivity" />
         <activity android:name=".ui.board.AddBoard"/>
-        <activity android:name=".ui.home.signup.PhoneCheckActivity"/>
         <activity android:name=".ui.board.inboard.InBoard"/>
         <activity android:name=".ui.board.search.SearchBoard"/>
         <activity android:name=".ui.board.search.SearchBoardResult"/>
@@ -73,8 +71,6 @@
         <activity android:name=".ui.profile.myactivity.MyActivity"/>
         <activity android:name=".ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity"/>
         <activity android:name=".ui.profile.myactivity.myboard.MyBoardActivity"/>
-        <activity android:name=".controller.BuySubMain_showGroupBuying"/>
-        <activity android:name=".ui.board.inboard.FreeBoard_showBoard"/>
 
     </application>
 

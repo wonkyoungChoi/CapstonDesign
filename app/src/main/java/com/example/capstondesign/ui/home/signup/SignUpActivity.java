@@ -67,7 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
             if(binding.phoneNum.length() > 6) {
                 Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                 phoneNum = binding.phoneNum.getText().toString();
-                Log.d("NUM", "+82"+phoneNum.substring(1));
                 sendVerificationCode("+82"+phoneNum.substring(1));
 
                 if(timer != null) {
@@ -100,7 +99,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         //인증하기 클릭
         binding.authClick.setOnClickListener(v -> {
-
             String code = binding.auth.getText().toString();
             if(code.isEmpty() || code.length()<6) {
                 Toast.makeText(getApplicationContext(),"인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -131,7 +129,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     //이메일 중복확인 버튼 메소드
-    void email_check() {
+    private void email_check() {
         String userEmail = binding.emailName.getText().toString();
         if (userEmail.trim().length() > 0 && userEmail.contains("@")) {
             String result;
@@ -157,7 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-    void nick_check() {
+    private void nick_check() {
         String userNickname = binding.nickname.getText().toString();
         if (userNickname.trim().length() > 0) {
             String result;
@@ -182,7 +180,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    void sign_up() {
+    private void sign_up() {
         Log.d("ABC", "ABC");
         String username = binding.name.getText().toString();
         String useremail = binding.emailName.getText().toString();
@@ -219,7 +217,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    public void DuplicateCheck(String result, Context context, Activity activity) {
+    private void DuplicateCheck(String result, Context context, Activity activity) {
         if(result.contains("sameNumEmail/")) {
             Toast.makeText(context, "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
         } else if (result.contains("sameNum/")){
@@ -334,7 +332,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void AuthCodeTimer() {
+    private void AuthCodeTimer() {
         int mnMilliSecond = 1000;
         int mnExitDelay = 60;
         int delay = mnExitDelay * mnMilliSecond;

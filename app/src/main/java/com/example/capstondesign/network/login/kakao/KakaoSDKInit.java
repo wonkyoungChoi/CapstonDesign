@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.login.kakao;
 
 import android.app.Application;
 

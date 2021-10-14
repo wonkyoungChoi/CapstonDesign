@@ -113,7 +113,7 @@ public class FragmentMain extends AppCompatActivity {
         setFrag(i); // 첫 프래그먼트 화면을 무엇으로 지정해줄 것인지 선택.
     }
     // 프래그먼트 교체가 일어나는 실행문이다.
-    public void setFrag(int n){
+    private void setFrag(int n){
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
@@ -141,7 +141,7 @@ public class FragmentMain extends AppCompatActivity {
         }
     }
 
-    public void OnClickHandler() {
+    private void OnClickHandler() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("로그인 확인").setMessage("로그인 후 서비스 이용가능");
 
