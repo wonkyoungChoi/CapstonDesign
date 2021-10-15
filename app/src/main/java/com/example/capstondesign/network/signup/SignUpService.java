@@ -19,8 +19,8 @@ public class SignUpService extends AsyncTaskExecutor<String> {
     @Override
     protected String doInBackground(String... strings) throws IOException {
         return start("http://192.168.0.15:8080/sign_up.jsp",
-                "name="+strings[0]+"&phone_num="+strings[1]+"&email"+strings[2]
-                        +"&nick="+strings[3] +"&password="+strings[4] +"&gender="+strings[5]);
+                "name="+strings[0]+"&phone_num="+strings[1]+"&email="+strings[2]
+                        +"&nickname="+strings[3] +"&password="+strings[4] +"&gender="+strings[5]);
     }
 
 }

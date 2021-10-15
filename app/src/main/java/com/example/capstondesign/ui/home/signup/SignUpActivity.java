@@ -16,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.databinding.ActivitySignupBinding;
-import com.example.capstondesign.model.EmailCheckTask;
-import com.example.capstondesign.model.NickCheckTask;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.google.firebase.FirebaseException;
@@ -26,7 +24,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -48,11 +45,15 @@ public class SignUpActivity extends AppCompatActivity {
 
     private CountDownTimer timer;
 
+    private SignUpViewModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        model = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         AuthCodeTimer();
 
@@ -65,6 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         binding.authClick.setOnClickListener(v -> {
             if(binding.phoneNum.length() > 6) {
+
                 Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                 phoneNum = binding.phoneNum.getText().toString();
                 sendVerificationCode("+82"+phoneNum.substring(1));
@@ -98,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         //인증하기 클릭
-        binding.authClick.setOnClickListener(v -> {
+        binding.authCheck.setOnClickListener(v -> {
             String code = binding.auth.getText().toString();
             if(code.isEmpty() || code.length()<6) {
                 Toast.makeText(getApplicationContext(),"인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -119,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding.signUp.setOnClickListener(v -> sign_up());
 
         binding.cancel.setOnClickListener(v -> {
-            Intent intent = new Intent(SignUpActivity.this, LoginAcitivity.class);
+            Intent intent = new Intent(this, LoginAcitivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             LoginAcitivity.login = 0;
@@ -131,22 +133,17 @@ public class SignUpActivity extends AppCompatActivity {
     //이메일 중복확인 버튼 메소드
     private void email_check() {
         String userEmail = binding.emailName.getText().toString();
-        if (userEmail.trim().length() > 0 && userEmail.contains("@")) {
-            String result;
-            EmailCheckTask task = new EmailCheckTask();
-            try {
-                result = task.execute(userEmail).get();
+        model.loadEmailCheck(userEmail);
+        if (userEmail.trim().length() > 0 ) {
+            model.getEmailResult().observe(this, result -> {
+                Log.d("RESULT", result);
                 if (result.contains("sameEmail")) {
                     Toast.makeText(getApplicationContext(), "중복된 이메일입니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     email_click = true;
                     Toast.makeText(getApplicationContext(), "사용가능한 이메일입니다.", Toast.LENGTH_SHORT).show();
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            });
 
         } else {
             Toast.makeText(getApplicationContext(), "이메일을 정확히 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -154,26 +151,20 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-
-    private void nick_check() {
+    private void nick_check()  {
         String userNickname = binding.nickname.getText().toString();
+        model.loadNickCheck(userNickname);
         if (userNickname.trim().length() > 0) {
-            String result;
-            NickCheckTask task = new NickCheckTask();
-            try {
-                result = task.execute(userNickname).get();
+            model.nickResult.setValue(null);
+            model.getNickResult().observe(this, result -> {
+                Log.d("RESULT", result);
                 if (result.contains("sameNick")) {
                     Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     nick_click = true;
                     Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+            });
         } else {
             Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
         }
@@ -181,7 +172,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void sign_up() {
-        Log.d("ABC", "ABC");
         String username = binding.name.getText().toString();
         String useremail = binding.emailName.getText().toString();
         String userNickname = binding.nickname.getText().toString();
@@ -189,14 +179,15 @@ public class SignUpActivity extends AppCompatActivity {
         String passwordcheck = binding.passwordCheck.getText().toString();
         String gender = radioButton.getText().toString();
 
-        SignUpViewModel model = new ViewModelProvider(this).get(SignUpViewModel.class);
-
         Log.d("BOOLEAN", String.valueOf(check));
 
-        if (username.trim().length() > 0 && useremail.trim().length() > 0 && useremail.contains("@") && userPassword.trim().length() > 0
-                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click && check) {
+        if (username.trim().length() > 0 && useremail.trim().length() > 0 && userPassword.trim().length() > 0
+                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click ) {
 
             String userNum = phone;
+
+            Log.d("VALUES", useremail + "&&&&" + userNickname);
+
             model.loadSignUp(username, userNum, useremail, userNickname, userPassword, gender);
             model.getResult().observe(this, result -> {
                 Log.d("RESULT", result);
@@ -255,25 +246,6 @@ public class SignUpActivity extends AppCompatActivity {
             if(code != null) {
                 binding.auth.setText(code);
                 verifyCode(code);
-
-                phone = binding.phoneNum.getText().toString();
-                check = true;
-
-                timer.onFinish();
-
-                //기존 휴대폰 인증 부분 사라지는 곳
-                binding.reAuthClick.setVisibility(View.GONE);
-                binding.authCheck.setVisibility(View.GONE);
-                binding.auth.setVisibility(View.GONE);
-                binding.phoneNum.setVisibility(View.GONE);
-                binding.DelayTextView.setVisibility(View.GONE);
-
-                //휴대폰 번호 텍스트 뷰로 생기는 곳
-                binding.phoneNumClear.setVisibility(View.VISIBLE);
-                binding.phoneNumClear.setText(phone);
-                binding.authClear.setVisibility(View.VISIBLE);
-
-                Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -309,20 +281,20 @@ public class SignUpActivity extends AppCompatActivity {
                         phone = binding.phoneNum.getText().toString();
 
                         timer.onFinish();
+                        check = true;
 
                         //기존 휴대폰 인증 부분 사라지는 곳
                         binding.reAuthClick.setVisibility(View.GONE);
                         binding.authClick.setVisibility(View.GONE);
                         binding.auth.setVisibility(View.GONE);
+                        binding.authCheck.setVisibility(View.GONE);
                         binding.phoneNum.setVisibility(View.GONE);
-                        binding.DelayTextView.setVisibility(View.GONE);
 
                         //휴대폰 번호 텍스트 뷰로 생기는 곳
                         binding.phoneNumClear.setVisibility(View.VISIBLE);
                         binding.phoneNumClear.setText(phone);
                         binding.authClear.setVisibility(View.VISIBLE);
 
-                        check = true;
                         Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -361,7 +333,5 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
     }
-
-
 
 }

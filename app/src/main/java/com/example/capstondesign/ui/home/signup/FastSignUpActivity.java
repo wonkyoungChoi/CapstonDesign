@@ -19,7 +19,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityFastSignupBinding;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-import com.example.capstondesign.model.NickCheckTask;
+import com.example.capstondesign.network.signup.NickCheckTask;
 import com.example.capstondesign.model.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -62,7 +62,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Log.d("OPEN", "OPEN");
 
-        FastSignUpViewModel model = new ViewModelProvider(this).get(FastSignUpViewModel.class);
+        SignUpViewModel model = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         AuthCodeTimer();
 
@@ -75,6 +75,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         //간편로그인으로 가져온 값들을 세팅해줌
         binding.name.setText(profile.getName());
         binding.email.setText(profile.getEmail());
+
         if(profile.getGender().equals("M")||profile.getGender().equals("male")) {
             binding.gender.check(R.id.male);
             radioButton = (RadioButton) findViewById(R.id.male);
@@ -90,8 +91,11 @@ public class FastSignUpActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                     phoneNum = binding.phoneNum.getText().toString();
                     sendVerificationCode("+82"+phoneNum.substring(1));
-                    if(timer != null) timer.cancel();
-                    timer.start();
+                    if(timer != null) {
+                        timer.cancel();
+                        timer.start();
+                    }
+
                     binding.authClick.setVisibility(View.GONE);
                     binding.reAuthClick.setVisibility(View.VISIBLE);
                 } else {
@@ -132,6 +136,61 @@ public class FastSignUpActivity extends AppCompatActivity {
             }
         });
 
+        binding.nickCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userNickname = binding.nickname.getText().toString();
+                if (userNickname.trim().length() > 0) {
+                    model.loadNickCheck(userNickname);
+                    model.getNickResult().observe(FastSignUpActivity.this, result -> {
+                        if (result.contains("sameNick")) {
+                            Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            nick_click = true;
+                            Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        binding.gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = (RadioButton) findViewById(checkedId);
+                Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = binding.name.getText().toString();
+                String userEmail = binding.email.getText().toString();
+                Log.d("USEREMAIL", userEmail);
+                String userNum = phone;
+                String userNickname = binding.nickname.getText().toString();
+
+                if(username.trim().length()>0 && userNickname.trim().length()>0 &&  nick_click) {
+                    ChattingAdapter.nick = userNickname;
+                    model.loadSignUp(username, userNum, userEmail, userNickname, "", radioButton.getText().toString());
+                    model.getResult().observe(FastSignUpActivity.this, result -> {
+                        Log.d("RESULT", result);
+                        DuplicateCheck(result, context, activity);
+                    });
+
+                }  else if (!nick_click) {
+                    Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (!check) {
+                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //취소를 누를 경우 간편 로그인을 로그아웃함.
         binding.cancel.setOnClickListener(new View.OnClickListener() {
@@ -168,67 +227,6 @@ public class FastSignUpActivity extends AppCompatActivity {
                     LoginManager.getInstance().logOut();
                     Logout(context, activity);
                     Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        binding.nickCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userNickname = binding.nickname.getText().toString();
-                if (userNickname.trim().length() > 0) {
-                    String result;
-                    NickCheckTask task = new NickCheckTask();
-                    try {
-                        result = task.execute(userNickname).get();
-                        if (result.contains("sameNick")) {
-                            Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            nick_click = true;
-                            Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        binding.gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                radioButton = (RadioButton) findViewById(checkedId);
-                Toast.makeText(getApplicationContext() , radioButton.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = binding.name.getText().toString();
-                String userEmail = binding.email.getText().toString();
-                String userNum = phone;
-                String userNickname = binding.nickname.getText().toString();
-
-                if(username.trim().length()>0 && userNickname.trim().length()>0 &&  nick_click) {
-                    ChattingAdapter.nick = userNickname;
-                    model.loadFastSignUp(username, userNum, userEmail, userNickname, radioButton.getText().toString());
-                    model.getResult().observe(FastSignUpActivity.this, result -> {
-                        Log.d("RESULT", result);
-                        DuplicateCheck(result, context, activity);
-                    });
-
-                }  else if (!nick_click) {
-                    Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (!check) {
-                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -271,7 +269,7 @@ public class FastSignUpActivity extends AppCompatActivity {
     }
 
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks
             mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
@@ -317,6 +315,21 @@ public class FastSignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             phone = binding.phoneNum.getText().toString();
                             check = true;
+                            timer.onFinish();
+
+                            //기존 휴대폰 인증 부분 사라지는 곳
+                            binding.reAuthClick.setVisibility(View.GONE);
+                            binding.authClick.setVisibility(View.GONE);
+                            binding.auth.setVisibility(View.GONE);
+                            binding.authCheck.setVisibility(View.GONE);
+                            binding.phoneNum.setVisibility(View.GONE);
+
+                            //휴대폰 번호 텍스트 뷰로 생기는 곳
+                            binding.phoneNumClear.setVisibility(View.VISIBLE);
+                            binding.phoneNumClear.setText(phone);
+                            binding.authClear.setVisibility(View.VISIBLE);
+
+
                             Toast.makeText(getApplicationContext(), "인증성공", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();

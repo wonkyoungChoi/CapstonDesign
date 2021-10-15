@@ -4,21 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
 import com.example.capstondesign.network.login.kakao.KakaoCallback;
-import com.example.capstondesign.network.login.naver.NaverLogin;
+import com.example.capstondesign.repository.NaverRepository;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.ui.FragmentMain;
-import com.example.capstondesign.ui.Intro;
 import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.home.signup.SignUpActivity;
 import com.facebook.CallbackManager;
@@ -30,7 +26,7 @@ import java.util.Arrays;
 
 public class LoginAcitivity extends AppCompatActivity {
     public static Boolean Login = false;
-    NaverLogin naverLogin;
+    NaverRepository naverRepository;
     Context context;
     Activity activity;
     KakaoCallback sessionCallback;
@@ -81,11 +77,7 @@ public class LoginAcitivity extends AppCompatActivity {
                         i = 1;
                         Log.d("SET", set.toString());
                         facebookRepository.check.setValue(false);
-                        model.loadCheck(profile.getEmail());
-                        model.getCheckResult().observe(LoginAcitivity.this, result -> {
-                            SignUpCheck(result);
-
-                        });
+                        Check();
                     }
                 });
                 i = 0;
@@ -96,7 +88,15 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.naverLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                naverLogin = new NaverLogin(context, activity);
+                naverRepository = new NaverRepository(context, activity);
+                naverRepository.check.observe(LoginAcitivity.this, set -> {
+                    if(set && i == 0) {
+                        i = 1;
+                        Log.d("SET", set.toString());
+                        naverRepository.check.setValue(false);
+                        Check();
+                    }
+                });
                 Log.d("LOGIN", String.valueOf(login));
             }
         });
@@ -130,7 +130,12 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
-    public void SignUpCheck(String result) {
+    private void Check() {
+        model.loadCheck(profile.getEmail());
+        model.getCheckResult().observe(LoginAcitivity.this, this::SignUpCheck);
+    }
+
+    private void SignUpCheck(String result) {
         Intent intent;
         Log.d("CHECK", String.valueOf(LoginAcitivity.login));
         if(result.contains("signup")) {
