@@ -82,7 +82,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/id"
                 android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -113,15 +113,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/login_btn"
+            android:id="@+id/login_btn_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/email"
             android:layout_centerInParent="true"
             android:orientation="vertical">
-
             <Button
-                android:id="@+id/loginbtn"
+                android:id="@+id/login_btn"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -141,7 +140,7 @@
             android:id="@+id/login_member"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_below="@id/login_btn"
+            android:layout_below="@id/login_btn_ll"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp">
 
@@ -195,7 +194,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_naver_login"
+                    android:id="@+id/naver_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#1EC800"
@@ -226,13 +225,12 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/kakao_Log"
+                    android:id="@+id/kakao_login"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#FFE400"
                     android:gravity="center"
                     android:orientation="vertical">
-
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -244,7 +242,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.kakao.usermgmt.LoginButton
-                        android:id="@+id/login"
+                        android:id="@+id/kakao_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
@@ -258,12 +256,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/facebook"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/facebook_login"
@@ -283,7 +275,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.facebook.login.widget.LoginButton
-                        android:id="@+id/login_button"
+                        android:id="@+id/facebook_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -292,7 +284,6 @@
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/btn_login" />
                 </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

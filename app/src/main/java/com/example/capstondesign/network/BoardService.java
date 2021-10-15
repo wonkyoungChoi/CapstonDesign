@@ -1,5 +1,7 @@
 package com.example.capstondesign.network;
 
+import com.example.capstondesign.network.method.DownloadUrl;
+
 import java.io.IOException;
 
 public class BoardService {

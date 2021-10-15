@@ -85,7 +85,6 @@ public class BoardFragment extends Fragment {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
         FragmentBoardBinding binding = FragmentBoardBinding.inflate(inflater, container, false);
 
 

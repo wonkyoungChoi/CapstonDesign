@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.repository;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -8,7 +8,11 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.capstondesign.R;
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -26,13 +30,14 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NaverLogin {
+public class NaverRepository {
     OAuthLogin mOAuthLoginModule;
     Profile profile = LoginAcitivity.profile;
     String name1, email1, gender;
+    public MutableLiveData<Boolean> check = new MutableLiveData<>();
 
 
-    public NaverLogin(Context context, Activity activity) {
+    public NaverRepository(Context context, Activity activity) {
         Login(context);
         loginHandler(context, activity);
     }
@@ -62,6 +67,8 @@ public class NaverLogin {
                         @Override
                         public void run() {
                             try {
+                                check.postValue(false);
+
                                 String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
 
                                 String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -72,8 +79,6 @@ public class NaverLogin {
                                 Log.d("NAVERLOGIN", responseBody);
                                 NaverUserInfo(responseBody, context);
                                 LoginAcitivity.login = 2;
-                                CheckTask checkTask = new CheckTask();
-                                String check;
                                 name1 = profile.getName();
                                 email1 = profile.getEmail();
                                 gender = profile.getGender();
@@ -83,16 +88,7 @@ public class NaverLogin {
                                     gender = "여성";
                                 }
 
-                                check = checkTask.execute(email1).get();
-
-                                //회원가입 했는지 확인하는 부분
-                                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        new CheckTask.SignUpCheck(check, context, activity);
-                                    }
-                                });
-
+                                check.postValue(true);
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -182,6 +178,7 @@ public class NaverLogin {
 
             if (resultcode.equals("00")) {
                 if (message.equals("success")) {
+
                     JSONObject naverJson = (JSONObject) jsonObject.get("response");
 
                     String gender = naverJson.get("gender").toString();
@@ -205,8 +202,6 @@ public class NaverLogin {
             e.printStackTrace();
         }
     }
-
-
 
     final Handler mHandler = new Handler();
     void showToast(Context context, CharSequence text) {

@@ -65,6 +65,11 @@ public class Board {
         this.text = text;
         this.time = time;
     }
+    public Board(String nick, String title, String text) {
+        this.title = title;
+        this.nick = nick;
+        this.text = text;
+    }
 
     public Board(ArrayList<Board> list) {
         this.list = list;

@@ -18,7 +18,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.BoardTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.model.UploadFileAsyncBoard;
@@ -166,7 +165,7 @@ public class AddBoard extends AppCompatActivity {
         addBoardTask addBoardTask = new addBoardTask();
         addBoardTask.execute(nick, title, text, time);
 
-        BoardTask.boardlist.add(board);
+        //BoardTask.boardlist.add(board);
         BoardFragment.boardAdapter.notifyDataSetChanged();
         Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
         intent.putExtra("boardNum", 1);

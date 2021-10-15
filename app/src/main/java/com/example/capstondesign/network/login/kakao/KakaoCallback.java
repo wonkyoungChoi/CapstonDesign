@@ -1,10 +1,12 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.login.kakao;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ApiErrorCode;
@@ -62,7 +64,7 @@ public class KakaoCallback {
                                 profile.setGender(gender);
                                 profile.setEmail(email);
 
-                                CheckTask checkTask = new CheckTask();
+                                SignUpCheckService checkTask = new SignUpCheckService();
                                 if(gender.equals("male")) {
                                     gender = "남성";
                                 } else if(gender.equals("female")) {
@@ -70,18 +72,12 @@ public class KakaoCallback {
                                 }
                                 login = 1;
                                 LoginAcitivity.login = login;
-                                try {
-                                    String check;
-                                    check = checkTask.execute(email).get();
+                                String check;
+//                                    check = checkTask.execute(email).get();
+//
+//                                    //회원가입 했는지 확인하는 부분
+//                                    new SignUpCheckService.SignUpCheck(check, context, activity);
 
-                                    //회원가입 했는지 확인하는 부분
-                                    new CheckTask.SignUpCheck(check, context, activity);
-
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
                             }
                         } else {
                             Log.d("Fail", "Fail");
