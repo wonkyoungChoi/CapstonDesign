@@ -75,7 +75,6 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         //sliderview
         sliderView = v.findViewById(R.id.image_slider);
 

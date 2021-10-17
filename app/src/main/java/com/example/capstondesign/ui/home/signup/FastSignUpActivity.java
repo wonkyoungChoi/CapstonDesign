@@ -50,6 +50,8 @@ public class FastSignUpActivity extends AppCompatActivity {
     private String verificationId;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    SignUpViewModel model;
+
     String phoneNum, phone;
     Boolean check;
     private CountDownTimer timer;
@@ -62,7 +64,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Log.d("OPEN", "OPEN");
 
-        SignUpViewModel model = new ViewModelProvider(this).get(SignUpViewModel.class);
+        model = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         AuthCodeTimer();
 
@@ -136,24 +138,11 @@ public class FastSignUpActivity extends AppCompatActivity {
             }
         });
 
+        observeNickResult();
         binding.nickCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userNickname = binding.nickname.getText().toString();
-                if (userNickname.trim().length() > 0) {
-                    model.loadNickCheck(userNickname);
-                    model.getNickResult().observe(FastSignUpActivity.this, result -> {
-                        if (result.contains("sameNick")) {
-                            Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            nick_click = true;
-                            Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
+                nick_check();
             }
         });
 
@@ -177,7 +166,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                 if(username.trim().length()>0 && userNickname.trim().length()>0 &&  nick_click) {
                     ChattingAdapter.nick = userNickname;
                     model.loadSignUp(username, userNum, userEmail, userNickname, "", radioButton.getText().toString());
-                    model.getResult().observe(FastSignUpActivity.this, result -> {
+                    model.getSignUpResult().observe(FastSignUpActivity.this, result -> {
                         Log.d("RESULT", result);
                         DuplicateCheck(result, context, activity);
                     });
@@ -256,6 +245,26 @@ public class FastSignUpActivity extends AppCompatActivity {
         }
     }
 
+    private void nick_check() {
+        String userNickname = binding.nickname.getText().toString();
+        if (userNickname.trim().length() > 0) {
+            model.loadNickCheck(userNickname);
+        } else {
+            Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void observeNickResult() {
+        model.getNickResult().observe(this, result -> {
+            if (result.contains("sameNick")) {
+                Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                nick_click = true;
+                Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void sendVerificationCode(String number) {
         PhoneAuthOptions options =
@@ -315,6 +324,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             phone = binding.phoneNum.getText().toString();
                             check = true;
+                            timer.cancel();
                             timer.onFinish();
 
                             //기존 휴대폰 인증 부분 사라지는 곳

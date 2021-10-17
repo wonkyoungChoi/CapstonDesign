@@ -31,16 +31,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NaverRepository {
-    OAuthLogin mOAuthLoginModule;
     Profile profile = LoginAcitivity.profile;
-    String name1, email1, gender;
     public MutableLiveData<Boolean> check = new MutableLiveData<>();
-
-
-    public NaverRepository(Context context, Activity activity) {
-        Login(context);
-        loginHandler(context, activity);
-    }
+    public OAuthLogin mOAuthLoginModule;
 
 
     public void Login(Context mContext) {
@@ -55,62 +48,33 @@ public class NaverRepository {
         );
     }
 
-    private void loginHandler(Context context, Activity activity) {
+    public OAuthLoginHandler loginHandler(Context context) {
         @SuppressLint("HandlerLeak")
         OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
             @Override
             public void run(boolean success) {
                 if (success) {
                     String accessToken = mOAuthLoginModule.getAccessToken(context);
+                    check.postValue(false);
 
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                check.postValue(false);
+                    String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
 
-                                String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
+                    String apiURL = "https://openapi.naver.com/v1/nid/me";
 
-                                String apiURL = "https://openapi.naver.com/v1/nid/me";
+                    Map<String, String> requestHeaders = new HashMap<>();
+                    requestHeaders.put("Authorization", header);
+                    String responseBody = get(apiURL, requestHeaders);
+                    Log.d("NAVERLOGIN", responseBody);
+                    NaverUserInfo(responseBody);
+                    LoginAcitivity.login = 2;
 
-                                Map<String, String> requestHeaders = new HashMap<>();
-                                requestHeaders.put("Authorization", header);
-                                String responseBody = get(apiURL, requestHeaders);
-                                Log.d("NAVERLOGIN", responseBody);
-                                NaverUserInfo(responseBody, context);
-                                LoginAcitivity.login = 2;
-                                name1 = profile.getName();
-                                email1 = profile.getEmail();
-                                gender = profile.getGender();
-                                if(gender.equals("M")) {
-                                    gender = "남성";
-                                } else if(gender.equals("F")) {
-                                    gender = "여성";
-                                }
+                    check.postValue(true);
 
-                                check.postValue(true);
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    thread.start();
-
-                } else {
-                    String errorCode = mOAuthLoginModule
-                            .getLastErrorCode(context).getCode();
-                    String errorDesc = mOAuthLoginModule.getLastErrorDesc(context);
-                    Toast.makeText(context, "errorCode:" + errorCode
-                            + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
                 }
             }
         };
-
-        mOAuthLoginModule.startOauthLoginActivity(activity, mOAuthLoginHandler);
+        return mOAuthLoginHandler;
     }
-
-
 
     //네이버 프로필 정보 관련
     private static String get(String apiUrl, Map<String, String> requestHeaders) {
@@ -120,7 +84,6 @@ public class NaverRepository {
             for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
-
 
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
@@ -169,7 +132,7 @@ public class NaverRepository {
     }
 
     //네이버 로그인
-    private void NaverUserInfo(String msg, Context context) {
+    private void NaverUserInfo(String msg) {
         try {
             JSONObject jsonObject = new JSONObject(msg);
             String resultcode = jsonObject.get("resultcode").toString();
@@ -196,24 +159,12 @@ public class NaverRepository {
 
                 }
             } else {
-                showToast(context, "로그인 오류가 발생했습니다.");
+//                showToast(context, "로그인 오류가 발생했습니다.");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
-    final Handler mHandler = new Handler();
-    void showToast(Context context, CharSequence text) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context , text, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
 
 }
 

@@ -13,32 +13,41 @@ public class SignUpViewModel extends ViewModel {
     EmailCheckTask emailCheckTask = new EmailCheckTask();
     NickCheckTask nickCheckTask = new NickCheckTask();
 
-    public MutableLiveData<String> emailResult = new MutableLiveData<>();
-    public MutableLiveData<String> nickResult = new MutableLiveData<>();
+    private MutableLiveData<String> emailResult;
+    private MutableLiveData<String> nickResult;
+    private MutableLiveData<String> signupResult;
 
     public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) {
         task.execute(name, phoneNum, email, nick, password, gender);
     }
-
-    public LiveData<String> getResult() {
-        return task.result;
+    public MutableLiveData<String> getSignUpResult() {
+        if (signupResult == null) {
+            signupResult = new MutableLiveData<>();
+            signupResult = task.result;
+        }
+        return signupResult;
     }
 
     public void loadNickCheck(String nick) {
         nickCheckTask.execute(nick);
     }
-
-    public LiveData<String> getNickResult() {
-        nickResult = nickCheckTask.result;
+    public MutableLiveData<String> getNickResult() {
+        if (nickResult == null) {
+            nickResult = new MutableLiveData<>();
+            nickResult = nickCheckTask.result;
+        }
         return nickResult;
     }
 
     public void loadEmailCheck(String email) {
         emailCheckTask.execute(email);
     }
-
-    public LiveData<String> getEmailResult() {
-        emailResult = emailCheckTask.result;
+    public MutableLiveData<String> getEmailResult() {
+        if (emailResult == null) {
+            emailResult = new MutableLiveData<>();
+            emailResult = emailCheckTask.result;
+        }
         return emailResult;
     }
+
 }
