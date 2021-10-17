@@ -63,15 +63,14 @@ public class SignUpActivity extends AppCompatActivity {
         context = this;
         activity = SignUpActivity.this;
 
-
         binding.authClick.setOnClickListener(v -> {
-            if(binding.phoneNum.length() > 6) {
+            if (binding.phoneNum.length() > 6) {
 
                 Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
                 phoneNum = binding.phoneNum.getText().toString();
-                sendVerificationCode("+82"+phoneNum.substring(1));
+                sendVerificationCode("+82" + phoneNum.substring(1));
 
-                if(timer != null) {
+                if (timer != null) {
                     timer.cancel();
                     timer.start();
                 }
@@ -86,14 +85,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         //휴대폰 인증번호 재전송
         binding.reAuthClick.setOnClickListener(view -> {
-            if(binding.phoneNum.length() > 6) {
+            if (binding.phoneNum.length() > 6) {
                 Toast.makeText(getApplicationContext(), "인증번호가 전송되었습니다. 60초 이내에 입력해주세요.", Toast.LENGTH_SHORT).show();
-                sendVerificationCode("+82"+phoneNum.substring(1));
-                if(timer != null) {
+                sendVerificationCode("+82" + phoneNum.substring(1));
+                if (timer != null) {
                     timer.cancel();
                     timer.start();
                 }
-
             } else {
                 Toast.makeText(getApplicationContext(), "휴대전화 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
             }
@@ -102,14 +100,16 @@ public class SignUpActivity extends AppCompatActivity {
         //인증하기 클릭
         binding.authCheck.setOnClickListener(v -> {
             String code = binding.auth.getText().toString();
-            if(code.isEmpty() || code.length()<6) {
-                Toast.makeText(getApplicationContext(),"인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+            if (code.isEmpty() || code.length() < 6) {
+                Toast.makeText(getApplicationContext(), "인증번호를 입력하세요.", Toast.LENGTH_SHORT).show();
             }
             verifyCode(code);
         });
 
+        observeNickResult();
         binding.nickCheck.setOnClickListener(v -> nick_check());
 
+        observeEmailResult();
         binding.emailCheck.setOnClickListener(v -> email_check());
 
         binding.gender.setOnCheckedChangeListener((group, checkedId) -> {
@@ -133,43 +133,45 @@ public class SignUpActivity extends AppCompatActivity {
     //이메일 중복확인 버튼 메소드
     private void email_check() {
         String userEmail = binding.emailName.getText().toString();
-        model.loadEmailCheck(userEmail);
-        if (userEmail.trim().length() > 0 ) {
-            model.getEmailResult().observe(this, result -> {
-                Log.d("RESULT", result);
-                if (result.contains("sameEmail")) {
-                    Toast.makeText(getApplicationContext(), "중복된 이메일입니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    email_click = true;
-                    Toast.makeText(getApplicationContext(), "사용가능한 이메일입니다.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
+        if (userEmail.trim().length() > 0) {
+            model.loadEmailCheck(userEmail);
         } else {
             Toast.makeText(getApplicationContext(), "이메일을 정확히 입력하세요.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void observeEmailResult() {
+        model.getEmailResult().observe(this, result -> {
+            if (result.contains("sameEmail")) {
+                Toast.makeText(getApplicationContext(), "중복된 이메일입니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                email_click = true;
+                Toast.makeText(getApplicationContext(), "사용가능한 이메일입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-    private void nick_check()  {
+
+    private void nick_check() {
         String userNickname = binding.nickname.getText().toString();
-        model.loadNickCheck(userNickname);
+
         if (userNickname.trim().length() > 0) {
-            model.nickResult.setValue(null);
-            model.getNickResult().observe(this, result -> {
-                Log.d("RESULT", result);
-                if (result.contains("sameNick")) {
-                    Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    nick_click = true;
-                    Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                }
-            });
+            model.loadNickCheck(userNickname);
         } else {
             Toast.makeText(getApplicationContext(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void observeNickResult() {
+        model.getNickResult().observe(this, result -> {
+            if (result.contains("sameNick")) {
+                Toast.makeText(getApplicationContext(), "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                nick_click = true;
+                Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void sign_up() {
         String username = binding.name.getText().toString();
@@ -182,14 +184,14 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d("BOOLEAN", String.valueOf(check));
 
         if (username.trim().length() > 0 && useremail.trim().length() > 0 && userPassword.trim().length() > 0
-                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click ) {
+                && userNickname.trim().length() > 0 && userPassword.equals(passwordcheck) && gender_click && email_click && nick_click) {
 
             String userNum = phone;
 
             Log.d("VALUES", useremail + "&&&&" + userNickname);
 
             model.loadSignUp(username, userNum, useremail, userNickname, userPassword, gender);
-            model.getResult().observe(this, result -> {
+            model.getSignUpResult().observe(this, result -> {
                 Log.d("RESULT", result);
                 DuplicateCheck(result, context, activity);
             });
@@ -203,17 +205,17 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
         } else if (!check) {
             Toast.makeText(getApplicationContext(), "휴대폰 인증을 해야 합니다.", Toast.LENGTH_SHORT).show();
-        }  else {
+        } else {
             Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void DuplicateCheck(String result, Context context, Activity activity) {
-        if(result.contains("sameNumEmail/")) {
+        if (result.contains("sameNumEmail/")) {
             Toast.makeText(context, "폰번호, 이메일 중복", Toast.LENGTH_SHORT).show();
-        } else if (result.contains("sameNum/")){
+        } else if (result.contains("sameNum/")) {
             Toast.makeText(context, "폰번호 중복", Toast.LENGTH_SHORT).show();
-        }  else if (result.contains("sameEmail/")) {
+        } else if (result.contains("sameEmail/")) {
             Toast.makeText(context, "이메일 중복", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "회원가입 완료", Toast.LENGTH_SHORT).show();
@@ -243,7 +245,7 @@ public class SignUpActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential credential) {
 
             String code = credential.getSmsCode();
-            if(code != null) {
+            if (code != null) {
                 binding.auth.setText(code);
                 verifyCode(code);
             }
@@ -279,7 +281,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         phone = binding.phoneNum.getText().toString();
-
+                        timer.cancel();
                         timer.onFinish();
                         check = true;
 
@@ -313,9 +315,9 @@ public class SignUpActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTick(long l) {
-                long k =  l / 1000;
+                long k = l / 1000;
                 binding.DelayTextView.setVisibility(View.VISIBLE);
-                if(k >= 10) {
+                if (k >= 10) {
                     binding.DelayTextView.setText("00 : " + k);
                 } else {
                     binding.DelayTextView.setText(("00 : 0" + k));
@@ -327,7 +329,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.d("FINISH", "FINISH");
                 binding.DelayTextView.setText("");
                 binding.DelayTextView.setVisibility(View.GONE);
-                if(check = false) {
+                if (check = false) {
                     Toast.makeText(getApplicationContext(), "제한시간 종료", Toast.LENGTH_SHORT).show();
                 }
             }

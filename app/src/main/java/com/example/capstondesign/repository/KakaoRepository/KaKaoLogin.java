@@ -1,4 +1,4 @@
-package com.example.capstondesign.network.login.kakao;
+package com.example.capstondesign.repository.KakaoRepository;
 
 import android.content.Context;
 
