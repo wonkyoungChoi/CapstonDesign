@@ -1,5 +1,6 @@
 package com.example.capstondesign.ui.board;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +8,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.BoardListItemBinding;
+import com.example.capstondesign.ui.board.inboard.InBoard;
+
 import android.os.Build;
 import android.util.Log;
 import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
     static BoardAdapter.OnItemClickListener mListener = null;
+    private List<Board> items = new ArrayList<>();
     public String nick;
     public Board board;
 
@@ -29,27 +36,27 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView nick, text, title;
-        public ImageView imageView;
+        BoardListItemBinding binding;
 
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public MyViewHolder(BoardListItemBinding bind) {
+            super(bind.getRoot());
+            binding = bind;
 
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            nick = (TextView) itemView.findViewById(R.id.nick);
-            title = (TextView) itemView.findViewById(R.id.title);
-            text = (TextView) itemView.findViewById(R.id.text);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+
+            binding.title.setText();
+
+            binding.layoutBoard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         if(mListener != null) {
-                            click_nickname = boardList.get(pos).getNick();
-                            click_title = boardList.get(pos).getTitle();
-                            click_text = boardList.get(pos).getText();
-                            click_time = boardList.get(pos).getTime();
+                            Intent intent = new Intent(binding.layoutBoard.getContext(), InBoard.class);
+                            String click_nickname = items.get(pos).getNick();
+                            String click_title = items.get(pos).getTitle();
+                            String click_text = items.get(pos).getText();
+                            String click_time = items.get(pos).getTime();
                             mListener.onItemClick(v, pos);
 
                         }
@@ -60,18 +67,12 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     }
 
 
-    public static List<Board> boardList;
-    public BoardAdapter(List<Board> items) { boardList = items; }
-    public static String click_nickname, click_title, click_text, click_time;
+    public BoardAdapter(List<Board> item) { items = item; }
 
     @NonNull
     @Override
     public BoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.board_layout, parent, false);
-
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(BoardListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
 
@@ -81,16 +82,16 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         Log.d("position", String.valueOf(position));
 
         holder.setIsRecyclable(false);
-        board = boardList.get(position);
+        board = items.get(position);
 
-        if(boardList.get(position).getImage() != null) {
-            holder.nick.setText(boardList.get(position).getNick());
-            holder.title.setText(boardList.get(position).getTitle());
-            holder.text.setText(boardList.get(position).getText());
+        if(items.get(position).getImage() != null) {
+            holder.binding.nick.setText(items.get(position).getNick());
+            holder.binding.title.setText(items.get(position).getTitle());
+            holder.binding.text.setText(items.get(position).getText());
         } else {
-            holder.nick.setText(boardList.get(position).getNick());
-            holder.title.setText(boardList.get(position).getTitle());
-            holder.text.setText(boardList.get(position).getText());
+            holder.binding.nick.setText(items.get(position).getNick());
+            holder.binding.title.setText(items.get(position).getTitle());
+            holder.binding.text.setText(items.get(position).getText());
             //holder.imageView.setVisibility(View.GONE);
         }
 
@@ -99,17 +100,17 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return boardList.size();
+        return items.size();
     }
 
 
     public Board getChat(int position) {
-        return boardList != null ? boardList.get(position) : null;
+        return items != null ? items.get(position) : null;
     }
 
     public void addBoard(Board board1) {
-        boardList.add(board1);
-        notifyItemInserted(boardList.size()-1);
+        items.add(board1);
+        notifyItemInserted(items.size()-1);
     }
 
 

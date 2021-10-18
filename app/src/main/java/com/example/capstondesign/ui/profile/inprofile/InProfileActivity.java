@@ -22,7 +22,7 @@ import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.UploadFileAsync;
+import com.example.capstondesign.network.bulletin.UploadFileAsync;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;

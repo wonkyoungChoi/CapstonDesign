@@ -72,7 +72,7 @@ public class ShowBoardAdapter extends RecyclerView.Adapter<ShowBoardAdapter.MyVi
     @Override
     public ShowBoardAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.board_layout, parent, false);
+                .inflate(R.layout.board_list_item, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
         return vh;

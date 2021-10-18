@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.databinding.ActivitySignupBinding;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
+import com.example.capstondesign.ui.home.FragmentHome;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -220,7 +221,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "회원가입 완료", Toast.LENGTH_SHORT).show();
             Log.d("리턴 값", result);
-            Intent intent = new Intent(context, LoginAcitivity.class);
+            Intent intent = new Intent(context, FragmentHome.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(intent);
         }
@@ -281,9 +282,9 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         phone = binding.phoneNum.getText().toString();
+                        check = true;
                         timer.cancel();
                         timer.onFinish();
-                        check = true;
 
                         //기존 휴대폰 인증 부분 사라지는 곳
                         binding.reAuthClick.setVisibility(View.GONE);

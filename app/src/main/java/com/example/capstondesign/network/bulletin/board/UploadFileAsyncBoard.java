@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.bulletin.board;
 
 import android.os.AsyncTask;
 import android.util.Log;

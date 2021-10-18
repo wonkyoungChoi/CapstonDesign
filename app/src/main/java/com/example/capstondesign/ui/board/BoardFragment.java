@@ -8,20 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.FragmentBoardBinding;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
-import com.example.capstondesign.model.BoardTask;
 
 import java.util.ArrayList;
 
@@ -31,9 +25,7 @@ public class BoardFragment extends Fragment {
 
     public static Uri image;
 
-    public static BoardAdapter boardAdapter;
-    BoardTask boardTask;
-    public ArrayList<Board> board = new ArrayList<>();;
+    public BoardAdapter boardAdapter = new BoardAdapter();
     int position;
 
 
@@ -94,16 +86,11 @@ public class BoardFragment extends Fragment {
         BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
 
         model.loadBoard();
-
         model.getAll().observe(getViewLifecycleOwner(), board -> {
             boardAdapter = new BoardAdapter(board.list);
         });
         //진행중
 
-
-        //GALLERY(); // 허가
-        board.clear();
-        boardTask = new BoardTask();
         binding.recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
@@ -122,20 +109,20 @@ public class BoardFragment extends Fragment {
         });
 
 
-        boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                nick = BoardAdapter.click_nickname;
-                title = BoardAdapter.click_title;
-                text = BoardAdapter.click_text;
-                getPosition(position);
-                Intent intent = new Intent(getContext(), InBoard.class);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                intent.putExtra("nick", nick);
-                startActivity(intent);
-            }
-        });
+//        boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int pos) {
+//                nick = BoardAdapter.click_nickname;
+//                title = BoardAdapter.click_title;
+//                text = BoardAdapter.click_text;
+//                getPosition(position);
+//                Intent intent = new Intent(getContext(), InBoard.class);
+//                intent.putExtra("title", title);
+//                intent.putExtra("text", text);
+//                intent.putExtra("nick", nick);
+//                startActivity(intent);
+//            }
+//        });
 
 
 

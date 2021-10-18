@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.model.UploadFileAsyncBoard;
+import com.example.capstondesign.network.bulletin.board.UploadFileAsyncBoard;
 import com.example.capstondesign.model.addBoardTask;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;

@@ -23,7 +23,7 @@ public class KakaoRepository implements ISessionCallback {
     String name, gender, email;
     int login = LoginAcitivity.login;
 
-    public MutableLiveData<Boolean> check = new MutableLiveData<>();
+    public MutableLiveData<String> emailCheck = new MutableLiveData<>();
     @Override
     public void onSessionOpened() {
         requestMe();
@@ -50,8 +50,6 @@ public class KakaoRepository implements ISessionCallback {
             public void onSuccess(MeV2Response result) {
                 if (result.getKakaoAccount().getProfile() != null) {
                     if (result.getKakaoAccount().getProfile().getNickname() != null) {
-                        check.setValue(false);
-
                         name = result.getKakaoAccount().getProfile().getNickname();
                         gender = result.getKakaoAccount().getGender().getValue();
                         email = result.getKakaoAccount().getEmail();
@@ -68,7 +66,7 @@ public class KakaoRepository implements ISessionCallback {
                         login = 1;
                         LoginAcitivity.login = login;
 
-                        check.setValue(true);
+                        emailCheck.setValue(email);
 
                     }
                 } else {

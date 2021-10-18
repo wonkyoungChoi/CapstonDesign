@@ -2,9 +2,8 @@ package com.example.capstondesign.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.capstondesign.network.BoardService;
+import com.example.capstondesign.network.bulletin.board.BoardService;
 import com.example.capstondesign.ui.board.Board;
-import com.example.capstondesign.ui.board.BoardFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,10 +34,10 @@ public class BoardRepository {
             {
 
                 JSONObject BoardObject = BoardArray.getJSONObject(i);
-                nick = BoardObject.getString("nick");
+                nick = BoardObject.getString("nickname");
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
-                time = BoardObject.getString("count");
+                time = BoardObject.getString("time");
 
                 items.add(new Board(nick,title,text,time));
             }

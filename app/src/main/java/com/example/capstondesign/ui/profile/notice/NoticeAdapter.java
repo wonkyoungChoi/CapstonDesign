@@ -71,7 +71,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     @Override
     public NoticeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.board_layout, parent, false);
+                .inflate(R.layout.board_list_item, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
         return vh;

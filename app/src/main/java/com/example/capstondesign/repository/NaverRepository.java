@@ -32,11 +32,11 @@ import java.util.Map;
 
 public class NaverRepository {
     Profile profile = LoginAcitivity.profile;
-    public MutableLiveData<Boolean> check = new MutableLiveData<>();
+    public MutableLiveData<String> emailCheck = new MutableLiveData<>();
     public OAuthLogin mOAuthLoginModule;
 
 
-    public void Login(Context mContext) {
+    public OAuthLogin login(Context mContext) {
         mOAuthLoginModule = OAuthLogin.getInstance();
         mOAuthLoginModule.init(
                 mContext
@@ -46,6 +46,7 @@ public class NaverRepository {
                 //,OAUTH_CALLBACK_INTENT
                 // SDK 4.1.4 버전부터는 OAUTH_CALLBACK_INTENT변수를 사용하지 않습니다.
         );
+        return mOAuthLoginModule;
     }
 
     public OAuthLoginHandler loginHandler(Context context) {
@@ -54,21 +55,26 @@ public class NaverRepository {
             @Override
             public void run(boolean success) {
                 if (success) {
-                    String accessToken = mOAuthLoginModule.getAccessToken(context);
-                    check.postValue(false);
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            String accessToken = mOAuthLoginModule.getAccessToken(context);
 
-                    String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
+                            String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
 
-                    String apiURL = "https://openapi.naver.com/v1/nid/me";
+                            String apiURL = "https://openapi.naver.com/v1/nid/me";
 
-                    Map<String, String> requestHeaders = new HashMap<>();
-                    requestHeaders.put("Authorization", header);
-                    String responseBody = get(apiURL, requestHeaders);
-                    Log.d("NAVERLOGIN", responseBody);
-                    NaverUserInfo(responseBody);
-                    LoginAcitivity.login = 2;
+                            Map<String, String> requestHeaders = new HashMap<>();
+                            requestHeaders.put("Authorization", header);
+                            String responseBody = get(apiURL, requestHeaders);
+                            Log.d("NAVERLOGIN", responseBody);
+                            NaverUserInfo(responseBody);
+                            LoginAcitivity.login = 2;
 
-                    check.postValue(true);
+                            emailCheck.postValue(profile.getEmail());
+                            super.run();
+                        }
+                    }.start();
 
                 }
             }

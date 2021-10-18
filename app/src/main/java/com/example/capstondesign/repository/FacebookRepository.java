@@ -17,7 +17,7 @@ import org.json.JSONObject;
 public class FacebookRepository implements FacebookCallback<LoginResult> {
     Profile profile = LoginAcitivity.profile;
     String name, email, gender;
-    public MutableLiveData<Boolean> check = new MutableLiveData<>();
+    public MutableLiveData<String> emailCheck = new MutableLiveData<>();
 
     public FacebookRepository() {
     }
@@ -50,7 +50,6 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
                         try {
-                            check.setValue(false);
                             email = object.getString("email");
                             profile.setEmail(email);
 
@@ -67,7 +66,7 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
 
                             profile.setGender(gender);
 
-                            check.setValue(true);
+                            emailCheck.setValue(email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

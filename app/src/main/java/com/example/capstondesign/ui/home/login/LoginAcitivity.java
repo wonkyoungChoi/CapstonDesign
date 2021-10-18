@@ -51,11 +51,12 @@ public class LoginAcitivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
+        observeSignupResult();
 
         context = this;
         activity = LoginAcitivity.this;
 
+        //일반 회원가입
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,40 +65,35 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        //페이스북 간편 로그인
         model.getFacebookRepository();
         observeFacebookResult();
-        //페이스북 간편 로그인
         binding.facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.facebookBtn.callOnClick();
-                binding.facebookBtn.setPermissions(Arrays.asList("public_profile", "user_gender", "email"));
-                binding.facebookBtn.registerCallback(model.getCallbackManager(), model.getFacebookRepository());
-
+                LoginManager loginManager = LoginManager.getInstance();
+                loginManager.logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
+                loginManager.registerCallback(model.getCallbackManager(), model.getFacebookRepository());
             }
         });
 
-
-
-        observeNaverResult();
         //네이버 간편 로그인
+        model.getNaverRepository();
+        mOAuthModule = model.loadNaver(context);
+        observeNaverResult();
         binding.naverLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOAuthModule = model.getNaverLoginModule();
-                model.loadNaver(context);
                 mOAuthModule.startOauthLoginActivity(activity, model.getNaverLoginHandler(context));
-                Log.d("LOGIN", String.valueOf(login));
             }
         });
 
-        model.getKakaoRepository();
-        observeKakaoResult();
         //카카오 간편 로그인
+        callback = model.getKakaoRepository();
+        observeKakaoResult();
         binding.kakaoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback = model.kakaoRepository;
                 Session.getCurrentSession().addCallback(callback);
                 Session.getCurrentSession().checkAndImplicitOpen();
                 binding.kakaoBtn.performClick();
@@ -120,50 +116,37 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
-    private void Check() {
-        model.loadCheck(profile.getEmail());
-        model.getCheckResult().observe(LoginAcitivity.this, this::SignUpCheck);
-    }
-
-    private void SignUpCheck(String result) {
-        Intent intent;
-        Log.d("CHECK", String.valueOf(LoginAcitivity.login));
-        if(result.contains("signup")) {
-            intent = new Intent(activity, FragmentMain.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            LoginAcitivity.Login = true;
-            Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
-        } else {
-            intent = new Intent(activity, FastSignUpActivity.class);
-            Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
-        }
-        activity.startActivity(intent);
+    private void observeSignupResult() {
+        model.getCheckResult().observe(LoginAcitivity.this, result -> {
+            Intent intent;
+            if(result.contains("signup")) {
+                intent = new Intent(activity, FragmentMain.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                LoginAcitivity.Login = true;
+                Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
+            } else {
+                intent = new Intent(activity, FastSignUpActivity.class);
+                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
+            }
+            activity.startActivity(intent);
+        });
     }
 
     private void observeKakaoResult() {
-        model.kakaoRepository.check.observe(LoginAcitivity.this, set -> {
-            if(set) {
-                model.kakaoRepository.check.setValue(false);
-                Check();
-            }
+        model.getKakaoCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            model.loadCheck(emailResult);
         });
     }
 
     private void observeNaverResult() {
-        model.naverRepository.check.observe(LoginAcitivity.this, set -> {
-            if(set) {
-                Log.d("SET", set.toString());
-                model.naverRepository.check.setValue(false);
-                Check();
-            }
+        model.getNaverCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            model.loadCheck(emailResult);
         });
     }
 
     private void observeFacebookResult() {
-        model.getFacebookCheckResult().observe(LoginAcitivity.this, set -> {
-            if(set) {
-                Check();
-            }
+        model.getFacebookCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            model.loadCheck(emailResult);
         });
     }
 
@@ -174,7 +157,6 @@ public class LoginAcitivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         } else if(model.getCallbackManager().onActivityResult(requestCode, resultCode, data)) {
             model.getCallbackManager().onActivityResult(requestCode, resultCode, data);
-            Log.d("ABC", "ABC");
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

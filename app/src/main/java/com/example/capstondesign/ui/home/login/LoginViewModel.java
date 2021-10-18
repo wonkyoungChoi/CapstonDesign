@@ -1,14 +1,8 @@
 package com.example.capstondesign.ui.home.login;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.util.Log;
-import android.widget.Toast;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -17,30 +11,24 @@ import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.repository.KakaoRepository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
-import com.example.capstondesign.ui.FragmentMain;
-import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.facebook.CallbackManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> loginResult;
     private MutableLiveData<String> checkResult;
 
     LoginService loginTask;
-    SignUpCheckService checkTask;
+    SignUpCheckService checkTask = new SignUpCheckService();
     CallbackManager callbackManager;
 
-    NaverRepository naverRepository = new NaverRepository();
-    KakaoRepository kakaoRepository = new KakaoRepository();
+    NaverRepository naverRepository;
+    KakaoRepository kakaoRepository;
     FacebookRepository facebookRepository;
 
     OAuthLoginHandler mOAuthLoginHandler;
 
-    private OAuthLogin mOAuthLoginModule;
 
     public KakaoRepository getKakaoRepository() {
         if(kakaoRepository == null) {
@@ -49,15 +37,18 @@ public class LoginViewModel extends ViewModel {
         return kakaoRepository;
     }
 
-    public OAuthLogin getNaverLoginModule() {
-        if(mOAuthLoginModule == null) {
-            mOAuthLoginModule = naverRepository.mOAuthLoginModule;
-        }
-        return mOAuthLoginModule;
+    public MutableLiveData<String> getKakaoCheckResult() {
+        return kakaoRepository.emailCheck;
     }
 
-    public void loadNaver(Context context) {
-        naverRepository.Login(context);
+    public void getNaverRepository() {
+        if(naverRepository == null) {
+            naverRepository = new NaverRepository();
+        }
+    }
+
+    public OAuthLogin loadNaver(Context context) {
+        return naverRepository.login(context);
     }
 
     @SuppressLint("HandlerLeak")
@@ -66,6 +57,10 @@ public class LoginViewModel extends ViewModel {
             mOAuthLoginHandler = naverRepository.loginHandler(context);
         }
         return mOAuthLoginHandler;
+    }
+
+    public MutableLiveData<String> getNaverCheckResult() {
+        return naverRepository.emailCheck;
     }
 
 
@@ -83,8 +78,8 @@ public class LoginViewModel extends ViewModel {
         return callbackManager;
     }
 
-    public MutableLiveData<Boolean> getFacebookCheckResult() {
-        return facebookRepository.check;
+    public MutableLiveData<String> getFacebookCheckResult() {
+        return facebookRepository.emailCheck;
     }
 
 
@@ -104,17 +99,14 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void loadCheck(String email) {
-        if (checkTask == null) {
-            checkTask = new SignUpCheckService();
-        }
         checkTask.execute(email);
     }
 
     public MutableLiveData<String> getCheckResult() {
         if (checkResult == null) {
             checkResult = new MutableLiveData<>();
-            checkResult = checkTask.result;
         }
+        checkResult = checkTask.result;
         return checkResult;
     }
 
