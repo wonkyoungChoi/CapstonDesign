@@ -224,14 +224,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/kakao_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFE400"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -240,19 +232,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.kakao.usermgmt.LoginButton
-                        android:id="@+id/kakao_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -273,6 +252,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/btn_facebook_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
         </LinearLayout>

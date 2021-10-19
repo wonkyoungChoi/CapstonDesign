@@ -28,8 +28,6 @@ import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.model.ProfileTask;
 import com.example.capstondesign.ui.FragmentMain;
 import com.facebook.login.LoginManager;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.squareup.picasso.Picasso;
 
@@ -254,16 +252,16 @@ public class FragmentProfile extends Fragment {
         if (login == 1) {
             //카카오 로그인시 login 값은 1
             Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-            UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
-                @Override
-                public void onCompleteLogout() {
-                    Intent intent = new Intent(getActivity(), FragmentMain.class);
-                    startActivity(intent);
-                    LoginAcitivity.Login = false;
-                    LoginAcitivity.login = 0;
-                    Log.d("LOGOUT", String.valueOf(login));
-                }
-            });
+//            UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+//                @Override
+//                public void onCompleteLogout() {
+//                    Intent intent = new Intent(getActivity(), FragmentMain.class);
+//                    startActivity(intent);
+//                    LoginAcitivity.Login = false;
+//                    LoginAcitivity.login = 0;
+//                    Log.d("LOGOUT", String.valueOf(login));
+//                }
+//            });
             getActivity().finish();
         } else if (login == 2) {
 

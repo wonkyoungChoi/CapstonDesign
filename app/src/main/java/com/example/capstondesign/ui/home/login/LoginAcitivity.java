@@ -9,22 +9,15 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
-import com.example.capstondesign.repository.KakaoRepository.KakaoRepository;
-import com.example.capstondesign.repository.NaverRepository;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.home.signup.SignUpActivity;
-import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.kakao.auth.ISessionCallback;
-import com.kakao.auth.Session;
+import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
-
 import java.util.Arrays;
 
 public class LoginAcitivity extends AppCompatActivity {
@@ -32,7 +25,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
     Context context;
     Activity activity;
-    ISessionCallback callback;
+
     OAuthLogin mOAuthModule;
 
     public static Profile profile = new Profile();
@@ -66,19 +59,17 @@ public class LoginAcitivity extends AppCompatActivity {
         });
 
         //페이스북 간편 로그인
-        model.getFacebookRepository();
         observeFacebookResult();
         binding.facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager loginManager = LoginManager.getInstance();
-                loginManager.logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
-                loginManager.registerCallback(model.getCallbackManager(), model.getFacebookRepository());
+                LoginManager.getInstance().logOut();
+                LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
+                LoginManager.getInstance().registerCallback(model.getCallbackManager(), model.facebookRepository);
             }
         });
 
         //네이버 간편 로그인
-        model.getNaverRepository();
         mOAuthModule = model.loadNaver(context);
         observeNaverResult();
         binding.naverLogin.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +80,11 @@ public class LoginAcitivity extends AppCompatActivity {
         });
 
         //카카오 간편 로그인
-        callback = model.getKakaoRepository();
         observeKakaoResult();
-        binding.kakaoLogin.setOnClickListener(new View.OnClickListener() {
+        binding.kakao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Session.getCurrentSession().addCallback(callback);
-                Session.getCurrentSession().checkAndImplicitOpen();
-                binding.kakaoBtn.performClick();
+                kakaoLogin();
             }
         });
 
@@ -116,8 +104,36 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
+    private void kakaoLogin() {
+        if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(activity)) {
+            // 카카오톡이 설치되어 있으면 카톡으로 로그인 확인 요청
+            UserApiClient.getInstance().loginWithKakaoTalk(activity, (token, loginError) -> {
+                if (loginError != null) {
+                    // 로그인 실패
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                } else {
+                    model.loadKakaoCallback();
+                }
+                return null;
+            });
+        } else {
+            // 카카오톡이 설치되어 있지 않은 경우 앱 내장 웹뷰 방식으로 카카오계정 확인 요청
+            UserApiClient.getInstance().loginWithKakaoAccount(activity, (token, loginError) -> {
+                if (loginError != null) {
+                    // 로그인 실패
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                } else {
+                    model.loadKakaoCallback();
+                }
+                return null;
+            });
+        }
+    }
+
+
     private void observeSignupResult() {
         model.getCheckResult().observe(LoginAcitivity.this, result -> {
+            Log.d("===observeSignupResult", result);
             Intent intent;
             if(result.contains("signup")) {
                 intent = new Intent(activity, FragmentMain.class);
@@ -134,18 +150,21 @@ public class LoginAcitivity extends AppCompatActivity {
 
     private void observeKakaoResult() {
         model.getKakaoCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            Log.d("===observeKakaoResult", emailResult);
             model.loadCheck(emailResult);
         });
     }
 
     private void observeNaverResult() {
         model.getNaverCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            Log.d("===observeNaverResult", emailResult);
             model.loadCheck(emailResult);
         });
     }
 
     private void observeFacebookResult() {
         model.getFacebookCheckResult().observe(LoginAcitivity.this, emailResult -> {
+            Log.d("===observeFacebook", emailResult);
             model.loadCheck(emailResult);
         });
     }
@@ -153,9 +172,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        } else if(model.getCallbackManager().onActivityResult(requestCode, resultCode, data)) {
+        if(model.getCallbackManager().onActivityResult(requestCode, resultCode, data)) {
             model.getCallbackManager().onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -164,7 +181,7 @@ public class LoginAcitivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Session.getCurrentSession().removeCallback(callback);
+        UserApiClient.getInstance().logout(error -> null);
         LoginManager.getInstance().logOut();
     }
 

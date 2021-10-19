@@ -34,7 +34,7 @@ public class BoardRepository {
             {
 
                 JSONObject BoardObject = BoardArray.getJSONObject(i);
-                nick = BoardObject.getString("nickname");
+                nick = BoardObject.getString("nick");
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
                 time = BoardObject.getString("time");

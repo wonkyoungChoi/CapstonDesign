@@ -69,13 +69,13 @@ public class BoardTimejsonTask {
                 Log.d("countError", time);
                 Log.d("nick", nick);
                 Log.d("nick2", title);
-                Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
-
-                if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && BoardAdapter.click_time.equals(time)) {
-//                    BuySubMain.numberGroupBuying = number;
-                    InBoard.time = time; //count
-
-                }
+//                Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
+//
+//                if(BoardAdapter.click_nickname.equals(nick) && BoardAdapter.click_title.equals(title) && BoardAdapter.click_time.equals(time)) {
+////                    BuySubMain.numberGroupBuying = number;
+//                    InBoard.time = time; //count
+//
+//                }
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

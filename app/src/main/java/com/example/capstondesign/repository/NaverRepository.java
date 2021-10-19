@@ -154,18 +154,17 @@ public class NaverRepository {
                     String email = naverJson.get("email").toString();
                     String name = naverJson.get("name").toString();
 
+                    if(gender.equals("M")) {
+                        gender = "남성";
+                    } else if(gender.equals("F")) {
+                        gender = "여성";
+                    }
+
                     profile.setName(name);
                     profile.setGender(gender);
                     profile.setEmail(email);
 
-                    Log.d("name 확인 ", name);
-                    Log.d("gender 확인 ", gender);
-                    Log.d("email 확인 ", email);
-
-
                 }
-            } else {
-//                showToast(context, "로그인 오류가 발생했습니다.");
             }
         } catch (JSONException e) {
             e.printStackTrace();

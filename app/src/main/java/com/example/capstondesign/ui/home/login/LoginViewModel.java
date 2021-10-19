@@ -2,6 +2,7 @@ package com.example.capstondesign.ui.home.login;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,8 +13,12 @@ import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.repository.KakaoRepository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
 import com.facebook.CallbackManager;
+import com.kakao.sdk.auth.model.OAuthToken;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> loginResult;
@@ -21,30 +26,25 @@ public class LoginViewModel extends ViewModel {
 
     LoginService loginTask;
     SignUpCheckService checkTask = new SignUpCheckService();
-    CallbackManager callbackManager;
+    CallbackManager callbackManager = CallbackManager.Factory.create();
 
-    NaverRepository naverRepository;
-    KakaoRepository kakaoRepository;
-    FacebookRepository facebookRepository;
+    NaverRepository naverRepository = new NaverRepository();;
+    KakaoRepository kakaoRepository = new KakaoRepository();
+    FacebookRepository facebookRepository = new FacebookRepository();
 
     OAuthLoginHandler mOAuthLoginHandler;
 
 
-    public KakaoRepository getKakaoRepository() {
-        if(kakaoRepository == null) {
-            kakaoRepository = new KakaoRepository();
-        }
-        return kakaoRepository;
+//    public MutableLiveData<String> getKakaoCheckResult() {
+//        return kakaoRepository.emailCheck;
+//    }
+
+    public void loadKakaoCallback() {
+        kakaoRepository.requestMe();
     }
 
     public MutableLiveData<String> getKakaoCheckResult() {
         return kakaoRepository.emailCheck;
-    }
-
-    public void getNaverRepository() {
-        if(naverRepository == null) {
-            naverRepository = new NaverRepository();
-        }
     }
 
     public OAuthLogin loadNaver(Context context) {
@@ -64,17 +64,8 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-    public FacebookRepository getFacebookRepository() {
-        if (facebookRepository == null) {
-            facebookRepository = new FacebookRepository();
-        }
-        return facebookRepository;
-    }
 
     public CallbackManager getCallbackManager() {
-        if (callbackManager == null) {
-            callbackManager = CallbackManager.Factory.create();
-        }
         return callbackManager;
     }
 

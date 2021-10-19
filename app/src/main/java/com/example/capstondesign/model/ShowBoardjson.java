@@ -69,7 +69,7 @@ public class ShowBoardjson {
                 Log.d("countError", time);
                 Log.d("nick", nick);
                 Log.d("nick2", title);
-                Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
+//                Log.d("CLiCKNICKNAME???", BoardAdapter.click_nickname);
                 /*
 
                 if(ShowBoardAdapter.click_nickname.equals(nick) && ShowBoardAdapter.click_title.equals(title) && ShowBoardAdapter.click_time.equals(time)) {

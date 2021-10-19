@@ -11,7 +11,7 @@ public class UpdateBoardTask extends AsyncTaskExecutor<String> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://13.124.75.92:8080/remove_groupbuying.jsp";
+        url = "http://192.168.0.15:8080/remove_groupbuying.jsp";
         sendMsg = "nick="+strings[0]+"&title="+strings[1]+"&change_title="+strings[2]+"&text="+strings[3]
                 +"&change_text="+strings[4];
 

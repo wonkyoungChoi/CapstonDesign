@@ -57,7 +57,7 @@ public class SearchBoardResult extends AppCompatActivity {
                     LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
 
-            boardAdapter = new BoardAdapter(board);
+//            boardAdapter = new BoardAdapter(board);
 
             recyclerView.setAdapter(boardAdapter);
 

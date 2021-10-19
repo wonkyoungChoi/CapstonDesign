@@ -105,7 +105,6 @@
                     android:contentDescription="TODO"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-
                     app:layout_constraintHorizontal_bias="0.494"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -155,7 +154,7 @@
                                 app:sliderIndicatorOrientation="horizontal"
                                 app:sliderIndicatorPadding="3dp"
                                 app:sliderIndicatorRadius="2dp"
-                                app:sliderIndicatorSelectedColor="@color/com_kakao_button_background_press"
+                                app:sliderIndicatorSelectedColor="@color/teal_200"
                                 app:sliderIndicatorUnselectedColor="#FFFACD"
                                 app:sliderScrollTimeInSec="2"
                                 app:sliderStartAutoCycle="true" />

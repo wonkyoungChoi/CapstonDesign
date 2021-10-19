@@ -8,74 +8,59 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.kakao.auth.ISessionCallback;
-import com.kakao.network.ApiErrorCode;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.MeV2ResponseCallback;
-import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.util.exception.KakaoException;
+import com.kakao.sdk.user.UserApiClient;
+import com.kakao.sdk.user.model.User;
 
-public class KakaoRepository implements ISessionCallback {
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
+public class KakaoRepository {
     Profile profile = LoginAcitivity.profile;
     String name, gender, email;
     int login = LoginAcitivity.login;
 
     public MutableLiveData<String> emailCheck = new MutableLiveData<>();
-    @Override
-    public void onSessionOpened() {
-        requestMe();
-    }
 
-    @Override
-    public void onSessionOpenFailed(KakaoException exception) {
-
-    }
-
-    private void requestMe() {
-        UserManagement.getInstance().me(new MeV2ResponseCallback() {
+    public void requestMe() {
+        UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
             @Override
-            public void onFailure(ErrorResult errorResult) {
+            public Unit invoke(User user, Throwable throwable) {
+                if (user != null) {
+                    //계정정보를 불러 왔을 경우
+                    Log.d("====kakakoLogin", "Kakao id =" + user.getId());
+                    name = user.getKakaoAccount().getProfile().getNickname();
+                    gender = user.getKakaoAccount().getGender().toString();
+                    email = user.getKakaoAccount().getEmail();
 
-            }
+                    Log.d("====Name", name);
+                    Log.d("====Gender", gender);
 
-            @Override
-            public void onSessionClosed(ErrorResult errorResult) {
-
-            }
-
-            @Override
-            public void onSuccess(MeV2Response result) {
-                if (result.getKakaoAccount().getProfile() != null) {
-                    if (result.getKakaoAccount().getProfile().getNickname() != null) {
-                        name = result.getKakaoAccount().getProfile().getNickname();
-                        gender = result.getKakaoAccount().getGender().getValue();
-                        email = result.getKakaoAccount().getEmail();
-
-                        profile.setName(name);
-                        profile.setGender(gender);
-                        profile.setEmail(email);
-
-                        if(gender.equals("male")) {
-                            gender = "남성";
-                        } else if(gender.equals("female")) {
-                            gender = "여성";
-                        }
-                        login = 1;
-                        LoginAcitivity.login = login;
-
-                        emailCheck.setValue(email);
-
+                    if(gender.equals("MALE")) {
+                        gender = "남성";
+                    } else if(gender.equals("FEMALE")) {
+                        gender = "여성";
                     }
+                    login = 1;
+                    LoginAcitivity.login = login;
+
+                    profile.setName(name);
+                    profile.setGender(gender);
+                    profile.setEmail(email);
+
+                    emailCheck.setValue(email);
+
                 } else {
                     Log.d("Fail", "Fail");
+                    //계정정보가 없을경우
                 }
+                if (throwable != null) {
+                    Log.d("====kakakoLogin", "invoke: " + throwable.getLocalizedMessage());
+                }
+                return null;
             }
         });
     }
-
-
 
 }

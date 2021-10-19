@@ -84,66 +84,66 @@ public class AddBoard extends AppCompatActivity {
         });
 
         Button upload = findViewById(R.id.upload);
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getNick();
-                time = String.valueOf(now);
-                Log.d("TIMEBOARD", time);
-                nick = nickname;
-                title = EDTITLE.getText().toString();
-                text = EDTEXT.getText().toString();
-                if(title.trim().length() >0 || text.trim().length() >0) {
-                    if(fileBoard != null) {
-
-                        for (int i = 0; i < fileBoard.length; i++) {
-                            try {
-                                InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
-                                // "/data/data/패키지 이름/files/copy.jpg" 저장
-                                Log.d("에러 찾기", "여기서?3");
-                                FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
-
-
-                                Log.d("에러 찾기", "여기서?4");
-
-                                byte[] buffer = new byte[1024 * 100];
-
-                                while (true) {
-                                    int data = ins.read(buffer);
-                                    if (data == -1) {
-                                        break;
-                                    }
-
-                                    fos.write(buffer, 0, data);
-                                }
-
-                                ins.close();
-                                fos.close();
-
-                                new UploadFileAsyncBoard().execute().get();
-
-                                Log.d("UploadFile", "됬다");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.d("IOException", e.getMessage());
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                Log.d("InterrException", e.getMessage());
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                                Log.d("ExecutionException", e.getMessage());
-                            }
-                        }
-                        fileBoard = null;
-                    }
-
-                    addBoardTask();
-                } else {
-                    Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getNick();
+//                time = String.valueOf(now);
+//                Log.d("TIMEBOARD", time);
+//                nick = nickname;
+//                title = EDTITLE.getText().toString();
+//                text = EDTEXT.getText().toString();
+//                if(title.trim().length() >0 || text.trim().length() >0) {
+//                    if(fileBoard != null) {
+//
+//                        for (int i = 0; i < fileBoard.length; i++) {
+//                            try {
+//                                InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
+//                                // "/data/data/패키지 이름/files/copy.jpg" 저장
+//                                Log.d("에러 찾기", "여기서?3");
+//                                FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
+//
+//
+//                                Log.d("에러 찾기", "여기서?4");
+//
+//                                byte[] buffer = new byte[1024 * 100];
+//
+//                                while (true) {
+//                                    int data = ins.read(buffer);
+//                                    if (data == -1) {
+//                                        break;
+//                                    }
+//
+//                                    fos.write(buffer, 0, data);
+//                                }
+//
+//                                ins.close();
+//                                fos.close();
+//
+//                                new UploadFileAsyncBoard().execute().get();
+//
+//                                Log.d("UploadFile", "됬다");
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                                Log.d("IOException", e.getMessage());
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                                Log.d("InterrException", e.getMessage());
+//                            } catch (ExecutionException e) {
+//                                e.printStackTrace();
+//                                Log.d("ExecutionException", e.getMessage());
+//                            }
+//                        }
+//                        fileBoard = null;
+//                    }
+//
+//                    addBoardTask();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
     }
 
     void getNick() {
@@ -158,20 +158,20 @@ public class AddBoard extends AppCompatActivity {
         }
     }
 
-    void addBoardTask() {
-
-        Board board = new Board(nick, title, text, time);
-
-        addBoardTask addBoardTask = new addBoardTask();
-        addBoardTask.execute(nick, title, text, time);
-
-        //BoardTask.boardlist.add(board);
-        BoardFragment.boardAdapter.notifyDataSetChanged();
-        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
-        intent.putExtra("boardNum", 1);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
+//    void addBoardTask() {
+//
+//        Board board = new Board(nick, title, text, time);
+//
+//        addBoardTask addBoardTask = new addBoardTask();
+//        addBoardTask.execute(nick, title, text, time);
+//
+//        //BoardTask.boardlist.add(board);
+//        BoardFragment.boardAdapter.notifyDataSetChanged();
+//        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+//        intent.putExtra("boardNum", 1);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+//    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

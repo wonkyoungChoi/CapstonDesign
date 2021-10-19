@@ -15,9 +15,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:name=".repository.KakaoRepository.KakaoSDKInit"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:name=".repository.KakaoRepository.GlobalApplication"
         tools:targetApi="m">
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key"/>
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!--Redirect URI: "kakao{NATIVE_APP_KEY}://oauth"-->
+                <data
+                    android:host="oauth"
+                    android:scheme="3efccf2446c21a7736c231f594fc26a2"/>
+            </intent-filter>
+        </activity>
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -48,7 +66,8 @@
         </activity>
         <activity android:name=".ui.FragmentMain" />
         <activity android:name=".ui.home.signup.SignUpActivity" />
-        <activity android:name=".ui.home.signup.FastSignUpActivity" />
+        <activity android:name=".ui.home.signup.FastSignUpActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".ui.chatting.inchattingroom.InChattingRoom"/>
         <activity android:name=".ui.home.login.LoginAcitivity" />
         <activity android:name=".ui.board.AddBoard"/>

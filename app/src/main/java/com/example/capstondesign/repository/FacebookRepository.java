@@ -19,8 +19,6 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
     String name, email, gender;
     public MutableLiveData<String> emailCheck = new MutableLiveData<>();
 
-    public FacebookRepository() {
-    }
     @Override
     public void onSuccess(LoginResult loginResult)
     {
@@ -57,6 +55,7 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
                             profile.setName(name);
 
                             gender = object.getString("gender");
+
                             if(gender.equals("male")) {
                                 gender = "남성";
                             } else if(gender.equals("female")) {

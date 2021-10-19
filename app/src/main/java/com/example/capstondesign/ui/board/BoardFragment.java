@@ -27,6 +27,7 @@ public class BoardFragment extends Fragment {
 
     public BoardAdapter boardAdapter = new BoardAdapter();
     int position;
+    FragmentBoardBinding binding;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,28 +78,21 @@ public class BoardFragment extends Fragment {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        FragmentBoardBinding binding = FragmentBoardBinding.inflate(inflater, container, false);
-
-
-
+        binding = FragmentBoardBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
         BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
 
         model.loadBoard();
+
+        initRecyclerView();
+
         model.getAll().observe(getViewLifecycleOwner(), board -> {
-            boardAdapter = new BoardAdapter(board.list);
+            boardAdapter.setBoard(board.list);
+            boardAdapter.notifyDataSetChanged();
         });
         //진행중
 
-        binding.recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        binding.recyclerView.setLayoutManager(layoutManager);
-
-
-
-        binding.recyclerView.setAdapter(boardAdapter);
 
         binding.boardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +133,13 @@ public class BoardFragment extends Fragment {
         return v;
     }
 
-    private void getPosition(int position) {
-        this.position = position;
+    private void initRecyclerView() {
+        binding.recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setAdapter(boardAdapter);
     }
+
 
 }

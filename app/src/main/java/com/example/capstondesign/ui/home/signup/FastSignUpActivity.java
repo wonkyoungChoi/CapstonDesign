@@ -30,8 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.util.concurrent.ExecutionException;
@@ -78,7 +77,7 @@ public class FastSignUpActivity extends AppCompatActivity {
         binding.name.setText(profile.getName());
         binding.email.setText(profile.getEmail());
 
-        if(profile.getGender().equals("M")||profile.getGender().equals("male")) {
+        if(profile.getGender().equals("남성")) {
             binding.gender.check(R.id.male);
             radioButton = (RadioButton) findViewById(R.id.male);
         } else {
@@ -204,12 +203,7 @@ public class FastSignUpActivity extends AppCompatActivity {
                 } else if(login == 1) {
                     //카카오 로그인시 login 값은 1
                     Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
-                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
-                        @Override
-                        public void onCompleteLogout() {
-                            Logout(context, activity);
-                        }
-                    });
+                    UserApiClient.getInstance().logout(error -> null);
 
                 } else if(login==3) {
                     //페이스북 로그인시 login 값은 3
