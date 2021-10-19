@@ -1,5 +1,7 @@
 package com.example.capstondesign.ui.home.signup;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,6 +9,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.capstondesign.network.signup.EmailCheckTask;
 import com.example.capstondesign.network.signup.NickCheckTask;
 import com.example.capstondesign.network.signup.SignUpService;
+import com.example.capstondesign.repository.NaverRepository;
+import com.nhn.android.naverlogin.OAuthLogin;
 
 public class SignUpViewModel extends ViewModel {
     SignUpService task = new SignUpService();
@@ -48,6 +52,10 @@ public class SignUpViewModel extends ViewModel {
             emailResult = emailCheckTask.result;
         }
         return emailResult;
+    }
+
+    public OAuthLogin loadNaver(Context context) {
+        return new NaverRepository().login(context);
     }
 
 }

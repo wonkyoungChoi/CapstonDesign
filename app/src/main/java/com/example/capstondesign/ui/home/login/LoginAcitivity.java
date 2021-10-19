@@ -14,7 +14,6 @@ import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.home.signup.SignUpActivity;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -59,11 +58,12 @@ public class LoginAcitivity extends AppCompatActivity {
         });
 
         //페이스북 간편 로그인
+        LoginManager.getInstance().logOut();
         observeFacebookResult();
         binding.facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logOut();
+
                 LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
                 LoginManager.getInstance().registerCallback(model.getCallbackManager(), model.facebookRepository);
             }
@@ -88,13 +88,15 @@ public class LoginAcitivity extends AppCompatActivity {
             }
         });
 
+        //일반 로그인 버튼
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email_Login();
+                emailLogin();
             }
         });
 
+        //뒤로 가기 버튼
         binding.exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +187,7 @@ public class LoginAcitivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
     }
 
-    private void email_Login() {
+    private void emailLogin() {
 
         id_str = binding.id.getText().toString();
 

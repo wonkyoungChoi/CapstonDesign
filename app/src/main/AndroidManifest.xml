@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:name=".repository.KakaoRepository.GlobalApplication"
+        android:name=".network.login.GlobalApplication"
         tools:targetApi="m">
 
         <meta-data

@@ -2,7 +2,6 @@ package com.example.capstondesign.ui.home.login;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,15 +9,11 @@ import androidx.lifecycle.ViewModel;
 import com.example.capstondesign.network.login.LoginService;
 import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.repository.FacebookRepository;
-import com.example.capstondesign.repository.KakaoRepository.KakaoRepository;
+import com.example.capstondesign.repository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
 import com.facebook.CallbackManager;
-import com.kakao.sdk.auth.model.OAuthToken;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
 
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> loginResult;
@@ -35,12 +30,8 @@ public class LoginViewModel extends ViewModel {
     OAuthLoginHandler mOAuthLoginHandler;
 
 
-//    public MutableLiveData<String> getKakaoCheckResult() {
-//        return kakaoRepository.emailCheck;
-//    }
-
     public void loadKakaoCallback() {
-        kakaoRepository.requestMe();
+        kakaoRepository.getKakaoInfo();
     }
 
     public MutableLiveData<String> getKakaoCheckResult() {

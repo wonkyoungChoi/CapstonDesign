@@ -56,6 +56,12 @@ public class FastSignUpActivity extends AppCompatActivity {
     private CountDownTimer timer;
 
     @Override
+    public void onBackPressed() {
+        checkLogout();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fast_signup);
@@ -184,37 +190,37 @@ public class FastSignUpActivity extends AppCompatActivity {
         binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int login = LoginAcitivity.login;
-
-                if(login == 2) {
-                    //네이버 로그인시 login 값은 2
-                    OAuthLogin mOAuthLoginModule;
-                    mOAuthLoginModule = OAuthLogin.getInstance();
-                    mOAuthLoginModule.init(
-                            getApplicationContext()
-                            ,getString(R.string.naver_client_id)
-                            ,getString(R.string.naver_client_secret)
-                            ,getString(R.string.naver_client_name)
-                    );
-                    mOAuthLoginModule.logout(getApplicationContext());
-                    Logout(context, activity);
-                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
-
-                } else if(login == 1) {
-                    //카카오 로그인시 login 값은 1
-                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
-                    UserApiClient.getInstance().logout(error -> null);
-
-                } else if(login==3) {
-                    //페이스북 로그인시 login 값은 3
-                    LoginManager.getInstance().logOut();
-                    Logout(context, activity);
-                    Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
-                }
+                checkLogout();
             }
         });
-
     }
+
+    private void checkLogout() {
+        int login = LoginAcitivity.login;
+
+        if(login == 2) {
+            //네이버 로그인시 login 값은 2
+            OAuthLogin mOAuthLoginModule;
+            mOAuthLoginModule = model.loadNaver(context);
+            mOAuthLoginModule.logout(getApplicationContext());
+            Logout(context, activity);
+            Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
+
+        } else if(login == 1) {
+            //카카오 로그인시 login 값은 1
+            Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
+            UserApiClient.getInstance().logout(error -> null);
+
+        } else if(login==3) {
+            //페이스북 로그인시 login 값은 3
+            LoginManager.getInstance().logOut();
+            Log.d("===FACEBOOKLOGOUT", String.valueOf(LoginManager.getInstance()));
+            Log.d("===FACEBOOKLOGOUT", String.valueOf(LoginManager.getInstance()));
+            Logout(context, activity);
+            Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void Logout(Context context, Activity activity) {
         Intent intent = new Intent(context, LoginAcitivity.class);
@@ -319,7 +325,6 @@ public class FastSignUpActivity extends AppCompatActivity {
                             phone = binding.phoneNum.getText().toString();
                             check = true;
                             timer.cancel();
-                            timer.onFinish();
 
                             //기존 휴대폰 인증 부분 사라지는 곳
                             binding.reAuthClick.setVisibility(View.GONE);

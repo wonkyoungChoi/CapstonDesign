@@ -284,7 +284,6 @@ public class SignUpActivity extends AppCompatActivity {
                         phone = binding.phoneNum.getText().toString();
                         check = true;
                         timer.cancel();
-                        timer.onFinish();
 
                         //기존 휴대폰 인증 부분 사라지는 곳
                         binding.reAuthClick.setVisibility(View.GONE);
