@@ -58,12 +58,11 @@ public class LoginAcitivity extends AppCompatActivity {
         });
 
         //페이스북 간편 로그인
-        LoginManager.getInstance().logOut();
         observeFacebookResult();
         binding.facebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("===onClick", "Clcik");
                 LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
                 LoginManager.getInstance().registerCallback(model.getCallbackManager(), model.facebookRepository);
             }
@@ -174,9 +173,10 @@ public class LoginAcitivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(model.getCallbackManager().onActivityResult(requestCode, resultCode, data)) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == -1) {
             model.getCallbackManager().onActivityResult(requestCode, resultCode, data);
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

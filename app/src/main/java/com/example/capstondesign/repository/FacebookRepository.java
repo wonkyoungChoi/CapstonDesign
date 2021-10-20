@@ -22,7 +22,7 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
     @Override
     public void onSuccess(LoginResult loginResult)
     {
-        Log.e("Callback :: ", "onSuccess");
+        Log.d("===Callback :: ", "onSuccess");
         requestMe(loginResult.getAccessToken());
     }
 
@@ -44,10 +44,13 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
         GraphRequest graphRequest = GraphRequest.newMeRequest(token,
                 new GraphRequest.GraphJSONObjectCallback()
                 {
+
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
                         try {
+                            Log.d("===requestMe", "CHECK");
+
                             email = object.getString("email");
                             profile.setEmail(email);
 

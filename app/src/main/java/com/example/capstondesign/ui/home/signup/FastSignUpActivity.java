@@ -203,7 +203,7 @@ public class FastSignUpActivity extends AppCompatActivity {
             OAuthLogin mOAuthLoginModule;
             mOAuthLoginModule = model.loadNaver(context);
             mOAuthLoginModule.logout(getApplicationContext());
-            Logout(context, activity);
+            Logout(activity);
             Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
 
         } else if(login == 1) {
@@ -214,17 +214,13 @@ public class FastSignUpActivity extends AppCompatActivity {
         } else if(login==3) {
             //페이스북 로그인시 login 값은 3
             LoginManager.getInstance().logOut();
-            Log.d("===FACEBOOKLOGOUT", String.valueOf(LoginManager.getInstance()));
-            Log.d("===FACEBOOKLOGOUT", String.valueOf(LoginManager.getInstance()));
-            Logout(context, activity);
+            Logout(activity);
             Toast.makeText(context , "회원가입 취소", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    private void Logout(Context context, Activity activity) {
-        Intent intent = new Intent(context, LoginAcitivity.class);
-        activity.startActivity(intent);
+    private void Logout(Activity activity) {
         LoginAcitivity.login = 0;
         activity.finish();
     }
