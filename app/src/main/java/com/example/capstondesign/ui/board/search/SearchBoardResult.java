@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.Board;
-import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 import com.example.capstondesign.ui.board.BoardAdapter;
 import com.example.capstondesign.model.SearchResultTask;
 import com.example.capstondesign.model.SearchTask;
@@ -61,20 +61,6 @@ public class SearchBoardResult extends AppCompatActivity {
 
             recyclerView.setAdapter(boardAdapter);
 
-            boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int pos) {
-                    nick = board.get(pos).getNick();
-                    title = board.get(pos).getTitle();
-                    text = board.get(pos).getTitle();
-                    Intent intent = new Intent(getApplicationContext(), InBoard.class);
-                    intent.putExtra("title", title);
-                    intent.putExtra("text", text);
-                    intent.putExtra("nick", nick);
-                    intent.putExtra("location", "search");
-                    startActivity(intent);
-                }
-            });
 
 
             search = (EditText) findViewById(R.id.search);

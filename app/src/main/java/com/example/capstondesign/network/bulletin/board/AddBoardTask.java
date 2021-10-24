@@ -8,7 +8,7 @@ public class AddBoardTask extends AsyncTaskExecutor<String> {
     @Override
     protected String doInBackground(String... strings) throws IOException {
         sendMsg = "nick="+strings[0]+"&title="+strings[1]+"&text="+strings[2] + "&time="+strings[3];
-        url = "http://172.111.118.187:8080/addboard.jsp";
+        url = "http://192.168.0.15:8080/addboard.jsp";
 
         return start(url, sendMsg);
 

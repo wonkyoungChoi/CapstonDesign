@@ -66,12 +66,8 @@ public class AddBoard extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                } else {
-                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                }
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
 
                 // Always show the chooser (if there are multiple options available)
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
@@ -131,11 +127,10 @@ public class AddBoard extends AppCompatActivity {
 //                        fileBoard = null;
 //                    }
                     Log.d("===VALUE", title + text + time);
+                    Board board = new Board("nickname", title, text, time);
 
-                    model.addBoard("nickname", title, text, time);
-                    model.repository.items.add(new Board("nickname", title, text, time));
-                    model.repository._board.setValue(new Board(model.repository.items));
-
+                    model.addBoard(board);
+                    model.board.setValue(board);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package com.example.capstondesign.ui.board;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.capstondesign.network.bulletin.board.AddBoardTask;
@@ -10,23 +11,19 @@ import java.io.IOException;
 
 public class BoardViewModel extends ViewModel {
     BoardRepository repository = new BoardRepository();
-    public LiveData<Board> board = repository._board;
+    public MutableLiveData<Board> board = repository._board;
     AddBoardTask addBoardTask = new AddBoardTask();;
 
     public void loadBoard() {
-        try {
-            repository.loadBoard();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        repository.boardRepository();
     }
 
     public LiveData<Board> getAll() {
         return board;
     }
 
-    public void addBoard (String nick, String title, String text, String time) {
-        addBoardTask.execute(nick, title, text, time);
+    public void addBoard (Board board) {
+        addBoardTask.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime());
     }
 
 }

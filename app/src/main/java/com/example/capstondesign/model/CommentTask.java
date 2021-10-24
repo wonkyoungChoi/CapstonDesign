@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class CommentTask {
-    public static ArrayList<Comment_Item> comment_items = InBoard.c_arr;
+    public static ArrayList<Comment_Item> comment_items = InBoardActivity.c_arr;
     Comment_Item comment_item;
     String nick, title, comment, co_nick, time;
 
@@ -70,9 +70,9 @@ public class CommentTask {
                 Log.d("NICK", nick);
                 Log.d("TITLE", title);
                 Log.d("JSONTIME", time);
-                Log.d("BOARDTIME", InBoard.time);
+                Log.d("BOARDTIME", InBoardActivity.time);
 
-                if(nick.equals(InBoard.nick) && title.equals(InBoard.title) && time.equals(InBoard.time)) {
+                if(nick.equals(InBoardActivity.nick) && title.equals(InBoardActivity.title) && time.equals(InBoardActivity.time)) {
                     comment_item = new Comment_Item(co_nick, comment, time);
                     comment_items.add(comment_item);
                 }

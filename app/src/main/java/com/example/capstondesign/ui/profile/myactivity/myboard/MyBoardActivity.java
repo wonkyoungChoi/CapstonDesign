@@ -13,16 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.ShowBoardTask;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MyBoardActivity extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
@@ -74,7 +72,7 @@ public class MyBoardActivity extends AppCompatActivity {
                 title = ShowBoardAdapter.click_title;
                 text = ShowBoardAdapter.click_text;
                 getPosition(position);
-                Intent intent = new Intent(getApplicationContext(), InBoard.class);
+                Intent intent = new Intent(getApplicationContext(), InBoardActivity.class);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
                 intent.putExtra("nick", nick);

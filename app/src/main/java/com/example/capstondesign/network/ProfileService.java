@@ -15,7 +15,7 @@ public class ProfileService extends AsyncTaskExecutor<String> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://13.124.75.92:8080/profile_cp.jsp";
+        url = "http://192.168.0.15:8080/profile_cp.jsp";
         sendMsg = "name="+strings[0]+"&email="+strings[1];
 
         return start(url, sendMsg);

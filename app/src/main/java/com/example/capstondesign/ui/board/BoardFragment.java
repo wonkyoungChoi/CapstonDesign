@@ -4,20 +4,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.example.capstondesign.R;
-import com.example.capstondesign.databinding.FragmentBoardBinding;
-import com.example.capstondesign.ui.board.inboard.InBoard;
-import com.example.capstondesign.ui.board.search.SearchBoard;
 
-import java.util.ArrayList;
+import com.example.capstondesign.databinding.FragmentBoardBinding;
+import com.example.capstondesign.ui.board.search.SearchBoard;
 
 public class BoardFragment extends Fragment {
 
@@ -25,7 +22,8 @@ public class BoardFragment extends Fragment {
 
     public static Uri image;
 
-    public BoardAdapter boardAdapter = new BoardAdapter();
+    public BoardAdapter boardAdapter;
+    BoardViewModel model;
     int position;
     FragmentBoardBinding binding;
 
@@ -72,7 +70,8 @@ public class BoardFragment extends Fragment {
 
     @Override
     public void onResume() {
-        boardAdapter.notifyDataSetChanged();
+        model.loadBoard();
+        Log.d("===onResume", "1");
         super.onResume();
     }
 
@@ -87,16 +86,10 @@ public class BoardFragment extends Fragment {
         binding = FragmentBoardBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
-
-        model.loadBoard();
-
-        model.getAll().observe(getViewLifecycleOwner(), board -> {
-            boardAdapter.setBoard(board.list);
-            boardAdapter.notifyDataSetChanged();
-        });
+        model = new ViewModelProvider(this).get(BoardViewModel.class);
 
         initRecyclerView();
+        observeBoardResult();
 
         binding.boardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +127,16 @@ public class BoardFragment extends Fragment {
         return v;
     }
 
+    private void observeBoardResult() {
+        model.getAll().observe(getViewLifecycleOwner(), board -> {
+            Log.d("===Observeall", board.list.get(1).toString());
+            boardAdapter.setBoard(board.list);
+            boardAdapter.notifyDataSetChanged();
+        });
+    }
+
     private void initRecyclerView() {
+        boardAdapter = new BoardAdapter();
         binding.recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);

@@ -15,20 +15,17 @@ import java.util.ArrayList;
 public class BoardRepository {
     LoadBoardService loadBoardService = new LoadBoardService();
 
-    public MutableLiveData<Board> _board = new MutableLiveData<>();
-    public ArrayList<Board> items = new ArrayList<>();
+    public MutableLiveData<Board> _board = new MutableLiveData<>();;
+    public ArrayList<Board> items;
     String nick, title, text, time;
-
-    public void loadBoard() throws IOException {
-        jsonParsing(loadBoardService.download());
-    }
 
 
     //Json Parsing
-    private void jsonParsing(String json)
+    public void boardRepository()
     {
+        items = new ArrayList<>();
         try{
-            JSONArray BoardArray = new JSONArray(json);
+            JSONArray BoardArray = new JSONArray(loadBoardService.download());
 
             for(int i=0; i<BoardArray.length(); i++)
             {
@@ -42,8 +39,9 @@ public class BoardRepository {
                 items.add(new Board(nick,title,text,time));
             }
             _board.setValue(new Board(items));
-        }catch (JSONException e) {
+        }catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
+
 }

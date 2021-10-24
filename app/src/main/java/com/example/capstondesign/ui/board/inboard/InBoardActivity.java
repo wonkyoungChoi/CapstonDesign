@@ -44,7 +44,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class InBoard extends AppCompatActivity implements View.OnClickListener {
+public class InBoardActivity extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
     public static String title, nick, time;
@@ -86,16 +86,16 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        profileCountTask = new ProfileCountTask();
-        profileCountjsonTask = new ProfileCountjsonTask();
-        profileService = new ProfileService();
+//        profileCountTask = new ProfileCountTask();
+//        profileCountjsonTask = new ProfileCountjsonTask();
+//        profileService = new ProfileService();
 
 
         title = getIntent().getStringExtra("title");
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
 
-        boardTimejsonTask = new BoardTimejsonTask();
+//        boardTimejsonTask = new BoardTimejsonTask();
 
         TextView content_text = findViewById(R.id.content_text);
         content_text.setText(text);
@@ -105,22 +105,22 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
         ImageView imgView = findViewById(R.id.imageHeader);
 
-        try {
-            i = getResponseCode("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(i == 404) {
-            imgView.setVisibility(View.GONE);
-        } else {
-            try {
-                Log.d("URL","http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg" );
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg")).into(imgView);
-            } catch (Exception e) {
-                Log.d("NOPICTURE", "NOPICTURE");
-            }
-        }
+//        try {
+//            i = getResponseCode("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if(i == 404) {
+//            imgView.setVisibility(View.GONE);
+//        } else {
+//            try {
+//                Log.d("URL","http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg" );
+//                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg")).into(imgView);
+//            } catch (Exception e) {
+//                Log.d("NOPICTURE", "NOPICTURE");
+//            }
+//        }
 
 
 
@@ -137,7 +137,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
 
 
-        commentTask = new CommentTask();
+//        commentTask = new CommentTask();
 
         //setResult(RESULT_OK, intent);
         try {
@@ -165,29 +165,29 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
         imageView = footer.findViewById(R.id.imageView1);
         comment_edit = (EditText)footer.findViewById(R.id.comment_edit);
 
-        Log.d("NAME!@#@#", profile.getName());
+//        Log.d("NAME!@#@#", profile.getName());
 
         //profileService.execute(profile.getName(), profile.getEmail()).get();
         //
-        try {
-            //
-            //String a = profileTask.substringBetween(result1, "number:", "/");
-
-            Log.d("TEST", number);
-            if (number.equals("-1")) {
-                strurl = "http://13.124.75.92:8080/king.png";
-                Log.d("NUM0", strurl);
-            } else {
-                strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
-                Log.d("NUM", strurl);
-            }
-            profile.setPicture(strurl);
-            Picasso.get().load(Uri.parse(strurl)).into(imageView);
-        } catch (Exception e) {
-            e.printStackTrace();
-            profile.setPicture("http://13.124.75.92:8080/king.png");
-            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(imageView);
-        }
+//        try {
+//            //
+//            //String a = profileTask.substringBetween(result1, "number:", "/");
+//
+//            Log.d("TEST", number);
+//            if (number.equals("-1")) {
+//                strurl = "http://13.124.75.92:8080/king.png";
+//                Log.d("NUM0", strurl);
+//            } else {
+//                strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
+//                Log.d("NUM", strurl);
+//            }
+//            profile.setPicture(strurl);
+//            Picasso.get().load(Uri.parse(strurl)).into(imageView);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            profile.setPicture("http://13.124.75.92:8080/king.png");
+//            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(imageView);
+//        }
 
         Button commentInput_Btn = (Button)footer.findViewById(R.id.input_btn);
 
@@ -202,17 +202,17 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
         comment_list.setSelectionFromTop(0, 0);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        if(intent.getStringExtra("nick").equals(nickname)) {
-            menuInflater.inflate(R.menu.buy_menu, menu);
-        } else {
-            Log.d("NICK", nickname);
-            menuInflater.inflate(R.menu.buy_menu_user, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = getMenuInflater();
+//        if(intent.getStringExtra("nick").equals(nickname)) {
+//            menuInflater.inflate(R.menu.buy_menu, menu);
+//        } else {
+//            Log.d("NICK", nickname);
+//            menuInflater.inflate(R.menu.buy_menu_user, menu);
+//        }
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

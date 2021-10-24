@@ -3,7 +3,7 @@ package com.example.capstondesign.model;
 import android.util.Log;
 
 import com.example.capstondesign.ui.profile.FragmentProfile;
-import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
 
@@ -80,7 +80,7 @@ public class ProfileCountjsonTask {
                     }
                     InProfileActivity.number = number;
                     FragmentProfile.number = number;
-                    InBoard.number = number;
+                    InBoardActivity.number = number;
                     Log.d("NUMBER!!!", number);
                     }
 

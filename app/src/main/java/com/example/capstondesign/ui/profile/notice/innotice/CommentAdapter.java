@@ -17,13 +17,12 @@ import android.widget.Toast;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.BoardFragment;
-import com.example.capstondesign.ui.board.inboard.InBoard;
+import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.CommentProfileCountTask;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.DeleteCommentTask;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -120,7 +119,7 @@ public class CommentAdapter extends BaseAdapter implements View.OnClickListener 
                         String result = null;
                         try {
                             if(arr.get(tag).getNick().equals(nickname)) {
-                                result = deleteCommentTask.execute(arr.get(tag).getNick(), InBoard.title , arr.get(tag).getComment(), arr.get(tag).getTime()).get();
+                                result = deleteCommentTask.execute(arr.get(tag).getNick(), InBoardActivity.title , arr.get(tag).getComment(), arr.get(tag).getTime()).get();
                                 if (result.contains("delete")) {
                                     deleteArr(tag);
                                     Toast.makeText(mContext, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
