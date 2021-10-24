@@ -2,7 +2,7 @@ package com.example.capstondesign.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.capstondesign.network.bulletin.board.BoardService;
+import com.example.capstondesign.network.bulletin.board.LoadBoardService;
 import com.example.capstondesign.ui.board.Board;
 
 import org.json.JSONArray;
@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BoardRepository {
-    BoardService boardService = new BoardService();
+    LoadBoardService loadBoardService = new LoadBoardService();
 
     public MutableLiveData<Board> _board = new MutableLiveData<>();
-    ArrayList<Board> items = new ArrayList<>();
+    public ArrayList<Board> items = new ArrayList<>();
     String nick, title, text, time;
 
     public void loadBoard() throws IOException {
-        jsonParsing(boardService.download());
+        jsonParsing(loadBoardService.download());
     }
 
 

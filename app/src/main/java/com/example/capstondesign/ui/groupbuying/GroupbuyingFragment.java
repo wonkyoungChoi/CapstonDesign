@@ -23,7 +23,7 @@ import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class GroupbuyingFragment extends Fragment {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        getNick();
+        //getNick();
 
         //GALLERY(); // 허가
         groupbuying.clear();
@@ -181,16 +181,16 @@ public class GroupbuyingFragment extends Fragment {
         this.position = position;
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

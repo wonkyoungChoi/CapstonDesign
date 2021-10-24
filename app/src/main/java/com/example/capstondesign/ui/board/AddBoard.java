@@ -10,33 +10,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.ActivityAddboardBinding;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
-import com.example.capstondesign.network.bulletin.board.UploadFileAsyncBoard;
-import com.example.capstondesign.model.addBoardTask;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
 public class AddBoard extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;
+
     Uri image;
     static Uri fileBoard[];
     ImageView imgView;
-    public static String title, time;
+    public String title, time;
+    private ActivityAddboardBinding binding;
     String nick, nickname, text;
     Button back;
     long now;
@@ -45,24 +43,22 @@ public class AddBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addboard);
+
+        binding = ActivityAddboardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
 
         now = System.currentTimeMillis();
 
-        final EditText EDTITLE = findViewById(R.id.addboard_title);
-        final EditText EDTEXT = findViewById(R.id.addboard_text);
-
-        back = (Button)findViewById(R.id.board_exit);
-        back.setOnClickListener(new View.OnClickListener() {
+        binding.boardExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        imgView = findViewById(R.id.addImageView);
-
-        imgView.setOnClickListener(new View.OnClickListener() {
+        binding.addImageView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
@@ -83,17 +79,15 @@ public class AddBoard extends AppCompatActivity {
             }
         });
 
-        Button upload = findViewById(R.id.upload);
-//        upload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getNick();
-//                time = String.valueOf(now);
-//                Log.d("TIMEBOARD", time);
-//                nick = nickname;
-//                title = EDTITLE.getText().toString();
-//                text = EDTEXT.getText().toString();
-//                if(title.trim().length() >0 || text.trim().length() >0) {
+        binding.upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getNick();
+                time = String.valueOf(now);
+                nick = nickname;
+                title = binding.addboardTitle.getText().toString();
+                text = binding.addboardText.getText().toString();
+                if(title.trim().length() >0 || text.trim().length() >0) {
 //                    if(fileBoard != null) {
 //
 //                        for (int i = 0; i < fileBoard.length; i++) {
@@ -136,42 +130,36 @@ public class AddBoard extends AppCompatActivity {
 //                        }
 //                        fileBoard = null;
 //                    }
-//
-//                    addBoardTask();
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        });
+                    Log.d("===VALUE", title + text + time);
+
+                    model.addBoard("nickname", title, text, time);
+                    model.repository.items.add(new Board("nickname", title, text, time));
+                    model.repository._board.setValue(new Board(model.repository.items));
+
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    void addBoardTask() {
-//
-//        Board board = new Board(nick, title, text, time);
-//
-//        addBoardTask addBoardTask = new addBoardTask();
-//        addBoardTask.execute(nick, title, text, time);
-//
-//        //BoardTask.boardlist.add(board);
-//        BoardFragment.boardAdapter.notifyDataSetChanged();
-//        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
-//        intent.putExtra("boardNum", 1);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
 //    }
+    @Override
+    public void onRestart() {
+
+        super.onRestart();
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

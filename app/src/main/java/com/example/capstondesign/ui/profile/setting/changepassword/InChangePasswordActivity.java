@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.ChangePasswordTask;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;
@@ -30,7 +30,7 @@ public class InChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.in_change_password);
 
-        getNick();
+        //getNick();
 
         password = findViewById(R.id.password);
         change_password = findViewById(R.id.change_password);
@@ -86,16 +86,16 @@ public class InChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 

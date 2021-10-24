@@ -2,6 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
@@ -59,7 +60,7 @@ public class GroupBuyingTask {
     //Json Parsing
     public void jsonParsing(String json, ArrayList<Groupbuying> board1)
     {
-        getNick();
+        //getNick();
         try{
             JSONArray GroupbuyingArray = new JSONArray(json);
 
@@ -92,17 +93,17 @@ public class GroupBuyingTask {
         }
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
 

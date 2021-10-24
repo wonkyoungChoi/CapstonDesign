@@ -25,7 +25,7 @@ import com.example.capstondesign.ui.profile.setting.SettingActivity;
 import com.example.capstondesign.model.CountWriteTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.FragmentMain;
 import com.facebook.login.LoginManager;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -131,21 +131,21 @@ public class FragmentProfile extends Fragment {
 
 
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            Log.d("PROFILENAME", profile.getName());
-            Log.d("PROFILENAME", profile.getEmail());
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-            Log.d("NICKNAME", nickname);
-            profile.setNickname(nickname);
-            nicknameTv.setText(nickname);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ProfileService profileService = new ProfileService();
+//        try {
+//            Log.d("PROFILENAME", profile.getName());
+//            Log.d("PROFILENAME", profile.getEmail());
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//            Log.d("NICKNAME", nickname);
+//            profile.setNickname(nickname);
+//            nicknameTv.setText(nickname);
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 
         countWriteTask = new CountWriteTask();

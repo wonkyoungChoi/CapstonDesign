@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.addWatchlistTask;
 import com.squareup.picasso.Picasso;
 
@@ -128,7 +128,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("position", String.valueOf(position));
-        getNick();
+        //getNick();
 
         holder.setIsRecyclable(false);
 
@@ -138,7 +138,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
             @Override
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
-                getNick();
+                //getNick();
                 String title = WatchlistActivity.watchlist.get(position).getTitle();
                 String nick = WatchlistActivity.watchlist.get(position).getNick();
                 String text = WatchlistActivity.watchlist.get(position).getText();
@@ -201,18 +201,18 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
         notifyItemInserted(groupbuyingList.size()-1);
     }
 
-    public static void getNick() {
-        Profile profile = LoginAcitivity.profile;
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick1 = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void getNick() {
+//        Profile profile = LoginAcitivity.profile;
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick1 = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 

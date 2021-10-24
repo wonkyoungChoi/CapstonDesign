@@ -21,7 +21,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.GroupBuyingTask;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.UploadFileAsyncGroupBuying;
 import com.example.capstondesign.model.addGroupbuyingTask;
 import com.example.capstondesign.ui.FragmentMain;
@@ -88,7 +88,7 @@ public class AddGroupBuying extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                getNick();
+                //getNick();
                 time = String.valueOf(now);
                 nick = nickname;
                 nickstr = nickname;
@@ -156,17 +156,17 @@ public class AddGroupBuying extends AppCompatActivity {
         });
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     void addGroupTask() {
         addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();

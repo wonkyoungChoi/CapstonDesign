@@ -15,7 +15,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.profile.setting.changepassword.InChangePasswordActivity;
 import com.example.capstondesign.ui.profile.setting.withdraw.InWithdrawActivity;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;
@@ -83,7 +83,7 @@ public class SettingActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                getPassword();
+                //getPassword();
                 if(et.getText().toString().equals(password)) {
                     Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
                     startActivity(intent);
@@ -104,15 +104,15 @@ public class SettingActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    void getPassword() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            password = profileTask.substringBetween(result, "password:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getPassword() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            password = profileService.substringBetween(result, "password:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

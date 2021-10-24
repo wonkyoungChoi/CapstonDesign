@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.board.search.SearchBoard;
@@ -52,7 +52,7 @@ public class WatchlistActivity extends AppCompatActivity {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        getNick();
+        //getNick();
 
 
         back = (Button)findViewById(R.id.listback);
@@ -141,15 +141,15 @@ public class WatchlistActivity extends AppCompatActivity {
         this.position = position;
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

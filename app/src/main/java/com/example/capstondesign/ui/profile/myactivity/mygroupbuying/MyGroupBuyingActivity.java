@@ -18,7 +18,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.ShowGroupBuyingTask;
 import com.example.capstondesign.model.ShowGroupBuyingjson;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
@@ -46,7 +46,7 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
         setContentView(R.layout.show_groupbuying);
 
         RecyclerView recyclerView = findViewById(R.id.rvshowgroupbuying);
-        getNick();
+        //getNick();
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -129,15 +129,15 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
         this.position = position;
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

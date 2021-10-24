@@ -18,7 +18,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.addWatchlistTask;
 import com.squareup.picasso.Picasso;
 
@@ -121,7 +121,7 @@ public static class MyViewHolder extends RecyclerView.ViewHolder{
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("position", String.valueOf(position));
-        getNick();
+        //getNick();
 
         holder.setIsRecyclable(false);
 
@@ -131,7 +131,7 @@ public static class MyViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
                 mListener.onItemClick(v, position);
-                getNick();
+                //getNick();
                 String title = MyGroupBuyingActivity.showGroupBuying.get(position).getTitle();
                 String nick = MyGroupBuyingActivity.showGroupBuying.get(position).getNick();
                 String text = MyGroupBuyingActivity.showGroupBuying.get(position).getText();
@@ -193,16 +193,16 @@ public static class MyViewHolder extends RecyclerView.ViewHolder{
         notifyItemInserted(groupbuyingList.size()-1);
     }
 
-    public static void getNick() {
-        Profile profile = LoginAcitivity.profile;
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick1 = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void getNick() {
+//        Profile profile = LoginAcitivity.profile;
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick1 = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -32,7 +32,7 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.notice.innotice.CommentAdapter;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.addCommentTask;
 import com.squareup.picasso.Picasso;
 import com.example.capstondesign.model.BoardTimejsonTask;
@@ -58,7 +58,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
     ImageView imageView;
 
     BoardTimejsonTask boardTimejsonTask;
-    ProfileTask profileTask;
+    ProfileService profileService;
     ProfileCountTask profileCountTask;
     ProfileCountjsonTask profileCountjsonTask;
 
@@ -74,7 +74,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         c_arr.clear();
-        getNick();
+        //getNick();
 
         intent = getIntent();
 
@@ -88,7 +88,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
         profileCountTask = new ProfileCountTask();
         profileCountjsonTask = new ProfileCountjsonTask();
-        profileTask = new ProfileTask();
+        profileService = new ProfileService();
 
 
         title = getIntent().getStringExtra("title");
@@ -167,32 +167,26 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
         Log.d("NAME!@#@#", profile.getName());
 
+        //profileService.execute(profile.getName(), profile.getEmail()).get();
+        //
         try {
-            profileTask.execute(profile.getName(), profile.getEmail()).get();
             //
-            try {
-                //
-                //String a = profileTask.substringBetween(result1, "number:", "/");
+            //String a = profileTask.substringBetween(result1, "number:", "/");
 
-                Log.d("TEST", number);
-                if (number.equals("-1")) {
-                    strurl = "http://13.124.75.92:8080/king.png";
-                    Log.d("NUM0", strurl);
-                } else {
-                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
-                    Log.d("NUM", strurl);
-                }
-                profile.setPicture(strurl);
-                Picasso.get().load(Uri.parse(strurl)).into(imageView);
-            } catch (Exception e) {
-                e.printStackTrace();
-                profile.setPicture("http://13.124.75.92:8080/king.png");
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(imageView);
+            Log.d("TEST", number);
+            if (number.equals("-1")) {
+                strurl = "http://13.124.75.92:8080/king.png";
+                Log.d("NUM0", strurl);
+            } else {
+                strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
+                Log.d("NUM", strurl);
             }
-        } catch (ExecutionException e) {
+            profile.setPicture(strurl);
+            Picasso.get().load(Uri.parse(strurl)).into(imageView);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            profile.setPicture("http://13.124.75.92:8080/king.png");
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(imageView);
         }
 
         Button commentInput_Btn = (Button)footer.findViewById(R.id.input_btn);
@@ -274,17 +268,17 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
         ca.notifyDataSetChanged();
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     void startActivity(Class c) {
         Intent intent1 = new Intent(getApplicationContext(), c);

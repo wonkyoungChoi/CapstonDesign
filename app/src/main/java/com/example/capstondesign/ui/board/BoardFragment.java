@@ -70,6 +70,12 @@ public class BoardFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        boardAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,14 +91,12 @@ public class BoardFragment extends Fragment {
 
         model.loadBoard();
 
-        initRecyclerView();
-
         model.getAll().observe(getViewLifecycleOwner(), board -> {
             boardAdapter.setBoard(board.list);
             boardAdapter.notifyDataSetChanged();
         });
-        //진행중
 
+        initRecyclerView();
 
         binding.boardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,10 +122,7 @@ public class BoardFragment extends Fragment {
 //            }
 //        });
 
-
-
-        final Button addButton = v.findViewById(R.id.addbutton);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        binding.addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "CLICK", Toast.LENGTH_SHORT).show();

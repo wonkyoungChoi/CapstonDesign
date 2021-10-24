@@ -23,7 +23,7 @@ import com.example.capstondesign.model.CommentProfileCountTask;
 import com.example.capstondesign.model.Comment_Item;
 import com.example.capstondesign.model.DeleteCommentTask;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class CommentAdapter extends BaseAdapter implements View.OnClickListener 
         }
         pos = position;
         if(arr.size() != 0){
-            getNick();
+            //getNick();
 
             nick = arr.get(pos).getNick();
 
@@ -148,17 +148,17 @@ public class CommentAdapter extends BaseAdapter implements View.OnClickListener 
         notifyDataSetChanged();
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

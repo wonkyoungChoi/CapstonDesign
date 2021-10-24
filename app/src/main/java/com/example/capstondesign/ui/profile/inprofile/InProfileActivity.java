@@ -21,7 +21,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.network.bulletin.UploadFileAsync;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
@@ -45,7 +45,7 @@ public class InProfileActivity extends AppCompatActivity {
 
     String email_front, email_end, strurl;
 
-    ProfileTask profileTask;
+    ProfileService profileService;
     ProfileCountjsonTask profileCountjsonTask;
     ProfileCountTask profileCountTask;
 
@@ -87,7 +87,7 @@ public class InProfileActivity extends AppCompatActivity {
 
         profileCountTask = new ProfileCountTask();
         profileCountjsonTask = new ProfileCountjsonTask();
-        profileTask = new ProfileTask();
+        profileService = new ProfileService();
 
 
         inprofile_exit = (Button)findViewById(R.id.inprofile_exit);
@@ -104,66 +104,57 @@ public class InProfileActivity extends AppCompatActivity {
         });
 
 
+        //result = profileService.execute(profile.getName(), profile.getEmail()).get();
+        //
         try {
-            result = profileTask.execute(profile.getName(), profile.getEmail()).get();
             //
-            try {
-                //
-                //String a = profileTask.substringBetween(result1, "number:", "/");
+            //String a = profileTask.substringBetween(result1, "number:", "/");
 
-                Log.d("TEST", number);
-                if(number.equals("-1")) {
-                    strurl = "http://13.124.75.92:8080/king.png";
-                    Log.d("NUM0", strurl);
-                } else {
-                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
-                    Log.d("NUM", strurl);
-                }
-                profile.setPicture(strurl);
-                Picasso.get().load(Uri.parse(strurl)).into(showUserProfile);
-            } catch (Exception e) {
-                e.printStackTrace();
-                profile.setPicture("http://13.124.75.92:8080/king.png");
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(showUserProfile);
+            Log.d("TEST", number);
+            if(number.equals("-1")) {
+                strurl = "http://13.124.75.92:8080/king.png";
+                Log.d("NUM0", strurl);
+            } else {
+                strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
+                Log.d("NUM", strurl);
             }
-
-
-            name = profileTask.substringBetween(result, "name:", "/");
-            profile.setName(name);
-            nameTv.setText(name);
-
-            phone_num = profileTask.substringBetween(result, "phone_num:", "/");
-            profile.setPhone_num(phone_num);
-            phone_numTv.setText(phone_num);
-
-            email = profileTask.substringBetween(result, "email:", "/");
-            email_front = profileTask.substringBetween(profile.getEmail(), "", "@");
-            email_end = profileTask.substringBetween(profile.getEmail() + "/", "@", "/");
-            Log.d("EMAIL", profile.getEmail());
-            Log.d("FRONT", email_front);
-            Log.d("END", email_end);
-            profile.setEmail(email);
-            emailTv.setText(email);
-
-            nickname = profileTask.substringBetween(result, "nickname:", "/");
-            profile.setNickname(nickname);
-            nicknameTv.setText(nickname);
-
-            password = profileTask.substringBetween(result, "password:", "/");
-            profile.setPassword(password);
-            passwordTv.setText(password);
-
-            gender = profileTask.substringBetween(result, "gender:", "/");
-            profile.setGender(gender);
-            genderTv.setText(gender);
-
-
-        } catch (
-                ExecutionException e) {
+            profile.setPicture(strurl);
+            Picasso.get().load(Uri.parse(strurl)).into(showUserProfile);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            profile.setPicture("http://13.124.75.92:8080/king.png");
+            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(showUserProfile);
         }
+
+
+//            name = profileService.substringBetween(result, "name:", "/");
+//            profile.setName(name);
+//            nameTv.setText(name);
+//
+//            phone_num = profileService.substringBetween(result, "phone_num:", "/");
+//            profile.setPhone_num(phone_num);
+//            phone_numTv.setText(phone_num);
+//
+//            email = profileService.substringBetween(result, "email:", "/");
+//            email_front = profileService.substringBetween(profile.getEmail(), "", "@");
+//            email_end = profileService.substringBetween(profile.getEmail() + "/", "@", "/");
+//            Log.d("EMAIL", profile.getEmail());
+//            Log.d("FRONT", email_front);
+//            Log.d("END", email_end);
+//            profile.setEmail(email);
+//            emailTv.setText(email);
+//
+//            nickname = profileService.substringBetween(result, "nickname:", "/");
+//            profile.setNickname(nickname);
+//            nicknameTv.setText(nickname);
+//
+//            password = profileService.substringBetween(result, "password:", "/");
+//            profile.setPassword(password);
+//            passwordTv.setText(password);
+//
+//            gender = profileService.substringBetween(result, "gender:", "/");
+//            profile.setGender(gender);
+//            genderTv.setText(gender);
 
 
         showUserProfile.setOnClickListener(new View.OnClickListener() {

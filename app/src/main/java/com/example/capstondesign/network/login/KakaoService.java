@@ -1,15 +1,12 @@
 package com.example.capstondesign.network.login;
 
 import android.util.Log;
-
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.User;
-
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
-public class KakaoService implements Function2<User, Throwable, Unit>{
+
+public class KakaoService implements Function2<User, Throwable, Unit> {
     User kakaoUser;
 
     @Override

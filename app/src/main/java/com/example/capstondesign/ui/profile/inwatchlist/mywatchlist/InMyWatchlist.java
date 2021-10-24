@@ -35,7 +35,7 @@ import com.example.capstondesign.model.ChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -84,7 +84,7 @@ public class InMyWatchlist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buy_submain);
 
-        getNick();
+        //getNick();
 
         Myinfoimage = findViewById(R.id.Myinfoimage);
 
@@ -302,17 +302,17 @@ public class InMyWatchlist extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            real_nick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            real_nick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     void startActivity(Class c) {
         Intent intent1 = new Intent(getApplicationContext(), c);

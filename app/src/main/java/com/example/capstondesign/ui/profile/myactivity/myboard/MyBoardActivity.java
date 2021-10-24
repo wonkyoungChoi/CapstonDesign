@@ -17,7 +17,7 @@ import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.model.ProfileTask;
+import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.ShowBoardTask;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
@@ -42,7 +42,7 @@ public class MyBoardActivity extends AppCompatActivity {
         setContentView(R.layout.show_board);
 
         RecyclerView recyclerView = findViewById(R.id.rvshowboard);
-        getNick();
+        //getNick();
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -101,15 +101,15 @@ public class MyBoardActivity extends AppCompatActivity {
         this.position = position;
     }
 
-    void getNick() {
-        ProfileTask profileTask = new ProfileTask();
-        try {
-            String result = profileTask.execute(profile.getName(), profile.getEmail()).get();
-            mynick = profileTask.substringBetween(result, "nickname:", "/");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+//    void getNick() {
+//        ProfileService profileService = new ProfileService();
+//        try {
+//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
+//            mynick = profileService.substringBetween(result, "nickname:", "/");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

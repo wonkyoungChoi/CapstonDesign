@@ -24,6 +24,7 @@ public class SignUpViewModel extends ViewModel {
     public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) {
         task.execute(name, phoneNum, email, nick, password, gender);
     }
+
     public MutableLiveData<String> getSignUpResult() {
         if (signupResult == null) {
             signupResult = new MutableLiveData<>();

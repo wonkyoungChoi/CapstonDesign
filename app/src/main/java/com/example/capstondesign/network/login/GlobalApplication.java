@@ -1,7 +1,6 @@
 package com.example.capstondesign.network.login;
 
 import android.app.Application;
-
 import com.kakao.sdk.common.KakaoSdk;
 
 public class GlobalApplication extends Application {

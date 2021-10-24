@@ -12,7 +12,7 @@ public class EmailCheckTask extends AsyncTaskExecutor<String> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://192.168.0.15:8080/email_check.jsp";
+        url = "http://172.111.118.187:8080/email_check.jsp";
         sendMsg = "email="+strings[0];
 
         return start(url, sendMsg);
