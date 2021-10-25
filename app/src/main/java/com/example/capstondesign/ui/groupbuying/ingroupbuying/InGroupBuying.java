@@ -24,7 +24,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.InGroupBuyProfileCountTask;
-import com.example.capstondesign.model.addWatchlistTask;
+import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistTask;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.BuySubSlideritem;
@@ -34,7 +34,6 @@ import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -61,7 +60,7 @@ public class InGroupBuying extends AppCompatActivity {
     ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
     GroupBuyingTimejsonTask groupBuyingTimejsonTask;
-    addWatchlistTask addWatchlistTask;
+    AddWatchlistTask addWatchlistTask;
 
     ImageView interest_btn;
     ViewPager2 pager2;
@@ -185,28 +184,28 @@ public class InGroupBuying extends AppCompatActivity {
 //        String positionNum = intent.getStringExtra("count");
 //        Log.d("positionNum", positionNum);
 
-        interest_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addWatchlistTask = new addWatchlistTask();
-                try {
-                    String result = addWatchlistTask.execute(real_nick, title.getText().toString(), text.getText().toString() , price.getText().toString() , area.getText().toString(), nick.getText().toString(), time).get();
-                    Log.d("결과", result);
-                    if(result.contains("추가")) {
-                        interest_btn.setImageResource(R.drawable.interest_aft);
-                        Log.d("추가", result);
-                    } else if(result.contains("삭제")){
-                        interest_btn.setImageResource(R.drawable.interest_prv);
-                        //하트 흰색
-                        Log.d("삭제", result);
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        interest_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addWatchlistTask = new AddWatchlistTask();
+//                try {
+//                    String result = addWatchlistTask.execute(real_nick, title.getText().toString(), text.getText().toString() , price.getText().toString() , area.getText().toString(), nick.getText().toString(), time).get();
+//                    Log.d("결과", result);
+//                    if(result.contains("추가")) {
+//                        interest_btn.setImageResource(R.drawable.interest_aft);
+//                        Log.d("추가", result);
+//                    } else if(result.contains("삭제")){
+//                        interest_btn.setImageResource(R.drawable.interest_prv);
+//                        //하트 흰색
+//                        Log.d("삭제", result);
+//                    }
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         pager2 = findViewById(R.id.pager2);

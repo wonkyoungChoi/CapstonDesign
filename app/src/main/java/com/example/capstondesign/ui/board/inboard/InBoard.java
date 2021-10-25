@@ -26,11 +26,11 @@ import com.example.capstondesign.model.DeleteBoardTask;
 import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.ui.FragmentMain;
-import com.example.capstondesign.model.CommentTask;
+import com.example.capstondesign.network.bulletin.board.comment.CommentTask;
 import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.notice.innotice.CommentAdapter;
-import com.example.capstondesign.model.Comment_Item;
+import com.example.capstondesign.network.bulletin.board.comment.Comment;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.addCommentTask;
@@ -64,7 +64,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
 
     int i;
 
-    public static ArrayList<Comment_Item> c_arr = new ArrayList<>();
+    public static ArrayList<Comment> c_arr = new ArrayList<>();
     View footer;
     BoardFragment ma;
     Button back;
@@ -254,7 +254,7 @@ public class InBoard extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     addCommentTask addCommentTask = new addCommentTask();
                     addCommentTask.execute(title, nick, temp, nickname, time);
-                    Comment_Item ci = new Comment_Item(nickname, temp, time);
+                    Comment ci = new Comment(nickname, temp, time);
                     c_arr.add(ci);
                     resetAdapter();
                     comment_edit.setText("");

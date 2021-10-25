@@ -1,10 +1,12 @@
 package com.example.capstondesign.ui;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.FragmentHomeBinding;
+import com.example.capstondesign.databinding.FragmentMainBinding;
 import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
 import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.chatting.ChattingFragment;
@@ -20,124 +24,73 @@ import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.home.FragmentHome;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
 public class FragmentMain extends AppCompatActivity {
     Boolean Login = LoginAcitivity.Login;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private FragmentHome frag1;
-    private BoardFragment frag2;
-    private GroupbuyingFragment frag3;
-    private ChattingFragment frag4;
-    private FragmentProfile frag5;
+    private FragmentHome frag1 = new FragmentHome();
+    private BoardFragment frag2 = new BoardFragment();
+    private GroupbuyingFragment frag3 = new GroupbuyingFragment();
+    private ChattingFragment frag4 = new ChattingFragment();
+    private FragmentProfile frag5 = new FragmentProfile();
+
+    FragmentMainBinding binding;
+
+
     int i;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_page);
 
-        // 바텀 네비게이션 뷰
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        Intent intent = getIntent();
-        i = intent.getIntExtra("boardNum", 0);
-        if(i == 0) {
-            i = intent.getIntExtra("boardNum", 0);
-            Log.d("GROUPNUM", String.valueOf(i));
-        }
-        if(i == 0) {
-            i = intent.getIntExtra("groupbuyingNum", 0);
-            Log.d("GROUPNUM", String.valueOf(i));
-        }
-        if(i == 0) {
-            i = intent.getIntExtra("chatNum", 0);
-            Log.d("CHATNUM", String.valueOf(i));
-        }
-        if(i == 0) {
-            i = intent.getIntExtra("profileNum", 0);
-            Log.d("profileNum", String.valueOf(i));
-        }
-        Log.d("NUM", String.valueOf(i));
+        binding = FragmentMainBinding.inflate(getLayoutInflater());
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (!Login) {
-                    OnClickHandler();
-                    return false;
-                } else {
-                    Log.d("LOGIN", String.valueOf(Login));
-                    switch (menuItem.getItemId()) {
-                        case R.id.action_home:
-                            i=0;
-                            break;
-                        case R.id.action_article:
-                            i=1;
-                            break;
-                        case R.id.action_buy:
-                            i=2;
-                            break;
-                        case R.id.action_chatting:
-                            i=3;
-                            break;
-                        case R.id.action_profile:
-                            i=4;
-                            break;
-                    }
-                    setFrag(i);
-                    return true;
-                }
-            }
-        });
+        View v = binding.getRoot();
+        setContentView(v);
 
-        frag1 = new FragmentHome();
-        frag2 = new BoardFragment();
-        frag3 = new GroupbuyingFragment();
-        frag4 = new ChattingFragment();
-        frag5 = new FragmentProfile();
-
-        if(Login) {
-            if (i == 1) {
-                bottomNavigationView.setSelectedItemId(R.id.action_article);
-            } else if (i == 2) {
-                bottomNavigationView.setSelectedItemId(R.id.action_buy);
-            } else if (i == 3) {
-                bottomNavigationView.setSelectedItemId(R.id.action_chatting);
-            } else if (i == 4) {
-                bottomNavigationView.setSelectedItemId(R.id.action_profile);
-            } else {
-                bottomNavigationView.setSelectedItemId(R.id.action_home);
-            }
-        }
-        setFrag(i); // 첫 프래그먼트 화면을 무엇으로 지정해줄 것인지 선택.
-    }
-    // 프래그먼트 교체가 일어나는 실행문이다.
-    private void setFrag(int n){
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
+        ft.replace(R.id.frame_container, frag1).commitAllowingStateLoss();
 
-        switch (n) {
-            case 0:
-                ft.replace(R.id.frame_container, frag1);
-                ft.commit();
-                break;
-            case 1:
-                ft.replace(R.id.frame_container, frag2);
-                ft.commit();
-                break;
-            case 2:
-                ft.replace(R.id.frame_container, frag3);
-                ft.commit();
-                break;
-            case 3:
-                ft.replace(R.id.frame_container, frag4);
-                ft.commit();
-                break;
-            case 4:
-                ft.replace(R.id.frame_container, frag5);
-                ft.commit();
-                break;
+        // 바텀 네비게이션
+        binding.bottomNavigation.setOnItemSelectedListener(new OnItemSelectedListener());
+
+
+    }
+
+    // 프래그먼트 교체가 일어나는 실행문이다.
+    class OnItemSelectedListener implements NavigationBarView.OnItemSelectedListener{
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            if(!Login) {
+                OnClickHandler();
+                return false;
+            } else {
+                ft = fm.beginTransaction();
+                switch(menuItem.getItemId())
+                {
+                    case R.id.action_home:
+                        ft.replace(R.id.frame_container, frag1).commitAllowingStateLoss();
+                        break;
+                    case R.id.action_article:
+                        ft.replace(R.id.frame_container, frag2).commitAllowingStateLoss();
+                        break;
+                    case R.id.action_buy:
+                        ft.replace(R.id.frame_container, frag3).commitAllowingStateLoss();
+                        break;
+                    case R.id.action_chatting:
+                        ft.replace(R.id.frame_container, frag4).commitAllowingStateLoss();
+                        break;
+                    case R.id.action_profile:
+                        ft.replace(R.id.frame_container, frag5).commitAllowingStateLoss();
+                        break;
+                }
+                return true;
+            }
         }
     }
 

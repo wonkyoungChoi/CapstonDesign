@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
-import com.example.capstondesign.model.Groupbuying;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.model.SearchGroupResultTask;
 import com.example.capstondesign.model.SearchTask;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;

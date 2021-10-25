@@ -15,12 +15,12 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import java.io.IOException;
 
 public class SignUpService extends AsyncTaskExecutor<String> {
+    String sendMsg;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        return start("http://172.111.118.187:8080/sign_up.jsp",
-                "name="+strings[0]+"&phone_num="+strings[1]+"&email="+strings[2]
-                        +"&nickname="+strings[3] +"&password="+strings[4] +"&gender="+strings[5]);
+        sendMsg = "name="+strings[0]+"&phone_num="+strings[1]+"&email="+strings[2] +"&nickname="+strings[3] +"&password="+strings[4] +"&gender="+strings[5];
+        return start("sign_up.jsp", sendMsg);
     }
 
 }

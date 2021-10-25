@@ -20,10 +20,9 @@ import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.CommentProfileCountTask;
-import com.example.capstondesign.model.Comment_Item;
+import com.example.capstondesign.network.bulletin.board.comment.Comment;
 import com.example.capstondesign.model.DeleteCommentTask;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,12 +35,12 @@ public class CommentAdapter extends BaseAdapter implements View.OnClickListener 
     public static String nick, name, email, number;
     String nickname;
     String strurl;
-    public static ArrayList<Comment_Item> arr;
+    public static ArrayList<Comment> arr;
     private int pos;
     private BoardFragment ma;
     CommentProfileCountTask commentProfileCountTask;
     //	private Typeface myFont;
-    public CommentAdapter(Context mContext, Activity mActivity, BoardFragment mc, ArrayList<Comment_Item> arr_item) {
+    public CommentAdapter(Context mContext, Activity mActivity, BoardFragment mc, ArrayList<Comment> arr_item) {
         this.mContext = mContext;
         this.mActivity = mActivity;
         this.arr = arr_item;

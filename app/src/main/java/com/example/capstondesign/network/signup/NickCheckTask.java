@@ -11,9 +11,8 @@ public class NickCheckTask extends AsyncTaskExecutor<String> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://172.111.118.187:8080/nick_check.jsp";
         sendMsg = "nick="+strings[0];
 
-        return start(url, sendMsg);
+        return start("nick_check.jsp", sendMsg);
     }
 }

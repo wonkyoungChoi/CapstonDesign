@@ -1,9 +1,9 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.bulletin.board.comment;
 
-public class Comment_Item {
+public class Comment {
     private String nick, comment, time, number, email;
 
-    public Comment_Item(String nick, String comment, String time) {
+    public Comment(String nick, String comment, String time) {
         this.nick = nick;
         this.comment = comment;
         this.time = time;

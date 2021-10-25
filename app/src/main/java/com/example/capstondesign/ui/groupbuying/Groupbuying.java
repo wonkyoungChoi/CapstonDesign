@@ -1,7 +1,11 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.ui.groupbuying;
+
+import com.example.capstondesign.ui.board.Board;
+
+import java.util.ArrayList;
 
 public class Groupbuying {
-
+    ArrayList<Groupbuying> list;
     String buy_image;
     String nick;
     String title;
@@ -24,6 +28,10 @@ public class Groupbuying {
         this.watchnick = watchnick;
         this.buy_image = buy_image;
         this.time = time;
+    }
+
+    public Groupbuying(ArrayList<Groupbuying> list) {
+        this.list = list;
     }
 
     public String getText() {

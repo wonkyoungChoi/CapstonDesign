@@ -9,23 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.board.search.SearchBoard;
-import com.example.capstondesign.model.Groupbuying;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
-import com.example.capstondesign.model.ShowGroupBuyingTask;
-import com.example.capstondesign.model.ShowGroupBuyingjson;
+import com.example.capstondesign.network.bulletin.groupbuying.LoadGroupBuyingService;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MyGroupBuyingActivity extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
@@ -37,7 +32,7 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
     public static int position;
 
     public static ShowGroupBuyingAdapter showGroupBuyingAdapter;
-    ShowGroupBuyingTask showGroupBuyingTask;
+    LoadGroupBuyingService loadGroupBuyingService;
     public static ArrayList<Groupbuying> showGroupBuying = new ArrayList<>();
 
     @Override
@@ -61,7 +56,7 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
 
         //GALLERY(); // 허가
         showGroupBuying.clear();
-        showGroupBuyingTask = new ShowGroupBuyingTask();
+        loadGroupBuyingService = new LoadGroupBuyingService();
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
@@ -76,7 +71,7 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int pos) {
                 position = pos;
-                ShowGroupBuyingjson.position = pos + 1;
+                //ShowGroupBuyingjson.position = pos + 1;
                 nick = showGroupBuying.get(pos).getNick();
                 title = showGroupBuying.get(pos).getTitle();
                 text = showGroupBuying.get(pos).getText();

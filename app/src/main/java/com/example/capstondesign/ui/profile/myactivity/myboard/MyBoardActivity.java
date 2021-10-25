@@ -17,12 +17,8 @@ import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
-import com.example.capstondesign.model.ShowBoardTask;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MyBoardActivity extends AppCompatActivity {
     public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
@@ -33,7 +29,7 @@ public class MyBoardActivity extends AppCompatActivity {
     public static int position;
 
     public static ShowBoardAdapter showBoardAdapter;
-    ShowBoardTask showBoardTask;
+    //ShowBoardTask showBoardTask;
     public static ArrayList<Board> showboard = new ArrayList<>();
 
     @Override
@@ -57,7 +53,7 @@ public class MyBoardActivity extends AppCompatActivity {
 
         //GALLERY(); // 허가
         showboard.clear();
-        showBoardTask = new ShowBoardTask();
+        //showBoardTask = new ShowBoardTask();
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),

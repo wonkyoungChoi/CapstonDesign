@@ -8,26 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.capstondesign.R;
+import com.example.capstondesign.databinding.FragmentGroupbuyingBinding;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
-import com.example.capstondesign.model.GroupBuyingTask;
-import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class GroupbuyingFragment extends Fragment {
 
@@ -38,8 +30,10 @@ public class GroupbuyingFragment extends Fragment {
     public static int position;
 
     public static GroupBuyingAdapter groupBuyingAdapter;
-    GroupBuyingTask groupBuyingTask;
-    public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();;
+
+    public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();
+
+    FragmentGroupbuyingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,10 +77,11 @@ public class GroupbuyingFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_buy, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.rv);
+
+        binding = FragmentGroupbuyingBinding.inflate(inflater, container, false);
+        View v = binding.getRoot();
 
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -94,18 +89,17 @@ public class GroupbuyingFragment extends Fragment {
 
         //getNick();
 
-        //GALLERY(); // 허가
         groupbuying.clear();
-        groupBuyingTask = new GroupBuyingTask();
-        recyclerView.setHasFixedSize(true);
+
+        binding.rv.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.rv.setLayoutManager(layoutManager);
 
         groupBuyingAdapter = new GroupBuyingAdapter(groupbuying);
 
 
-        recyclerView.setAdapter(groupBuyingAdapter);
+        binding.rv.setAdapter(groupBuyingAdapter);
 
         groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
             @Override
@@ -137,8 +131,6 @@ public class GroupbuyingFragment extends Fragment {
             }
         });
 
-
-
         //관심목록 클릭
         groupBuyingAdapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
             @Override
@@ -148,13 +140,7 @@ public class GroupbuyingFragment extends Fragment {
             }
         });
 
-
-
-
-
-        buysearch = (ImageView)v.findViewById(R.id.buysearch);
-
-        buysearch.setOnClickListener(new View.OnClickListener() {
+        binding.buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchGroupBuying.class);
@@ -162,11 +148,7 @@ public class GroupbuyingFragment extends Fragment {
             }
         });
 
-
-
-
-        final Button addButton = v.findViewById(R.id.addbutton);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        binding.addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddGroupBuying.class);

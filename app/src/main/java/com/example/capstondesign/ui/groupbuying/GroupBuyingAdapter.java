@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import android.os.Build;
 import android.util.Log;
@@ -19,10 +18,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.model.Groupbuying;
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
-import com.example.capstondesign.model.addWatchlistTask;
+import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -148,23 +144,20 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                 String area = GroupbuyingFragment.groupbuying.get(position).getArea();
 
                 Log.d("관심목록 클릭", area);
-                addWatchlistTask addWatchlistTask = new addWatchlistTask();
-                try {
-                    String result = addWatchlistTask.execute(mynick1, title, text , price , area, nick, GroupbuyingFragment.groupbuying.get(position).getTime()).get();
-                    Log.d("결과", result);
-                    if(result.contains("추가")) {
-                        holder.getInterest_btn().setImageResource(R.drawable.interest_aft);
-                        Log.d("추가", result);
-                    } else if(result.contains("삭제")){
-                        holder.getInterest_btn().setImageResource(R.drawable.interest_prv);
-                        //하트 흰색
-                        Log.d("삭제", result);
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                AddWatchlistTask addWatchlistTask = new AddWatchlistTask();
+
+                String result = "0";
+                //= addWatchlistTask.execute(mynick1, title, text , price , area, nick, GroupbuyingFragment.groupbuying.get(position).getTime()).get();
+                Log.d("결과", result);
+                if(result.contains("추가")) {
+                    holder.getInterest_btn().setImageResource(R.drawable.interest_aft);
+                    Log.d("추가", result);
+                } else if(result.contains("삭제")){
+                    holder.getInterest_btn().setImageResource(R.drawable.interest_prv);
+                    //하트 흰색
+                    Log.d("삭제", result);
                 }
+
             }
         });
 
