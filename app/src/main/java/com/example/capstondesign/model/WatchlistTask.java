@@ -2,7 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.network.ProfileService;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
 
@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class WatchlistTask {
     public static ArrayList<Groupbuying> watchlist = WatchlistActivity.watchlist;
@@ -82,9 +81,9 @@ public class WatchlistTask {
 
                 groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
 
-                if(groupbuying.watchnick.contains(profile.nickname + ",")) {
-                    board1.add(groupbuying);
-            }
+//                if(groupbuying.watchnick.contains(profile.nickname + ",")) {
+//                    board1.add(groupbuying);
+//            }
 
             }
         }catch (JSONException e) {

@@ -18,12 +18,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.GroupBuyingTask;
-import com.example.capstondesign.model.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.UploadFileAsyncGroupBuying;
-import com.example.capstondesign.model.addGroupbuyingTask;
+import com.example.capstondesign.network.bulletin.groupbuying.AddGroupbuyingService;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
@@ -169,10 +166,10 @@ public class AddGroupBuying extends AppCompatActivity {
 //    }
 
     void addGroupTask() {
-        addGroupbuyingTask addgroupbuyingtask = new addGroupbuyingTask();
+        AddGroupbuyingService addgroupbuyingtask = new AddGroupbuyingService();
         addgroupbuyingtask.execute(nick, titlestr, pricestr, headcountstr, textstr, areastr, number, time);
         Groupbuying groupbuying = new Groupbuying(nick, titlestr, textstr, pricestr, headcountstr, "1", areastr, "", titlestr.hashCode() + time + ".jpg", time);
-        GroupBuyingTask.groupbuyinglist.add(groupbuying);
+        //GroupBuyingTask.groupbuyinglist.add(groupbuying);
         GroupbuyingFragment.groupBuyingAdapter.notifyDataSetChanged();
         Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
         intent.putExtra("groupbuyingNum", 2);

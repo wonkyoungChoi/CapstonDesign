@@ -20,15 +20,13 @@ import java.io.IOException;
 
 
 public class SignUpCheckService extends AsyncTaskExecutor<String> {
-    String sendMsg, url;
+    String sendMsg;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://192.168.0.15:8080/fast_sign_up_check.jsp";
         sendMsg = "&email="+strings[0];
-
-        return start(url, sendMsg);
+        return start("fast_sign_up_check.jsp", sendMsg);
     }
 
 }

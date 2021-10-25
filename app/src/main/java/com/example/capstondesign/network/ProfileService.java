@@ -11,14 +11,12 @@ import java.io.IOException;
 
 
 public class ProfileService extends AsyncTaskExecutor<String> {
-    String sendMsg, url;
+    String sendMsg;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) throws IOException {
-        url = "http://192.168.0.15:8080/profile_cp.jsp";
         sendMsg = "name="+strings[0]+"&email="+strings[1];
-
-        return start(url, sendMsg);
+        return start("profile_cp.jsp", sendMsg);
     }
 
 

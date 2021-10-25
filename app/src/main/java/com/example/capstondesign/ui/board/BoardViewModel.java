@@ -1,29 +1,31 @@
 package com.example.capstondesign.ui.board;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstondesign.network.bulletin.board.AddBoardTask;
-import com.example.capstondesign.network.login.LoginService;
+import com.example.capstondesign.network.bulletin.board.AddBoardService;
 import com.example.capstondesign.repository.BoardRepository;
 import java.io.IOException;
 
 public class BoardViewModel extends ViewModel {
     BoardRepository repository = new BoardRepository();
-    public MutableLiveData<Board> board = repository._board;
-    AddBoardTask addBoardTask = new AddBoardTask();;
+    public LiveData<Board> board = repository._board;
+    AddBoardService addBoardService = new AddBoardService();;
 
     public void loadBoard() {
-        repository.boardRepository();
+        try {
+            repository.loadBoard();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public LiveData<Board> getAll() {
         return board;
     }
 
-    public void addBoard (Board board) {
-        addBoardTask.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime());
+    public void addBoard (String nick, String title, String text, String time) {
+        addBoardService.execute(nick, title, text, time);
     }
 
 }

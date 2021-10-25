@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Groupbuying;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.ui.FragmentMain;
 import com.example.capstondesign.ui.board.search.SearchBoard;
@@ -25,7 +24,6 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.WatchlistTask;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class WatchlistActivity extends AppCompatActivity {
 

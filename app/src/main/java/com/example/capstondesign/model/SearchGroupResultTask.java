@@ -2,6 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupbuyingResult;
 
 import org.json.JSONArray;
