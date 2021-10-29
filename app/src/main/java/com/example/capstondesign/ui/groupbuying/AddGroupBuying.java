@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.databinding.ActivityAddGroupbuyingBinding;
-import com.example.capstondesign.model.Profile;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 public class AddGroupBuying extends AppCompatActivity {

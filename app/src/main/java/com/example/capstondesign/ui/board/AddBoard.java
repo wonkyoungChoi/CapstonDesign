@@ -18,14 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.databinding.ActivityAddboardBinding;
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
 
 public class AddBoard extends AppCompatActivity {
     Profile profile = LoginAcitivity.profile;

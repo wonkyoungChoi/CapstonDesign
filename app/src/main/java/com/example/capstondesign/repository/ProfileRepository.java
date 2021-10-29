@@ -1,38 +1,50 @@
 package com.example.capstondesign.repository;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import com.example.capstondesign.network.LoadProfileService;
+import com.example.capstondesign.ui.Profile;
 
-import com.example.capstondesign.network.ProfileService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class ProfileRepository {
-    MutableLiveData<String> result = new MutableLiveData<>();
-    ProfileService profileService = new ProfileService();
+    public Profile profile = new Profile();
+    LoadProfileService loadProfileService = new LoadProfileService();
 
-    public void loadProfile(String name, String email) {
-        profileService.execute(name, email);
-    }
-
-    public void setNick() {
-        result.postValue(profileService.result.getValue());
-    }
-
-    public String getNick() {
-        return substringBetween(result.getValue(),  "nickname:", "/");
-    }
+    String name, email, nickname, phone_num, gender, password;
 
 
-    public String substringBetween(String str, String open, String close) {
-        if (str == null || open == null || close == null) {
-            return null;
-        }
-        int start = str.indexOf(open);
-        if (start != -1) {
-            int end = str.indexOf(close, start + open.length());
-            if (end != -1) {
-                return str.substring(start + open.length(), end);
+    //Json Parsing
+    public void profileRepository()
+    {
+        try{
+            JSONArray ProfileArray = new JSONArray(loadProfileService.download());
+
+            for(int i=0; i<ProfileArray.length(); i++)
+            {
+
+                JSONObject ProfileObject = ProfileArray.getJSONObject(i);
+                name = ProfileObject.getString("name");
+                email = ProfileObject.getString("email");
+                nickname = ProfileObject.getString("nickname");
+                phone_num = ProfileObject.getString("phone_num");
+                gender = ProfileObject.getString("gender");
+                password = ProfileObject.getString("password");
+
+                profile.setName(name);
+                profile.setEmail(email);
+                profile.setNickname(nickname);
+                profile.setPhone_num(phone_num);
+                profile.setGender(gender);
+                profile.setPassword(password);
             }
+        }catch (JSONException | IOException e) {
+            e.printStackTrace();
         }
-        return null;
     }
+
+
+
 }

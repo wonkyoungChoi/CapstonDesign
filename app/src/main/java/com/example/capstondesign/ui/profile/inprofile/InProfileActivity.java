@@ -18,12 +18,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.network.bulletin.UploadFileAsync;
 import com.example.capstondesign.ui.MainFragment;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +44,7 @@ public class InProfileActivity extends AppCompatActivity {
 
     String email_front, email_end, strurl;
 
-    ProfileService profileService;
+    //ProfileService profileService;
     ProfileCountjsonTask profileCountjsonTask;
     ProfileCountTask profileCountTask;
 
@@ -87,7 +86,7 @@ public class InProfileActivity extends AppCompatActivity {
 
         profileCountTask = new ProfileCountTask();
         profileCountjsonTask = new ProfileCountjsonTask();
-        profileService = new ProfileService();
+        //profileService = new ProfileService();
 
 
         inprofile_exit = (Button)findViewById(R.id.inprofile_exit);

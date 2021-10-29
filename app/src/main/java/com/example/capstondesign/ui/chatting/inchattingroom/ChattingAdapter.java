@@ -16,11 +16,11 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.ChatProfileCountjson;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.squareup.picasso.Picasso;
 

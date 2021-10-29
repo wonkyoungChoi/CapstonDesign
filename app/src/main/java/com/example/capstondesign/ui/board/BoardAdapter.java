@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
-    public List<Board> items;
+    public List<Board> items = new ArrayList<>();
     public String nick;
 
     private BoardListItemBinding mBinding;

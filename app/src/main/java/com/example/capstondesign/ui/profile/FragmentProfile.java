@@ -16,17 +16,16 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.profile.myactivity.MyActivity;
-import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
-import com.example.capstondesign.ui.profile.notice.NoticeActivity;
-import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
-import com.example.capstondesign.ui.profile.setting.SettingActivity;
 import com.example.capstondesign.model.CountWriteTask;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.MainFragment;
+import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
+import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
+import com.example.capstondesign.ui.profile.myactivity.MyActivity;
+import com.example.capstondesign.ui.profile.notice.NoticeActivity;
+import com.example.capstondesign.ui.profile.setting.SettingActivity;
 import com.facebook.login.LoginManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.squareup.picasso.Picasso;
@@ -131,7 +130,7 @@ public class FragmentProfile extends Fragment {
 
 
         //프로필을 불러오는 Task를 통해 프로필 값들을 입력함
-        ProfileService profileService = new ProfileService();
+//        ProfileService profileService = new ProfileService();
 //        try {
 //            Log.d("PROFILENAME", profile.getName());
 //            Log.d("PROFILENAME", profile.getEmail());

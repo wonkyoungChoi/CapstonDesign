@@ -16,16 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.chatting.inchattingroom.InChattingRoom;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatTask;
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
+import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.chatting.inchattingroom.InChattingRoom;
+import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class ChattingFragment extends Fragment {
     public static ChattingRoomAdapter chatRoomAdapter;

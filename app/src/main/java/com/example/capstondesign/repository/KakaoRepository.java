@@ -1,18 +1,13 @@
 package com.example.capstondesign.repository;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.login.KakaoService;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.User;
-
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;

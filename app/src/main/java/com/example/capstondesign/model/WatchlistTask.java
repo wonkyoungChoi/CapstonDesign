@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
 
 import org.json.JSONArray;
@@ -77,7 +78,7 @@ public class WatchlistTask {
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
                 Log.d("WATCHNICK", watchnick);
-                Log.d("MYNICK", LoginAcitivity.profile.nickname + ",");
+                Log.d("MYNICK", LoginAcitivity.profile.getNickname() + ",");
 
                 //groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
 

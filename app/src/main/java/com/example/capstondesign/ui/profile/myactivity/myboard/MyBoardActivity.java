@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.board.Board;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import java.util.ArrayList;
 

@@ -19,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityInboardBinding;
 import com.example.capstondesign.model.DeleteBoardTask;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.ui.MainFragment;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class InBoardActivity extends AppCompatActivity {
 
@@ -41,6 +42,8 @@ public class InBoardActivity extends AppCompatActivity {
     EditText comment_edit;
     CommentAdapter commentAdapter;
     ImageView imageView;
+
+    ArrayList<Comment> items = new ArrayList<>();
 
     ActivityInboardBinding binding;
     CommentViewModel model;
@@ -110,7 +113,7 @@ public class InBoardActivity extends AppCompatActivity {
                     Comment ci = new Comment(id.toString() , "닉네임", comment, String.valueOf(now));
                     model.addComment(ci);
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -150,13 +153,16 @@ public class InBoardActivity extends AppCompatActivity {
 
     private void observeCommentResult() {
         model.getAll().observe(this , comment -> {
+            items.clear();
             Log.d("===ObserveComment", "check");
             for(int i=0; i<comment.list.size(); i++) {
                 if(comment.list.get(i).getId().equals(id.toString())) {
-                    commentAdapter.setComment(comment.list);
-                    commentAdapter.notifyDataSetChanged();
+                    Log.d("===listNum", String.valueOf(comment.list.get(i).getId()));
+                    items.add(comment.list.get(i));
                 }
             }
+            commentAdapter.setComment(items);
+            commentAdapter.notifyDataSetChanged();
         });
     }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Board {
     ArrayList<Board> list;
-    int id;
+    Integer id;
     String title;
     String nick;
     String text;

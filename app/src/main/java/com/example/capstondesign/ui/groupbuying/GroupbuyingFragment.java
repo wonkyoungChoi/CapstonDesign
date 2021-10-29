@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.capstondesign.databinding.FragmentGroupbuyingBinding;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import java.util.ArrayList;
 

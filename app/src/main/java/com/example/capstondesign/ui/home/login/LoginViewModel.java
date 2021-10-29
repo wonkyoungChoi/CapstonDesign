@@ -11,6 +11,8 @@ import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.repository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
+import com.example.capstondesign.repository.ProfileRepository;
+import com.example.capstondesign.ui.Profile;
 import com.facebook.CallbackManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -27,9 +29,13 @@ public class LoginViewModel extends ViewModel {
     KakaoRepository kakaoRepository = new KakaoRepository();
     FacebookRepository facebookRepository = new FacebookRepository();
 
+    ProfileRepository profileRepository = new ProfileRepository();
+    Profile profile;
+
     OAuthLoginHandler mOAuthLoginHandler;
 
 
+    //카카오 로그인
     public void loadKakaoCallback() {
         kakaoRepository.getKakaoInfo();
     }
@@ -38,6 +44,8 @@ public class LoginViewModel extends ViewModel {
         return kakaoRepository.emailCheck;
     }
 
+
+    //네이버 로그인
     public OAuthLogin loadNaver(Context context) {
         return naverRepository.login(context);
     }
@@ -56,6 +64,7 @@ public class LoginViewModel extends ViewModel {
 
 
 
+    //페이스북 로그인
     public CallbackManager getCallbackManager() {
         return callbackManager;
     }
@@ -65,6 +74,7 @@ public class LoginViewModel extends ViewModel {
     }
 
 
+    //일반 로그인
     public void loadLogin(String id, String password) {
         if (loginTask == null) {
             loginTask = new LoginService();
@@ -80,6 +90,7 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
+    //이메일 체크(간편회원가입 관련)
     public void loadCheck(String email) {
         checkTask.execute(email);
     }
@@ -90,6 +101,15 @@ public class LoginViewModel extends ViewModel {
         }
         checkResult = checkTask.result;
         return checkResult;
+    }
+
+    public void loadProfile() {
+        profileRepository.profileRepository();
+        profile = profileRepository.profile;
+    }
+
+    public Profile getProfile() {
+        return profile;
     }
 
 

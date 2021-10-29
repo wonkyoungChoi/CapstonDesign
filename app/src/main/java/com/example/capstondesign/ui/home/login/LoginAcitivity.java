@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.ui.MainFragment;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
 import com.example.capstondesign.ui.home.signup.SignUpActivity;
 import com.facebook.login.LoginManager;
@@ -140,6 +140,9 @@ public class LoginAcitivity extends AppCompatActivity {
                 intent = new Intent(activity, MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginAcitivity.Login = true;
+                model.loadProfile();
+                profile = model.getProfile();
+                Log.d("===LoginEmail", profile.getEmail());
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
                 intent = new Intent(activity, FastSignUpActivity.class);

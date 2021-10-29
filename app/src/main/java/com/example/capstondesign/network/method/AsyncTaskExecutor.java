@@ -77,7 +77,7 @@ public abstract class AsyncTaskExecutor<Params> {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String start(String jsp_url, String sendMsg) throws IOException {
         String str, receiveMsg = null;
-        URL url = new URL("http://192.168.0.15:8080/" + jsp_url);
+        URL url = new URL("http://172.111.118.187:8080/" + jsp_url);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestMethod("POST");

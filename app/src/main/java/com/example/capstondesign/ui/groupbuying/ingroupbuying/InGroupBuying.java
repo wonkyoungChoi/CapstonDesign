@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.InGroupBuyProfileCountTask;
@@ -33,7 +34,6 @@ import com.example.capstondesign.model.ChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;

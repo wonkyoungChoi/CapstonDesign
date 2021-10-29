@@ -12,10 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.profile.setting.changepassword.InChangePasswordActivity;
 import com.example.capstondesign.ui.profile.setting.withdraw.InWithdrawActivity;
-import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;

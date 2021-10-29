@@ -2,8 +2,10 @@ package com.example.capstondesign.repository;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
-import com.example.capstondesign.model.Profile;
+
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -11,6 +13,7 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

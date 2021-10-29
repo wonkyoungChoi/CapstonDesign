@@ -1,6 +1,4 @@
-package com.example.capstondesign.model;
-
-import android.net.Uri;
+package com.example.capstondesign.ui;
 
 public class Profile {
     String name;
@@ -19,7 +17,6 @@ public class Profile {
         this.password = password;
         this.gender = gender;
     }
-
 
     public Profile(){};
 

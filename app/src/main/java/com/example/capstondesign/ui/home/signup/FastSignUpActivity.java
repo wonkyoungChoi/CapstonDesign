@@ -17,10 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityFastSignupBinding;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-import com.example.capstondesign.network.signup.NickCheckTask;
-import com.example.capstondesign.model.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

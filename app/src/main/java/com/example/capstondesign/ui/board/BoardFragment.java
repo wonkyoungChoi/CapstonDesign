@@ -129,7 +129,6 @@ public class BoardFragment extends Fragment {
 
     private void observeBoardResult() {
         model.getAll().observe(getViewLifecycleOwner(), board -> {
-            Log.d("===Observeall", board.list.get(1).toString());
             boardAdapter.setBoard(board.list);
             boardAdapter.notifyDataSetChanged();
         });

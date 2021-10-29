@@ -2,6 +2,7 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.board.inboard.InBoardActivity;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;

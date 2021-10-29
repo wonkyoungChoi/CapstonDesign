@@ -16,10 +16,10 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.ChatRoomData;
 import com.example.capstondesign.model.ChatRoomProfileCountjson;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.SearchEmailResultTask;
 import com.example.capstondesign.model.SearchEmailTask;
 import com.squareup.picasso.Picasso;

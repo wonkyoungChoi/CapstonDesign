@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
-import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.board.search.SearchBoard;
