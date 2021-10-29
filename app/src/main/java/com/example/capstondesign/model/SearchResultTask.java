@@ -38,7 +38,7 @@ public class SearchResultTask {
                 Log.d("TITLE", title);
                 Log.d("TEXT", text);
 
-                board = new Board(nick, title, text, time);
+                //board = new Board(id, nick, title, text, time);
 
                 board1.add(board);
 

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
-import com.example.capstondesign.model.SearchGroupResultTask;
 import com.example.capstondesign.model.SearchTask;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
@@ -30,7 +29,7 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
     String nick, title, text, price, headcount, nowCount, area, watchnick;
     ImageView button, back;
     EditText search;
-    SearchGroupResultTask searchGroupResultTask;
+    //SearchGroupResultTask searchGroupResultTask;
     String search_result, result1;
 
     @Override
@@ -51,7 +50,7 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
         } else {
             group.clear();
-            searchGroupResultTask = new SearchGroupResultTask(result);
+            //searchGroupResultTask = new SearchGroupResultTask(result);
 
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),

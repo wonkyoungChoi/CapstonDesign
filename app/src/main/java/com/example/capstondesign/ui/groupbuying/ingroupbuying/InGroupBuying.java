@@ -25,7 +25,7 @@ import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.model.AddNowCountTask;
 import com.example.capstondesign.model.InGroupBuyProfileCountTask;
 import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistTask;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
@@ -40,7 +40,6 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class InGroupBuying extends AppCompatActivity {
 
@@ -71,7 +70,7 @@ public class InGroupBuying extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+        Intent intent = new Intent(getApplicationContext(), MainFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("groupbuyingNum", 2);
         startActivity(intent);
@@ -223,7 +222,7 @@ public class InGroupBuying extends AppCompatActivity {
         buyback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);
@@ -244,7 +243,7 @@ public class InGroupBuying extends AppCompatActivity {
                 //채팅방의 값을 데이터베이스에 저장하는 Task
                 chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
 
-                Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.putExtra("chatNum", 3);
                 startActivity(intent);
                 finish();
@@ -273,7 +272,7 @@ public class InGroupBuying extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.achome:
-                startActivity(FragmentMain.class);
+                startActivity(MainFragment.class);
                 break;
             case R.id.acsearch:
                 startActivity(SearchBoard.class);
@@ -286,7 +285,7 @@ public class InGroupBuying extends AppCompatActivity {
                 deleteGroupbuyingTask.execute(intent.getStringExtra("nick"),
                         intent.getStringExtra("title"), intent.getStringExtra("text"), time);
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("groupbuyingNum", 2);
                 startActivity(intent);

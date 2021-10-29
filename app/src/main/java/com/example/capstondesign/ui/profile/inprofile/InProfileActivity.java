@@ -23,7 +23,7 @@ import com.example.capstondesign.model.ProfileCountTask;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.network.bulletin.UploadFileAsync;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;
 
@@ -57,7 +57,7 @@ public class InProfileActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+        Intent intent = new Intent(getApplicationContext(), MainFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("groupbuyingNum", 4);
         startActivity(intent);
@@ -94,7 +94,7 @@ public class InProfileActivity extends AppCompatActivity {
         inprofile_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 intent.putExtra("groupbuyingNum", 4);

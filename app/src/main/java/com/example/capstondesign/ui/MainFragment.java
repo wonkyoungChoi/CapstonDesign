@@ -1,21 +1,16 @@
 package com.example.capstondesign.ui;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.capstondesign.R;
-import com.example.capstondesign.databinding.FragmentHomeBinding;
 import com.example.capstondesign.databinding.FragmentMainBinding;
 import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
 import com.example.capstondesign.ui.board.BoardFragment;
@@ -24,10 +19,9 @@ import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.home.FragmentHome;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
 
-public class FragmentMain extends AppCompatActivity {
+
+public class MainFragment extends AppCompatActivity {
     Boolean Login = LoginAcitivity.Login;
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -57,13 +51,13 @@ public class FragmentMain extends AppCompatActivity {
         ft.replace(R.id.frame_container, frag1).commitAllowingStateLoss();
 
         // 바텀 네비게이션
-        binding.bottomNavigation.setOnItemSelectedListener(new OnItemSelectedListener());
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(new OnItemSelectedListener());
 
 
     }
 
     // 프래그먼트 교체가 일어나는 실행문이다.
-    class OnItemSelectedListener implements NavigationBarView.OnItemSelectedListener{
+    class OnItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             if(!Login) {

@@ -79,7 +79,7 @@ public class WatchlistTask {
                 Log.d("WATCHNICK", watchnick);
                 Log.d("MYNICK", LoginAcitivity.profile.nickname + ",");
 
-                groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
+                //groupbuying = new Groupbuying(nick, title, text, price, headCount, nowCount, area, watchnick, title.hashCode() + time + ".jpg", time);
 
 //                if(groupbuying.watchnick.contains(profile.nickname + ",")) {
 //                    board1.add(groupbuying);

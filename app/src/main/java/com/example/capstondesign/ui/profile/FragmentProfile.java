@@ -26,7 +26,7 @@ import com.example.capstondesign.model.CountWriteTask;
 import com.example.capstondesign.model.Profile;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.example.capstondesign.network.ProfileService;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.MainFragment;
 import com.facebook.login.LoginManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.squareup.picasso.Picasso;
@@ -274,7 +274,7 @@ public class FragmentProfile extends Fragment {
                     , getString(R.string.naver_client_name)
             );
             mOAuthLoginModule.logout(getContext());
-            Intent intent = new Intent(getActivity(), FragmentMain.class);
+            Intent intent = new Intent(getActivity(), MainFragment.class);
             startActivity(intent);
             LoginAcitivity.Login = false;
             Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
@@ -284,14 +284,14 @@ public class FragmentProfile extends Fragment {
             //페이스북 로그인시 login 값은 3
             LoginManager.getInstance().logOut();
             Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), FragmentMain.class);
+            Intent intent = new Intent(getActivity(), MainFragment.class);
             startActivity(intent);
             LoginAcitivity.Login = false;
             LoginAcitivity.login = 0;
             getActivity().finish();
         } else if (login == 4) {
             //이메일 로그인시 login 값은 4
-            Intent intent = new Intent(getActivity(), FragmentMain.class);
+            Intent intent = new Intent(getActivity(), MainFragment.class);
             Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             LoginAcitivity.Login = false;

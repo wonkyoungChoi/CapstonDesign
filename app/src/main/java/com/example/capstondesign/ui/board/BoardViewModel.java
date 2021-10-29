@@ -13,19 +13,17 @@ public class BoardViewModel extends ViewModel {
     AddBoardService addBoardService = new AddBoardService();;
 
     public void loadBoard() {
-        try {
-            repository.loadBoard();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        repository.boardRepository();
     }
 
     public LiveData<Board> getAll() {
         return board;
     }
 
-    public void addBoard (String nick, String title, String text, String time) {
-        addBoardService.execute(nick, title, text, time);
+    public void addBoard (Board board) {
+        addBoardService.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime());
     }
+
+
 
 }

@@ -16,8 +16,9 @@ public class Groupbuying {
     String area;
     String watchnick;
     String time;
+    String number;
 
-    public Groupbuying(String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String buy_image, String time) {
+    public Groupbuying(String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String buy_image, String time, String number) {
         this.nick = nick;
         this.title = title;
         this.text = text;
@@ -28,6 +29,7 @@ public class Groupbuying {
         this.watchnick = watchnick;
         this.buy_image = buy_image;
         this.time = time;
+        this.number = number;
     }
 
     public Groupbuying(ArrayList<Groupbuying> list) {
@@ -112,6 +114,14 @@ public class Groupbuying {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
 

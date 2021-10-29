@@ -1,20 +1,10 @@
 package com.example.capstondesign.network.signup;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.capstondesign.model.Task;
 import com.example.capstondesign.network.method.AsyncTaskExecutor;
-import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
-import com.example.capstondesign.ui.FragmentMain;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.io.IOException;
 

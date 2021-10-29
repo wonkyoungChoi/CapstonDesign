@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.ChatData;
 import com.example.capstondesign.model.LastMsgTask;
@@ -56,7 +56,7 @@ public class InChattingRoom extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+        Intent intent = new Intent(getApplicationContext(), MainFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("chatNum", 3);
         startActivity(intent);
@@ -179,7 +179,7 @@ public class InChattingRoom extends AppCompatActivity {
         chat_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("chatNum", 3);
                 startActivity(intent);

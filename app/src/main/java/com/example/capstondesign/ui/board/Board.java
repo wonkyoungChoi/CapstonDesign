@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Board {
     ArrayList<Board> list;
+    int id;
     String title;
     String nick;
     String text;
@@ -41,6 +42,8 @@ public class Board {
         return image;
     }
 
+    public int getId() {return id;}
+
     public void setTitle(String title) { this.title = title; }
     public void setNick(String nick) {this.nick = nick;}
     public void setText(String text) { this.text = text; }
@@ -50,8 +53,9 @@ public class Board {
     public void setImage(String image) {
         this.image = image;
     }
+    public void setId(int id) {this.id = id;}
 
-    public Board(String title, String nick, String text, String image, String time) {
+    public Board(Integer id, String title, String nick, String text, String image, String time) {
         this.title = title;
         this.nick = nick;
         this.text = text;
@@ -59,15 +63,17 @@ public class Board {
         this.time = time;
     }
 
-    public Board(String nick, String title, String text, String time) {
+    public Board(Integer id, String nick, String title, String text, String time) {
+        this.id = id;
         this.title = title;
         this.nick = nick;
         this.text = text;
         this.time = time;
     }
+
     public Board(String nick, String title, String text) {
-        this.title = title;
         this.nick = nick;
+        this.title = title;
         this.text = text;
     }
 

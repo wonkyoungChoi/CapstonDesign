@@ -65,11 +65,13 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
             public void onClick(View v) {
                 Log.d("===Click", "CLICK");
                 Intent intent = new Intent(mBinding.layoutBoard.getContext(), InBoardActivity.class);
+                Integer id = board.getId();
                 String nick =  board.getNick();
                 String title = board.getTitle();
                 String text = board.getText();
                 String time = board.getTime();
 
+                intent.putExtra("id", id);
                 intent.putExtra("nick", nick);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
@@ -87,7 +89,6 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
 
     public void setBoard(ArrayList<Board> boardArrayList) {
         items = boardArrayList;
-        notifyDataSetChanged();
     }
 
 

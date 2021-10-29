@@ -1,8 +1,9 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.bulletin.groupbuying;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.ui.groupbuying.AddGroupBuying;
 
 import java.io.DataOutputStream;
@@ -11,9 +12,8 @@ import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class UploadFileAsyncGroupBuying extends AsyncTask<String, Void, String> {
+public class UploadFileAsyncGroupBuying extends AsyncTaskExecutor<String> {
 
-    GroupBuyingTimejsonTask groupBuyingTimejsonTask;
     @Override
     protected String doInBackground(String... params) {
 
@@ -32,7 +32,7 @@ public class UploadFileAsyncGroupBuying extends AsyncTask<String, Void, String> 
             String boundary = "*****"; // 구분자
             int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
-            int maxBufferSize = 1 * 1024 * 1024;
+            int maxBufferSize = 1024 * 1024;
             File sourceFile = new File(sourceFileUri);
             Log.d("sourceFile", sourceFile.toString());
             File sourceFile2 = new File(sourceFileUri);
@@ -151,18 +151,5 @@ public class UploadFileAsyncGroupBuying extends AsyncTask<String, Void, String> 
             Log.d("Exception", ex.getMessage());
         }
         return "Executed";
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-
-    }
-
-    @Override
-    protected void onPreExecute() {
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
     }
 }

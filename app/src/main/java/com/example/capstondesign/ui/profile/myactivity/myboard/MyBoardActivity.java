@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.board.inboard.InBoard;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.model.Profile;
@@ -63,20 +62,20 @@ public class MyBoardActivity extends AppCompatActivity {
         showBoardAdapter = new ShowBoardAdapter(showboard);
         recyclerView.setAdapter(showBoardAdapter);
 
-        showBoardAdapter.setOnItemClickListener(new ShowBoardAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                nick = ShowBoardAdapter.click_nickname;
-                title = ShowBoardAdapter.click_title;
-                text = ShowBoardAdapter.click_text;
-                getPosition(position);
-                Intent intent = new Intent(getApplicationContext(), InBoard.class);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                intent.putExtra("nick", nick);
-                startActivity(intent);
-            }
-        });
+//        showBoardAdapter.setOnItemClickListener(new ShowBoardAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int pos) {
+//                nick = ShowBoardAdapter.click_nickname;
+//                title = ShowBoardAdapter.click_title;
+//                text = ShowBoardAdapter.click_text;
+//                getPosition(position);
+//                Intent intent = new Intent(getApplicationContext(), InBoard.class);
+//                intent.putExtra("title", title);
+//                intent.putExtra("text", text);
+//                intent.putExtra("nick", nick);
+//                startActivity(intent);
+//            }
+//        });
 
 
 

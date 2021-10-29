@@ -33,7 +33,7 @@ public class Intro extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent(Intro.this, FragmentMain.class);
+                Intent intent = new Intent(Intro.this, MainFragment.class);
                 startActivity(intent);
                 finish();
             }

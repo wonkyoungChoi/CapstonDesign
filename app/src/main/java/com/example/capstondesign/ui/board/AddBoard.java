@@ -127,10 +127,9 @@ public class AddBoard extends AppCompatActivity {
 //                        fileBoard = null;
 //                    }
                     Log.d("===VALUE", title + text + time);
-                    Board board = new Board("nickname", title, text, time);
-
+                    Board board = new Board(null , "nickname", title, text, time);
                     model.addBoard(board);
-                    model.board.setValue(board);
+
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "제목이나 내용을 모두 작성해주세요.", Toast.LENGTH_SHORT).show();

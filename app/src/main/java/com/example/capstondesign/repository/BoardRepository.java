@@ -17,6 +17,7 @@ public class BoardRepository {
 
     public MutableLiveData<Board> _board = new MutableLiveData<>();;
     public ArrayList<Board> items;
+    int id;
     String nick, title, text, time;
 
 
@@ -31,12 +32,13 @@ public class BoardRepository {
             {
 
                 JSONObject BoardObject = BoardArray.getJSONObject(i);
+                id = BoardObject.getInt("id");
                 nick = BoardObject.getString("nick");
                 title = BoardObject.getString("title");
                 text = BoardObject.getString("text");
                 time = BoardObject.getString("time");
 
-                items.add(new Board(nick,title,text,time));
+                items.add(new Board(id,nick,title,text,time));
             }
             _board.setValue(new Board(items));
         }catch (JSONException | IOException e) {

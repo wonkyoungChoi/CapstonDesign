@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.Profile;
-import com.example.capstondesign.network.ProfileService;
 import com.example.capstondesign.model.WithdrawTask;
-import com.example.capstondesign.ui.FragmentMain;
+import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.concurrent.ExecutionException;
@@ -39,7 +38,7 @@ public class InWithdrawActivity extends AppCompatActivity {
                     String result = withdrawTask.execute(nickname).get();
                     if(result.contains("delete")) {
                         Toast.makeText(getApplicationContext(), "회원탈퇴 완료", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), FragmentMain.class);
+                        Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                         LoginAcitivity.Login = false;
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

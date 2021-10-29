@@ -18,7 +18,7 @@
         android:background="#FFBB00">
 
         <Button
-            android:id="@+id/group_exit"
+            android:id="@+id/back"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -88,7 +88,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/addbuy_title"
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -113,7 +113,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/addbuy_price"
+                    android:id="@+id/price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -139,7 +139,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/addbuy_headCount"
+                    android:id="@+id/headCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -165,7 +165,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/addbuy_area"
+                    android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -191,7 +191,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/addbuy_text"
+                    android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
