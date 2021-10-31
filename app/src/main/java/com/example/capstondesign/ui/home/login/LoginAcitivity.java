@@ -43,7 +43,12 @@ public class LoginAcitivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(LoginViewModel.class);
 
+
+        model.loadProfile("1");
+
+        observeJsonResult();
         observeSignupResult();
+        observeProfileResult();
 
         context = this;
         activity = LoginAcitivity.this;
@@ -140,8 +145,7 @@ public class LoginAcitivity extends AppCompatActivity {
                 intent = new Intent(activity, MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginAcitivity.Login = true;
-                model.loadProfile();
-                profile = model.getProfile();
+                model.loadProfile(profile.getEmail());
                 Log.d("===LoginEmail", profile.getEmail());
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
@@ -149,6 +153,20 @@ public class LoginAcitivity extends AppCompatActivity {
                 Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
             }
             activity.startActivity(intent);
+        });
+    }
+
+    private void observeJsonResult() {
+        model.getJsonResult().observe(LoginAcitivity.this, json -> {
+            Log.d("===observeJsonResult", json);
+            model.setProfile(json);
+        });
+    }
+
+    private void observeProfileResult() {
+        model.getProfile().observe(LoginAcitivity.this, profile1 -> {
+            Log.d("===observeGetResult", profile1.getEmail());
+            profile = profile1;
         });
     }
 

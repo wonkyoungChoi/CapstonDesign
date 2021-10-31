@@ -36,10 +36,8 @@ public class InBoardActivity extends AppCompatActivity {
     Integer id;
     public String title, nick, time;
     public static String number;
-    Profile profile = LoginAcitivity.profile;
-    String nickname, text;
+    String text;
 
-    EditText comment_edit;
     CommentAdapter commentAdapter;
     ImageView imageView;
 
@@ -110,7 +108,7 @@ public class InBoardActivity extends AppCompatActivity {
                 if(comment.equals("")) {
                     Toast.makeText(getApplicationContext(), "빈칸입니다.", Toast.LENGTH_LONG).show();
                 } else {
-                    Comment ci = new Comment(id.toString() , "닉네임", comment, String.valueOf(now));
+                    Comment ci = new Comment(id.toString() , LoginAcitivity.profile.getNickname(), comment, String.valueOf(now));
                     model.addComment(ci);
                     try {
                         Thread.sleep(200);

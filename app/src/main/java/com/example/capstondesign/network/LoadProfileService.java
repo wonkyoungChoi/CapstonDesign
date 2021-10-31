@@ -1,12 +1,15 @@
 package com.example.capstondesign.network;
 
+import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.network.method.DownloadUrl;
 
 import java.io.IOException;
 
-public class LoadProfileService {
-    DownloadUrl service = new DownloadUrl();
-    public String download() throws IOException {
-        return service.downloadUrl("profilejson.jsp");
+public class LoadProfileService extends AsyncTaskExecutor<String> {
+    String sendMsg;
+    @Override
+    protected String doInBackground(String... strings) throws IOException {
+        sendMsg = "email="+strings[0];
+        return start("profilejson.jsp", sendMsg);
     }
 }

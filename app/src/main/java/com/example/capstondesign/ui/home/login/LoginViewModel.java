@@ -30,7 +30,8 @@ public class LoginViewModel extends ViewModel {
     FacebookRepository facebookRepository = new FacebookRepository();
 
     ProfileRepository profileRepository = new ProfileRepository();
-    Profile profile;
+    private MutableLiveData<String> jsonResult;
+    private MutableLiveData<Profile> profileResult = new MutableLiveData<>();;
 
     OAuthLoginHandler mOAuthLoginHandler;
 
@@ -103,13 +104,24 @@ public class LoginViewModel extends ViewModel {
         return checkResult;
     }
 
-    public void loadProfile() {
-        profileRepository.profileRepository();
-        profile = profileRepository.profile;
+    public void loadProfile(String email) {
+        profileRepository.setLoadProfileService(email);
     }
 
-    public Profile getProfile() {
-        return profile;
+    public MutableLiveData<String> getJsonResult() {
+        if (jsonResult == null) {
+            jsonResult = new MutableLiveData<>();
+        }
+        jsonResult = profileRepository.loadProfileService.result;
+        return jsonResult;
+    }
+
+    public void setProfile(String json) {
+        profileRepository.profileRepository(json);
+    }
+
+    public MutableLiveData<Profile> getProfile() {
+        return profileRepository.profile;
     }
 
 

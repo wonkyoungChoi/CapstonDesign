@@ -26,14 +26,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class AddBoard extends AppCompatActivity {
-    Profile profile = LoginAcitivity.profile;
 
     Uri image;
     static Uri fileBoard[];
     ImageView imgView;
     public String title, time;
     private ActivityAddboardBinding binding;
-    String nick, nickname, text;
+    String nick, text;
     Button back;
     long now;
 
@@ -78,7 +77,7 @@ public class AddBoard extends AppCompatActivity {
             public void onClick(View v) {
                 //getNick();
                 time = String.valueOf(now);
-                nick = nickname;
+                nick = LoginAcitivity.profile.getNickname();
                 title = binding.addboardTitle.getText().toString();
                 text = binding.addboardText.getText().toString();
                 if(title.trim().length() >0 || text.trim().length() >0) {
@@ -124,8 +123,8 @@ public class AddBoard extends AppCompatActivity {
 //                        }
 //                        fileBoard = null;
 //                    }
-                    Log.d("===VALUE", title + text + time);
-                    Board board = new Board(null , "nickname", title, text, time);
+                    Log.d("===VALUE", nick + title + text + time);
+                    Board board = new Board(null , nick, title, text, time);
                     model.addBoard(board);
 
                     finish();

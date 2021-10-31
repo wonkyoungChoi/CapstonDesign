@@ -13,7 +13,7 @@ public class DownloadUrl {
         byte[] buffer = new byte[10000];
         InputStream iStream = null;
         try {
-            URL url1 = new URL("http://172.111.118.187:8080/" + url);
+            URL url1 = new URL("http://192.168.0.15:8080/" + url);
             HttpURLConnection urlConnection = (HttpURLConnection) url1.openConnection();
 
             urlConnection.connect();

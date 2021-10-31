@@ -1,5 +1,10 @@
 package com.example.capstondesign.repository;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.capstondesign.network.LoadProfileService;
 import com.example.capstondesign.ui.Profile;
 
@@ -10,17 +15,23 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class ProfileRepository {
-    public Profile profile = new Profile();
-    LoadProfileService loadProfileService = new LoadProfileService();
+    public MutableLiveData<Profile> profile = new MutableLiveData<>();
+    public LoadProfileService loadProfileService = new LoadProfileService();
 
     String name, email, nickname, phone_num, gender, password;
 
+    public void setLoadProfileService(String email) {
+        loadProfileService.execute(email);
+    }
 
     //Json Parsing
-    public void profileRepository()
+    @SuppressLint("LongLogTag")
+    public void profileRepository(String json)
     {
+        String result = json.substring(json.lastIndexOf("["));
         try{
-            JSONArray ProfileArray = new JSONArray(loadProfileService.download());
+            Log.d("===RESULT", result);
+            JSONArray ProfileArray = new JSONArray(result);
 
             for(int i=0; i<ProfileArray.length(); i++)
             {
@@ -33,14 +44,12 @@ public class ProfileRepository {
                 gender = ProfileObject.getString("gender");
                 password = ProfileObject.getString("password");
 
-                profile.setName(name);
-                profile.setEmail(email);
-                profile.setNickname(nickname);
-                profile.setPhone_num(phone_num);
-                profile.setGender(gender);
-                profile.setPassword(password);
+                Log.d("===Nickname", nickname);
+
+                profile.postValue(new Profile(name, phone_num, email, nickname, password, gender));
+
             }
-        }catch (JSONException | IOException e) {
+        }catch (JSONException e) {
             e.printStackTrace();
         }
     }
