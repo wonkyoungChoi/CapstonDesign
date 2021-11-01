@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.databinding.CommentListItemBinding;
@@ -19,6 +20,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public String nick;
 
     private CommentListItemBinding mBinding;
+    public InBoardViewModel model;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         CommentListItemBinding bind;
@@ -46,7 +48,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
         mBinding.nick.setText(comment.getNick());
         mBinding.text.setText(comment.getComment());
-
 
     }
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,9 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityInboardBinding;
-import com.example.capstondesign.model.DeleteBoardTask;
+import com.example.capstondesign.network.bulletin.board.DeleteBoardService;
 import com.example.capstondesign.ui.MainFragment;
-import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
@@ -39,12 +37,11 @@ public class InBoardActivity extends AppCompatActivity {
     String text;
 
     CommentAdapter commentAdapter;
-    ImageView imageView;
 
     ArrayList<Comment> items = new ArrayList<>();
 
     ActivityInboardBinding binding;
-    CommentViewModel model;
+    InBoardViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class InBoardActivity extends AppCompatActivity {
 
 
 
-        model = new ViewModelProvider(this).get(CommentViewModel.class);
+        model = new ViewModelProvider(this).get(InBoardViewModel.class);
 
 
         intent = getIntent();
@@ -122,7 +119,6 @@ public class InBoardActivity extends AppCompatActivity {
         });
 
 
-
         binding.inboardExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,15 +133,16 @@ public class InBoardActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void InitRecyclerView() {
         commentAdapter = new CommentAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         binding.commentList.setLayoutManager(layoutManager);
         binding.commentList.setAdapter(commentAdapter);
+
+    }
+
+    private void InitDelete() {
 
     }
 
@@ -166,7 +163,6 @@ public class InBoardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.achome:
                 startActivity(MainFragment.class);
@@ -178,14 +174,9 @@ public class InBoardActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.acDelete:
-                DeleteBoardTask deleteBoardTask = new DeleteBoardTask();
-                deleteBoardTask.execute(intent.getStringExtra("nick"),
-                        intent.getStringExtra("title"), intent.getStringExtra("text"), time);
+                model.deleteBoard(id.toString());
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(getApplicationContext(), MainFragment.class);
-                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent2.putExtra("boardNum", 1);
-                startActivity(intent2);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

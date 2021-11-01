@@ -13,7 +13,7 @@ import com.example.capstondesign.repository.NaverRepository;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 public class SignUpViewModel extends ViewModel {
-    SignUpService task = new SignUpService();
+    SignUpService signUpService = new SignUpService();
     EmailCheckTask emailCheckTask = new EmailCheckTask();
     NickCheckTask nickCheckTask = new NickCheckTask();
 
@@ -22,13 +22,13 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> signupResult;
 
     public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) {
-        task.execute(name, phoneNum, email, nick, password, gender);
+        signUpService.execute(name, phoneNum, email, nick, password, gender);
     }
 
     public MutableLiveData<String> getSignUpResult() {
         if (signupResult == null) {
             signupResult = new MutableLiveData<>();
-            signupResult = task.result;
+            signupResult = signUpService.result;
         }
         return signupResult;
     }

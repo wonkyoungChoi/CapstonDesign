@@ -53,7 +53,6 @@ public class MainFragment extends AppCompatActivity {
         // 바텀 네비게이션
         binding.bottomNavigation.setOnNavigationItemSelectedListener(new OnItemSelectedListener());
 
-
     }
 
     // 프래그먼트 교체가 일어나는 실행문이다.

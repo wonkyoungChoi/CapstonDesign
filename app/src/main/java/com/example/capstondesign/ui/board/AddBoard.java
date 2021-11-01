@@ -146,11 +146,6 @@ public class AddBoard extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 //    }
-    @Override
-    public void onRestart() {
-
-        super.onRestart();
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

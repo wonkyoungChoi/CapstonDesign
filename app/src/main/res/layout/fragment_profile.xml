@@ -152,7 +152,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/tradebtn"
+                android:id="@+id/in_my_board"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -163,7 +163,7 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/inrebtn"
+                android:id="@+id/in_watchlist"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
