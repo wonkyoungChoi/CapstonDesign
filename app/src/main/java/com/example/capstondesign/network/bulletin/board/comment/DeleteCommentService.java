@@ -11,7 +11,7 @@ public class DeleteCommentService extends AsyncTaskExecutor<String> {
 
         sendMsg = "id="+strings[0]+ "&time="+strings[1];
 
-        return start("delete_comment.jsp" , sendMsg);
+        return start("remove_comment.jsp" , sendMsg);
 
     }
 }

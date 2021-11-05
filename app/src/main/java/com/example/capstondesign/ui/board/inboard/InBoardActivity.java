@@ -3,6 +3,8 @@ package com.example.capstondesign.ui.board.inboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -162,6 +164,20 @@ public class InBoardActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+
+        if(nick.equals(LoginAcitivity.profile.getNickname())) {
+            inflater.inflate(R.menu.buy_menu, menu);
+        } else {
+            inflater.inflate(R.menu.buy_menu_user, menu);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.achome:
@@ -174,6 +190,7 @@ public class InBoardActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.acDelete:
+                Log.d("===ID", id.toString());
                 model.deleteBoard(id.toString());
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
                 finish();

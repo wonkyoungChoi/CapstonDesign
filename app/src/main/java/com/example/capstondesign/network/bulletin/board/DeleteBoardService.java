@@ -11,7 +11,7 @@ public class DeleteBoardService extends AsyncTaskExecutor<String> {
 
         sendMsg = "id="+strings[0];
 
-        return start("delete_board.jsp" , sendMsg);
+        return start("remove_board.jsp" , sendMsg);
 
     }
 }
