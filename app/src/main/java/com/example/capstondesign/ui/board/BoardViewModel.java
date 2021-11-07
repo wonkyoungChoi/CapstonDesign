@@ -20,7 +20,7 @@ public class BoardViewModel extends ViewModel {
         return board;
     }
 
-    public void addBoard (Board board) {
+    public void addBoard (Board board) throws IOException {
         addBoardService.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime());
     }
 

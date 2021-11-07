@@ -125,7 +125,11 @@ public class AddBoard extends AppCompatActivity {
 //                    }
                     Log.d("===VALUE", nick + title + text + time);
                     Board board = new Board(null , nick, title, text, time);
-                    model.addBoard(board);
+                    try {
+                        model.addBoard(board);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     finish();
                 } else {

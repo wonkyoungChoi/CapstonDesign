@@ -87,6 +87,7 @@ public class BoardFragment extends Fragment {
         View v = binding.getRoot();
 
         model = new ViewModelProvider(this).get(BoardViewModel.class);
+        model.loadBoard();
 
         initRecyclerView();
         observeBoardResult();
