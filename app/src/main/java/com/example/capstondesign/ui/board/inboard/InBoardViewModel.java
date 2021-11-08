@@ -8,6 +8,8 @@ import com.example.capstondesign.network.bulletin.board.comment.AddCommentServic
 import com.example.capstondesign.network.bulletin.board.comment.DeleteCommentService;
 import com.example.capstondesign.repository.CommentRepository;
 
+import java.io.IOException;
+
 
 public class InBoardViewModel extends ViewModel {
 
@@ -26,7 +28,7 @@ public class InBoardViewModel extends ViewModel {
         return comment;
     }
 
-    public void addComment (Comment comment) {
+    public void addComment (Comment comment) throws IOException {
         addCommentService.execute(comment.getId(), comment.getNick(), comment.getComment(), comment.getTime());
     }
 
@@ -34,7 +36,7 @@ public class InBoardViewModel extends ViewModel {
 
     }
 
-    public void deleteBoard(String id) {
+    public void deleteBoard(String id) throws IOException {
         deleteBoardService.execute(id);
     }
 

@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.Profile;
-import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
-import com.example.capstondesign.ui.home.signup.SignUpActivity;
 import com.facebook.login.LoginManager;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 public class LoginAcitivity extends AppCompatActivity {
@@ -44,9 +44,12 @@ public class LoginAcitivity extends AppCompatActivity {
         model = new ViewModelProvider(this).get(LoginViewModel.class);
 
 
-        model.loadProfile("1");
+        try {
+            model.loadProfile("1");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        observeJsonResult();
         observeSignupResult();
         observeProfileResult();
 
@@ -57,8 +60,8 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -140,26 +143,23 @@ public class LoginAcitivity extends AppCompatActivity {
     private void observeSignupResult() {
         model.getCheckResult().observe(LoginAcitivity.this, result -> {
             Log.d("===observeSignupResult", result);
-            Intent intent;
+            Intent intent = null;
             if(result.contains("signup")) {
                 intent = new Intent(activity, MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginAcitivity.Login = true;
-                model.loadProfile(profile.getEmail());
+                try {
+                    model.loadProfile(profile.getEmail());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Log.d("===LoginEmail", profile.getEmail());
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
-                intent = new Intent(activity, FastSignUpActivity.class);
-                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
+//                intent = new Intent(activity, FastSignUpActivity.class);
+//                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
             }
             activity.startActivity(intent);
-        });
-    }
-
-    private void observeJsonResult() {
-        model.getJsonResult().observe(LoginAcitivity.this, json -> {
-            Log.d("===observeJsonResult", json);
-            model.setProfile(json);
         });
     }
 
@@ -173,21 +173,33 @@ public class LoginAcitivity extends AppCompatActivity {
     private void observeKakaoResult() {
         model.getKakaoCheckResult().observe(LoginAcitivity.this, emailResult -> {
             Log.d("===observeKakaoResult", emailResult);
-            model.loadCheck(emailResult);
+            try {
+                model.loadCheck(emailResult);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
     private void observeNaverResult() {
         model.getNaverCheckResult().observe(LoginAcitivity.this, emailResult -> {
             Log.d("===observeNaverResult", emailResult);
-            model.loadCheck(emailResult);
+            try {
+                model.loadCheck(emailResult);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
     private void observeFacebookResult() {
         model.getFacebookCheckResult().observe(LoginAcitivity.this, emailResult -> {
             Log.d("===observeFacebook", emailResult);
-            model.loadCheck(emailResult);
+            try {
+                model.loadCheck(emailResult);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 

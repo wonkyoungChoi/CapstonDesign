@@ -17,7 +17,6 @@ import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.network.bulletin.groupbuying.LoadGroupBuyingService;
-import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.ArrayList;
@@ -84,17 +83,17 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
                 Log.d("onItemClick", Integer.toString(pos));
 
                 getPosition(position);
-                Intent intent = new Intent(getApplicationContext(), InGroupBuying.class);
-                intent.putExtra("price", price);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                intent.putExtra("nick", nick);
-                intent.putExtra("area", area);
-                intent.putExtra("headcount", headCount);
-                intent.putExtra("nowcount", nowCount);
-                intent.putExtra("watchnick", watchnick);
-                //intent.putExtra("count", pos);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), InGroupBuying.class);
+//                intent.putExtra("price", price);
+//                intent.putExtra("title", title);
+//                intent.putExtra("text", text);
+//                intent.putExtra("nick", nick);
+//                intent.putExtra("area", area);
+//                intent.putExtra("headcount", headCount);
+//                intent.putExtra("nowcount", nowCount);
+//                intent.putExtra("watchnick", watchnick);
+//                //intent.putExtra("count", pos);
+//                startActivity(intent);
             }
         });
 

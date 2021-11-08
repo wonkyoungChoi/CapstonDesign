@@ -2,7 +2,6 @@ package com.example.capstondesign.model;
 
 import android.util.Log;
 
-import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.Profile;
 
@@ -66,20 +65,20 @@ public class InGroupBuyProfileCountTask {
                 email_front = CountObject.getString("email_front");
                 email_end = CountObject.getString("email_end");
 
-                if(InGroupBuying.nickname.equals(nickname)) {
-                    if(number.equals("0")) {
-                        number = "-1";
-                    } else if (number.equals("1")){
-                        number = "";
-                        InGroupBuying.email = email_front + "@" + email_end;
-                    }
-                    else {
-                        number =(Integer.parseInt(number) - 1) + "";
-                        InGroupBuying.email = email_front + "@" + email_end;
-                    }
-                    InGroupBuying.number = number;
-                    Log.d("NUMBER!!!", number);
-                }
+//                if(InGroupBuying.nickname.equals(nickname)) {
+//                    if(number.equals("0")) {
+//                        number = "-1";
+//                    } else if (number.equals("1")){
+//                        number = "";
+//                        InGroupBuying.email = email_front + "@" + email_end;
+//                    }
+//                    else {
+//                        number =(Integer.parseInt(number) - 1) + "";
+//                        InGroupBuying.email = email_front + "@" + email_end;
+//                    }
+//                    InGroupBuying.number = number;
+//                    Log.d("NUMBER!!!", number);
+//                }
 
             }
         } catch (JSONException jsonException) {

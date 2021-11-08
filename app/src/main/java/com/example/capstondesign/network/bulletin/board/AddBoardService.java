@@ -1,13 +1,10 @@
 package com.example.capstondesign.network.bulletin.board;
 
-import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import java.io.IOException;
 
-import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class AddBoardService {

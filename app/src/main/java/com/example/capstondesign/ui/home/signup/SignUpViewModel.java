@@ -12,6 +12,8 @@ import com.example.capstondesign.network.signup.SignUpService;
 import com.example.capstondesign.repository.NaverRepository;
 import com.nhn.android.naverlogin.OAuthLogin;
 
+import java.io.IOException;
+
 public class SignUpViewModel extends ViewModel {
     SignUpService signUpService = new SignUpService();
     EmailCheckTask emailCheckTask = new EmailCheckTask();
@@ -21,42 +23,42 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> nickResult;
     private MutableLiveData<String> signupResult;
 
-    public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) {
-        signUpService.execute(name, phoneNum, email, nick, password, gender);
-    }
-
-    public MutableLiveData<String> getSignUpResult() {
-        if (signupResult == null) {
-            signupResult = new MutableLiveData<>();
-            signupResult = signUpService.result;
-        }
-        return signupResult;
-    }
-
-    public void loadNickCheck(String nick) {
-        nickCheckTask.execute(nick);
-    }
-    public MutableLiveData<String> getNickResult() {
-        if (nickResult == null) {
-            nickResult = new MutableLiveData<>();
-            nickResult = nickCheckTask.result;
-        }
-        return nickResult;
-    }
-
-    public void loadEmailCheck(String email) {
-        emailCheckTask.execute(email);
-    }
-    public MutableLiveData<String> getEmailResult() {
-        if (emailResult == null) {
-            emailResult = new MutableLiveData<>();
-            emailResult = emailCheckTask.result;
-        }
-        return emailResult;
-    }
-
-    public OAuthLogin loadNaver(Context context) {
-        return new NaverRepository().login(context);
-    }
+//    public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) throws IOException {
+//        signUpService.execute(name, phoneNum, email, nick, password, gender);
+//    }
+//
+//    public MutableLiveData<String> getSignUpResult() {
+//        if (signupResult == null) {
+//            signupResult = new MutableLiveData<>();
+//            signupResult = signUpService.result;
+//        }
+//        return signupResult;
+//    }
+//
+//    public void loadNickCheck(String nick) {
+//        nickCheckTask.execute(nick);
+//    }
+//    public MutableLiveData<String> getNickResult() {
+//        if (nickResult == null) {
+//            nickResult = new MutableLiveData<>();
+//            nickResult = nickCheckTask.result;
+//        }
+//        return nickResult;
+//    }
+//
+//    public void loadEmailCheck(String email) {
+//        emailCheckTask.execute(email);
+//    }
+//    public MutableLiveData<String> getEmailResult() {
+//        if (emailResult == null) {
+//            emailResult = new MutableLiveData<>();
+//            emailResult = emailCheckTask.result;
+//        }
+//        return emailResult;
+//    }
+//
+//    public OAuthLogin loadNaver(Context context) {
+//        return new NaverRepository().login(context);
+//    }
 
 }

@@ -108,7 +108,11 @@ public class InBoardActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "빈칸입니다.", Toast.LENGTH_LONG).show();
                 } else {
                     Comment ci = new Comment(id.toString() , LoginAcitivity.profile.getNickname(), comment, String.valueOf(now));
-                    model.addComment(ci);
+                    try {
+                        model.addComment(ci);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
@@ -191,7 +195,11 @@ public class InBoardActivity extends AppCompatActivity {
                 break;
             case R.id.acDelete:
                 Log.d("===ID", id.toString());
-                model.deleteBoard(id.toString());
+                try {
+                    model.deleteBoard(id.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
                 finish();
                 break;

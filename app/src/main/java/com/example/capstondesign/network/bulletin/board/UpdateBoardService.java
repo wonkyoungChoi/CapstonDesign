@@ -4,16 +4,28 @@ package com.example.capstondesign.network.bulletin.board;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import com.example.capstondesign.network.method.AsyncTaskExecutor;
+import com.example.capstondesign.network.method.OkhttpNetwork;
+
 import java.io.IOException;
 
-public class UpdateBoardService extends AsyncTaskExecutor<String> {
-    String sendMsg;
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    protected String doInBackground(String... strings) throws IOException {
-        sendMsg = "nick="+strings[0]+"&title="+strings[1]+"&change_title="+strings[2]+"&text="+strings[3]
-                +"&change_text="+strings[4];
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
-        return start("remove_groupbuying.jsp" , sendMsg);
+public class UpdateBoardService  {
+    OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
+
+    String url = "update_board.jsp";
+    RequestBody formbody;
+
+    public void execute(String... strings) throws IOException {
+        formbody  = new FormBody.Builder()
+                .add("nick", strings[0])
+                .add("title", strings[1])
+                .add("change_title", strings[2])
+                .add("text", strings[3])
+                .add("change_text", strings[4])
+                .build();
+        okhttpNetwork.execute(url, formbody);
     }
+
 }

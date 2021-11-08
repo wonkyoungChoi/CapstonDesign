@@ -1,5 +1,7 @@
 package com.example.capstondesign.repository;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -17,6 +19,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class CommentRepository {
     LoadCommentService loadCommentService = new LoadCommentService();
 
@@ -29,27 +35,41 @@ public class CommentRepository {
     //Json Parsing
     public void commentRepository()
     {
-        Log.d("===commentRepository", "check");
         items = new ArrayList<>();
-        try{
-            JSONArray BoardArray = new JSONArray(loadCommentService.download());
 
-            for(int i=0; i<BoardArray.length(); i++)
-            {
+        loadCommentService.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
-                JSONObject BoardObject = BoardArray.getJSONObject(i);
-                id = BoardObject.getString("id");
-                nick = BoardObject.getString("nick");
-                comment = BoardObject.getString("comment");
-                Log.d("===comment", comment);
-                time = BoardObject.getString("time");
-
-
-                items.add(new Comment(id,nick,comment,time));
             }
-            _comment.setValue(new Comment(items));
-        }catch (JSONException | IOException e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            Log.d("===commentRepository", "check");
+                            JSONArray BoardArray = new JSONArray(response.body().string());
+                            for(int i=0; i<BoardArray.length(); i++)
+                            {
+
+                                JSONObject BoardObject = BoardArray.getJSONObject(i);
+                                id = BoardObject.getString("id");
+                                nick = BoardObject.getString("nick");
+                                comment = BoardObject.getString("comment");
+                                Log.d("===comment", comment);
+                                time = BoardObject.getString("time");
+
+                                items.add(new Comment(id,nick,comment,time));
+                            }
+                            _comment.setValue(new Comment(items));
+                        }catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 }

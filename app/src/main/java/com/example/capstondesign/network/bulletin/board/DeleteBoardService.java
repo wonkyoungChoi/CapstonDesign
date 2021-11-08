@@ -1,17 +1,24 @@
 package com.example.capstondesign.network.bulletin.board;
 
 import com.example.capstondesign.network.method.AsyncTaskExecutor;
+import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import java.io.IOException;
 
-public class DeleteBoardService extends AsyncTaskExecutor<String> {
-    String sendMsg;
-    @Override
-    protected String doInBackground(String... strings) throws IOException {
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
-        sendMsg = "id="+strings[0];
+public class DeleteBoardService {
+    OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-        return start("remove_board.jsp" , sendMsg);
+    String url = "remove_board.jsp";
+    RequestBody formbody;
 
+    public void execute(String... strings) throws IOException {
+        formbody  = new FormBody.Builder()
+                .add("id", strings[0])
+                .build();
+        okhttpNetwork.execute(url, formbody);
     }
+
 }

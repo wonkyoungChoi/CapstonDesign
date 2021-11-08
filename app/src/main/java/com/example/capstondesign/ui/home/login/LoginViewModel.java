@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.capstondesign.network.login.LoginService;
 import com.example.capstondesign.network.signup.SignUpCheckService;
+import com.example.capstondesign.repository.CheckRepository;
 import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.repository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
@@ -17,21 +18,22 @@ import com.facebook.CallbackManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
+import java.io.IOException;
+
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> loginResult;
     private MutableLiveData<String> checkResult;
 
     LoginService loginTask;
-    SignUpCheckService checkTask = new SignUpCheckService();
+
     CallbackManager callbackManager = CallbackManager.Factory.create();
 
     NaverRepository naverRepository = new NaverRepository();;
     KakaoRepository kakaoRepository = new KakaoRepository();
     FacebookRepository facebookRepository = new FacebookRepository();
+    CheckRepository checkRepository = new CheckRepository();
 
     ProfileRepository profileRepository = new ProfileRepository();
-    private MutableLiveData<String> jsonResult;
-    private MutableLiveData<Profile> profileResult = new MutableLiveData<>();;
 
     OAuthLoginHandler mOAuthLoginHandler;
 
@@ -92,33 +94,22 @@ public class LoginViewModel extends ViewModel {
     }
 
     //이메일 체크(간편회원가입 관련)
-    public void loadCheck(String email) {
-        checkTask.execute(email);
+    public void loadCheck(String email) throws IOException {
+        checkRepository.checkRepository(email);
     }
 
     public MutableLiveData<String> getCheckResult() {
         if (checkResult == null) {
             checkResult = new MutableLiveData<>();
         }
-        checkResult = checkTask.result;
+        checkResult = checkRepository._check;
         return checkResult;
     }
 
-    public void loadProfile(String email) {
-        profileRepository.setLoadProfileService(email);
+    public void loadProfile(String email) throws IOException {
+        profileRepository.LoadProfileService(email);
     }
 
-    public MutableLiveData<String> getJsonResult() {
-        if (jsonResult == null) {
-            jsonResult = new MutableLiveData<>();
-        }
-        jsonResult = profileRepository.loadProfileService.result;
-        return jsonResult;
-    }
-
-    public void setProfile(String json) {
-        profileRepository.profileRepository(json);
-    }
 
     public MutableLiveData<Profile> getProfile() {
         return profileRepository.profile;

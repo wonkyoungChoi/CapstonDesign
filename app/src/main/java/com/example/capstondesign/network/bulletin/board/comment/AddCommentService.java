@@ -1,19 +1,29 @@
 package com.example.capstondesign.network.bulletin.board.comment;
 
 import com.example.capstondesign.network.method.AsyncTaskExecutor;
+import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import java.io.IOException;
 
-public class AddCommentService extends AsyncTaskExecutor<String> {
-    String sendMsg;
-    @Override
-    protected String doInBackground(String... strings) throws IOException {
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
-        sendMsg = "id="+strings[0]+ "&nick="+strings[1]+"&comment="+strings[2] + "&time="+strings[3];
+public class AddCommentService {
+    OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-        return start("addcomment.jsp" , sendMsg);
+    String url = "addcomment.jsp";
+    RequestBody formbody;
 
+    public void execute(String... strings) throws IOException {
+        formbody  = new FormBody.Builder()
+                .add("id", strings[0])
+                .add("nick", strings[1])
+                .add("comment", strings[2])
+                .add("time", strings[3])
+                .build();
+        okhttpNetwork.execute(url, formbody);
     }
+
 
 
 }

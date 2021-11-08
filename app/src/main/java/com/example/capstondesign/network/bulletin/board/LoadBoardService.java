@@ -17,8 +17,4 @@ public class LoadBoardService {
         okhttpNetwork.EnQueueJson(url, callback);
     }
 
-//    DownloadUrl service = new DownloadUrl();
-//    public String download() throws IOException {
-//        return service.downloadUrl("boardjson.jsp");
-//    }
 }

@@ -15,10 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.capstondesign.databinding.FragmentGroupbuyingBinding;
 import com.example.capstondesign.ui.Profile;
-import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
-import com.example.capstondesign.model.GroupBuyingTimejsonTask;
 import java.util.ArrayList;
 
 public class GroupbuyingFragment extends Fragment {
@@ -105,7 +103,7 @@ public class GroupbuyingFragment extends Fragment {
             @Override
             public void onItemClick(View v, int pos) {
                 position = pos;
-                GroupBuyingTimejsonTask.position = pos + 1;
+//                GroupBuyingTimejsonTask.position = pos + 1;
                 nick = groupbuying.get(pos).getNick();
                 title = groupbuying.get(pos).getTitle();
                 text = groupbuying.get(pos).getText();
@@ -117,17 +115,17 @@ public class GroupbuyingFragment extends Fragment {
                 Log.d("onItemClick", Integer.toString(pos));
 
                 getPosition(position);
-                Intent intent = new Intent(getActivity(), InGroupBuying.class);
-                intent.putExtra("price", price);
-                intent.putExtra("title", title);
-                intent.putExtra("text", text);
-                intent.putExtra("nick", nick);
-                intent.putExtra("area", area);
-                intent.putExtra("headcount", headCount);
-                intent.putExtra("nowcount", nowCount);
-                intent.putExtra("watchnick", watchnick);
-                //intent.putExtra("count", pos);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), InGroupBuying.class);
+//                intent.putExtra("price", price);
+//                intent.putExtra("title", title);
+//                intent.putExtra("text", text);
+//                intent.putExtra("nick", nick);
+//                intent.putExtra("area", area);
+//                intent.putExtra("headcount", headCount);
+//                intent.putExtra("nowcount", nowCount);
+//                intent.putExtra("watchnick", watchnick);
+//                //intent.putExtra("count", pos);
+//                startActivity(intent);
             }
         });
 

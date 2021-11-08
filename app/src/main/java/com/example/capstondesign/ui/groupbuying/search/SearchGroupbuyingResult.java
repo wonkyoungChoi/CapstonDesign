@@ -14,11 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.GroupBuyingTimejsonTask;
-import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.model.SearchTask;
-import com.example.capstondesign.ui.groupbuying.ingroupbuying.InGroupBuying;
 import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -64,7 +62,7 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
             groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int pos) {
-                    GroupBuyingTimejsonTask.position = pos + 1;
+//                    GroupBuyingTimejsonTask.position = pos + 1;
                     nick = group.get(pos).getNick();
                     title = group.get(pos).getTitle();
                     text = group.get(pos).getText();
@@ -75,17 +73,17 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
                     watchnick = group.get(pos).getWatchnick();
                     Log.d("onItemClick", Integer.toString(pos));
 
-                    Intent intent = new Intent(getApplicationContext(), InGroupBuying.class);
-                    intent.putExtra("price", price);
-                    intent.putExtra("title", title);
-                    intent.putExtra("text", text);
-                    intent.putExtra("nick", nick);
-                    intent.putExtra("area", area);
-                    intent.putExtra("headcount", headcount);
-                    intent.putExtra("nowcount", nowCount);
-                    intent.putExtra("watchnick", watchnick);
-                    //intent.putExtra("count", pos);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getApplicationContext(), InGroupBuying.class);
+//                    intent.putExtra("price", price);
+//                    intent.putExtra("title", title);
+//                    intent.putExtra("text", text);
+//                    intent.putExtra("nick", nick);
+//                    intent.putExtra("area", area);
+//                    intent.putExtra("headcount", headcount);
+//                    intent.putExtra("nowcount", nowCount);
+//                    intent.putExtra("watchnick", watchnick);
+//                    //intent.putExtra("count", pos);
+//                    startActivity(intent);
                 }
             });
 
