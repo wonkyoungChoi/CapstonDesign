@@ -2,29 +2,39 @@ package com.example.capstondesign.ui.home.login;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.capstondesign.network.login.LoginService;
-import com.example.capstondesign.network.signup.SignUpCheckService;
 import com.example.capstondesign.repository.CheckRepository;
 import com.example.capstondesign.repository.FacebookRepository;
 import com.example.capstondesign.repository.KakaoRepository;
 import com.example.capstondesign.repository.NaverRepository;
 import com.example.capstondesign.repository.ProfileRepository;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.board.Board;
 import com.facebook.CallbackManager;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class LoginViewModel extends ViewModel {
-    private MutableLiveData<String> loginResult;
+    private MutableLiveData<String> loginResult = new MutableLiveData<>();;
     private MutableLiveData<String> checkResult;
 
-    LoginService loginTask;
+    LoginService loginService = new LoginService();;
 
     CallbackManager callbackManager = CallbackManager.Factory.create();
 
@@ -78,18 +88,30 @@ public class LoginViewModel extends ViewModel {
 
 
     //일반 로그인
-    public void loadLogin(String id, String password) {
-        if (loginTask == null) {
-            loginTask = new LoginService();
-        }
-        loginTask.execute(id, password);
+    public void loadLogin(String id, String password) throws IOException {
+        loginService.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            loginResult.setValue(response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, id, password);
     }
 
     public MutableLiveData<String> getLoginResult () {
-        if (loginResult == null) {
-            loginResult = new MutableLiveData<>();
-            loginResult = loginTask.result;
-        }
         return loginResult;
     }
 

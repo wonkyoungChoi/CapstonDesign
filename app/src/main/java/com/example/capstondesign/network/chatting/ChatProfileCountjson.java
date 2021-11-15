@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.network.chatting;
 
 import android.util.Log;
 

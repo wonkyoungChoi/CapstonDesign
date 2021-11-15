@@ -32,8 +32,8 @@ public class InBoardViewModel extends ViewModel {
         addCommentService.execute(comment.getId(), comment.getNick(), comment.getComment(), comment.getTime());
     }
 
-    public void deleteComment(String id, String time) {
-
+    public void deleteComment(String id, String time) throws IOException {
+        deleteCommentService.execute(id, time);
     }
 
     public void deleteBoard(String id) throws IOException {

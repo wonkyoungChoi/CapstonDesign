@@ -148,9 +148,6 @@ public class InBoardActivity extends AppCompatActivity {
 
     }
 
-    private void InitDelete() {
-
-    }
 
     private void observeCommentResult() {
         model.getAll().observe(this , comment -> {

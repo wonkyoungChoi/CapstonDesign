@@ -1,15 +1,15 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.ui.chatting.inchattingroom;
 
-public class ChatData {
+public class ChattingData {
     private String message;
     private String nickname;
     private String key;
     private String email;
     private String name;
 
-    public ChatData() { }
+    public ChattingData() { }
 
-    public ChatData(String nickname, String message, String key, String email, String name) {
+    public ChattingData(String nickname, String message, String key, String email, String name) {
         this.message = message;
         this.nickname = nickname;
         this.key = key;

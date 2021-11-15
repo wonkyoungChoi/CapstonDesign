@@ -17,8 +17,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.model.ChatData;
-import com.example.capstondesign.model.LastMsgTask;
+import com.example.capstondesign.network.chatting.LastMsgTask;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,8 +32,8 @@ public class InChattingRoom extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference myRef = database.getReference();
     ChattingAdapter chatAdapter;
-    List<ChatData> chatlist = new ArrayList<>();
-    ChatData chatData;
+    List<ChattingData> chatlist = new ArrayList<>();
+    ChattingData chatData;
     private EditText EditText_chat;
     Profile profile = LoginAcitivity.profile;
     private static final String TAG = "Fragment_chatting";
@@ -107,7 +106,7 @@ public class InChattingRoom extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d("CHATCHAT", dataSnapshot.getValue().toString());
-                chatData = dataSnapshot.getValue(ChatData.class);
+                chatData = dataSnapshot.getValue(ChattingData.class);
                 chatAdapter.addChat(chatData);
                 recyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             }
@@ -149,23 +148,17 @@ public class InChattingRoom extends AppCompatActivity {
         Button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    key = myRef.push().getKey();
-                    String msg = EditText_chat.getText().toString();
-                    ChatData chat = new ChatData(ChattingAdapter.nick , msg, key, profile.getEmail(), profile.getName());
-                    Log.d("SEND", ChattingAdapter.nick + "msg" + msg);
-                    //Realtime Database의 Chat 안의 name안의 key에 값을 저장
-                    //key는 보내기 할 때마다 값이 변경되므로 값이 중복 저장되지 않음
-                    myRef.child("Chat").child(name).child(key).setValue(chat);
-                    Log.d("NAME", name);
-                    //마지막 메시지를 데이터베이스에 업데이트 하는 Task
-                    lastMsgTask = new LastMsgTask();
-                    lastMsgTask.execute(msg, othername, ChattingAdapter.nick, othername).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                key = myRef.push().getKey();
+                String msg = EditText_chat.getText().toString();
+                ChattingData chat = new ChattingData(ChattingAdapter.nick , msg, key, profile.getEmail(), profile.getName());
+                Log.d("SEND", ChattingAdapter.nick + "msg" + msg);
+                //Realtime Database의 Chat 안의 name안의 key에 값을 저장
+                //key는 보내기 할 때마다 값이 변경되므로 값이 중복 저장되지 않음
+                myRef.child("Chat").child(name).child(key).setValue(chat);
+                Log.d("NAME", name);
+                //마지막 메시지를 데이터베이스에 업데이트 하는 Task
+//                    lastMsgTask = new LastMsgTask();
+//                    lastMsgTask.execute(msg, othername, ChattingAdapter.nick, othername).get();
                 if(ChattingAdapter.chatData.size()>1) {
                     recyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
                 }

@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.model.ChatRoomData;
-import com.example.capstondesign.model.ChatRoomProfileCountjson;
+import com.example.capstondesign.network.chatting.ChatRoomProfileCountjson;
 import com.example.capstondesign.model.SearchEmailResultTask;
 import com.example.capstondesign.model.SearchEmailTask;
 import com.squareup.picasso.Picasso;
@@ -30,9 +30,8 @@ import java.util.concurrent.ExecutionException;
 public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapter.MyViewHolder> {
     public static String nick, name, email;
     static ChattingRoomAdapter.OnItemClickListener mListener = null;
-    public static ArrayList<ChatRoomData> items = null;
+    public static ArrayList<ChattingRoomData> items = null;
     public static String number;
-    Profile profile = LoginAcitivity.profile;
     String strurl;
     ChatRoomProfileCountjson chatRoomProfileCountjson;
 
@@ -49,7 +48,7 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
         mListener = listener;
     }
 
-    public ChatRoomData getItem(int position) {return items.get(position);}
+    public ChattingRoomData getItem(int position) {return items.get(position);}
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
@@ -89,15 +88,11 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
         }
 
         @SuppressLint("SetTextI18n")
-        public void setItem(ChatRoomData item) {
+        public void setItem(ChattingRoomData item) {
             name.setText(item.getNickname());
             TextView_msg.setText(item.getMessage());
         }
     }
-
-
-    public ChattingRoomAdapter(ArrayList<ChatRoomData> item) { items = item; }
-
 
     @NonNull
     @Override
@@ -117,7 +112,7 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
 
         holder.setIsRecyclable(false);
 
-        ChatRoomData chat = items.get(position);
+        ChattingRoomData chat = items.get(position);
         if(chat.getMessage().equals("null")) {
             chat.setMessage("메시지 없음");
         }
@@ -169,15 +164,12 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
     }
 
 
-    public ChatRoomData getChat(int position) {
+    public ChattingRoomData getChat(int position) {
         return items != null ? items.get(position) : null;
     }
 
-    public void addChat(ChatRoomData chat) {
-        items.add(chat);
-        notifyItemInserted(items.size()-1);
+    public void setChattingRoom(ArrayList<ChattingRoomData> chattingArrayList) {
+        items = chattingArrayList;
     }
-
-
 
 }

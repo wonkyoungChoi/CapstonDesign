@@ -99,22 +99,6 @@ public class BoardFragment extends Fragment {
             }
         });
 
-
-//        boardAdapter.setOnItemClickListener(new BoardAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View v, int pos) {
-//                nick = BoardAdapter.click_nickname;
-//                title = BoardAdapter.click_title;
-//                text = BoardAdapter.click_text;
-//                getPosition(position);
-//                Intent intent = new Intent(getContext(), InBoard.class);
-//                intent.putExtra("title", title);
-//                intent.putExtra("text", text);
-//                intent.putExtra("nick", nick);
-//                startActivity(intent);
-//            }
-//        });
-
         binding.addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

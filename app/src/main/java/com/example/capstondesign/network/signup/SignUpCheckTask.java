@@ -8,20 +8,16 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
-public class SignUpService {
+
+public class SignUpCheckTask {
     OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-    String url = "sign_up.jsp";
+    String url = "fast_sign_up_check.jsp";
     RequestBody formbody;
 
     public void enqueue(Callback callback, String... strings) throws IOException {
         formbody  = new FormBody.Builder()
-                .add("name", strings[0])
-                .add("phone_num", strings[1])
-                .add("email", strings[2])
-                .add("nickname", strings[3])
-                .add("password", strings[4])
-                .add("gender", strings[5])
+                .add("email", strings[0])
                 .build();
         okhttpNetwork.enQueue(url, formbody, callback);
     }

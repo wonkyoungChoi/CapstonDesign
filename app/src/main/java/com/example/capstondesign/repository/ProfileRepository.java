@@ -64,7 +64,7 @@ public class ProfileRepository {
 
                                 Log.d("===Nickname", nickname);
 
-                                profile.postValue(new Profile(name, phone_num, email, nickname, password, gender));
+                                profile.postValue(new Profile(name, phone_num, email, nickname, password, gender, false));
 
                             }
                         }catch (JSONException e) {

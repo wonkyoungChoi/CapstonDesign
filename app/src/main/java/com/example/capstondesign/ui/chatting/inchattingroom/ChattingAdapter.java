@@ -19,8 +19,7 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.model.ChatData;
-import com.example.capstondesign.model.ChatProfileCountjson;
+import com.example.capstondesign.network.chatting.ChatProfileCountjson;
 import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +28,7 @@ import java.util.List;
 public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyViewHolder> {
     public static String nick, name, email;
     private static final String TAG = "ChatAdapter";
-    public ChatData chat;
+    public ChattingData chat;
     String strurl;
     public static String number;
     Profile profile = LoginAcitivity.profile;
@@ -57,8 +56,8 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
         }
     }
 
-    public static List<ChatData> chatData;
-    public ChattingAdapter(List<ChatData> items) { chatData = items; }
+    public static List<ChattingData> chatData;
+    public ChattingAdapter(List<ChattingData> items) { chatData = items; }
 
 
     @NonNull
@@ -151,11 +150,11 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
     }
 
 
-    public ChatData getChat(int position) {
+    public ChattingData getChat(int position) {
         return chatData != null ? chatData.get(position) : null;
     }
 
-    public void addChat(ChatData chat) {
+    public void addChat(ChattingData chat) {
         chatData.add(chat);
         notifyItemInserted(chatData.size()-1);
     }

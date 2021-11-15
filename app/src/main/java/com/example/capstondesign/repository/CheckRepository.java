@@ -5,23 +5,16 @@ import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.capstondesign.network.bulletin.board.LoadBoardService;
-import com.example.capstondesign.network.signup.SignUpCheckService;
-import com.example.capstondesign.ui.board.Board;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.capstondesign.network.signup.SignUpCheckTask;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class CheckRepository {
-    SignUpCheckService signUpCheckService = new SignUpCheckService();
+    SignUpCheckTask signUpCheckService = new SignUpCheckTask();
 
     public MutableLiveData<String> _check = new MutableLiveData<>();;
 

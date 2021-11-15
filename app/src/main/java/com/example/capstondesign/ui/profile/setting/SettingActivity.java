@@ -31,6 +31,9 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.in_setting);
 
         change_password = findViewById(R.id.change_password);
+        if(LoginAcitivity.profile.getFast_signup()) {
+            change_password.setVisibility(View.GONE);
+        }
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,46 +75,39 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void WithdrawClickHandler() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("회원탈퇴").setMessage("비밀번호를 입력해주세요.");
+        if(LoginAcitivity.profile.getFast_signup()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("회원탈퇴").setMessage("비밀번호를 입력해주세요.");
 
-        final EditText et = new EditText(SettingActivity.this);
+            final EditText et = new EditText(SettingActivity.this);
 
-        builder.setView(et);
+            builder.setView(et);
 
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //getPassword();
-                if(et.getText().toString().equals(password)) {
-                    Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "비밀번호를 올바르게 입력하세요.", Toast.LENGTH_SHORT).show();
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //getPassword();
+                    if (et.getText().toString().equals(password)) {
+                        Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "비밀번호를 올바르게 입력하세요.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
 
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
+                }
+            });
 
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
+            startActivity(intent);
+        }
     }
-
-//    void getPassword() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            password = profileService.substringBetween(result, "password:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

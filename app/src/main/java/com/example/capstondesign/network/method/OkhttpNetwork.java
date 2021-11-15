@@ -12,7 +12,7 @@ public class OkhttpNetwork {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://172.121.251.102:8080/" + url)
+                .url("http://192.168.0.15:8080/" + url)
                 .post(formBody)
                 .build();
 
@@ -23,7 +23,7 @@ public class OkhttpNetwork {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://172.121.251.102:8080/" + url)
+                .url("http://192.168.0.15:8080/" + url)
                 .post(formBody)
                 .build();
 
@@ -34,7 +34,7 @@ public class OkhttpNetwork {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://172.121.251.102:8080/" + url)
+                .url("http://192.168.0.15:8080/" + url)
                 .build();
 
         client.newCall(request).enqueue(callback);

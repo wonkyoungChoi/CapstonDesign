@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.capstondesign.databinding.ActivityLoginBinding;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.home.signup.FastSignUpActivity;
+import com.example.capstondesign.ui.home.signup.SignUpActivity;
 import com.facebook.login.LoginManager;
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -60,8 +62,8 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -71,6 +73,7 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("===onClick", "Clcik");
+                profile.setFast_signup(true);
                 LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
                 LoginManager.getInstance().registerCallback(model.getCallbackManager(), model.facebookRepository);
             }
@@ -82,6 +85,7 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.naverLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                profile.setFast_signup(true);
                 mOAuthModule.startOauthLoginActivity(activity, model.getNaverLoginHandler(context));
             }
         });
@@ -91,15 +95,22 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.kakao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                profile.setFast_signup(true);
                 kakaoLogin();
             }
         });
 
         //일반 로그인 버튼
+        observeEmailLoginResult();
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emailLogin();
+                try {
+                    profile.setFast_signup(false);
+                    emailLogin();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -121,6 +132,7 @@ public class LoginAcitivity extends AppCompatActivity {
                     // 로그인 실패
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                 } else {
+                    Log.d("===kakao", "1");
                     model.loadKakaoCallback();
                 }
                 return null;
@@ -132,6 +144,7 @@ public class LoginAcitivity extends AppCompatActivity {
                     // 로그인 실패
                     Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                 } else {
+                    Log.d("===kakao", "2");
                     model.loadKakaoCallback();
                 }
                 return null;
@@ -143,7 +156,7 @@ public class LoginAcitivity extends AppCompatActivity {
     private void observeSignupResult() {
         model.getCheckResult().observe(LoginAcitivity.this, result -> {
             Log.d("===observeSignupResult", result);
-            Intent intent = null;
+            Intent intent;
             if(result.contains("signup")) {
                 intent = new Intent(activity, MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -156,8 +169,8 @@ public class LoginAcitivity extends AppCompatActivity {
                 Log.d("===LoginEmail", profile.getEmail());
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
-//                intent = new Intent(activity, FastSignUpActivity.class);
-//                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
+                intent = new Intent(activity, FastSignUpActivity.class);
+                Toast.makeText(context , "회원가입 하기", Toast.LENGTH_SHORT).show();
             }
             activity.startActivity(intent);
         });
@@ -203,6 +216,24 @@ public class LoginAcitivity extends AppCompatActivity {
         });
     }
 
+    private void observeEmailLoginResult() {
+        model.getLoginResult().observe(this, result -> {
+            Log.d("===RESULT", result);
+            if (result.contains("true")) {
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                binding.id.setText("");
+                binding.password.setText("");
+                Login = true;
+                Intent intent = new Intent(getApplicationContext(), MainFragment.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                login = 4;
+            } else {
+                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,34 +251,13 @@ public class LoginAcitivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
     }
 
-    private void emailLogin() {
-
+    private void emailLogin() throws IOException {
         id_str = binding.id.getText().toString();
-
         if(id_str.contains("@")) {
-
             String pwd_str = binding.password.getText().toString();
-
             if (id_str.trim().length() > 0 && pwd_str.trim().length() > 0) {
+                profile.setEmail(id_str);
                 model.loadLogin(id_str, pwd_str);
-                model.getLoginResult().observe(this, result -> {
-                    Log.d("RESULT", result);
-                    if (result.contains("true")) {
-                        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
-//                        String name = loginTask.substringBetween(result, "name:", "/");
-//                        profile.setName(name);
-                        //profile.setEmail(id_str);
-                        binding.id.setText("");
-                        binding.password.setText("");
-                        Login = true;
-                        Intent intent = new Intent(getApplicationContext(), MainFragment.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        login = 4;
-                    } else {
-                        Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         } else {
             Toast.makeText(getApplicationContext(), "이메일을 정확히 입력하세요.", Toast.LENGTH_SHORT).show();

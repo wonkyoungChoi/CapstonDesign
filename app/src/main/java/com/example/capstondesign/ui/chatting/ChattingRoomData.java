@@ -1,6 +1,11 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.ui.chatting;
 
-public class ChatRoomData{
+import com.example.capstondesign.ui.board.Board;
+
+import java.util.ArrayList;
+
+public class ChattingRoomData {
+    private ArrayList<ChattingRoomData> list;
     private String message;
     private String nickname;
     private Boolean room_check;
@@ -8,13 +13,17 @@ public class ChatRoomData{
     private String name;
 
 
-    public ChatRoomData(String nickname, String message, Boolean check, String email, String name) {
+    public ChattingRoomData(String nickname, String message, Boolean check, String email, String name) {
         this.nickname = nickname;
         this.message = message;
         this.room_check = check;
     }
 
-    public ChatRoomData() { }
+    public ChattingRoomData(ArrayList<ChattingRoomData> list) {
+        this.list = list;
+    }
+
+    public ChattingRoomData() { }
 
     public String getMessage() { return message; }
 
@@ -38,6 +47,13 @@ public class ChatRoomData{
         this.room_check = room_check;
     }
 
+    public ArrayList<ChattingRoomData> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<ChattingRoomData> list) {
+        this.list = list;
+    }
 
     public String getEmail() {
         return email;
@@ -54,4 +70,6 @@ public class ChatRoomData{
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

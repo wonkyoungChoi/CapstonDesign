@@ -6,32 +6,36 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.ChatRoomData;
-import com.example.capstondesign.model.ChatTask;
+import com.example.capstondesign.databinding.FragmentBoardBinding;
+import com.example.capstondesign.databinding.FragmentChattingBinding;
+import com.example.capstondesign.network.chatting.ChattingTask;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.board.BoardAdapter;
+import com.example.capstondesign.ui.board.BoardViewModel;
 import com.example.capstondesign.ui.chatting.inchattingroom.InChattingRoom;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.util.ArrayList;
 
 public class ChattingFragment extends Fragment {
-    public static ChattingRoomAdapter chatRoomAdapter;
-    public static ArrayList<ChatRoomData> chatlist = new ArrayList<>();
+    public ChattingRoomAdapter chattingRoomAdapter;
     static int clicked_item;
     public static String name;
-    Profile profile = LoginAcitivity.profile;
     Boolean check;
-    ChatTask chatTask;
+    ChattingRoomViewModel model;
+    FragmentChattingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,6 +69,13 @@ public class ChattingFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        model.loadChattingRoom();
+        Log.d("===onResume", "1");
+        super.onResume();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,34 +87,26 @@ public class ChattingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //getNick();
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        View v = inflater.inflate(R.layout.fragment_chatting, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
 
-        chatlist.clear();
-        chatTask = new ChatTask();
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        model = new ViewModelProvider(this).get(ChattingRoomViewModel.class);
 
-        chatRoomAdapter = new ChattingRoomAdapter(chatlist);
+        binding = FragmentChattingBinding.inflate(inflater, container, false);
+        View v = binding.getRoot();
 
-        recyclerView.setAdapter(chatRoomAdapter);
-
-
+        initRecyclerView();
+        observeChattingRoomResult();
 
         //채팅방을 클릭했을 경우의 이벤트
-        chatRoomAdapter.setOnItemClickListener(new ChattingRoomAdapter.OnItemClickListener() {
+        chattingRoomAdapter.setOnItemClickListener(new ChattingRoomAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
                 clicked_item = pos;
                 //내가 누른 채팅방의 이름과 mynick, othernick의 구별을 하는 boolean값
-                name = chatRoomAdapter.getItem(pos).getNickname();
-                check = chatRoomAdapter.getItem(pos).getRoom_check();
+                name = chattingRoomAdapter.getItem(pos).getNickname();
+                check = chattingRoomAdapter.getItem(pos).getRoom_check();
                 Intent intent = new Intent(getContext(), InChattingRoom.class);
                 intent.putExtra("name", name);
                 intent.putExtra("check", check);
@@ -140,16 +143,22 @@ public class ChattingFragment extends Fragment {
         alertDialog.show();
     }
 
-//    void getNick() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            ChattingAdapter.nick = profileService.substringBetween(result, "nickname:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+    private void initRecyclerView() {
+        chattingRoomAdapter = new ChattingRoomAdapter();
+        binding.recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setAdapter(chattingRoomAdapter);
+    }
+
+    private void observeChattingRoomResult() {
+        model.getAll().observe(getViewLifecycleOwner(), chattingRoom -> {
+            chattingRoomAdapter.setChattingRoom(chattingRoom.getList());
+            chattingRoomAdapter.notifyDataSetChanged();
+        });
+    }
+
 
 }

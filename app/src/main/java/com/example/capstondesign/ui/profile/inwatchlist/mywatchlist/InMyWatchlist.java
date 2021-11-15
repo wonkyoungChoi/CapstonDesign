@@ -32,7 +32,7 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.GroupBuyingSliderAdapter;
 import com.example.capstondesign.model.BuySubSlideritem;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-import com.example.capstondesign.model.ChattingRoomTask;
+import com.example.capstondesign.network.chatting.AddChattingRoomTask;
 import com.example.capstondesign.model.DelNowCountTask;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.squareup.picasso.Picasso;
@@ -56,7 +56,7 @@ public class InMyWatchlist extends AppCompatActivity {
     String message;
     Intent intent;
     int set, max_count;
-    ChattingRoomTask chattingRoomTask = new ChattingRoomTask();
+    AddChattingRoomTask addChattingRoomTask = new AddChattingRoomTask();
     Profile profile = LoginAcitivity.profile;
     WatchlistCountjson watchlistCountjson;
     AddWatchlistTask addWatchlistTask;
@@ -246,7 +246,7 @@ public class InMyWatchlist extends AppCompatActivity {
                 my_room_name = other_nick;
 
                 //채팅방의 값을 데이터베이스에 저장하는 Task
-                chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
+//                addChattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
 
                 Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.putExtra("chatNum", 3);
@@ -275,7 +275,7 @@ public class InMyWatchlist extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        chattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
+//        addChattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
 
         switch (item.getItemId()) {
             case R.id.achome:

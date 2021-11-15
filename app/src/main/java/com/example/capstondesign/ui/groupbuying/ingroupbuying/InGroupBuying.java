@@ -30,7 +30,7 @@
 //import com.example.capstondesign.ui.home.login.LoginAcitivity;
 //import com.example.capstondesign.model.BuySubSlideritem;
 //import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-//import com.example.capstondesign.model.ChattingRoomTask;
+//import com.example.capstondesign.network.chatting.ChattingRoomTask;
 //import com.example.capstondesign.model.DelNowCountTask;
 //import com.example.capstondesign.model.DeleteGroupbuyingTask;
 //import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
