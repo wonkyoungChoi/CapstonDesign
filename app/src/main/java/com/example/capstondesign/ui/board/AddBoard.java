@@ -22,19 +22,20 @@ import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutionException;
 
 public class AddBoard extends AppCompatActivity {
-
-    Uri image;
-    static Uri fileBoard[];
+    Uri file;
     ImageView imgView;
     public String title, time;
     private ActivityAddboardBinding binding;
     String nick, text;
     Button back;
     long now;
+
 
 
     @Override
@@ -80,49 +81,44 @@ public class AddBoard extends AppCompatActivity {
                 nick = LoginAcitivity.profile.getNickname();
                 title = binding.addboardTitle.getText().toString();
                 text = binding.addboardText.getText().toString();
+
+                String sourceFileUri = "/data/data/com.example.capstondesign/files/" + time + ".jpg";
+                String filename = time + ".jpg";
+
+                Log.d("filename", filename);
+
                 if(title.trim().length() >0 || text.trim().length() >0) {
-//                    if(fileBoard != null) {
-//
-//                        for (int i = 0; i < fileBoard.length; i++) {
-//                            try {
-//                                InputStream ins = getContentResolver().openInputStream(fileBoard[i]);
-//                                // "/data/data/패키지 이름/files/copy.jpg" 저장
-//                                Log.d("에러 찾기", "여기서?3");
-//                                FileOutputStream fos = getApplicationContext().openFileOutput(title.hashCode() + time + ".jpg", 0);
-//
-//
-//                                Log.d("에러 찾기", "여기서?4");
-//
-//                                byte[] buffer = new byte[1024 * 100];
-//
-//                                while (true) {
-//                                    int data = ins.read(buffer);
-//                                    if (data == -1) {
-//                                        break;
-//                                    }
-//
-//                                    fos.write(buffer, 0, data);
-//                                }
-//
-//                                ins.close();
-//                                fos.close();
-//
-//                                new UploadFileAsyncBoard().execute().get();
-//
-//                                Log.d("UploadFile", "됬다");
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                                Log.d("IOException", e.getMessage());
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                                Log.d("InterrException", e.getMessage());
-//                            } catch (ExecutionException e) {
-//                                e.printStackTrace();
-//                                Log.d("ExecutionException", e.getMessage());
-//                            }
-//                        }
-//                        fileBoard = null;
-//                    }
+                    if(file != null) {
+                            try {
+                                InputStream ins = getContentResolver().openInputStream(file);
+                                // "/data/data/패키지 이름/files/copy.jpg" 저장
+                                FileOutputStream fos = AddBoard.this.openFileOutput(filename, 0);
+
+
+                                Log.d("에러 찾기", "여기서?4");
+
+                                byte[] buffer = new byte[1024 * 100];
+
+                                while (true) {
+                                    int data = ins.read(buffer);
+                                    if (data == -1) {
+                                        break;
+                                    }
+
+                                    fos.write(buffer, 0, data);
+                                }
+
+                                ins.close();
+                                fos.close();
+
+                                model.addPicture(filename, sourceFileUri);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.d("IOException", e.getMessage());
+                            }
+                        file = null;
+                    }
                     Log.d("===VALUE", nick + title + text + time);
                     Board board = new Board(null , nick, title, text, time);
                     try {
@@ -157,62 +153,23 @@ public class AddBoard extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Check which request we're responding to
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 try {
                     Log.e("Data" , data.toString());
-                    //Log.e("Data" , data.getData().toString());
-                    Log.d("possible", "여기서?");
-                    //file = data.getData();
-                    ClipData clipData = data.getClipData();
+                    Log.e("Data" , data.getData().toString());
+                    file = data.getData();
 
-
-                    if(clipData.getItemCount() > 1 && clipData.getItemCount() < 9) {
-
-                        Log.d("count", Integer.toString(clipData.getItemCount()));
-                        fileBoard= new Uri[clipData.getItemCount()];
-                        for(int i = 0; i < clipData.getItemCount(); i++) {
-                            fileBoard[i] = clipData.getItemAt(i).getUri();
-                            // 선택한 이미지에서 비트맵 생성
-                            InputStream in = getContentResolver().openInputStream(clipData.getItemAt(i).getUri());
-                            Bitmap img = BitmapFactory.decodeStream(in);
-                            in.close();
-
-                            imgView.setImageBitmap(img);
-
-                        }
-                    } else {
-                        fileBoard = new Uri[1];
-                        fileBoard[0] = data.getData();
-
-                        InputStream in = getContentResolver().openInputStream(data.getData());
-                        Bitmap img = BitmapFactory.decodeStream(in);
-                        in.close();
-
-                        imgView.setImageBitmap(img);
-
-                    }
+                    // 선택한 이미지에서 비트맵 생성
+                    InputStream in = getContentResolver().openInputStream(data.getData());
+                    Bitmap img = BitmapFactory.decodeStream(in);
+                    in.close();
+                    // 이미지 표시
+                    binding.addImageView.setImageBitmap(img);
                 } catch (Exception e) {
                     e.printStackTrace();
-
-                    fileBoard = new Uri[1];
-                    fileBoard[0] = data.getData();
-
-                    InputStream in = null;
-                    try {
-                        in = getContentResolver().openInputStream(data.getData());
-                    } catch (FileNotFoundException fileNotFoundException) {
-                        fileNotFoundException.printStackTrace();
-                    }
-                    Bitmap img = BitmapFactory.decodeStream(in);
-                    try {
-                        in.close();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-
-                    imgView.setImageBitmap(img);
                 }
             }
         }

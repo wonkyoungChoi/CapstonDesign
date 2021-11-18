@@ -1,6 +1,7 @@
 package com.example.capstondesign.ui.board.inboard;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import com.example.capstondesign.network.bulletin.board.DeleteBoardService;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -41,6 +43,7 @@ public class InBoardActivity extends AppCompatActivity {
     CommentAdapter commentAdapter;
 
     ArrayList<Comment> items = new ArrayList<>();
+    int i;
 
     ActivityInboardBinding binding;
     InBoardViewModel model;
@@ -72,31 +75,28 @@ public class InBoardActivity extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
-
+        time = getIntent().getStringExtra("time");
 
 
         binding.title.setText(title);
         binding.text.setText(text);
 
 
-        ImageView imgView = findViewById(R.id.imageHeader);
+        try {
+            i = getResponseCode("http://192.168.0.15:8080/" + time + ".jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-//        try {
-//            i = getResponseCode("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if(i == 404) {
-//            imgView.setVisibility(View.GONE);
-//        } else {
-//            try {
-//                Log.d("URL","http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg" );
-//                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/uploadBoard/" + title.hashCode() + time + ".jpg")).into(imgView);
-//            } catch (Exception e) {
-//                Log.d("NOPICTURE", "NOPICTURE");
-//            }
-//        }
+        if(i == 404) {
+            binding.imageHeader.setVisibility(View.GONE);
+        } else {
+            try {
+                Picasso.get().load(Uri.parse("http://192.168.0.15:8080/" + time + ".jpg")).into(binding.imageHeader);
+            } catch (Exception e) {
+                Log.d("NOPICTURE", "NOPICTURE");
+            }
+        }
 
         binding.inputBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -56,6 +56,7 @@ public class Board {
     public void setId(int id) {this.id = id;}
 
     public Board(Integer id, String title, String nick, String text, String image, String time) {
+        this.id = id;
         this.title = title;
         this.nick = nick;
         this.text = text;

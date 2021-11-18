@@ -10,25 +10,15 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityInprofileBinding;
-import com.example.capstondesign.databinding.ActivityLoginBinding;
-import com.example.capstondesign.model.ProfileCountTask;
-import com.example.capstondesign.model.ProfileCountjsonTask;
-import com.example.capstondesign.network.bulletin.UploadFileAsync;
-import com.example.capstondesign.ui.MainFragment;
-import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -156,7 +146,7 @@ public class InProfileActivity extends AppCompatActivity {
                     ins.close();
                     fos.close();
 
-                    new UploadFileAsync().execute().get();
+//                    new UploadFileAsync().execute().get();
                     Log.d("UploadFile", "됬다");
                     mProgressDialog.dismiss();
                     finish();
@@ -165,12 +155,6 @@ public class InProfileActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("IOException", e.getMessage());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Log.d("InterrException", e.getMessage());
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    Log.d("ExecutionException", e.getMessage());
                 }
             } catch (IOException e) {
                 e.printStackTrace();

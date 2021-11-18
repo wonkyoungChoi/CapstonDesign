@@ -56,7 +56,7 @@ public class BoardRepository {
                                 text = BoardObject.getString("text");
                                 time = BoardObject.getString("time");
 
-                                items.add(new Board(id,nick,title,text,time));
+                                items.add(new Board(id,nick,title,text,"http://192.168.0.15:8080/"+ time + ".jpg", time));
                             }
                             _board.setValue(new Board(items));
                         }catch (JSONException | IOException e) {

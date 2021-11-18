@@ -1,6 +1,7 @@
 package com.example.capstondesign.ui.board;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.example.capstondesign.databinding.BoardListItemBinding;
 import com.example.capstondesign.ui.board.inboard.InBoardActivity;
+import com.squareup.picasso.Picasso;
 
 import android.os.Build;
 import android.util.Log;
@@ -16,6 +18,10 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,19 +51,24 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("position", String.valueOf(position));
+        int i = 0;
 
         holder.setIsRecyclable(false);
         Board board = items.get(position);
 
-        if(items.get(position).getImage() != null) {
-            mBinding.nick.setText(board.getNick());
-            mBinding.title.setText(board.getTitle());
-            mBinding.text.setText(board.getText());
+        try {
+            i = getResponseCode(board.getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mBinding.nick.setText(board.getNick());
+        mBinding.title.setText(board.getTitle());
+        mBinding.text.setText(board.getText());
+        if(i == 404) {
+            mBinding.imageView.setVisibility(View.GONE);
         } else {
-            mBinding.nick.setText(board.getNick());
-            mBinding.title.setText(board.getTitle());
-            mBinding.text.setText(board.getText());
-            //holder.imageView.setVisibility(View.GONE);
+            Picasso.get().load(Uri.parse(board.getImage())).into(mBinding.imageView);
         }
 
         mBinding.layoutBoard.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +91,16 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                 mBinding.layoutBoard.getContext().startActivity(intent);
             }
         });
+    }
+
+    public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
+        URL u = new URL (urlString);
+        HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+        huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+        huc.connect () ;
+        int code = huc.getResponseCode() ;
+        Log.d("GETCODE", String.valueOf(code));
+        return code;
     }
 
     @Override
