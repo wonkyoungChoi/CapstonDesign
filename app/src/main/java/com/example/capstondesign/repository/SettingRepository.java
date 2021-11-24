@@ -21,13 +21,8 @@ public class SettingRepository {
     WithdrawService withdrawService;
     ChangePasswordService changePasswordService;
 
-
     public MutableLiveData<String>  _withdrawCheck = new MutableLiveData<>();
     public MutableLiveData<String> _changePasswordCheck = new MutableLiveData<>();
-
-
-
-
 
     public void withdrawCheckRepository(String nick) {
         if(withdrawService == null) {
@@ -42,16 +37,13 @@ public class SettingRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            _withdrawCheck.setValue(response.body().string());
-                        }catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                new Thread(() -> {
+                    try{
+                        _withdrawCheck.postValue(response.body().string());
+                    }catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+                }).start();
             }
         },nick);
 
@@ -70,16 +62,13 @@ public class SettingRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            _changePasswordCheck.setValue(response.body().string());
-                        }catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                new Thread(() -> {
+                    try{
+                        _changePasswordCheck.postValue(response.body().string());
+                    }catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+                }).start();
             }
         }, email, password, change_pasword);
 

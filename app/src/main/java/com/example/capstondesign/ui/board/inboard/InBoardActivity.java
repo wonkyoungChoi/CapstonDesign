@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,9 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityInboardBinding;
-import com.example.capstondesign.network.bulletin.board.DeleteBoardService;
 import com.example.capstondesign.ui.MainFragment;
-import com.example.capstondesign.ui.board.search.SearchBoard;
+import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +42,7 @@ public class InBoardActivity extends AppCompatActivity {
 
     ArrayList<Comment> items = new ArrayList<>();
     int i;
+    int code;
 
     ActivityInboardBinding binding;
     InBoardViewModel model;
@@ -77,14 +76,12 @@ public class InBoardActivity extends AppCompatActivity {
         nick = getIntent().getStringExtra("nick");
         time = getIntent().getStringExtra("time");
 
-
         binding.title.setText(title);
         binding.text.setText(text);
 
-
         try {
-            i = getResponseCode("http://192.168.0.15:8080/" + time + ".jpg");
-        } catch (IOException e) {
+            i = getResponseCode(getIntent().getStringExtra("image"));
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -92,7 +89,7 @@ public class InBoardActivity extends AppCompatActivity {
             binding.imageHeader.setVisibility(View.GONE);
         } else {
             try {
-                Picasso.get().load(Uri.parse("http://192.168.0.15:8080/" + time + ".jpg")).into(binding.imageHeader);
+                Picasso.get().load(getIntent().getStringExtra("image")).into(binding.imageHeader);
             } catch (Exception e) {
                 Log.d("NOPICTURE", "NOPICTURE");
             }
@@ -185,7 +182,7 @@ public class InBoardActivity extends AppCompatActivity {
                 startActivity(MainFragment.class);
                 break;
             case R.id.acsearch:
-                startActivity(SearchBoard.class);
+                startActivity(SearchBoardResult.class);
                 break;
             case R.id.action_home:
                 finish();
@@ -223,13 +220,23 @@ public class InBoardActivity extends AppCompatActivity {
         startActivity(intent1);
     }
 
-    public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
-        URL u = new URL (urlString);
-        HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
-        huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
-        huc.connect () ;
-        int code = huc.getResponseCode() ;
-        Log.d("GETCODE", String.valueOf(code));
+    public int getResponseCode(String urlString) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    URL u = new URL (urlString);
+                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+                    huc.connect () ;
+                    code = huc.getResponseCode() ;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        thread.join();
         return code;
     }
 

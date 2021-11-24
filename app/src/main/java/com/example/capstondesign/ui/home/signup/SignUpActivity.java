@@ -43,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
     Boolean check;
     Boolean email_click;
 
+    String username, useremail, userNickname, userPassword, passwordcheck, gender, fastCheck;
+
     RadioButton radioButton;
 
     private CountDownTimer timer;
@@ -133,11 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         binding.signUp.setOnClickListener(v -> {
-            try {
-                sign_up();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sign_up();
         });
 
         binding.cancel.setOnClickListener(v -> {
@@ -193,13 +191,14 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void sign_up() throws IOException {
-        String username = binding.name.getText().toString();
-        String useremail = binding.emailName.getText().toString();
-        String userNickname = binding.nickname.getText().toString();
-        String userPassword = binding.password.getText().toString();
-        String passwordcheck = binding.passwordCheck.getText().toString();
-        String gender = radioButton.getText().toString();
+    private void sign_up() {
+        username = binding.name.getText().toString();
+        useremail = binding.emailName.getText().toString();
+        userNickname = binding.nickname.getText().toString();
+        userPassword = binding.password.getText().toString();
+        passwordcheck = binding.passwordCheck.getText().toString();
+        gender = radioButton.getText().toString();
+        fastCheck = "false";
 
         Log.d("BOOLEAN", String.valueOf(check));
 
@@ -210,12 +209,11 @@ public class SignUpActivity extends AppCompatActivity {
 
             Log.d("VALUES", useremail + "&&&&" + userNickname);
 
-            model.loadSignUp(username, userNum, useremail, userNickname, userPassword, gender);
+            model.loadSignUp(username, userNum, useremail, userNickname, userPassword, gender, fastCheck);
             model.getSignUpResult().observe(this, result -> {
                 Log.d("RESULT", result);
                 DuplicateCheck(result, context, activity);
             });
-            ChattingAdapter.nick = userNickname;
 
         } else if (!email_click) {
             Toast.makeText(getApplicationContext(), "이메일 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();

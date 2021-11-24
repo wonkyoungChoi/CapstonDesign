@@ -15,17 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstondesign.R;
 import com.example.capstondesign.model.SearchGroupbuyingTask;
 
-import java.util.concurrent.ExecutionException;
-
 
 public class SearchGroupBuying extends AppCompatActivity {
     EditText search;
     ImageView button, back;
+
+    com.example.capstondesign.databinding.ActivitySearchBoardBinding binding;
     String search_result, result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_page);
+        binding = com.example.capstondesign.databinding.ActivitySearchBoardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         search = (EditText) findViewById(R.id.search);
         button = (ImageView) findViewById(R.id.button);
@@ -33,25 +34,18 @@ public class SearchGroupBuying extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SearchGroupbuyingTask searchGroupbuyingTask = new SearchGroupbuyingTask();
                 search_result = search.getText().toString();
-                try {
-                    result = searchGroupbuyingTask.execute(search_result).get();
-                    if(result.contains("[]")) {
-                        Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), SearchGroupbuyingResult.class);
-                        int idx = result.indexOf("[");
-                        String re_result = result.substring(idx);
-                        Log.d("RESULT", re_result);
-                        intent.putExtra("result", re_result);
-                        startActivity(intent);
-                        finish();
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                //                    result = searchGroupbuyingTask.execute(search_result).get();
+                if(result.contains("[]")) {
+                    Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), SearchGroupbuyingResult.class);
+                    int idx = result.indexOf("[");
+                    String re_result = result.substring(idx);
+                    Log.d("RESULT", re_result);
+                    intent.putExtra("result", re_result);
+                    startActivity(intent);
+                    finish();
                 }
 
             }

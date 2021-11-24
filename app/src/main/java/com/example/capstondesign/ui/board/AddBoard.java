@@ -29,13 +29,11 @@ import java.util.concurrent.ExecutionException;
 
 public class AddBoard extends AppCompatActivity {
     Uri file;
-    ImageView imgView;
     public String title, time;
     private ActivityAddboardBinding binding;
     String nick, text;
-    Button back;
     long now;
-
+    BoardViewModel model;
 
 
     @Override
@@ -45,7 +43,7 @@ public class AddBoard extends AppCompatActivity {
         binding = ActivityAddboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BoardViewModel model = new ViewModelProvider(this).get(BoardViewModel.class);
+        model = new ViewModelProvider(this).get(BoardViewModel.class);
 
         now = System.currentTimeMillis();
 
@@ -134,18 +132,6 @@ public class AddBoard extends AppCompatActivity {
             }
         });
     }
-
-//    void getNick() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            nickname = profileService.substringBetween(result, "nickname:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

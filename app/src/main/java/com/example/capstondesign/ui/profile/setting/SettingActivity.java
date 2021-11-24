@@ -3,6 +3,7 @@ package com.example.capstondesign.ui.profile.setting;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,39 +11,40 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.databinding.ActivitySettingBinding;
+import com.example.capstondesign.databinding.ActivityWithdrawBinding;
 import com.example.capstondesign.ui.profile.setting.changepassword.InChangePasswordActivity;
 import com.example.capstondesign.ui.profile.setting.withdraw.InWithdrawActivity;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
-import java.util.concurrent.ExecutionException;
-
 public class SettingActivity extends AppCompatActivity {
+    ActivitySettingBinding binding;
 
-    Button change_password, withdraw;
     String password;
-    Profile profile = LoginAcitivity.profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.in_setting);
+        binding = ActivitySettingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        change_password = findViewById(R.id.change_password);
-        if(LoginAcitivity.profile.getFast_signup()) {
-            change_password.setVisibility(View.GONE);
+
+        Log.d("FASTSIGNUP", String.valueOf(LoginAcitivity.profile.getFast_signup()));
+
+        if(LoginAcitivity.profile.getFast_signup().equals("true")) {
+            binding.changePassword.setVisibility(View.GONE);
         }
-        change_password.setOnClickListener(new View.OnClickListener() {
+        binding.changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ChangeClickHandler();
             }
         });
 
-        withdraw = findViewById(R.id.withdraw);
-        withdraw.setOnClickListener(new View.OnClickListener() {
+        binding.withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WithdrawClickHandler();
@@ -75,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void WithdrawClickHandler() {
-        if(LoginAcitivity.profile.getFast_signup()) {
+        if(LoginAcitivity.profile.getFast_signup().equals("false")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("회원탈퇴").setMessage("비밀번호를 입력해주세요.");
 
@@ -86,7 +88,7 @@ public class SettingActivity extends AppCompatActivity {
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //getPassword();
+                    password = LoginAcitivity.profile.getPassword();
                     if (et.getText().toString().equals(password)) {
                         Intent intent = new Intent(getApplicationContext(), InWithdrawActivity.class);
                         startActivity(intent);

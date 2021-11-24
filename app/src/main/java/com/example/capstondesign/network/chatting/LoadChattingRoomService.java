@@ -4,10 +4,10 @@ import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import okhttp3.Callback;
 
-public class ChattingTask {
+public class LoadChattingRoomService {
     OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-    String url = "chattingjson.jsp";
+    String url = "chattingroomjson.jsp";
 
     public void enqueue(Callback callback) {
         okhttpNetwork.EnQueueJson(url, callback);

@@ -12,11 +12,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.FragmentGroupbuyingBinding;
+import com.example.capstondesign.databinding.GroupbuyingListItemBinding;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.board.BoardAdapter;
+import com.example.capstondesign.ui.board.BoardViewModel;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GroupbuyingFragment extends Fragment {
@@ -27,11 +35,12 @@ public class GroupbuyingFragment extends Fragment {
     Profile profile = LoginAcitivity.profile;
     public static int position;
 
-    public static GroupBuyingAdapter groupBuyingAdapter;
+    public GroupBuyingAdapter adapter;
 
     public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();
 
     FragmentGroupbuyingBinding binding;
+    GroupbuyingViewModel model;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,68 +82,35 @@ public class GroupbuyingFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        model.loadGroupbuying();
+        Log.d("===onResume", "1");
+        super.onResume();
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = FragmentGroupbuyingBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-        //getNick();
+        model = new ViewModelProvider(this).get(GroupbuyingViewModel.class);
 
-        groupbuying.clear();
-
-        binding.rv.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        binding.rv.setLayoutManager(layoutManager);
-
-        groupBuyingAdapter = new GroupBuyingAdapter(groupbuying);
+        initRecyclerView();
+        observeGroupbuyingResult();
+        observeWatchlistResult();
 
 
-        binding.rv.setAdapter(groupBuyingAdapter);
-
-        groupBuyingAdapter.setOnItemClickListener(new GroupBuyingAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                position = pos;
-//                GroupBuyingTimejsonTask.position = pos + 1;
-                nick = groupbuying.get(pos).getNick();
-                title = groupbuying.get(pos).getTitle();
-                text = groupbuying.get(pos).getText();
-                area = groupbuying.get(pos).getArea();
-                price = groupbuying.get(pos).getPrice();
-                headCount = groupbuying.get(pos).getHeadcount();
-                nowCount = groupbuying.get(pos).getNowCount();
-                watchnick = groupbuying.get(pos).getWatchnick();
-                Log.d("onItemClick", Integer.toString(pos));
-
-                getPosition(position);
-//                Intent intent = new Intent(getActivity(), InGroupBuying.class);
-//                intent.putExtra("price", price);
-//                intent.putExtra("title", title);
-//                intent.putExtra("text", text);
-//                intent.putExtra("nick", nick);
-//                intent.putExtra("area", area);
-//                intent.putExtra("headcount", headCount);
-//                intent.putExtra("nowcount", nowCount);
-//                intent.putExtra("watchnick", watchnick);
-//                //intent.putExtra("count", pos);
-//                startActivity(intent);
-            }
-        });
 
         //관심목록 클릭
-        groupBuyingAdapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
+        adapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
             @Override
-            public void onItemClick(View v, int pos) {
-
+            public void onItemClick(View v, int pos) throws IOException {
                 Toast.makeText(getContext(), "관심목록 버튼 클릭", Toast.LENGTH_SHORT).show();
+                model.addWatchlist(LoginAcitivity.profile.getNickname(), adapter.items.get(pos).getTime());
             }
         });
 
@@ -157,20 +133,34 @@ public class GroupbuyingFragment extends Fragment {
         return v;
     }
 
-    private void getPosition(int position) {
-        this.position = position;
+    private void observeGroupbuyingResult() {
+        model.getAll().observe(getViewLifecycleOwner(), groupbuying -> {
+            adapter.setBoard(groupbuying.list);
+            adapter.notifyDataSetChanged();
+        });
     }
 
-//    void getNick() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            mynick = profileService.substringBetween(result, "nickname:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void observeWatchlistResult() {
+        model.getResult().observe(getViewLifecycleOwner(), result -> {
+            if(result.contains("추가")) {
+                GroupbuyingListItemBinding.bind(getView()).interestBtn.setImageResource(R.drawable.interest_aft);
+                Log.d("추가", result);
+            } else if(result.contains("삭제")){
+                GroupbuyingListItemBinding.bind(getView()).interestBtn.setImageResource(R.drawable.interest_prv);
+                //하트 흰색
+                Log.d("삭제", result);
+            }
+        });
+    }
+
+    private void initRecyclerView() {
+        adapter = new GroupBuyingAdapter();
+        binding.rv.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        binding.rv.setLayoutManager(layoutManager);
+        binding.rv.setAdapter(adapter);
+    }
+
 
 }

@@ -21,19 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.AddNowCountTask;
+import com.example.capstondesign.network.bulletin.groupbuying.AddNowCountService;
 import com.example.capstondesign.model.InWatchlistProfileCountTask;
 import com.example.capstondesign.model.WatchlistCountjson;
-import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistTask;
+import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistService;
 import com.example.capstondesign.ui.MainFragment;
 import com.example.capstondesign.ui.Profile;
-import com.example.capstondesign.ui.board.search.SearchBoard;
+import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.groupbuying.ingroupbuying.GroupBuyingSliderAdapter;
-import com.example.capstondesign.model.BuySubSlideritem;
+import com.example.capstondesign.ui.BuySubSlideritem;
 import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
-import com.example.capstondesign.network.chatting.AddChattingRoomTask;
-import com.example.capstondesign.model.DelNowCountTask;
+import com.example.capstondesign.network.chatting.AddChattingRoomService;
+import com.example.capstondesign.network.bulletin.groupbuying.DelNowCountService;
 import com.example.capstondesign.model.DeleteGroupbuyingTask;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -48,7 +48,6 @@ public class InMyWatchlist extends AppCompatActivity {
     ImageView Myinfoimage;
     EditText chattingroom, othernick;
     String my_room_name,other_room_name, other_nick;
-    String mynick = ChattingAdapter.nick;
     public static String number, nickname, email, time;
     String strurl;
     InWatchlistProfileCountTask inWatchlistProfileCountTask;
@@ -56,10 +55,10 @@ public class InMyWatchlist extends AppCompatActivity {
     String message;
     Intent intent;
     int set, max_count;
-    AddChattingRoomTask addChattingRoomTask = new AddChattingRoomTask();
+    AddChattingRoomService addChattingRoomTask = new AddChattingRoomService();
     Profile profile = LoginAcitivity.profile;
     WatchlistCountjson watchlistCountjson;
-    AddWatchlistTask addWatchlistTask;
+    AddWatchlistService addWatchlistTask;
 
     ImageView interest_btn;
     ViewPager2 pager2;
@@ -80,7 +79,7 @@ public class InMyWatchlist extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buy_submain);
+        setContentView(R.layout.activity_ingroupbuying);
 
         //getNick();
 
@@ -144,9 +143,9 @@ public class InMyWatchlist extends AppCompatActivity {
                 if(set>=max_count) {
                     Toast.makeText(getApplicationContext(), "모집인원보다 많이 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    AddNowCountTask addNowCountTask = new AddNowCountTask();
+                    AddNowCountService addNowCountTask = new AddNowCountService();
                     Log.d("SET", String.valueOf(set));
-                    addNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
+//                    addNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
                     set = set + 1;
                     nowCount.setText(String.valueOf(set));
                 }
@@ -159,9 +158,9 @@ public class InMyWatchlist extends AppCompatActivity {
                 if(set<=1) {
                     Toast.makeText(getApplicationContext(), "최소인원보다 적게 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    DelNowCountTask delNowCountTask = new DelNowCountTask();
+                    DelNowCountService delNowCountTask = new DelNowCountService();
                     Log.d("SET", String.valueOf(set));
-                    delNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
+//                    delNowCountTask.execute(real_nick, intent.getStringExtra("title"), intent.getStringExtra("text"), String.valueOf(set));
                     set = set - 1;
                     nowCount.setText(String.valueOf(set));
                 }
@@ -239,14 +238,11 @@ public class InMyWatchlist extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                other_room_name = mynick;
+                other_room_name = LoginAcitivity.profile.getNickname();
                 other_nick = intent.getStringExtra("nick");
 
                 //내 채팅방의 이름은 상대방의 닉네임
                 my_room_name = other_nick;
-
-                //채팅방의 값을 데이터베이스에 저장하는 Task
-//                addChattingRoomTask.execute(mynick, other_nick, my_room_name, other_room_name, message);
 
                 Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.putExtra("chatNum", 3);
@@ -282,13 +278,13 @@ public class InMyWatchlist extends AppCompatActivity {
                 startActivity(MainFragment.class);
                 break;
             case R.id.acsearch:
-                startActivity(SearchBoard.class);
+                startActivity(SearchBoardResult.class);
                 break;
 
             case R.id.acDelete:
                 DeleteGroupbuyingTask deleteGroupbuyingTask = new DeleteGroupbuyingTask();
-                deleteGroupbuyingTask.execute(intent.getStringExtra("nick"),
-                        intent.getStringExtra("title"), intent.getStringExtra("text"));
+//                deleteGroupbuyingTask.execute(intent.getStringExtra("nick"),
+//                        intent.getStringExtra("title"), intent.getStringExtra("text"));
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainFragment.class);
                 intent.putExtra("groupbuyingNum", 2);

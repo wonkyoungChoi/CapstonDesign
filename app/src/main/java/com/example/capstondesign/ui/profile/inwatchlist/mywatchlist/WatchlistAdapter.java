@@ -19,11 +19,9 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
-import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyViewHolder> {
     static OnInterestClickListener mListener = null;
@@ -114,7 +112,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
     @Override
     public WatchlistAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.groupbuy_item, parent, false);
+                .inflate(R.layout.groupbuying_list_item, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -175,7 +173,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.MyVi
             holder.nowCount.setText(groupbuyingList.get(position).getNowCount());
             holder.area.setText(groupbuyingList.get(position).getArea());
 
-            String get = "http://13.124.75.92:8080/upload/" + groupbuyingList.get(position).getBuy_image();
+            String get = groupbuyingList.get(position).getImage_url();
             Log.d("getPhoto", get);
             Picasso.get().load(Uri.parse(get)).into(holder.imageView);
 

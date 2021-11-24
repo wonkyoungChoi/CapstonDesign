@@ -45,13 +45,6 @@ public class LoginAcitivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
-        try {
-            model.loadProfile("1");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         observeSignupResult();
         observeProfileResult();
 
@@ -73,7 +66,6 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("===onClick", "Clcik");
-                profile.setFast_signup(true);
                 LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this, Arrays.asList("public_profile", "user_gender", "email"));
                 LoginManager.getInstance().registerCallback(model.getCallbackManager(), model.facebookRepository);
             }
@@ -85,7 +77,7 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.naverLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profile.setFast_signup(true);
+                Log.d("===NaveronClick", "===NaveronClick");
                 mOAuthModule.startOauthLoginActivity(activity, model.getNaverLoginHandler(context));
             }
         });
@@ -95,7 +87,6 @@ public class LoginAcitivity extends AppCompatActivity {
         binding.kakao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profile.setFast_signup(true);
                 kakaoLogin();
             }
         });
@@ -106,7 +97,6 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    profile.setFast_signup(false);
                     emailLogin();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -155,17 +145,14 @@ public class LoginAcitivity extends AppCompatActivity {
 
     private void observeSignupResult() {
         model.getCheckResult().observe(LoginAcitivity.this, result -> {
+            Log.d("===observeSignupResult", "===observeSignupResult");
             Log.d("===observeSignupResult", result);
             Intent intent;
             if(result.contains("signup")) {
                 intent = new Intent(activity, MainFragment.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginAcitivity.Login = true;
-                try {
-                    model.loadProfile(profile.getEmail());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                model.loadProfile(profile.getEmail());
                 Log.d("===LoginEmail", profile.getEmail());
                 Toast.makeText(context , "로그인 성공", Toast.LENGTH_SHORT).show();
             } else {
@@ -199,7 +186,9 @@ public class LoginAcitivity extends AppCompatActivity {
             Log.d("===observeNaverResult", emailResult);
             try {
                 model.loadCheck(emailResult);
+                Log.d("===observeNaverResult", "success");
             } catch (IOException e) {
+                Log.d("===observeNaverResult", "error");
                 e.printStackTrace();
             }
         });
@@ -221,6 +210,7 @@ public class LoginAcitivity extends AppCompatActivity {
             Log.d("===RESULT", result);
             if (result.contains("true")) {
                 Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                model.loadProfile(binding.id.getText().toString());
                 binding.id.setText("");
                 binding.password.setText("");
                 Login = true;

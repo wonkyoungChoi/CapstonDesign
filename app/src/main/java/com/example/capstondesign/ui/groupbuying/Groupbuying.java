@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Groupbuying {
     ArrayList<Groupbuying> list;
-    String buy_image;
+    String picture_count;
     String nick;
     String title;
     String text;
@@ -17,8 +17,12 @@ public class Groupbuying {
     String watchnick;
     String time;
     String number;
+    String image_url;
+    String email;
+    Integer id;
 
-    public Groupbuying(String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String buy_image, String time, String number) {
+    public Groupbuying(Integer id, String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String picture_count, String time, String image_url, String email) {
+        this.id = id;
         this.nick = nick;
         this.title = title;
         this.text = text;
@@ -27,9 +31,10 @@ public class Groupbuying {
         this.nowCount = nowCount;
         this.area = area;
         this.watchnick = watchnick;
-        this.buy_image = buy_image;
+        this.picture_count = picture_count;
         this.time = time;
-        this.number = number;
+        this.image_url = image_url;
+        this.email = email;
     }
 
     public Groupbuying(ArrayList<Groupbuying> list) {
@@ -50,14 +55,6 @@ public class Groupbuying {
 
     public void setNick(String nick) {
         this.nick = nick;
-    }
-
-    public String getBuy_image() {
-        return buy_image;
-    }
-
-    public void setBuy_image(String buy_image) {
-        this.buy_image = buy_image;
     }
 
     public String getTitle() {
@@ -122,6 +119,38 @@ public class Groupbuying {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getPicture_count() {
+        return picture_count;
+    }
+
+    public void setPicture_count(String picture_count) {
+        this.picture_count = picture_count;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

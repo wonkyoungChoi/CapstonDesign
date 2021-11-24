@@ -1,4 +1,6 @@
-package com.example.capstondesign.network.profile.setting;
+package com.example.capstondesign.network.bulletin.board;
+
+import android.os.AsyncTask;
 
 import com.example.capstondesign.network.method.OkhttpNetwork;
 
@@ -6,16 +8,17 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
-public class WithdrawService {
+public class SearchBoardService {
     OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-    String url = "withdraw.jsp";
+    String url = "search_board.jsp";
     RequestBody formbody;
 
-    public void enqueue(Callback callback, String... strings) {
+    public void enqueue(Callback callback,String... strings) {
         formbody  = new FormBody.Builder()
-                .add("nick", strings[0])
+                .add("search", strings[0])
                 .build();
         okhttpNetwork.enQueue(url, formbody, callback);
     }
+
 }

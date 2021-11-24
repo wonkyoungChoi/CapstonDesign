@@ -15,31 +15,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.capstondesign.databinding.ActivityInprofileBinding;
+import com.example.capstondesign.ui.board.AddBoard;
+import com.example.capstondesign.ui.board.BoardViewModel;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.example.capstondesign.ui.profile.ProfileViewModel;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class InProfileActivity extends AppCompatActivity {
-    String name, phone_num, email , nickname, password, gender, result, result1, url;
+
     public static String number;
-    String picture = "";
-    TextView nameTv, phone_numTv, emailTv, nicknameTv, passwordTv, genderTv;
+
     ImageView showUserProfile;
-    Uri uri, downloadUri;
-    static Uri file = null;
-    Bitmap bitmap;
+    String strurl;
 
+    Uri file = null;
 
+    ProfileViewModel model;
     private ActivityInprofileBinding binding;
 
 
     int PICK_IMAGE_REQUEST = 1;
     ProgressDialog mProgressDialog;
+
+    int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +58,33 @@ public class InProfileActivity extends AppCompatActivity {
         binding = ActivityInprofileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        model = new ViewModelProvider(this).get(ProfileViewModel.class);
 
+        String url = "http://192.168.0.15:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
+        profileLoad(url);
+
+
+
+        binding.name.setText(LoginAcitivity.profile.getName());
+        binding.phoneNum.setText(LoginAcitivity.profile.getPhone_num());
+        binding.email.setText(LoginAcitivity.profile.getEmail());
+        binding.nickname.setText(LoginAcitivity.profile.getNickname());
+        binding.password.setText(LoginAcitivity.profile.getPassword());
+        binding.gender.setText(LoginAcitivity.profile.getGender());
+
+
+        binding.profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                // Show only images, no videos or anything else
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                // Always show the chooser (if there are multiple options available)
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
 
         binding.inprofileExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,51 +93,23 @@ public class InProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-        //result = profileService.execute(profile.getName(), profile.getEmail()).get();
-        //
-//        try {
-//            //
-//            //String a = profileTask.substringBetween(result1, "number:", "/");
-//
-//            Log.d("TEST", number);
-//            if(number.equals("-1")) {
-//                strurl = "http://13.124.75.92:8080/king.png";
-//                Log.d("NUM0", strurl);
-//            } else {
-//                strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + number + ".jpg";
-//                Log.d("NUM", strurl);
-//            }
-//            profile.setPicture(strurl);
-//            Picasso.get().load(Uri.parse(strurl)).into(showUserProfile);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            profile.setPicture("http://13.124.75.92:8080/king.png");
-//            Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(showUserProfile);
-//        }
-
-
-
-            binding.name.setText(LoginAcitivity.profile.getName());
-            binding.phoneNum.setText(LoginAcitivity.profile.getPhone_num());
-            binding.email.setText(LoginAcitivity.profile.getEmail());
-            binding.nickname.setText(LoginAcitivity.profile.getNickname());
-            binding.password.setText(LoginAcitivity.profile.getPassword());
-            binding.gender.setText(LoginAcitivity.profile.getGender());
-
-
-//        binding.profilePicture.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent();
-//                // Show only images, no videos or anything else
-//                intent.setType("image/*");
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                // Always show the chooser (if there are multiple options available)
-//                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-//            }
-//        });
+    private void profileLoad(String url) {
+        try {
+            if (getResponseCode(url) == 404) {
+                url = "http://192.168.0.15:8080/test/king.png";
+            } else {
+                url = "http://192.168.0.15:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
+            }
+            Picasso.get()
+                    .load(Uri.parse(url))
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(binding.profilePicture);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -114,6 +119,8 @@ public class InProfileActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             file = data.getData();
+            String filename = LoginAcitivity.profile.getEmail() + ".jpg";
+            String sourceFileUri = "/data/data/com.example.capstondesign/files/" + LoginAcitivity.profile.getEmail() + ".jpg";
 
             try {
                 InputStream in = getContentResolver().openInputStream(data.getData());
@@ -121,16 +128,18 @@ public class InProfileActivity extends AppCompatActivity {
                 in.close();
                 // Log.d(TAG, String.valueOf(bitmap));
                 Toast.makeText(this, "프로필 이미지 선택" , Toast.LENGTH_SHORT).show();
-//                result1 = profileCountTask.execute(profile.getName(), email_front, email_end).get(); // 숫자 넣기 파일 길이도 넣어야 돼
-//                Log.d("RESULTLOG", result1);
+
                 mProgressDialog = new ProgressDialog(this);
                 mProgressDialog.setMessage("업로드 중...");
                 mProgressDialog.show();
-                showUserProfile.setImageBitmap(img);
+                binding.profilePicture.setImageBitmap(img);
                 try {
                     InputStream ins = getContentResolver().openInputStream(file);
                     // "/data/data/패키지 이름/files/copy.jpg" 저장
-                    FileOutputStream fos = openFileOutput( email + ".jpg", 0);
+                    FileOutputStream fos = this.openFileOutput(filename, 0);
+
+
+                    Log.d("에러 찾기", "여기서?4");
 
                     byte[] buffer = new byte[1024 * 100];
 
@@ -146,12 +155,9 @@ public class InProfileActivity extends AppCompatActivity {
                     ins.close();
                     fos.close();
 
-//                    new UploadFileAsync().execute().get();
-                    Log.d("UploadFile", "됬다");
+                    model.addProfile(filename, sourceFileUri);
                     mProgressDialog.dismiss();
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), InProfileActivity.class);
-                    startActivity(intent);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("IOException", e.getMessage());
@@ -163,6 +169,26 @@ public class InProfileActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public int getResponseCode(String urlString) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    URL u = new URL (urlString);
+                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+                    huc.connect () ;
+                    code = huc.getResponseCode() ;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        thread.join();
+        return code;
     }
 
 }

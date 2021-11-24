@@ -7,23 +7,24 @@ import java.util.ArrayList;
 public class ChattingRoomData {
     private ArrayList<ChattingRoomData> list;
     private String message;
-    private String nickname;
-    private Boolean room_check;
-    private String email;
-    private String name;
+    private String mynick;
+    private String othernick;
+    private String myemail;
+    private String otheremail;
+    private boolean check;
 
-
-    public ChattingRoomData(String nickname, String message, Boolean check, String email, String name) {
-        this.nickname = nickname;
+    public ChattingRoomData(String mynick, String othernick, String message, String myemail, String otheremail, Boolean check) {
+        this.mynick = mynick;
         this.message = message;
-        this.room_check = check;
+        this.othernick = othernick;
+        this.myemail = myemail;
+        this.otheremail = otheremail;
+        this.check = check;
     }
 
     public ChattingRoomData(ArrayList<ChattingRoomData> list) {
         this.list = list;
     }
-
-    public ChattingRoomData() { }
 
     public String getMessage() { return message; }
 
@@ -31,20 +32,36 @@ public class ChattingRoomData {
         this.message = message;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getMynick() {
+        return mynick;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setMynick(String mynick) {
+        this.mynick = mynick;
     }
 
-    public Boolean getRoom_check() {
-        return room_check;
+    public String getOthernick() {
+        return othernick;
     }
 
-    public void setRoom_check(Boolean room_check) {
-        this.room_check = room_check;
+    public void setOthernick(String othernick) {
+        this.othernick = othernick;
+    }
+
+    public String getMyemail() {
+        return myemail;
+    }
+
+    public void setMyemail(String myemail) {
+        this.myemail = myemail;
+    }
+
+    public String getOtheremail() {
+        return otheremail;
+    }
+
+    public void setOtheremail(String otheremail) {
+        this.otheremail = otheremail;
     }
 
     public ArrayList<ChattingRoomData> getList() {
@@ -55,21 +72,11 @@ public class ChattingRoomData {
         this.list = list;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isCheck() {
+        return check;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCheck(boolean check) {
+        this.check = check;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
 }

@@ -6,11 +6,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.capstondesign.network.chatting.ChattingTask;
+import com.example.capstondesign.network.chatting.LoadChattingRoomService;
 import com.example.capstondesign.ui.board.Board;
-import com.example.capstondesign.ui.chatting.ChattingFragment;
 import com.example.capstondesign.ui.chatting.ChattingRoomData;
-import com.example.capstondesign.ui.chatting.inchattingroom.ChattingAdapter;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 
 import org.json.JSONArray;
@@ -28,17 +26,15 @@ public class ChattingRoomRepository {
     public MutableLiveData<ChattingRoomData> _chattingRoom = new MutableLiveData<>();;
     public ArrayList<ChattingRoomData> chatlist;
 
-    ChattingRoomData chatRoomData;
-    String nickname, nickname2;
-    ChattingTask chattingTask = new ChattingTask();
-    int k = 0;
+    String mynick, othernick, myemail, otheremail, last_msg;
+    LoadChattingRoomService loadChattingRoomService = new LoadChattingRoomService();
 
     //Json Parsing
     public void chattingRoomRepository()
     {
         chatlist = new ArrayList<>();
 
-        chattingTask.enqueue(new Callback() {
+        loadChattingRoomService.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -46,7 +42,7 @@ public class ChattingRoomRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try{
@@ -55,63 +51,33 @@ public class ChattingRoomRepository {
                             {
 
                                 JSONObject ChatObject = ChatArray.getJSONObject(i);
-                                nickname = ChatObject.getString("mynick");
-                                nickname2 = ChatObject.getString("othernick");
+                                mynick = ChatObject.getString("mynick");
+                                othernick = ChatObject.getString("othernick");
+                                myemail = ChatObject.getString("myemail");
+                                otheremail = ChatObject.getString("otheremail");
+                                last_msg = ChatObject.getString("last_msg");
 
-                                if(nickname.equals(LoginAcitivity.profile.getNickname())) {
+                                Log.d("===Mynick", myemail);
 
-                                    chatRoomData.setNickname(nickname2);
-                                    chatRoomData.setRoom_check(true);
-                                    chatRoomData.setMessage(ChatObject.getString("last_msg"));
-                                    Log.d("CHATDATA1", chatRoomData.getNickname());
-                                    if(nickname2 != null && !nickname2.equals("null")) {
-                                        if(chatlist.size() == 0) chatlist.add(chatRoomData);
-                                        else {
-                                            for (int j = 0; j < chatlist.size(); j++) {
-                                                Log.d("LISTNICK1", chatlist.get(j).getNickname());
-                                                Log.d("NICK1", nickname);
-                                                if (!chatlist.get(j).getNickname().equals(nickname2)){
-                                                    k++;
-                                                }
-                                            }
-                                            if(chatlist.size()==k) {
-                                                Log.d("KK", String.valueOf(k));
-                                                chatlist.add(chatRoomData);
-                                            }
-                                            k=0;
-                                        }
+                                if(mynick.equals(LoginAcitivity.profile.getNickname())) {
+                                    if(othernick != null && !othernick.equals("null")) {
+                                        chatlist.add(new ChattingRoomData(mynick, othernick, last_msg, myemail, otheremail, true));
                                     }
 
-                                } else if (nickname2.equals(LoginAcitivity.profile.getNickname())) {
-                                chatRoomData.setNickname(nickname);
-                                chatRoomData.setRoom_check(false);
-                                chatRoomData.setMessage(ChatObject.getString("last_msg"));
-                                Log.d("CHATDATA2", chatRoomData.getNickname());
-                                if(nickname != null && !nickname.equals("null")) {
-                                    if(chatlist.size() == 0) chatlist.add(chatRoomData);
-                                    else {
-                                        for (int j = 0; j < chatlist.size(); j++) {
-                                            Log.d("LISTNICK2", chatlist.get(j).getNickname());
-                                            Log.d("NICK2", nickname);
-                                            if (!chatlist.get(j).getNickname().equals(nickname)) {
-                                                k++;
-                                            }
-                                        }
-                                        if(chatlist.size()==k) {
-                                            Log.d("KK", String.valueOf(k));
-                                            chatlist.add(chatRoomData);
-                                        }
-                                        k=0;
+                                } else if (othernick.equals(LoginAcitivity.profile.getNickname())) {
+                                    if(mynick != null && !mynick.equals("null")) {
+                                        chatlist.add(new ChattingRoomData(othernick, mynick, last_msg, otheremail, myemail, false));
                                     }
                                 }
                             }
-                            }
-                            _chattingRoom.setValue(chatRoomData);
-                        }catch (JSONException | IOException e) {
-                            e.printStackTrace();
+                            _chattingRoom.postValue(new ChattingRoomData(chatlist));
+                        } catch (JSONException | IOException jsonException) {
+                            jsonException.printStackTrace();
                         }
+
+
                     }
-                });
+                }).start();
             }
         });
     }

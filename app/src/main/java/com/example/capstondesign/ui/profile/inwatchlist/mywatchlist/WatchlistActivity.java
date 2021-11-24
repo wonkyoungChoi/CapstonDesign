@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.model.WatchlistCountjson;
 import com.example.capstondesign.ui.MainFragment;
-import com.example.capstondesign.ui.board.search.SearchBoard;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.model.WatchlistTask;
 
@@ -125,7 +125,7 @@ public class WatchlistActivity extends AppCompatActivity {
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchBoard.class);
+                Intent intent = new Intent(getApplicationContext(), SearchBoardResult.class);
                 startActivity(intent);
                 finish();
             }

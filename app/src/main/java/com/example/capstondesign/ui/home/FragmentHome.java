@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.controller.Notice;
-import com.example.capstondesign.ui.board.search.SearchBoard;
+import com.example.capstondesign.ui.SearchBoardResult;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -106,7 +106,7 @@ public class FragmentHome extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), SearchBoard.class);
+                Intent intent = new Intent(getContext(), SearchBoardResult.class);
                 startActivity(intent);
             }
         });

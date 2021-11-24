@@ -8,9 +8,9 @@ public class Profile {
     String password;
     String gender;
     String picture;
-    Boolean fast_signup;
+    String fast_signup;
 
-    public Profile(String name, String phone_num, String email, String nickname, String password, String gender, Boolean fast_signup) {
+    public Profile(String name, String phone_num, String email, String nickname, String password, String gender, String fast_signup) {
         this.name = name;
         this.phone_num = phone_num;
         this.email = email;
@@ -66,11 +66,11 @@ public class Profile {
         this.picture = picture;
     }
 
-    public Boolean getFast_signup() {
+    public String getFast_signup() {
         return fast_signup;
     }
 
-    public void setFast_signup(Boolean fast_signup) {
+    public void setFast_signup(String fast_signup) {
         this.fast_signup = fast_signup;
     }
 }

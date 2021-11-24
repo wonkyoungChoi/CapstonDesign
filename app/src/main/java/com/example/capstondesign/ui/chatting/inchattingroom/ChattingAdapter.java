@@ -6,70 +6,42 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.R;
-import com.example.capstondesign.ui.Profile;
-import com.example.capstondesign.ui.profile.FragmentProfile;
+import com.example.capstondesign.databinding.ChatItemBinding;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.network.chatting.ChatProfileCountjson;
-import com.example.capstondesign.model.ProfileCountjsonTask;
 import com.squareup.picasso.Picasso;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyViewHolder> {
-    public static String nick, name, email;
-    private static final String TAG = "ChatAdapter";
-    public ChattingData chat;
-    String strurl;
-    public static String number;
-    Profile profile = LoginAcitivity.profile;
-    ProfileCountjsonTask profileCountjsonTask;
-    ChatProfileCountjson chatProfileCountjson;
+    public String nick, name, email;
+    int code;
 
+    public List<ChattingData> chatData = new ArrayList<>();
+
+    private ChatItemBinding mBinding;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView TextView_mynickname, TextView_othernickname;
-        public TextView TextView_mymsg, TextView_othermsg;
-        public CardView myprofileImage, otherprofileImage;
-        public ImageView myImage, otherImage;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            TextView_mynickname = itemView.findViewById(R.id.TextView_mynickname);
-            TextView_othernickname = itemView.findViewById(R.id.TextView_othernickname);
-            TextView_mymsg = itemView.findViewById(R.id.TextView_mymsg);
-            TextView_othermsg = itemView.findViewById(R.id.TextView_othermsg);
-            myprofileImage = itemView.findViewById(R.id.mychatprofile);
-            otherprofileImage = itemView.findViewById(R.id.otherchatprofile);
-            myImage = itemView.findViewById(R.id.myImage);
-            otherImage = itemView.findViewById(R.id.otherImage);
-
+        ChatItemBinding bind;
+        public MyViewHolder(ChatItemBinding binding) {
+            super(binding.getRoot());
+            bind = binding;
         }
     }
-
-    public static List<ChattingData> chatData;
-    public ChattingAdapter(List<ChattingData> items) { chatData = items; }
-
 
     @NonNull
     @Override
     public ChattingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chat_item, parent, false);
-
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        mBinding = ChatItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MyViewHolder(mBinding);
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -78,70 +50,82 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
 
         holder.setIsRecyclable(false);
 
-        chat = chatData.get(position);
+        ChattingData chat = chatData.get(position);
 
+        int i = 0;
 
-        holder.TextView_othernickname.setText(chat.getNickname());
+        String strurl;
+        strurl = "http://192.168.0.15:8080/test/" + chat.getEmail() +  ".jpg";
+        try {
+            i = getResponseCode(strurl);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mBinding.TextViewOthernickname.setText(chat.getNickname());
         //DTO
-        //Picasso.get().load(Uri.parse(chat.getProfilePic())).into(holder.myImage);
-        //Picasso.get().load(Uri.parse(chat.getProfilePic())).into(holder.otherImage);
 
-
-        if(chat.getNickname()!=null && chat.getNickname().equals(nick)) {
-            profileCountjsonTask = new ProfileCountjsonTask();
+        if(chat.getNickname()!=null && chat.getNickname().equals(LoginAcitivity.profile.getNickname())) {
             try {
-                Log.d("TEST", FragmentProfile.number);
-                if (FragmentProfile.number.equals("-1")) {
-                    strurl = "http://13.124.75.92:8080/king.png";
-                    Log.d("NUM0", strurl);
-                } else {
-                    strurl = "http://13.124.75.92:8080/upload/" + profile.getEmail() + FragmentProfile.number + ".jpg";
-                    Log.d("NUM", strurl);
+                if(i == 404) {
+                    strurl = "http://192.168.0.15:8080/test/king.png";
                 }
-                Picasso.get().load(Uri.parse(strurl)).into(holder.myImage);
             } catch (Exception e) {
                 e.printStackTrace();
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(holder.myImage);
             }
+            Log.d("URL", strurl);
+            mBinding.mychatprofile.setVisibility(View.VISIBLE);
+            Picasso.get().load(Uri.parse(strurl)).into(mBinding.myImage);
 
-            holder.myprofileImage.setVisibility(View.VISIBLE);
-            holder.otherprofileImage.setVisibility(View.GONE);
-            holder.TextView_mymsg.setVisibility(View.VISIBLE);
-            holder.TextView_mymsg.setText(chat.getMessage());
-            holder.TextView_mynickname.setVisibility(View.VISIBLE);
-            holder.TextView_mynickname.setText(chat.getNickname());
+            mBinding.myImage.setVisibility(View.VISIBLE);
+            mBinding.otherImage.setVisibility(View.GONE);
+            mBinding.TextViewMymsg.setVisibility(View.VISIBLE);
+            mBinding.TextViewMymsg.setText(chat.getMessage());
+            mBinding.TextViewMynickname.setVisibility(View.VISIBLE);
+            mBinding.TextViewMynickname.setText(chat.getNickname());
         } else {
             name = chat.getName();
             email = chat.getEmail();
             Log.d("CHATADAPTER", name);
-            chatProfileCountjson = new ChatProfileCountjson();
             try {
-                //
-                //String a = profileTask.substringBetween(result1, "number:", "/");
-
-                Log.d("TEST", number);
-                if (number.equals("-1")) {
-                    strurl = "http://13.124.75.92:8080/king.png";
-                    Log.d("NUM0", strurl);
-                } else {
-                    strurl = "http://13.124.75.92:8080/upload/" + chat.getEmail() + number + ".jpg";
-                    Log.d("NUM", strurl);
+                if(i == 404) {
+                    strurl = "http://192.168.0.15:8080/test/king.png";
                 }
-                Picasso.get().load(Uri.parse(strurl)).into(holder.otherImage);
             } catch (Exception e) {
                 e.printStackTrace();
-                Picasso.get().load(Uri.parse("http://13.124.75.92:8080/king.png")).into(holder.otherImage);
             }
+            Log.d("URL", strurl);
+            mBinding.otherchatprofile.setVisibility(View.VISIBLE);
+            Picasso.get().load(Uri.parse(strurl)).into(mBinding.otherImage);
 
-
-            holder.myprofileImage.setVisibility(View.GONE);
-            holder.otherprofileImage.setVisibility(View.VISIBLE);
-            holder.TextView_othermsg.setVisibility(View.VISIBLE);
-            holder.TextView_othermsg.setText(chat.getMessage());
-            holder.TextView_othernickname.setVisibility(View.VISIBLE);
-            holder.TextView_othernickname.setText(chat.getNickname());
+            mBinding.myImage.setVisibility(View.GONE);
+            mBinding.otherImage.setVisibility(View.VISIBLE);
+            mBinding.TextViewOthermsg.setVisibility(View.VISIBLE);
+            mBinding.TextViewOthermsg.setText(chat.getMessage());
+            mBinding.TextViewOthernickname.setVisibility(View.VISIBLE);
+            mBinding.TextViewOthernickname .setText(chat.getNickname());
         }
 
+    }
+
+    public int getResponseCode(String urlString) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    URL u = new URL (urlString);
+                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+                    huc.connect () ;
+                    code = huc.getResponseCode() ;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        thread.join();
+        return code;
     }
 
     @Override

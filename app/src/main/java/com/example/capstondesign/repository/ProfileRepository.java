@@ -24,9 +24,9 @@ public class ProfileRepository {
     public MutableLiveData<Profile> profile = new MutableLiveData<>();
     public LoadProfileService loadProfileService = new LoadProfileService();
 
-    String name, email, nickname, phone_num, gender, password;
+    String name, email, nickname, phone_num, gender, password, fastCheck;
 
-    public void LoadProfileService(String email1) throws IOException {
+    public void LoadProfileService(String email1) {
         loadProfileService.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -34,8 +34,8 @@ public class ProfileRepository {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+            public void onResponse(Call call, Response response) {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         String result = null;
@@ -61,17 +61,19 @@ public class ProfileRepository {
                                 phone_num = ProfileObject.getString("phone_num");
                                 gender = ProfileObject.getString("gender");
                                 password = ProfileObject.getString("password");
+                                fastCheck = ProfileObject.getString("fastCheck");
 
                                 Log.d("===Nickname", nickname);
 
-                                profile.postValue(new Profile(name, phone_num, email, nickname, password, gender, false));
+                                profile.postValue(new Profile(name, phone_num, email, nickname, password, gender, fastCheck));
 
                             }
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
+
             }
         }, email1);
     }

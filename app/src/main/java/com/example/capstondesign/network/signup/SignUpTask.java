@@ -14,7 +14,7 @@ public class SignUpTask {
     String url = "sign_up.jsp";
     RequestBody formbody;
 
-    public void enqueue(Callback callback, String... strings) throws IOException {
+    public void enqueue(Callback callback, String... strings) {
         formbody  = new FormBody.Builder()
                 .add("name", strings[0])
                 .add("phone_num", strings[1])
@@ -22,6 +22,7 @@ public class SignUpTask {
                 .add("nickname", strings[3])
                 .add("password", strings[4])
                 .add("gender", strings[5])
+                .add("fast_check", strings[6])
                 .build();
         okhttpNetwork.enQueue(url, formbody, callback);
     }

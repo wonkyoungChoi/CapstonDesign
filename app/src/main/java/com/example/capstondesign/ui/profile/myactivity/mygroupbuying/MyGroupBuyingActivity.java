@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.capstondesign.R;
 import com.example.capstondesign.ui.Profile;
-import com.example.capstondesign.ui.board.search.SearchBoard;
+import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 import com.example.capstondesign.network.bulletin.groupbuying.LoadGroupBuyingService;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
@@ -111,7 +111,7 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
         buysearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchBoard.class);
+                Intent intent = new Intent(getApplicationContext(), SearchBoardResult.class);
                 startActivity(intent);
                 finish();
             }
@@ -123,15 +123,4 @@ public class MyGroupBuyingActivity extends AppCompatActivity {
         this.position = position;
     }
 
-//    void getNick() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            mynick = profileService.substringBetween(result, "nickname:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

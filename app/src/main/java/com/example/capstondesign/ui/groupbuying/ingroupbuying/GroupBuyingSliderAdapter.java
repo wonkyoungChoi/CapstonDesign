@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.BuySubSlideritem;
+import com.example.capstondesign.ui.BuySubSlideritem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

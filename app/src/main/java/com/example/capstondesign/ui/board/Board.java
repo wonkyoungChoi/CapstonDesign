@@ -1,9 +1,10 @@
 package com.example.capstondesign.ui.board;
 import android.net.Uri;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Serializable {
     ArrayList<Board> list;
     Integer id;
     String title;
@@ -55,7 +56,7 @@ public class Board {
     }
     public void setId(int id) {this.id = id;}
 
-    public Board(Integer id, String title, String nick, String text, String image, String time) {
+    public Board(Integer id, String nick , String title, String text, String image, String time) {
         this.id = id;
         this.title = title;
         this.nick = nick;

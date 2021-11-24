@@ -8,7 +8,7 @@ import okhttp3.Callback;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class PictureUploadService {
+public class UploadMultipleService {
     OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
     String url = "fileUpload.jsp";
     RequestBody formbody;

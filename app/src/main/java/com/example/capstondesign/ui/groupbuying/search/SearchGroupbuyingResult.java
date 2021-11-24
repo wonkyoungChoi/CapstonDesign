@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capstondesign.R;
-import com.example.capstondesign.model.SearchTask;
 import com.example.capstondesign.ui.groupbuying.GroupBuyingAdapter;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 
@@ -55,7 +54,7 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
                     LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
 
-            groupBuyingAdapter = new GroupBuyingAdapter(group);
+//            groupBuyingAdapter = new GroupBuyingAdapter(group);
 
             recyclerView.setAdapter(groupBuyingAdapter);
 
@@ -94,25 +93,18 @@ public class SearchGroupbuyingResult extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SearchTask searchTask = new SearchTask();
                     search_result = search.getText().toString();
-                    try {
-                        result1 = searchTask.execute(search_result).get();
-                        if (result1.contains("[]")) {
-                            Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Intent intent = new Intent(getApplicationContext(), SearchGroupbuyingResult.class);
-                            int idx = result1.indexOf("[");
-                            String re_result = result1.substring(idx);
-                            Log.d("RESULT", re_result);
-                            intent.putExtra("result", re_result);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    //                        result1 = searchTask.execute(search_result).get();
+                    if (result1.contains("[]")) {
+                        Toast.makeText(getApplicationContext(), "결과 없음", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), SearchGroupbuyingResult.class);
+                        int idx = result1.indexOf("[");
+                        String re_result = result1.substring(idx);
+                        Log.d("RESULT", re_result);
+                        intent.putExtra("result", re_result);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             });

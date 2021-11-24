@@ -48,7 +48,15 @@ public class MainFragment extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        ft.replace(R.id.frame_container, frag1).commitAllowingStateLoss();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        if(getIntent() != null && getIntent().getIntExtra("check", 0) == 1) {
+            ft.replace(R.id.frame_container, frag4).commitAllowingStateLoss();
+            binding.bottomNavigation.setSelectedItemId(R.id.action_chatting);
+        } else {
+            ft.replace(R.id.frame_container, frag1).commitAllowingStateLoss();
+        }
+
 
         // 바텀 네비게이션
         binding.bottomNavigation.setOnNavigationItemSelectedListener(new OnItemSelectedListener());

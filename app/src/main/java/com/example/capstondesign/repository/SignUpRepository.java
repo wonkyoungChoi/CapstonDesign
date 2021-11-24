@@ -2,6 +2,7 @@ package com.example.capstondesign.repository;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -24,7 +25,7 @@ public class SignUpRepository {
     public MutableLiveData<String> _nickCheck = new MutableLiveData<>();
     public MutableLiveData<String> _signUpCheck = new MutableLiveData<>();
 
-    public void signUpCheckRepository(String name, String phoneNum, String email, String nick, String password, String gender) throws IOException {
+    public void signUpCheckRepository(String name, String phoneNum, String email, String nick, String password, String gender, String fastSignupCheck) {
         signUpTask.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -33,18 +34,18 @@ public class SignUpRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try{
-                            _signUpCheck.setValue(response.body().string());
+                            _signUpCheck.postValue(response.body().string());
                         }catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
             }
-        }, name, phoneNum, email, nick, password, gender);
+        }, name, phoneNum, email, nick, password, gender, fastSignupCheck);
 
     }
 
@@ -57,16 +58,16 @@ public class SignUpRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try{
-                            _emailCheck.setValue(response.body().string());
+                            _emailCheck.postValue(response.body().string());
                         }catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
             }
         }, email);
 
@@ -76,21 +77,21 @@ public class SignUpRepository {
         nickCheckTask.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                    Log.d("===NickFail", e.toString());
             }
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try{
-                            _nickCheck.setValue(response.body().string());
+                            _nickCheck.postValue(response.body().string());
                         }catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
             }
         }, nick);
 

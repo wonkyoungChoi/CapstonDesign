@@ -1,4 +1,4 @@
-package com.example.capstondesign.model;
+package com.example.capstondesign.ui;
 
 
 public class BuySubSlideritem {

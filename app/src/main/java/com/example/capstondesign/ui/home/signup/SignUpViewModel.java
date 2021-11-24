@@ -5,9 +5,6 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstondesign.network.signup.EmailCheckTask;
-import com.example.capstondesign.network.signup.NickCheckTask;
-import com.example.capstondesign.network.signup.SignUpTask;
 import com.example.capstondesign.repository.NaverRepository;
 import com.example.capstondesign.repository.SignUpRepository;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -20,8 +17,8 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> nickResult;
     private MutableLiveData<String> signupResult;
 
-    public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender) throws IOException {
-        repository.signUpCheckRepository(name, phoneNum, email, nick, password, gender);
+    public void loadSignUp(String name, String phoneNum, String email, String nick, String password, String gender, String fastSignupCheck) {
+        repository.signUpCheckRepository(name, phoneNum, email, nick, password, gender, fastSignupCheck);
     }
 
     public MutableLiveData<String> getSignUpResult() {

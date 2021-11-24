@@ -128,7 +128,7 @@ public class LoginViewModel extends ViewModel {
         return checkResult;
     }
 
-    public void loadProfile(String email) throws IOException {
+    public void loadProfile(String email) {
         profileRepository.LoadProfileService(email);
     }
 

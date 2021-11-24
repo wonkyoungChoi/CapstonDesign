@@ -2,6 +2,7 @@ package com.example.capstondesign.repository;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -29,16 +30,16 @@ public class CheckRepository {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try{
-                            _check.setValue(response.body().string());
+                            _check.postValue(response.body().string());
                         }catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
             }
         }, email1);
 

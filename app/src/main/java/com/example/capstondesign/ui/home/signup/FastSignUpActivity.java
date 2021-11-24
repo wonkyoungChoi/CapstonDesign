@@ -49,6 +49,8 @@ public class FastSignUpActivity extends AppCompatActivity {
     private String verificationId;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    String username, userEmail, userNum, userNickname, fastCheck;
+
     SignUpViewModel model;
 
     String phoneNum, phone;
@@ -167,25 +169,22 @@ public class FastSignUpActivity extends AppCompatActivity {
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = binding.name.getText().toString();
-                String userEmail = binding.email.getText().toString();
-                Log.d("USEREMAIL", userEmail);
-                String userNum = phone;
-                String userNickname = binding.nickname.getText().toString();
+                username = binding.name.getText().toString();
+                userEmail = binding.email.getText().toString();
+                userNum = phone;
+                userNickname = binding.nickname.getText().toString();
+                fastCheck = "true";
 
                 if(username.trim().length()>0 && userNickname.trim().length()>0 &&  nick_click) {
-                    ChattingAdapter.nick = userNickname;
-                    try {
-                        model.loadSignUp(username, userNum, userEmail, userNickname, "", radioButton.getText().toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    model.loadSignUp(username, userNum, userEmail, userNickname, "", radioButton.getText().toString(), fastCheck);
 
                 }  else if (!nick_click) {
                     Toast.makeText(getApplicationContext(), "닉네임 중복 체크를 해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (!check) {
-                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
-                }else {
+                }
+//                else if (!check) {
+//                    Toast.makeText(getApplicationContext(), "휴대폰 인증을 해주세요.", Toast.LENGTH_SHORT).show();
+//                }
+                else {
                     Toast.makeText(getApplicationContext(), "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -251,7 +250,6 @@ public class FastSignUpActivity extends AppCompatActivity {
             Log.d("리턴 값", result);
             Intent intent = new Intent(context, LoginAcitivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            LoginAcitivity.profile.setFast_signup(true);
             activity.startActivity(intent);
         }
     }

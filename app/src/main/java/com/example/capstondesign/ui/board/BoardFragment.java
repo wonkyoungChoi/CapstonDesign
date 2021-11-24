@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.capstondesign.databinding.FragmentBoardBinding;
-import com.example.capstondesign.ui.board.search.SearchBoard;
+import com.example.capstondesign.ui.SearchBoardResult;
 
 public class BoardFragment extends Fragment {
 
@@ -94,7 +94,7 @@ public class BoardFragment extends Fragment {
         binding.boardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), SearchBoard.class);
+                Intent intent = new Intent(getContext(), SearchBoardResult.class);
                 startActivity(intent);
             }
         });

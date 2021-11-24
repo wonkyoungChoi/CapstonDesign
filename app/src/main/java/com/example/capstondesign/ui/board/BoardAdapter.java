@@ -10,12 +10,16 @@ import androidx.annotation.NonNull;
 
 import com.example.capstondesign.databinding.BoardListItemBinding;
 import com.example.capstondesign.ui.board.inboard.InBoardActivity;
+import com.example.capstondesign.ui.groupbuying.Groupbuying;
+import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
+import com.example.capstondesign.ui.groupbuying.GroupbuyingViewModel;
 import com.squareup.picasso.Picasso;
 
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -28,8 +32,11 @@ import java.util.List;
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
     public List<Board> items = new ArrayList<>();
     public String nick;
+    int code;
 
     private BoardListItemBinding mBinding;
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         BoardListItemBinding bind;
@@ -56,9 +63,11 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         holder.setIsRecyclable(false);
         Board board = items.get(position);
 
+        Log.d("===imageurl", board.getImage());
+
         try {
             i = getResponseCode(board.getImage());
-        } catch (IOException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -81,25 +90,37 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                 String title = board.getTitle();
                 String text = board.getText();
                 String time = board.getTime();
+                String imageUrl = board.getImage();
 
                 intent.putExtra("id", id);
                 intent.putExtra("nick", nick);
                 intent.putExtra("title", title);
                 intent.putExtra("text", text);
                 intent.putExtra("time", time);
+                intent.putExtra("image", imageUrl);
 
                 mBinding.layoutBoard.getContext().startActivity(intent);
             }
         });
     }
 
-    public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
-        URL u = new URL (urlString);
-        HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
-        huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
-        huc.connect () ;
-        int code = huc.getResponseCode() ;
-        Log.d("GETCODE", String.valueOf(code));
+    public int getResponseCode(String urlString) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    URL u = new URL (urlString);
+                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+                    huc.connect () ;
+                    code = huc.getResponseCode() ;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        thread.join();
         return code;
     }
 

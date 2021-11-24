@@ -40,6 +40,8 @@ dependencies {
 
     implementation 'com.tbuonomo:dotsindicator:4.2'
 
+    implementation "androidx.browser:browser:1.2.0"
+
     def lifecycle_version = "2.3.0"
     // ViewModel
     //noinspection GradleDependency
@@ -62,8 +64,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 
     //파이어베이스
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-database:20.0.2'
-    implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-firestore'

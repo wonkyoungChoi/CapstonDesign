@@ -3,7 +3,6 @@ package com.example.capstondesign.ui.chatting;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -15,19 +14,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.R;
-import com.example.capstondesign.databinding.FragmentBoardBinding;
 import com.example.capstondesign.databinding.FragmentChattingBinding;
-import com.example.capstondesign.network.chatting.ChattingTask;
-import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.board.BoardAdapter;
-import com.example.capstondesign.ui.board.BoardViewModel;
-import com.example.capstondesign.ui.chatting.inchattingroom.InChattingRoom;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
-
-import java.util.ArrayList;
 
 public class ChattingFragment extends Fragment {
     public ChattingRoomAdapter chattingRoomAdapter;
@@ -87,39 +76,37 @@ public class ChattingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         model = new ViewModelProvider(this).get(ChattingRoomViewModel.class);
 
         binding = FragmentChattingBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
+        Log.d("===onCreate", "1");
+
         initRecyclerView();
         observeChattingRoomResult();
 
-        //채팅방을 클릭했을 경우의 이벤트
-        chattingRoomAdapter.setOnItemClickListener(new ChattingRoomAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                clicked_item = pos;
-                //내가 누른 채팅방의 이름과 mynick, othernick의 구별을 하는 boolean값
-                name = chattingRoomAdapter.getItem(pos).getNickname();
-                check = chattingRoomAdapter.getItem(pos).getRoom_check();
-                Intent intent = new Intent(getContext(), InChattingRoom.class);
-                intent.putExtra("name", name);
-                intent.putExtra("check", check);
-                startActivity(intent);
-                
-            }
-
-            final String[] items = {"채팅방 이름 설정", "나가기"};
-            @Override
-            public void onItemLongClick(View v, int pos) {
-                setAlertDialog(items, getContext());
-            }
-        });
+//        //채팅방을 클릭했을 경우의 이벤트
+//        chattingRoomAdapter.setOnItemClickListener(new ChattingRoomAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int pos) {
+//                clicked_item = pos;
+//                //내가 누른 채팅방의 이름과 mynick, othernick의 구별을 하는 boolean값
+//                name = chattingRoomAdapter.getItem(pos).getNickname();
+//                check = chattingRoomAdapter.getItem(pos).getRoom_check();
+//                Intent intent = new Intent(getContext(), InChattingRoom.class);
+//                intent.putExtra("name", name);
+//                intent.putExtra("check", check);
+//                startActivity(intent);
+//
+//            }
+//
+//            final String[] items = {"채팅방 이름 설정", "나가기"};
+//            @Override
+//            public void onItemLongClick(View v, int pos) {
+//                setAlertDialog(items, getContext());
+//            }
+//        });
 
 
         // Inflate the layout for this fragment
@@ -155,10 +142,10 @@ public class ChattingFragment extends Fragment {
 
     private void observeChattingRoomResult() {
         model.getAll().observe(getViewLifecycleOwner(), chattingRoom -> {
+            Log.d("===observeChattingRoom", "result");
             chattingRoomAdapter.setChattingRoom(chattingRoom.getList());
             chattingRoomAdapter.notifyDataSetChanged();
         });
     }
-
 
 }

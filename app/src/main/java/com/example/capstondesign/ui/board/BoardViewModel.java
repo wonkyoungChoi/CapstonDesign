@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.capstondesign.network.PictureUploadService;
+import com.example.capstondesign.network.UploadService;
 import com.example.capstondesign.network.bulletin.board.AddBoardService;
 import com.example.capstondesign.repository.BoardRepository;
 
@@ -35,7 +35,7 @@ public class BoardViewModel extends ViewModel {
     }
 
     public void addPicture(String filename, String sourceFileUri) {
-        new PictureUploadService().enqueue(new Callback() {
+        new UploadService().enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
@@ -47,6 +47,12 @@ public class BoardViewModel extends ViewModel {
             }
         }, filename, sourceFileUri);
     }
+
+    public void loadSearchBoard(String title) {
+        repository.BoardSearchRepository(title);
+    }
+
+    public LiveData<Board> getSearchBoard() {return repository._searchBoard;}
 
 
 

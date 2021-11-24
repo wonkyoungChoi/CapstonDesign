@@ -1,35 +1,26 @@
-package com.example.capstondesign.network.chatting;
+package com.example.capstondesign.network.bulletin.groupbuying;
 
-import android.os.AsyncTask;
-
-import com.example.capstondesign.model.Task;
 import com.example.capstondesign.network.method.OkhttpNetwork;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-
-public class AddChattingRoomTask  {
+public class AddWatchlistService {
     OkhttpNetwork okhttpNetwork = new OkhttpNetwork();
 
-    String url = "add_chattingroom.jsp";
+    String url = "add_watchlist.jsp";
     RequestBody formbody;
 
     public void enqueue(Callback callback, String... strings) {
         formbody  = new FormBody.Builder()
-                .add("mynick", strings[0])
-                .add("othernick", strings[0])
-                .add("my_room_name", strings[0])
-                .add("other_room_name", strings[0])
-                .add("last_msg", strings[0])
+                .add("watchnick", strings[0])
+                .add("time", strings[1])
                 .build();
         okhttpNetwork.enQueue(url, formbody, callback);
     }
 }
-
-
-
-

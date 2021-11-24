@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.capstondesign">
+    android:targetSandboxVersion="1"
+    package="com.example.capstondesign"
+    tools:targetApi="o">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    
     <queries> <package android:name="com.facebook.katana" /> </queries>
 
     <application
@@ -71,13 +77,11 @@
         <activity android:name=".ui.home.login.LoginAcitivity" />
         <activity android:name=".ui.board.AddBoard"/>
         <activity android:name=".ui.board.inboard.InBoardActivity"/>
-        <activity android:name=".ui.board.search.SearchBoard"/>
-        <activity android:name=".ui.board.search.SearchBoardResult"/>
+        <activity android:name=".ui.SearchBoardResult"/>
         <activity android:name=".controller.Notice"/>
         <activity android:name=".ui.groupbuying.AddGroupBuying"/>
         <activity android:name=".ui.profile.inprofile.InProfileActivity"/>
         <activity android:name=".ui.profile.inwatchlist.mywatchlist.WatchlistActivity"/>
-        <activity android:name=".ui.groupbuying.ingroupbuying.InGroupBuying"/>
         <activity android:name=".ui.profile.setting.SettingActivity"/>
         <activity android:name=".ui.profile.setting.changepassword.InChangePasswordActivity"/>
         <activity android:name=".ui.profile.notice.NoticeActivity"/>
@@ -89,6 +93,7 @@
         <activity android:name=".ui.profile.myactivity.MyActivity"/>
         <activity android:name=".ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity"/>
         <activity android:name=".ui.profile.myactivity.myboard.MyBoardActivity"/>
+        <activity android:name=".ui.groupbuying.ingroupbuying.InGroupBuyingActivity"/>
 
     </application>
 
