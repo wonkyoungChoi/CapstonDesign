@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
     android:fadeScrollbars="false"
     android:orientation="vertical"
@@ -11,29 +10,37 @@
 
     <RelativeLayout
         android:id="@+id/chatmain_top"
+        android:background="#DBDBDB"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="#FFBB00">
+        android:layout_centerHorizontal="true">
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_baseline_arrow_back_24" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#191919"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="50dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="공동구매 게시글 작성"/>
+
 
         <Button
             android:id="@+id/upload"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="#FFBB00"
-            android:fontFamily="@font/soldier"
-            android:text="완료"
-            android:textColor="#751400"
-            android:textSize="20sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="17sp"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/border_upload"
+            android:textStyle="bold"
+            android:text="작성 완료"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -53,26 +60,24 @@
             android:scrollbars="vertical"
             android:verticalScrollbarPosition="right">
 
+
             <LinearLayout
                 android:id="@+id/buy_picture"
-                android:layout_width="90dp"
+                android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/border"
-                android:clipToPadding="false"
-                android:gravity="center">
+                android:background="@drawable/border3"
+                android:clipToPadding="false">
 
                 <ImageView
                     android:id="@+id/buyimageview"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_baseline_add_a_photo_24" />
-
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/add_image" />
             </LinearLayout>
 
 
@@ -95,7 +100,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/border1"
+                    android:background="@drawable/border3"
                     android:hint="제목"
                     android:textColor="#000000"
                     android:textColorHint="#939393"
@@ -121,7 +126,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/border1"
+                    android:background="@drawable/border3"
                     android:hint="가격"
                     android:textColor="#000000"
                     android:textColorHint="#939393"
@@ -147,7 +152,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/border1"
+                    android:background="@drawable/border3"
                     android:hint="인원수 ( 수만 입력하세요)"
                     android:textColor="#000000"
                     android:textColorHint="#939393"
@@ -172,7 +177,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/border1"
+                    android:background="@drawable/border3"
                     android:hint="만남장소"
                     android:textColor="#000000"
                     android:textColorHint="#939393"
@@ -182,7 +187,7 @@
             <LinearLayout
                 android:id="@+id/buy_mid4"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/buy_mid3"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="false"
@@ -193,12 +198,12 @@
                 <EditText
                     android:id="@+id/text"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/border1"
+                    android:background="@drawable/border3"
                     android:hint="내용"
                     android:textColor="#000000"
                     android:textColorHint="#939393"

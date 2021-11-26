@@ -46,13 +46,6 @@ public class AddGroupBuying extends AppCompatActivity {
 
         now = System.currentTimeMillis();
 
-        binding.back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
 
         binding.buyimageview.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -15,17 +15,21 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.CommentListItemBinding;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> {
     public List<Comment> items = new ArrayList<>();
     public String nick;
-    Activity activity;
+    int code;
 
     private CommentListItemBinding mBinding;
     public InBoardViewModel model = new InBoardViewModel();
@@ -59,6 +63,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         mBinding.nick.setText(comment.getNick());
         mBinding.text.setText(comment.getComment());
 
+        try {
+            if(getResponseCode(comment.getEmail()) == 404) {
+                Picasso.get().load(R.drawable.king).into(mBinding.imageView1);
+            } else {
+                Picasso.get().load(comment.getEmail()).into(mBinding.imageView1);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         mBinding.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,15 +84,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                             .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    try {
-                                        Log.d("itemsId", items.get(position).getId());
-                                        model.deleteComment(items.get(position).getId(), items.get(position).getTime());
-                                        items.remove(position);
-                                        Toast.makeText(holder.itemView.getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
-                                        CommentAdapter.this.notifyDataSetChanged();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    Log.d("itemsId", items.get(position).getId());
+                                    model.deleteComment(items.get(position).getId(), items.get(position).getTime());
+                                    items.remove(position);
+                                    Toast.makeText(holder.itemView.getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
+                                    CommentAdapter.this.notifyDataSetChanged();
                                 }
                             })
                             .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -97,6 +107,26 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             }
         });
 
+    }
+
+    public int getResponseCode(String urlString) throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    URL u = new URL (urlString);
+                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
+                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
+                    huc.connect () ;
+                    code = huc.getResponseCode() ;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        thread.join();
+        return code;
     }
 
     @Override

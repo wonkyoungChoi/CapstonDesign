@@ -20,6 +20,7 @@ public class AddCommentService {
                 .add("nick", strings[1])
                 .add("comment", strings[2])
                 .add("time", strings[3])
+                .add("email", strings[4])
                 .build();
         okhttpNetwork.execute(url, formbody);
     }

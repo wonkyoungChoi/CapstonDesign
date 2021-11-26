@@ -25,13 +25,10 @@ public class KakaoRepository {
             public Unit invoke(User user, Throwable throwable) {
                 if (user != null) {
                     //계정정보를 불러 왔을 경우
-                    Log.d("====kakakoLogin", "Kakao id =" + user.getId());
                     name = user.getKakaoAccount().getProfile().getNickname();
                     gender = user.getKakaoAccount().getGender().toString();
                     email = user.getKakaoAccount().getEmail();
 
-                    Log.d("====Name", name);
-                    Log.d("====Gender", gender);
 
                     if(gender.equals("MALE")) {
                         gender = "남성";

@@ -74,15 +74,10 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
                 e.printStackTrace();
             }
             Log.d("URL", strurl);
-            mBinding.mychatprofile.setVisibility(View.VISIBLE);
-            Picasso.get().load(Uri.parse(strurl)).into(mBinding.myImage);
 
-            mBinding.myImage.setVisibility(View.VISIBLE);
             mBinding.otherImage.setVisibility(View.GONE);
             mBinding.TextViewMymsg.setVisibility(View.VISIBLE);
             mBinding.TextViewMymsg.setText(chat.getMessage());
-            mBinding.TextViewMynickname.setVisibility(View.VISIBLE);
-            mBinding.TextViewMynickname.setText(chat.getNickname());
         } else {
             name = chat.getName();
             email = chat.getEmail();
@@ -98,7 +93,6 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
             mBinding.otherchatprofile.setVisibility(View.VISIBLE);
             Picasso.get().load(Uri.parse(strurl)).into(mBinding.otherImage);
 
-            mBinding.myImage.setVisibility(View.GONE);
             mBinding.otherImage.setVisibility(View.VISIBLE);
             mBinding.TextViewOthermsg.setVisibility(View.VISIBLE);
             mBinding.TextViewOthermsg.setText(chat.getMessage());

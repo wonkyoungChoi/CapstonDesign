@@ -190,13 +190,6 @@ public class FastSignUpActivity extends AppCompatActivity {
             }
         });
 
-        //취소를 누를 경우 간편 로그인을 로그아웃함.
-        binding.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkLogout();
-            }
-        });
     }
 
     private void checkLogout() {

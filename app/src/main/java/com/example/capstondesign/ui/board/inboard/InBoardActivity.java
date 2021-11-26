@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.ActivityInboardBinding;
 import com.example.capstondesign.ui.MainFragment;
+import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;
@@ -34,8 +36,7 @@ public class InBoardActivity extends AppCompatActivity {
 
     Intent intent;
     Integer id;
-    public String title, nick, time;
-    public static String number;
+    public String title, nick, time, email;
     String text;
 
     CommentAdapter commentAdapter;
@@ -54,30 +55,29 @@ public class InBoardActivity extends AppCompatActivity {
         binding = ActivityInboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         model = new ViewModelProvider(this).get(InBoardViewModel.class);
 
+        initActionBar();
+        InitRecyclerView();
+
+        model.loadComment();
+        observeCommentResult();
 
         intent = getIntent();
-
-        Toolbar toolbar2 = findViewById(R.id.bd_toolbar);
-        setSupportActionBar(toolbar2);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-
 
         id = getIntent().getIntExtra("id", 0);
         title = getIntent().getStringExtra("title");
         text = getIntent().getStringExtra("text");
         nick = getIntent().getStringExtra("nick");
         time = getIntent().getStringExtra("time");
+        email = getIntent().getStringExtra("email");
 
         binding.title.setText(title);
         binding.text.setText(text);
+
+        setImage("http://192.168.0.15:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg", binding.imageView1);
+        setImage(email, binding.Myinfoimage);
+
 
         try {
             i = getResponseCode(getIntent().getStringExtra("image"));
@@ -89,6 +89,7 @@ public class InBoardActivity extends AppCompatActivity {
             binding.imageHeader.setVisibility(View.GONE);
         } else {
             try {
+                Log.d("===IMAGE", getIntent().getStringExtra("image"));
                 Picasso.get().load(getIntent().getStringExtra("image")).into(binding.imageHeader);
             } catch (Exception e) {
                 Log.d("NOPICTURE", "NOPICTURE");
@@ -104,12 +105,8 @@ public class InBoardActivity extends AppCompatActivity {
                 if(comment.equals("")) {
                     Toast.makeText(getApplicationContext(), "빈칸입니다.", Toast.LENGTH_LONG).show();
                 } else {
-                    Comment ci = new Comment(id.toString() , LoginAcitivity.profile.getNickname(), comment, String.valueOf(now));
-                    try {
-                        model.addComment(ci);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Comment ci = new Comment(id.toString() , LoginAcitivity.profile.getNickname(), comment, String.valueOf(now), LoginAcitivity.profile.getEmail());
+                    model.addComment(ci);
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
@@ -122,17 +119,22 @@ public class InBoardActivity extends AppCompatActivity {
         });
 
 
-        binding.inboardExit.setOnClickListener(new View.OnClickListener() {
+        binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        InitRecyclerView();
-        model.loadComment();
-        observeCommentResult();
+    }
 
+    private void initActionBar() {
+        setSupportActionBar(binding.bsTop);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
 
@@ -189,11 +191,7 @@ public class InBoardActivity extends AppCompatActivity {
                 break;
             case R.id.acDelete:
                 Log.d("===ID", id.toString());
-                try {
-                    model.deleteBoard(id.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                model.deleteBoard(id.toString());
                 Toast.makeText(getApplicationContext(), "게시글 삭제", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
@@ -201,19 +199,6 @@ public class InBoardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-//    void getNick() {
-//        ProfileService profileService = new ProfileService();
-//        try {
-//            String result = profileService.execute(profile.getName(), profile.getEmail()).get();
-//            nickname = profileService.substringBetween(result, "nickname:", "/");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     void startActivity(Class c) {
         Intent intent1 = new Intent(getApplicationContext(), c);
@@ -239,5 +224,24 @@ public class InBoardActivity extends AppCompatActivity {
         thread.join();
         return code;
     }
+
+    private void setImage(String url, ImageView imageView) {
+        int i = 0;
+        try {
+            i = getResponseCode(url);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(i == 404) {
+            Picasso.get().load(R.drawable.king).into(imageView);
+        } else {
+            try {
+                Picasso.get().load(url).into(imageView);
+            } catch (Exception e) {
+            }
+        }
+    }
+
 
 }

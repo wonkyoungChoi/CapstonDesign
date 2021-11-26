@@ -26,7 +26,7 @@ import okhttp3.Response;
 
 public class BoardRepository {
     LoadBoardService loadBoardService = new LoadBoardService();
-    public SearchBoardService searchBoardService = new SearchBoardService();
+    SearchBoardService searchBoardService = new SearchBoardService();
 
     public MutableLiveData<Board> _board = new MutableLiveData<>();
     public MutableLiveData<Board> _searchBoard = new MutableLiveData<>();
@@ -34,7 +34,7 @@ public class BoardRepository {
 
     public ArrayList<Board> items;
     int id;
-    String nick, title, text, time;
+    String nick, title, text, time, email;
 
     //Json Parsing
     public void boardRepository()
@@ -61,8 +61,13 @@ public class BoardRepository {
                             title = BoardObject.getString("title");
                             text = BoardObject.getString("text");
                             time = BoardObject.getString("time");
+                            email = BoardObject.getString("email");
 
-                            items.add(new Board(id,nick,title,text,"http://192.168.0.15:8080/test/"+ time + ".jpg", time));
+                            Log.d("nick", nick);
+
+                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+
+                            items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
                         }
                         _board.postValue(new Board(items));
                     }catch (JSONException | IOException e) {
@@ -98,9 +103,12 @@ public class BoardRepository {
                             title = BoardObject.getString("title");
                             text = BoardObject.getString("text");
                             time = BoardObject.getString("time");
+                            email = BoardObject.getString("email");
+
+                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
 
                             if(nick.equals(LoginAcitivity.profile.getNickname())) {
-                                items.add(new Board(id,nick,title,text,"http://192.168.0.15:8080/test/"+ time + ".jpg", time));
+                                items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
                             }
                         }
                         _board.postValue(new Board(items));
@@ -127,10 +135,8 @@ public class BoardRepository {
                 new Thread(() -> {
                     try{
                         String result = response.body().string();
-                        Log.d("===SearchResponse", result);
                         int idx = result.indexOf("[");
                         String re_result = result.substring(idx);
-                        Log.d("===ReResponse",re_result);
                         JSONArray BoardArray = new JSONArray(re_result);
                         for(int i=0; i<BoardArray.length(); i++)
                         {
@@ -140,8 +146,11 @@ public class BoardRepository {
                             title = BoardObject.getString("title");
                             text = BoardObject.getString("text");
                             time = BoardObject.getString("time");
+                            email = BoardObject.getString("email");
 
-                            items.add(new Board(id,nick,title,text,"http://192.168.0.15:8080/test/"+ time + ".jpg", time));
+                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+
+                            items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
                         }
                         _searchBoard.postValue(new Board(items));
                     }catch (JSONException | IOException e) {

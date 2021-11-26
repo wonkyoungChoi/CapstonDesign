@@ -12,6 +12,8 @@ public class Board implements Serializable {
     String text;
     String image;
     String time;
+    String email;
+    String a;
 
     public Board(){};
 
@@ -43,6 +45,8 @@ public class Board implements Serializable {
         return image;
     }
 
+    public String getEmail() {return email;}
+
     public int getId() {return id;}
 
     public void setTitle(String title) { this.title = title; }
@@ -56,21 +60,27 @@ public class Board implements Serializable {
     }
     public void setId(int id) {this.id = id;}
 
-    public Board(Integer id, String nick , String title, String text, String image, String time) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Board(Integer id, String nick , String title, String text, String image, String time, String email) {
         this.id = id;
         this.title = title;
         this.nick = nick;
         this.text = text;
         this.image = image;
         this.time = time;
+        this.email = email;
     }
 
-    public Board(Integer id, String nick, String title, String text, String time) {
+    public Board(Integer id, String nick, String title, String text, String time, String email) {
         this.id = id;
         this.title = title;
         this.nick = nick;
         this.text = text;
         this.time = time;
+        this.email = email;
     }
 
     public Board(String nick, String title, String text) {

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -19,10 +20,10 @@ import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.FragmentGroupbuyingBinding;
 import com.example.capstondesign.databinding.GroupbuyingListItemBinding;
 import com.example.capstondesign.ui.Profile;
+import com.example.capstondesign.ui.SearchGroupbuyingResult;
 import com.example.capstondesign.ui.board.BoardAdapter;
 import com.example.capstondesign.ui.board.BoardViewModel;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
-import com.example.capstondesign.ui.groupbuying.search.SearchGroupBuying;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,6 +90,12 @@ public class GroupbuyingFragment extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -101,23 +108,26 @@ public class GroupbuyingFragment extends Fragment {
 
         initRecyclerView();
         observeGroupbuyingResult();
-        observeWatchlistResult();
-
 
 
         //관심목록 클릭
         adapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
             @Override
-            public void onItemClick(View v, int pos) throws IOException {
-                Toast.makeText(getContext(), "관심목록 버튼 클릭", Toast.LENGTH_SHORT).show();
-                model.addWatchlist(LoginAcitivity.profile.getNickname(), adapter.items.get(pos).getTime());
+            public void onItemClick(View v, int pos) {
+                if(adapter.getCheck()) {
+                    Toast.makeText(getContext(), "관심목록 삭제", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "관심목록 추가", Toast.LENGTH_SHORT).show();
+                }
+
+                model.addWatchnick(LoginAcitivity.profile.getNickname(), adapter.items.get(pos).getTime());
             }
         });
 
-        binding.buysearch.setOnClickListener(new View.OnClickListener() {
+        binding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SearchGroupBuying.class);
+                Intent intent = new Intent(getContext(), SearchGroupbuyingResult.class);
                 startActivity(intent);
             }
         });
@@ -133,23 +143,11 @@ public class GroupbuyingFragment extends Fragment {
         return v;
     }
 
+
     private void observeGroupbuyingResult() {
         model.getAll().observe(getViewLifecycleOwner(), groupbuying -> {
             adapter.setBoard(groupbuying.list);
             adapter.notifyDataSetChanged();
-        });
-    }
-
-    private void observeWatchlistResult() {
-        model.getResult().observe(getViewLifecycleOwner(), result -> {
-            if(result.contains("추가")) {
-                GroupbuyingListItemBinding.bind(getView()).interestBtn.setImageResource(R.drawable.interest_aft);
-                Log.d("추가", result);
-            } else if(result.contains("삭제")){
-                GroupbuyingListItemBinding.bind(getView()).interestBtn.setImageResource(R.drawable.interest_prv);
-                //하트 흰색
-                Log.d("삭제", result);
-            }
         });
     }
 

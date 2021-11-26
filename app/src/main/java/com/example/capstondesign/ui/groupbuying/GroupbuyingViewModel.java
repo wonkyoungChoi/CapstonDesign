@@ -14,6 +14,7 @@ import com.example.capstondesign.network.bulletin.groupbuying.DelNowCountService
 import com.example.capstondesign.network.bulletin.groupbuying.DeleteGroupbuyingService;
 import com.example.capstondesign.network.chatting.AddChattingRoomService;
 import com.example.capstondesign.repository.GroupbuyingRepository;
+import com.example.capstondesign.ui.board.Board;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,11 +31,6 @@ public class GroupbuyingViewModel extends ViewModel {
 
     public LiveData<Groupbuying> groupbuying = repository._groupbuying;
     AddGroupbuyingService addGroupbuyingService = new AddGroupbuyingService();
-
-    public MutableLiveData<String> watchlistResult = new MutableLiveData<>();
-
-    public MutableLiveData<Integer> count = new MutableLiveData<>();
-
 
     public void loadGroupbuying() {
         repository.groupbuyingRepository();
@@ -56,7 +52,6 @@ public class GroupbuyingViewModel extends ViewModel {
                 }
             }
         }).start();
-
     }
 
     public void addPicture(String filename, String sourceFileUri) {
@@ -100,32 +95,18 @@ public class GroupbuyingViewModel extends ViewModel {
 
     }
 
-    public void addWatchlist(String watchnick, String time) throws IOException {
-        new AddWatchlistService().enqueue(new Callback() {
+    public void addWatchnick(String watchnick, String time) {
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+            public void run() {
+                try {
+                    new AddWatchlistService().execute(watchnick, time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }).start();
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) {
-                Log.d("UploadFile", "됐다");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            watchlistResult.postValue(response.body().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        }, watchnick, time);
-    }
-
-    public LiveData<String> getResult() {
-        return watchlistResult;
     }
 
     public void deleteGroupbuying(String id) {
@@ -154,6 +135,12 @@ public class GroupbuyingViewModel extends ViewModel {
             }
         }).start();
     }
+
+    public void loadSearchGroupbuying(String title) {
+        repository.GroupbuyingSearchRepository(title);
+    }
+
+    public LiveData<Groupbuying> getSearchGroupbuying() {return repository._searchGroupbuying;}
 
     int code;
 

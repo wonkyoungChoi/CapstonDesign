@@ -14,24 +14,24 @@
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#FFDF24">
+        android:background="@color/white">
 
         <Button
             android:id="@+id/inprofile_exit"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_baseline_arrow_back_24" />
+            android:background="@drawable/back_btn" />
 
         <TextView
             android:id="@+id/title_text"
-            style="@style/title_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:fontFamily="@font/soldier"
-            android:text="프 로 필"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/inprofile_exit"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:text="상세 프로필"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -66,10 +66,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="30dp"
-            app:cardBackgroundColor="#FAECC5"
             app:cardCornerRadius="20dp">
 
             <RelativeLayout
+                android:background="@drawable/gradient"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -79,7 +79,6 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:background="#FFBB00"
                     android:orientation="vertical">
 
                     <TextView
@@ -89,14 +88,14 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
-                        android:fontFamily="@font/soldier"
+                        android:textStyle="bold"
                         android:gravity="center"
                         android:text="이름"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="22sp" />
 
                 </LinearLayout>
@@ -109,12 +108,12 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
                     android:text="닉네임"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -125,12 +124,12 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
                     android:text="이메일"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -141,12 +140,12 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
                     android:text="번호"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -157,12 +156,12 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
                     android:text="성별"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -173,11 +172,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:visibility="invisible"
                     android:textSize="18sp" />
 

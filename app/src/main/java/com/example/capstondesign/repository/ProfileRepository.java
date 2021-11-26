@@ -48,7 +48,6 @@ public class ProfileRepository {
                         result = result.substring(result.lastIndexOf("["));
 
                         try{
-                            Log.d("===RESULT", result);
                             JSONArray ProfileArray = new JSONArray(result);
 
                             for(int i=0; i<ProfileArray.length(); i++)
@@ -63,7 +62,6 @@ public class ProfileRepository {
                                 password = ProfileObject.getString("password");
                                 fastCheck = ProfileObject.getString("fastCheck");
 
-                                Log.d("===Nickname", nickname);
 
                                 profile.postValue(new Profile(name, phone_num, email, nickname, password, gender, fastCheck));
 

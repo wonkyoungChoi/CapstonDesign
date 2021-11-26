@@ -13,27 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:background="#FFBB00">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/chat_nick_name"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/soldier"
-            android:gravity="center|center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/chat_exit"
             android:text="닉네임"
             android:textColor="@color/black"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/chat_exit"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_baseline_arrow_back_24" />
+            android:background="@drawable/back_btn" />
 
 
     </RelativeLayout>
@@ -45,20 +43,12 @@
         android:layout_above="@id/chatmain_bottom"
         android:layout_below="@id/chatmain_top"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/border2"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:orientation="vertical"
             android:scrollbarFadeDuration="0"
@@ -68,41 +58,42 @@
             />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_above="@id/chatmain_bottom"
+        android:background="@drawable/shadow"/>
+
+
     <RelativeLayout
         android:id="@+id/chatmain_bottom"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:background="@drawable/border">
+        android:layout_centerInParent="true">
 
         <EditText
             android:id="@+id/EditText_chat"
             android:layout_width="300dp"
             android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toRightOf="@id/send"
+            android:layout_centerVertical="true"
             android:background="@color/white"
             android:fontFamily="@font/soldier"
+            android:layout_marginStart="10dp"
             android:hint="메세지를 입력하세요"
             android:textColor="@color/black"
-            android:textColorHint="#939393"
+            android:textColorHint="#959595"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/send"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_marginTop="1dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/ic_baseline_forward_24"
+            android:background="@drawable/send"
             android:textColor="@color/black"
             android:textSize="12sp" />
     </RelativeLayout>

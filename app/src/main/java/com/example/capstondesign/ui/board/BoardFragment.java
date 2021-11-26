@@ -75,13 +75,15 @@ public class BoardFragment extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         binding = FragmentBoardBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
@@ -91,7 +93,7 @@ public class BoardFragment extends Fragment {
         initRecyclerView();
         observeBoardResult();
 
-        binding.boardSearch.setOnClickListener(new View.OnClickListener() {
+        binding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SearchBoardResult.class);
@@ -120,11 +122,11 @@ public class BoardFragment extends Fragment {
 
     private void initRecyclerView() {
         boardAdapter = new BoardAdapter();
-        binding.recyclerView.setHasFixedSize(true);
+        binding.rv.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        binding.recyclerView.setLayoutManager(layoutManager);
-        binding.recyclerView.setAdapter(boardAdapter);
+        binding.rv.setLayoutManager(layoutManager);
+        binding.rv.setAdapter(boardAdapter);
     }
 
 

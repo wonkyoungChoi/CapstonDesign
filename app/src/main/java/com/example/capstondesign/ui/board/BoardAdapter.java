@@ -32,7 +32,6 @@ import java.util.List;
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder> {
     public List<Board> items = new ArrayList<>();
     public String nick;
-    int code;
 
     private BoardListItemBinding mBinding;
 
@@ -58,27 +57,14 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("position", String.valueOf(position));
-        int i = 0;
 
         holder.setIsRecyclable(false);
         Board board = items.get(position);
 
-        Log.d("===imageurl", board.getImage());
-
-        try {
-            i = getResponseCode(board.getImage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         mBinding.nick.setText(board.getNick());
         mBinding.title.setText(board.getTitle());
         mBinding.text.setText(board.getText());
-        if(i == 404) {
-            mBinding.imageView.setVisibility(View.GONE);
-        } else {
-            Picasso.get().load(Uri.parse(board.getImage())).into(mBinding.imageView);
-        }
 
         mBinding.layoutBoard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +77,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                 String text = board.getText();
                 String time = board.getTime();
                 String imageUrl = board.getImage();
+                String email = board.getEmail();
 
                 intent.putExtra("id", id);
                 intent.putExtra("nick", nick);
@@ -98,30 +85,11 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
                 intent.putExtra("text", text);
                 intent.putExtra("time", time);
                 intent.putExtra("image", imageUrl);
+                intent.putExtra("email", email);
 
                 mBinding.layoutBoard.getContext().startActivity(intent);
             }
         });
-    }
-
-    public int getResponseCode(String urlString) throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try  {
-                    URL u = new URL (urlString);
-                    HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection ();
-                    huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD");
-                    huc.connect () ;
-                    code = huc.getResponseCode() ;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-        thread.join();
-        return code;
     }
 
     @Override

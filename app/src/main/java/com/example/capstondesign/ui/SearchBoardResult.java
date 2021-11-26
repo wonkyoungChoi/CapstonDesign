@@ -34,7 +34,7 @@ public class SearchBoardResult extends AppCompatActivity {
         observeBoardSearchResult();
         initRecyclerView();
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 search_result = binding.search.getText().toString();

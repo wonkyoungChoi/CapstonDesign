@@ -52,6 +52,15 @@ public class SignUpActivity extends AppCompatActivity {
     private SignUpViewModel model;
 
     @Override
+    public void onBackPressed() {
+        LoginAcitivity.login = 0;
+        finish();
+        super.onBackPressed();
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
@@ -136,14 +145,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         binding.signUp.setOnClickListener(v -> {
             sign_up();
-        });
-
-        binding.cancel.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginAcitivity.class);
-            startActivity(intent);
-            Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-            LoginAcitivity.login = 0;
-            finish();
         });
 
     }

@@ -62,7 +62,6 @@ public class NaverRepository {
                             Map<String, String> requestHeaders = new HashMap<>();
                             requestHeaders.put("Authorization", header);
                             String responseBody = get(apiURL, requestHeaders);
-                            Log.d("NAVERLOGIN", responseBody);
                             NaverUserInfo(responseBody);
                             LoginAcitivity.login = 2;
 

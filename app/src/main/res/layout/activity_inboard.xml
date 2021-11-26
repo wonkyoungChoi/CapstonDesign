@@ -1,67 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="#FFDF24">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bs_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/bd_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFBB00"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme" />
 
-                <Button
-                    android:id="@+id/inboard_exit"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:background="@drawable/ic_baseline_arrow_back_24" />
+        <Button
+            android:id="@+id/back"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/back_btn" />
 
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/title_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="제목"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
+            android:text="자유 게시판"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-            </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/mid"
+        android:layout_below="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imageHeader"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"/>
 
-            android:layout_alignParentLeft="true"
+        <LinearLayout
+            android:id="@+id/buynick"
+            android:layout_below="@id/imageHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentStart="true" />
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/Myinfoimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/black"
+                    android:text="제목"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="작성자 : "
+                        android:textColor="#818181"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/nick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임"
+                        android:textColor="#818181"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageHeader"
+            android:layout_below="@id/buynick"
             android:layout_alignParentBottom="false"
             android:gravity="center_vertical"
             android:textColor="@color/black"
@@ -69,69 +146,89 @@
 
     </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/footer"
+    <View
+        android:id="@+id/line"
+        android:layout_below="@+id/mid"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DBDBDB"/>
+
+    <RelativeLayout
+        android:layout_below="@id/line"
+        android:id="@+id/inboard_mid2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:background="@color/white"
+        android:padding="5dp">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="#FFBB00"
-            android:orientation="vertical">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="5dp">
-
+                app:cardCornerRadius="100dp">
                 <ImageView
                     android:id="@+id/imageView1"
                     android:layout_width="30dp"
                     android:layout_height="30dp" />
 
-                <EditText
-                    android:id="@+id/comment_edit"
-                    style="@style/content_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="댓글을 입력하세요"
-                    android:imeOptions="actionDone"
-                    android:maxLength="20"
-                    android:textColorHint="#4C4C4C">
-
-                </EditText>
-
-                <Button
-                    android:id="@+id/input_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/comment_ok_btn" />
-            </LinearLayout>
-        </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
 
 
+            <EditText
+                android:id="@+id/comment_edit"
+                style="@style/content_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:hint="댓글을 입력하세요..."
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:textColorHint="#4C4C4C">
 
-        <RelativeLayout
-            android:id="@+id/inboard_mid2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/border2"
-            android:padding="5dp">
+            </EditText>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/comment_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </RelativeLayout>
+            <Button
+                android:id="@+id/input_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/king" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -30,8 +30,17 @@ public class BoardViewModel extends ViewModel {
         return board;
     }
 
-    public void addBoard (Board board) throws IOException {
-        addBoardService.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime());
+    public void addBoard (Board board) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    addBoardService.execute(board.getNick(), board.getTitle(), board.getText(), board.getTime(), board.getEmail());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void addPicture(String filename, String sourceFileUri) {

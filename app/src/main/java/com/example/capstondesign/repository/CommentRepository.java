@@ -29,7 +29,7 @@ public class CommentRepository {
     public MutableLiveData<Comment> _comment = new MutableLiveData<>();;
     public ArrayList<Comment> items;
 
-    String id, nick, comment, time;
+    String id, nick, comment, time, email;
 
 
     //Json Parsing
@@ -49,7 +49,6 @@ public class CommentRepository {
                     @Override
                     public void run() {
                         try{
-                            Log.d("===commentRepository", "check");
                             JSONArray BoardArray = new JSONArray(response.body().string());
                             for(int i=0; i<BoardArray.length(); i++)
                             {
@@ -58,10 +57,12 @@ public class CommentRepository {
                                 id = BoardObject.getString("id");
                                 nick = BoardObject.getString("nick");
                                 comment = BoardObject.getString("comment");
-                                Log.d("===comment", comment);
                                 time = BoardObject.getString("time");
+                                email = BoardObject.getString("email");
 
-                                items.add(new Comment(id,nick,comment,time));
+                                email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+
+                                items.add(new Comment(id,nick,comment,time, email));
                             }
                             _comment.setValue(new Comment(items));
                         }catch (JSONException | IOException e) {

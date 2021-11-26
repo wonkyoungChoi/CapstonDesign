@@ -5,14 +5,15 @@ import com.example.capstondesign.ui.board.Board;
 import java.util.ArrayList;
 
 public class Comment {
-    private String nick, comment, time, id;
+    private String nick, comment, time, id, email;
     ArrayList<Comment> list;
 
-    public Comment(String id, String nick, String comment, String time) {
+    public Comment(String id, String nick, String comment, String time, String email) {
         this.id = id;
         this.nick = nick;
         this.comment = comment;
         this.time = time;
+        this.email = email;
     }
 
     public Comment(ArrayList<Comment> list) {
@@ -59,5 +60,11 @@ public class Comment {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

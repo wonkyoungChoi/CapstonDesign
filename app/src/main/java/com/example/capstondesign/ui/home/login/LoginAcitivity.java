@@ -103,15 +103,6 @@ public class LoginAcitivity extends AppCompatActivity {
                 }
             }
         });
-
-        //뒤로 가기 버튼
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 
     private void kakaoLogin() {
@@ -219,7 +210,7 @@ public class LoginAcitivity extends AppCompatActivity {
                 startActivity(intent);
                 login = 4;
             } else {
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                binding.unsuccess.setVisibility(View.VISIBLE);
             }
         });
     }

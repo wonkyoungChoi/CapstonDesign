@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,8 +35,28 @@ public class MainFragment extends AppCompatActivity {
 
     FragmentMainBinding binding;
 
+    long pressedTime;
 
-    int i;
+
+    @Override
+    public void onBackPressed() {
+        if ( pressedTime == 0 ) {
+            Toast.makeText(MainFragment.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+            pressedTime = System.currentTimeMillis();
+        }
+        else {
+            int seconds = (int) (System.currentTimeMillis() - pressedTime);
+
+            if ( seconds > 2000 ) {
+                Toast.makeText(MainFragment.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                pressedTime = 0 ;
+            }
+            else {
+                super.onBackPressed();
+                finish(); // app 종료 시키기
+            }
+        }
+    }
 
 
     @Override
@@ -49,6 +71,8 @@ public class MainFragment extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        binding.bottomNavigation.setItemIconTintList(null);
 
         if(getIntent() != null && getIntent().getIntExtra("check", 0) == 1) {
             ft.replace(R.id.frame_container, frag4).commitAllowingStateLoss();

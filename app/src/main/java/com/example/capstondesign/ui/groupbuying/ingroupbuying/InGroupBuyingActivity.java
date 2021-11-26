@@ -28,8 +28,12 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class InGroupBuyingActivity extends AppCompatActivity {
     String  nickname, email, time;
@@ -40,6 +44,8 @@ public class InGroupBuyingActivity extends AppCompatActivity {
 
     GroupbuyingViewModel model;
 
+    Boolean check;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,17 +55,28 @@ public class InGroupBuyingActivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(GroupbuyingViewModel.class);
 
-        setSupportActionBar(binding.bsTop);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        initActionBar();
 
         intent = getIntent();
+        int count = Integer.parseInt(intent.getStringExtra("pictureCount"));
+        String picture_url = "http://192.168.0.15:8080/test/" + intent.getStringExtra("time");
+
+        initSlider(count, picture_url);
 
         nickname = intent.getStringExtra("nick");
         email = intent.getStringExtra("email");
+        check = intent.getBooleanExtra("check", false);
+        time = intent.getStringExtra("time");
+
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
+
+        Date date = new Date();
+        date.setTime(Long.parseLong(time));
+
+        System.out.println(simpleDateFormat.format(date));
+
 
         binding.subName.setText(intent.getStringExtra("nick"));
         binding.subTitle.setText(intent.getStringExtra("title"));
@@ -74,6 +91,7 @@ public class InGroupBuyingActivity extends AppCompatActivity {
 
 
         if(!LoginAcitivity.profile.getNickname().equals(intent.getStringExtra("nick"))) {
+            binding.changeText.setVisibility(View.INVISIBLE);
             binding.Countaddbtn.setVisibility(View.INVISIBLE);
             binding.Countdelbtn.setVisibility(View.INVISIBLE);
         } else {
@@ -100,41 +118,10 @@ public class InGroupBuyingActivity extends AppCompatActivity {
         });
 
 
-        if(intent.getStringExtra("watchnick").contains(LoginAcitivity.profile.getNickname() + ",")) {
-            binding.interestBtn.setImageResource(R.drawable.interest_aft);
+        if(check) {
+            binding.interestBtn.setImageResource(R.drawable.watchlist_add);
+            check = true;
         }
-
-//        String positionNum = intent.getStringExtra("count");
-//        Log.d("positionNum", positionNum);
-
-//        interest_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                addWatchlistTask = new AddWatchlistTask();
-//                try {
-//                    String result = addWatchlistTask.execute(real_nick, title.getText().toString(), text.getText().toString() , price.getText().toString() , area.getText().toString(), nick.getText().toString(), time).get();
-//                    Log.d("결과", result);
-//                    if(result.contains("추가")) {
-//                        interest_btn.setImageResource(R.drawable.interest_aft);
-//                        Log.d("추가", result);
-//                    } else if(result.contains("삭제")){
-//                        interest_btn.setImageResource(R.drawable.interest_prv);
-//                        //하트 흰색
-//                        Log.d("삭제", result);
-//                    }
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-
-
-        int count = Integer.parseInt(intent.getStringExtra("pictureCount"));
-        String picture_url = "http://192.168.0.15:8080/test/" + intent.getStringExtra("time");
-
-        initSlider(count, picture_url);
 
 
         binding.subBuyBack.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +141,22 @@ public class InGroupBuyingActivity extends AppCompatActivity {
             }
         });
 
-        // 관심목록 추가 해야함
+
+        binding.interestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check) {
+                    binding.interestBtn.setImageResource(R.drawable.watchlist_delete);
+                    Toast.makeText(getApplicationContext(), "관심목록 삭제", Toast.LENGTH_SHORT).show();
+                    check = false;
+                } else {
+                    binding.interestBtn.setImageResource(R.drawable.watchlist_add);
+                    Toast.makeText(getApplicationContext(), "관심목록 추가", Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                model.addWatchnick(LoginAcitivity.profile.getNickname(), intent.getStringExtra("time"));
+            }
+        });
 
     }
 
@@ -192,6 +194,14 @@ public class InGroupBuyingActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initActionBar() {
+        setSupportActionBar(binding.bsTop);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     private int countAdd(String time, int set_count, int count) {
@@ -236,8 +246,6 @@ public class InGroupBuyingActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 
 
     void startActivity(Class c) {

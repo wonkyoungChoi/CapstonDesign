@@ -28,16 +28,46 @@ public class InBoardViewModel extends ViewModel {
         return comment;
     }
 
-    public void addComment (Comment comment) throws IOException {
-        addCommentService.execute(comment.getId(), comment.getNick(), comment.getComment(), comment.getTime());
+    public void addComment (Comment comment) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    addCommentService.execute(comment.getId(), comment.getNick(), comment.getComment(), comment.getTime(), comment.getEmail());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
-    public void deleteComment(String id, String time) throws IOException {
-        deleteCommentService.execute(id, time);
+    public void deleteComment(String id, String time) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    deleteCommentService.execute(id, time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
-    public void deleteBoard(String id) throws IOException {
-        deleteBoardService.execute(id);
+    public void deleteBoard(String id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    deleteBoardService.execute(id);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
 

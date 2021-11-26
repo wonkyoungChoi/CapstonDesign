@@ -26,16 +26,11 @@ import com.example.capstondesign.ui.profile.ProfileViewModel;
 import java.util.ArrayList;
 
 public class MyBoardActivity extends AppCompatActivity {
-    public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
-
     ActivityMyBoardBinding binding;
-    public static Uri image;
-    public int position;
 
     ProfileViewModel model;
 
     public BoardAdapter adapter;
-
     public ArrayList<Board> showboard = new ArrayList<>();
 
     @Override

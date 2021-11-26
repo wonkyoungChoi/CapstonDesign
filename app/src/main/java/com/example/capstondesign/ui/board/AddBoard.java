@@ -47,13 +47,6 @@ public class AddBoard extends AppCompatActivity {
 
         now = System.currentTimeMillis();
 
-        binding.boardExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         binding.addImageView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -118,12 +111,8 @@ public class AddBoard extends AppCompatActivity {
                         file = null;
                     }
                     Log.d("===VALUE", nick + title + text + time);
-                    Board board = new Board(null , nick, title, text, time);
-                    try {
-                        model.addBoard(board);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Board board = new Board(null , nick, title, text, time, LoginAcitivity.profile.getEmail());
+                    model.addBoard(board);
 
                     finish();
                 } else {
@@ -144,8 +133,6 @@ public class AddBoard extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 try {
-                    Log.e("Data" , data.toString());
-                    Log.e("Data" , data.getData().toString());
                     file = data.getData();
 
                     // 선택한 이미지에서 비트맵 생성

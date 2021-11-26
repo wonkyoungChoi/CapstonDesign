@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layoutDescription="@xml/notice_scene"
-    tools:context=".controller.Notice">
+    tools:context=".ui.Notification">
 
     <FrameLayout
         android:layout_width="match_parent"

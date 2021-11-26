@@ -57,8 +57,6 @@ public class ChattingRoomRepository {
                                 otheremail = ChatObject.getString("otheremail");
                                 last_msg = ChatObject.getString("last_msg");
 
-                                Log.d("===Mynick", myemail);
-
                                 if(mynick.equals(LoginAcitivity.profile.getNickname())) {
                                     if(othernick != null && !othernick.equals("null")) {
                                         chatlist.add(new ChattingRoomData(mynick, othernick, last_msg, myemail, otheremail, true));

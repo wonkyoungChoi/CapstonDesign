@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/home"
+        android:icon="@drawable/home_selector"
         android:visible="true"
         android:enabled="true"
         android:title="홈"/>
 
     <item
         android:id="@+id/action_article"
-        android:icon="@drawable/board"
+        android:icon="@drawable/board_selector"
         android:visible="true"
         android:enabled="true"
         android:title="게시판"/>
@@ -18,14 +18,14 @@
 
     <item
         android:id="@+id/action_buy"
-        android:icon="@drawable/trade"
+        android:icon="@drawable/group_buying_selector"
         android:visible="true"
         android:enabled="true"
         android:title="공동구매"/>
 
     <item
         android:id="@+id/action_chatting"
-        android:icon="@drawable/chatting"
+        android:icon="@drawable/chatting_selector"
         android:visible="true"
         android:enabled="true"
         android:title="채팅"/>
@@ -33,7 +33,7 @@
 
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/profile_selector"
         android:visible="true"
         android:enabled="true"
         android:title="프로필"/>

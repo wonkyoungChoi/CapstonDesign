@@ -19,6 +19,7 @@ public class AddBoardService {
                 .add("title", strings[1])
                 .add("text", strings[2])
                 .add("time", strings[3])
+                .add("email", strings[4])
                 .build();
         okhttpNetwork.execute(url, formbody);
     }

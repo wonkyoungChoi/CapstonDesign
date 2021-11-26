@@ -51,6 +51,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        binding.insetingExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void ChangeClickHandler() {

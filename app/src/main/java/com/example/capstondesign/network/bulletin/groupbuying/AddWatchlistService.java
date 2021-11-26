@@ -16,11 +16,11 @@ public class AddWatchlistService {
     String url = "add_watchlist.jsp";
     RequestBody formbody;
 
-    public void enqueue(Callback callback, String... strings) {
+    public void execute(String... strings) throws IOException {
         formbody  = new FormBody.Builder()
                 .add("watchnick", strings[0])
                 .add("time", strings[1])
                 .build();
-        okhttpNetwork.enQueue(url, formbody, callback);
+        okhttpNetwork.execute(url, formbody);
     }
 }

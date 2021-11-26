@@ -152,6 +152,14 @@ public class Groupbuying {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public ArrayList<Groupbuying> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Groupbuying> list) {
+        this.list = list;
+    }
 }
 
 

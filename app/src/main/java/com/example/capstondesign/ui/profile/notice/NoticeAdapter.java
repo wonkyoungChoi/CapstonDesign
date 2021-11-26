@@ -40,7 +40,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
             nick = (TextView) itemView.findViewById(R.id.nick);
             title = (TextView) itemView.findViewById(R.id.title);
             text = (TextView) itemView.findViewById(R.id.text);

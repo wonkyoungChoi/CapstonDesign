@@ -24,6 +24,8 @@ import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.inprofile.InProfileActivity;
 import com.example.capstondesign.ui.profile.inwatchlist.mywatchlist.WatchlistActivity;
 import com.example.capstondesign.ui.profile.myactivity.MyActivity;
+import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoardActivity;
+import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity;
 import com.example.capstondesign.ui.profile.notice.NoticeActivity;
 import com.example.capstondesign.ui.profile.setting.SettingActivity;
 import com.example.capstondesign.ui.profile.setting.SettingViewModel;
@@ -133,11 +135,10 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-
-        binding.noticebtn.setOnClickListener(new View.OnClickListener() {
+        binding.inMyGroupbuying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NoticeActivity.class);
+                Intent intent = new Intent(getContext(), MyGroupBuyingActivity.class);
                 startActivity(intent);
             }
         });
@@ -156,7 +157,7 @@ public class FragmentProfile extends Fragment {
         binding.inMyBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyActivity.class);
+                Intent intent = new Intent(getContext(), MyBoardActivity.class);
                 startActivity(intent);
             }
         });
@@ -208,9 +209,9 @@ public class FragmentProfile extends Fragment {
     private void profileLoad(String url) {
         try {
             if (getResponseCode(url) == 404) {
-                url = "http://192.168.0.15:8080/test/king.png";
+                url = "http://183.96.240.182:8080/test/king.png";
             } else {
-                url = "http://192.168.0.15:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
+                url = "http://183.96.240.182:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
             }
             Picasso.get()
                     .load(Uri.parse(url))

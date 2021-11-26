@@ -52,7 +52,6 @@ public class FacebookRepository implements FacebookCallback<LoginResult> {
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
                         try {
-                            Log.d("===requestMe", "CHECK");
 
                             email = object.getString("email");
                             profile.setEmail(email);
