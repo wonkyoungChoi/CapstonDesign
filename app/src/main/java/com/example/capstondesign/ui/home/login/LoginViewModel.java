@@ -97,16 +97,16 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onResponse(Call call, Response response) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            loginResult.setValue(response.body().string());
+                            loginResult.postValue(response.body().string());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                });
+                }).start();
             }
         }, id, password);
     }
