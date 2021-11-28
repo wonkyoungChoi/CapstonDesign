@@ -147,7 +147,7 @@ public class GroupbuyingViewModel extends ViewModel {
     public String strUrl(String url) {
         try {
             if (getResponseCode(url) == 404) {
-                url = "http://183.96.240.182:8080/king.png";
+                url = "http://121.162.202.209:8080/king.png";
             }
 
         } catch (InterruptedException e) {

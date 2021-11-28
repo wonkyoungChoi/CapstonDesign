@@ -65,9 +65,9 @@ public class BoardRepository {
 
                             Log.d("nick", nick);
 
-                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+                            email = "http://121.162.202.209:8080/test/" + email + ".jpg";
 
-                            items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
+                            items.add(new Board(id,nick,title,text,"http://121.162.202.209:8080/test/"+ time + ".jpg", time, email));
                         }
                         _board.postValue(new Board(items));
                     }catch (JSONException | IOException e) {
@@ -105,10 +105,10 @@ public class BoardRepository {
                             time = BoardObject.getString("time");
                             email = BoardObject.getString("email");
 
-                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+                            email = "http://121.162.202.209:8080/test/" + email + ".jpg";
 
                             if(nick.equals(LoginAcitivity.profile.getNickname())) {
-                                items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
+                                items.add(new Board(id,nick,title,text,"http://121.162.202.209:8080/test/"+ time + ".jpg", time, email));
                             }
                         }
                         _board.postValue(new Board(items));
@@ -149,9 +149,9 @@ public class BoardRepository {
                             time = BoardObject.getString("time");
                             email = BoardObject.getString("email");
 
-                            email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+                            email = "http://121.162.202.209:8080/test/" + email + ".jpg";
 
-                            items.add(new Board(id,nick,title,text,"http://183.96.240.182:8080/test/"+ time + ".jpg", time, email));
+                            items.add(new Board(id,nick,title,text,"http://121.162.202.209:8080/test/"+ time + ".jpg", time, email));
                         }
                         _searchBoard.postValue(new Board(items));
                     }catch (JSONException | IOException e) {

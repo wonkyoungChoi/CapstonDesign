@@ -69,7 +69,7 @@ public class GroupbuyingRepository {
 
                             check = watchnick.contains(LoginAcitivity.profile.getEmail() + ",");
 
-                            items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg", email, check));
+                            items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg", email, check));
                         }
                         _groupbuying.postValue(new Groupbuying(items));
                     }catch (JSONException | IOException e) {
@@ -116,7 +116,7 @@ public class GroupbuyingRepository {
                             check = watchnick.contains(LoginAcitivity.profile.getEmail() + ",");
 
                             if(nick.equals(LoginAcitivity.profile.getNickname())) {
-                                items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg", email, check));
+                                items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg", email, check));
                             }
                         }
                         _groupbuying.postValue(new Groupbuying(items));
@@ -164,8 +164,8 @@ public class GroupbuyingRepository {
                             check = watchnick.contains(LoginAcitivity.profile.getEmail() + ",");
 
                             if(watchnick.contains(LoginAcitivity.profile.getEmail() + ",")) {
-                                Log.d("===watchnick", "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg");
-                                items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg", email, check));
+                                Log.d("===watchnick", "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg");
+                                items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg", email, check));
                             }
                         }
                         _watchlist.postValue(new Groupbuying(items));
@@ -213,8 +213,8 @@ public class GroupbuyingRepository {
                             check = watchnick.contains(LoginAcitivity.profile.getEmail() + ",");
 
                             if(watchnick.contains(LoginAcitivity.profile.getEmail() + ",")) {
-                                Log.d("===watchnick", "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg");
-                                if(items.size() < 6) items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg", email, check));
+                                Log.d("===watchnick", "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg");
+                                if(items.size() < 6) items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg", email, check));
                             }
                         }
                         _watchlist.postValue(new Groupbuying(items));
@@ -262,7 +262,7 @@ public class GroupbuyingRepository {
 
                             check = watchnick.contains(LoginAcitivity.profile.getEmail() + ",");
 
-                            items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://183.96.240.182:8080/test/"+ time + 0 + ".jpg", email, check));
+                            items.add(new Groupbuying(id, nick, title, text, price, headCount, nowCount, area, watchnick, picture_count, time, "http://121.162.202.209:8080/test/"+ time + 0 + ".jpg", email, check));
                         }
                         _searchGroupbuying.postValue(new Groupbuying(items));
                     }catch (JSONException | IOException e) {

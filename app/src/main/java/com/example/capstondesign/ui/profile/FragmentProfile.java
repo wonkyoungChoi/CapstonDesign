@@ -112,7 +112,7 @@ public class FragmentProfile extends Fragment {
 
     @Override
     public void onResume() {
-        String url = "http://183.96.240.182:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
+        String url = "http://121.162.202.209:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
         profileLoad(url);
         super.onResume();
     }
@@ -347,9 +347,9 @@ public class FragmentProfile extends Fragment {
     private void profileLoad(String url) {
         try {
             if (getResponseCode(url) == 404) {
-                url = "http://183.96.240.182:8080/test/king.png";
+                url = "http://121.162.202.209:8080/test/king.png";
             } else {
-                url = "http://183.96.240.182:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
+                url = "http://121.162.202.209:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg";
             }
             Picasso.get()
                     .load(Uri.parse(url))

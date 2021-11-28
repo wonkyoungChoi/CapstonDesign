@@ -60,7 +60,7 @@ public class CommentRepository {
                                 time = BoardObject.getString("time");
                                 email = BoardObject.getString("email");
 
-                                email = "http://183.96.240.182:8080/test/" + email + ".jpg";
+                                email = "http://121.162.202.209:8080/test/" + email + ".jpg";
 
                                 items.add(new Comment(id,nick,comment,time, email));
                             }

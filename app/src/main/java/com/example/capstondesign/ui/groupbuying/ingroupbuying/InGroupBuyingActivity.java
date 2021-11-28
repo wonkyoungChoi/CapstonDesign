@@ -167,7 +167,7 @@ public class InGroupBuyingActivity extends AppCompatActivity {
     private void initText() {
         intent = getIntent();
         count = Integer.parseInt(intent.getStringExtra("pictureCount"));
-        picture_url = "http://183.96.240.182:8080/test/" + intent.getStringExtra("time");
+        picture_url = "http://121.162.202.209:8080/test/" + intent.getStringExtra("time");
 
         nickname = intent.getStringExtra("nick");
         email = intent.getStringExtra("email");
@@ -182,7 +182,7 @@ public class InGroupBuyingActivity extends AppCompatActivity {
         binding.headCount.setText(intent.getStringExtra("headCount"));
         binding.nowCount.setText(intent.getStringExtra("nowCount"));
 
-        String url = model.strUrl("http://183.96.240.182:8080/test/" + email + ".jpg");
+        String url = model.strUrl("http://121.162.202.209:8080/test/" + email + ".jpg");
         Picasso.get().load(Uri.parse(url)).into(binding.Myinfoimage);
     }
 

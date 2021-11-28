@@ -78,7 +78,7 @@ public class InBoardActivity extends AppCompatActivity {
         binding.nick.setText(nick);
         binding.text.setText(text);
 
-        setImage("http://183.96.240.182:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg", binding.imageView1);
+        setImage("http://121.162.202.209:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg", binding.imageView1);
         setImage(email, binding.Myinfoimage);
 
 

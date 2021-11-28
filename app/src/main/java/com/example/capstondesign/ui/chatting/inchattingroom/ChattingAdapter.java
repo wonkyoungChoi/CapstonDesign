@@ -55,7 +55,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
         int i = 0;
 
         String strurl;
-        strurl = "http://183.96.240.182:8080/test/" + chat.getEmail() +  ".jpg";
+        strurl = "http://121.162.202.209:8080/test/" + chat.getEmail() +  ".jpg";
         try {
             i = getResponseCode(strurl);
         } catch (InterruptedException e) {
@@ -68,7 +68,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
         if(chat.getNickname()!=null && chat.getNickname().equals(LoginAcitivity.profile.getNickname())) {
             try {
                 if(i == 404) {
-                    strurl = "http://183.96.240.182:8080/test/king.png";
+                    strurl = "http://121.162.202.209:8080/test/king.png";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -84,7 +84,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyView
             Log.d("CHATADAPTER", name);
             try {
                 if(i == 404) {
-                    strurl = "http://183.96.240.182:8080/test/king.png";
+                    strurl = "http://121.162.202.209:8080/test/king.png";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
