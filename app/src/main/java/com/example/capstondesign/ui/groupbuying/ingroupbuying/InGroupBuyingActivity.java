@@ -36,9 +36,9 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class InGroupBuyingActivity extends AppCompatActivity {
-    String  nickname, email, time;
+    String  nickname, email, time, picture_url;
     Intent intent;
-    int set, max_count;
+    int count, set, max_count;
 
     ActivityIngroupbuyingBinding binding;
 
@@ -55,47 +55,17 @@ public class InGroupBuyingActivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(GroupbuyingViewModel.class);
 
+        initText();
         initActionBar();
-
-        intent = getIntent();
-        int count = Integer.parseInt(intent.getStringExtra("pictureCount"));
-        String picture_url = "http://192.168.0.15:8080/test/" + intent.getStringExtra("time");
-
         initSlider(count, picture_url);
 
-        nickname = intent.getStringExtra("nick");
-        email = intent.getStringExtra("email");
-        check = intent.getBooleanExtra("check", false);
-        time = intent.getStringExtra("time");
 
-
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
-
-        Date date = new Date();
-        date.setTime(Long.parseLong(time));
-
-        System.out.println(simpleDateFormat.format(date));
-
-
-        binding.subName.setText(intent.getStringExtra("nick"));
-        binding.subTitle.setText(intent.getStringExtra("title"));
-        binding.subPlace.setText(intent.getStringExtra("area"));
-        binding.subContents.setText(intent.getStringExtra("text"));
-        binding.subPrice.setText(intent.getStringExtra("price") + "원");
-        binding.headCount.setText(intent.getStringExtra("headCount"));
-        binding.nowCount.setText(intent.getStringExtra("nowCount"));
-
-        String url = model.strUrl("http://192.168.0.15:8080/test/" + email + ".jpg");
-        Picasso.get().load(Uri.parse(url)).into(binding.Myinfoimage);
-
-
-        if(!LoginAcitivity.profile.getNickname().equals(intent.getStringExtra("nick"))) {
-            binding.changeText.setVisibility(View.INVISIBLE);
-            binding.Countaddbtn.setVisibility(View.INVISIBLE);
-            binding.Countdelbtn.setVisibility(View.INVISIBLE);
+        if(LoginAcitivity.profile.getNickname().equals(nickname)) {
+            binding.changeText.setVisibility(View.VISIBLE);
+            binding.Countaddbtn.setVisibility(View.VISIBLE);
+            binding.Countdelbtn.setVisibility(View.VISIBLE);
         } else {
-            binding.subChat.setVisibility(View.INVISIBLE);
+            binding.subChat.setVisibility(View.VISIBLE);
         }
 
         set = Integer.parseInt(intent.getStringExtra("nowCount"));
@@ -135,8 +105,6 @@ public class InGroupBuyingActivity extends AppCompatActivity {
         binding.subChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("-===NIck", nickname);
-                Log.d("-===NIck", email);
                 addChattingRoom(LoginAcitivity.profile.getNickname(), nickname, "대화를 시작해보세요.", LoginAcitivity.profile.getEmail(), email);
             }
         });
@@ -154,7 +122,7 @@ public class InGroupBuyingActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "관심목록 추가", Toast.LENGTH_SHORT).show();
                     check = true;
                 }
-                model.addWatchnick(LoginAcitivity.profile.getNickname(), intent.getStringExtra("time"));
+                model.addWatchnick(LoginAcitivity.profile.getEmail(), intent.getStringExtra("time"));
             }
         });
 
@@ -195,6 +163,29 @@ public class InGroupBuyingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void initText() {
+        intent = getIntent();
+        count = Integer.parseInt(intent.getStringExtra("pictureCount"));
+        picture_url = "http://183.96.240.182:8080/test/" + intent.getStringExtra("time");
+
+        nickname = intent.getStringExtra("nick");
+        email = intent.getStringExtra("email");
+        check = intent.getBooleanExtra("check", false);
+        time = intent.getStringExtra("time");
+
+        binding.subName.setText(intent.getStringExtra("nick"));
+        binding.subTitle.setText(intent.getStringExtra("title"));
+        binding.subPlace.setText(intent.getStringExtra("area"));
+        binding.subContents.setText(intent.getStringExtra("text"));
+        binding.subPrice.setText(intent.getStringExtra("price") + "원");
+        binding.headCount.setText(intent.getStringExtra("headCount"));
+        binding.nowCount.setText(intent.getStringExtra("nowCount"));
+
+        String url = model.strUrl("http://183.96.240.182:8080/test/" + email + ".jpg");
+        Picasso.get().load(Uri.parse(url)).into(binding.Myinfoimage);
+    }
+
 
     private void initActionBar() {
         setSupportActionBar(binding.bsTop);

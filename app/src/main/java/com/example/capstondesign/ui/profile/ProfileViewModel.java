@@ -8,9 +8,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.capstondesign.network.UploadService;
 import com.example.capstondesign.network.bulletin.groupbuying.AddWatchlistService;
+import com.example.capstondesign.network.profile.ChangeNickService;
 import com.example.capstondesign.network.profile.CountActivityService;
 import com.example.capstondesign.repository.BoardRepository;
 import com.example.capstondesign.repository.GroupbuyingRepository;
+import com.example.capstondesign.repository.SignUpRepository;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.ui.groupbuying.Groupbuying;
 
@@ -26,9 +28,16 @@ public class ProfileViewModel extends ViewModel {
     MutableLiveData<String> countNum = new MutableLiveData<>();
     BoardRepository boardRepository = new BoardRepository();
     GroupbuyingRepository groupbuyingRepository = new GroupbuyingRepository();
+
     public LiveData<Board> board = boardRepository._board;
     public LiveData<Groupbuying> groupbuying = groupbuyingRepository._groupbuying;
     public LiveData<Groupbuying> watchlist = groupbuyingRepository._watchlist;
+
+    ChangeNickService changeNickService = new ChangeNickService();
+
+    SignUpRepository repository = new SignUpRepository();
+
+    private LiveData<String> nickResult = repository._nickCheck;
 
 
     public void addProfile(String filename, String sourceFileUri) {
@@ -68,12 +77,26 @@ public class ProfileViewModel extends ViewModel {
         }, nick);
     }
 
-    public void addWatchnick(String watchnick, String time) {
+    public void addWatchnick(String watchemail, String time) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    new AddWatchlistService().execute(watchnick, time);
+                    new AddWatchlistService().execute(watchemail, time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+    public void ChangeNick(String changeNick, String nick) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    changeNickService.execute(changeNick, nick);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,8 +130,21 @@ public class ProfileViewModel extends ViewModel {
         groupbuyingRepository.myActivityWatchlistRepository();
     }
 
+    public void loadWatchlistMore() {
+        groupbuyingRepository.myActivityWatchlistMoreRepository();
+    }
+
     public LiveData<Groupbuying> getMyWatchlistActivity() {
         return watchlist;
+    }
+
+
+    public void loadNickCheck(String nick) throws IOException {
+        repository.nickCheckRepository(nick);
+    }
+
+    public LiveData<String> getNickResult() {
+        return nickResult;
     }
 
 

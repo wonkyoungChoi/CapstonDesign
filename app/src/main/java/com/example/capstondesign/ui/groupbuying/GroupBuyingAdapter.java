@@ -14,6 +14,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,18 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.MyViewHolder> {
-    static OnInterestClickListener mListener = null;
+    OnInterestClickListener mListener = null;
     public Groupbuying groupbuying;
     private GroupbuyingListItemBinding mBinding;
 
     public List<Groupbuying> items = new ArrayList<>();
 
-    ImageView interestedBtn;
-    Boolean check;
 
 
     public interface OnInterestClickListener{
-        void onItemClick(View v, int pos) throws IOException;
+        void onItemClick(View v, int pos);
     }
 
     public void setOnInterestClickListener(GroupBuyingAdapter.OnInterestClickListener listener) {
@@ -81,34 +80,30 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
         Log.d("===url", groupbuying.getImage_url());
 
 
-        if(groupbuying.getWatchnick().contains(LoginAcitivity.profile.getNickname() + ",")) {
+        if(groupbuying.getCheck()) {
             mBinding.interestBtn.setImageResource(R.drawable.watchlist_add);
-            check = true;
         } else {
             mBinding.interestBtn.setImageResource(R.drawable.watchlist_delete);
-            check = false;
         }
+
+        groupbuying.setWatchlist_btn(mBinding.interestBtn);
 
         mBinding.interestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    mListener.onItemClick(mBinding.interestBtn, position);
-                    if(check) {
-                        mBinding.interestBtn.setImageResource(R.drawable.watchlist_delete);
-                        check = false;
-                    } else {
-                        mBinding.interestBtn.setImageResource(R.drawable.watchlist_add);
-                        check = true;
-                    }
-                    Log.d("===ClickInter", "click");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                mListener.onItemClick(mBinding.interestBtn, position);
+                if(groupbuying.getCheck()) {
+                    Toast.makeText(mBinding.getRoot().getContext(), "관심목록 삭제", Toast.LENGTH_SHORT).show();
+                    groupbuying.getWatchlist_btn().setImageResource(R.drawable.watchlist_delete);
+                    groupbuying.setCheck(false);
+                } else {
+                    Toast.makeText(mBinding.getRoot().getContext(), "관심목록 추가", Toast.LENGTH_SHORT).show();
+                    groupbuying.getWatchlist_btn().setImageResource(R.drawable.watchlist_add);
+                    groupbuying.setCheck(true);
                 }
+                Log.d("===ClickInter", "click");
             }
         });
-
-
 
         mBinding.listItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +124,7 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                 String pictureCount = groupbuying.getPicture_count();
                 String time = groupbuying.getTime();
                 String email = groupbuying.getEmail();
+                Boolean check = groupbuying.getCheck();
 
                 intent.putExtra("id", id);
                 intent.putExtra("nick", nick);
@@ -148,10 +144,6 @@ public class GroupBuyingAdapter extends RecyclerView.Adapter<GroupBuyingAdapter.
                 mBinding.listItem.getContext().startActivity(intent);
             }
         });
-    }
-
-    public Boolean getCheck() {
-        return check;
     }
 
     @Override

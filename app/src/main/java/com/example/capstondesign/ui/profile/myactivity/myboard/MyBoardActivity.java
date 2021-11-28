@@ -1,26 +1,17 @@
 package com.example.capstondesign.ui.profile.myactivity.myboard;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.capstondesign.R;
-import com.example.capstondesign.databinding.ActivityInprofileBinding;
 import com.example.capstondesign.databinding.ActivityMyBoardBinding;
-import com.example.capstondesign.ui.Profile;
 import com.example.capstondesign.ui.SearchBoardResult;
 import com.example.capstondesign.ui.board.Board;
 import com.example.capstondesign.ui.board.BoardAdapter;
-import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.profile.ProfileViewModel;
 
 import java.util.ArrayList;

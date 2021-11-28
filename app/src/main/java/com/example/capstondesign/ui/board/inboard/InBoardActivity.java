@@ -72,10 +72,13 @@ public class InBoardActivity extends AppCompatActivity {
         time = getIntent().getStringExtra("time");
         email = getIntent().getStringExtra("email");
 
+        Log.d("nickname", nick);
+
         binding.title.setText(title);
+        binding.nick.setText(nick);
         binding.text.setText(text);
 
-        setImage("http://192.168.0.15:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg", binding.imageView1);
+        setImage("http://183.96.240.182:8080/test/" + LoginAcitivity.profile.getEmail() + ".jpg", binding.imageView1);
         setImage(email, binding.Myinfoimage);
 
 

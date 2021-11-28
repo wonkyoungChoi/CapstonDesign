@@ -81,11 +81,11 @@
         <activity android:name=".ui.Notification"/>
         <activity android:name=".ui.groupbuying.AddGroupBuying"/>
         <activity android:name=".ui.profile.inprofile.InProfileActivity"/>
-        <activity android:name=".ui.profile.inwatchlist.mywatchlist.WatchlistActivity"/>
+        <activity android:name=".ui.profile.myactivity.WatchlistActivity"/>
         <activity android:name=".ui.profile.setting.SettingActivity"/>
         <activity android:name=".ui.profile.setting.changepassword.InChangePasswordActivity"/>
-        <activity android:name=".ui.profile.notice.NoticeActivity"/>
-        <activity android:name=".ui.profile.notice.innotice.NoticeInside"/>
+        <activity android:name=".ui.home.notice.NoticeActivity"/>
+        <activity android:name=".ui.home.notice.innotice.NoticeInside"/>
         <activity android:name=".ui.profile.setting.withdraw.InWithdrawActivity"/>
         <activity android:name=".ui.profile.myactivity.MyActivity"/>
         <activity android:name=".ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity"/>

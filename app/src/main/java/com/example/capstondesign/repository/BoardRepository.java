@@ -135,6 +135,7 @@ public class BoardRepository {
                 new Thread(() -> {
                     try{
                         String result = response.body().string();
+                        Log.d("RESULT", result);
                         int idx = result.indexOf("[");
                         String re_result = result.substring(idx);
                         JSONArray BoardArray = new JSONArray(re_result);

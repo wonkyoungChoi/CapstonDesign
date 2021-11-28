@@ -30,15 +30,7 @@ import java.util.ArrayList;
 
 public class GroupbuyingFragment extends Fragment {
 
-    public String mynick, nick, title, text, area, price, headCount, nowCount, watchnick;
-    ImageView buysearch;
-    public static Uri image;
-    Profile profile = LoginAcitivity.profile;
-    public static int position;
-
     public GroupBuyingAdapter adapter;
-
-    public static ArrayList<Groupbuying> groupbuying = new ArrayList<>();
 
     FragmentGroupbuyingBinding binding;
     GroupbuyingViewModel model;
@@ -114,13 +106,7 @@ public class GroupbuyingFragment extends Fragment {
         adapter.setOnInterestClickListener(new GroupBuyingAdapter.OnInterestClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                if(adapter.getCheck()) {
-                    Toast.makeText(getContext(), "관심목록 삭제", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "관심목록 추가", Toast.LENGTH_SHORT).show();
-                }
-
-                model.addWatchnick(LoginAcitivity.profile.getNickname(), adapter.items.get(pos).getTime());
+                model.addWatchnick(LoginAcitivity.profile.getEmail(), adapter.items.get(pos).getTime());
             }
         });
 

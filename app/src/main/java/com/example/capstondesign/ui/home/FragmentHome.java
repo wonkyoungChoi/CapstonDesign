@@ -5,21 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.example.capstondesign.R;
 import com.example.capstondesign.databinding.FragmentHomeBinding;
-import com.example.capstondesign.databinding.FragmentProfileBinding;
 import com.example.capstondesign.ui.Notification;
-import com.example.capstondesign.ui.SearchBoardResult;
-import com.example.capstondesign.ui.profile.notice.NoticeActivity;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import com.example.capstondesign.ui.home.notice.NoticeActivity;
 
 public class FragmentHome extends Fragment {
 

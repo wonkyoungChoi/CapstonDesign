@@ -3,10 +3,9 @@ package com.example.capstondesign.ui.profile.myactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.capstondesign.R;
+
 import com.example.capstondesign.databinding.ActivitySelectMyactivityBinding;
 import com.example.capstondesign.ui.profile.myactivity.myboard.MyBoardActivity;
 import com.example.capstondesign.ui.profile.myactivity.mygroupbuying.MyGroupBuyingActivity;

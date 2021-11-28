@@ -83,12 +83,6 @@ public class Board implements Serializable {
         this.email = email;
     }
 
-    public Board(String nick, String title, String text) {
-        this.nick = nick;
-        this.title = title;
-        this.text = text;
-    }
-
     public Board(ArrayList<Board> list) {
         this.list = list;
     }

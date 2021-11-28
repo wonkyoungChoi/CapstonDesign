@@ -14,6 +14,7 @@
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         android:text="제목"
+        android:maxLines="1"
         android:textColor="#464646"
         android:textSize="20sp" />
 
@@ -26,6 +27,7 @@
         android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:gravity="left"
+        android:maxLines="1"
         android:text="내용"
         android:textColor="#999999"
         android:textSize="15sp" />

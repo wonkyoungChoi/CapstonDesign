@@ -1,6 +1,5 @@
 package com.example.capstondesign.network.bulletin.board.comment;
 
-import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import java.io.IOException;

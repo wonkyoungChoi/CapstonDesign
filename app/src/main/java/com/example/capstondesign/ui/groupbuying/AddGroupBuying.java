@@ -76,6 +76,8 @@ public class AddGroupBuying extends AppCompatActivity {
 
                 if(fileGroupBuying != null) {
                     if (titlestr.trim().length() > 0 && pricestr.trim().length() > 0 && headcountstr.trim().length() > 0 && textstr.trim().length() > 0 && areastr.trim().length() > 0) {
+                        Groupbuying groupbuying = new Groupbuying(null, LoginAcitivity.profile.getNickname(), titlestr, textstr, pricestr, headcountstr, "1", areastr, "", number, time, titlestr.hashCode() + time + ".jpg", LoginAcitivity.profile.getEmail());
+                        model.addGroupbuying(groupbuying); // count가 1으로 설정이 되고
                         int i = 0;
                         for (Uri uri : fileGroupBuying) {
                             Log.d("===file", String.valueOf(fileGroupBuying.length));
@@ -112,8 +114,7 @@ public class AddGroupBuying extends AppCompatActivity {
                             }
                         }
                         fileGroupBuying = null;
-                        Groupbuying groupbuying = new Groupbuying(null, LoginAcitivity.profile.getNickname(), titlestr, textstr, pricestr, headcountstr, "1", areastr, "", number, time, titlestr.hashCode() + time + ".jpg", LoginAcitivity.profile.getEmail());
-                        model.addGroupbuying(groupbuying); // count가 1으로 설정이 되고
+
 
                         finish();
                     } else {

@@ -1,5 +1,8 @@
 package com.example.capstondesign.ui.groupbuying;
 
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.example.capstondesign.ui.board.Board;
 
 import java.util.ArrayList;
@@ -19,7 +22,26 @@ public class Groupbuying {
     String number;
     String image_url;
     String email;
+    Boolean check;
     Integer id;
+    ImageView watchlist_btn;
+
+    public Groupbuying(Integer id, String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String picture_count, String time, String image_url, String email, Boolean check) {
+        this.id = id;
+        this.nick = nick;
+        this.title = title;
+        this.text = text;
+        this.price = price;
+        this.headcount = headcount;
+        this.nowCount = nowCount;
+        this.area = area;
+        this.watchnick = watchnick;
+        this.picture_count = picture_count;
+        this.time = time;
+        this.image_url = image_url;
+        this.email = email;
+        this.check  = check;
+    }
 
     public Groupbuying(Integer id, String nick, String title, String text, String price, String headcount, String nowCount, String area, String watchnick, String picture_count, String time, String image_url, String email) {
         this.id = id;
@@ -35,6 +57,14 @@ public class Groupbuying {
         this.time = time;
         this.image_url = image_url;
         this.email = email;
+    }
+
+    public Groupbuying(Integer id, String title, String text, String watchnick, String image_url) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.watchnick = watchnick;
+        this.image_url = image_url;
     }
 
     public Groupbuying(ArrayList<Groupbuying> list) {
@@ -159,6 +189,22 @@ public class Groupbuying {
 
     public void setList(ArrayList<Groupbuying> list) {
         this.list = list;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
+    }
+
+    public ImageView getWatchlist_btn() {
+        return watchlist_btn;
+    }
+
+    public void setWatchlist_btn(ImageView watchlist_btn) {
+        this.watchlist_btn = watchlist_btn;
     }
 }
 

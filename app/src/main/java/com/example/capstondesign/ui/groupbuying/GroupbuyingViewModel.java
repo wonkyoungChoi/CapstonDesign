@@ -95,12 +95,12 @@ public class GroupbuyingViewModel extends ViewModel {
 
     }
 
-    public void addWatchnick(String watchnick, String time) {
+    public void addWatchnick(String watchemail, String time) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    new AddWatchlistService().execute(watchnick, time);
+                    new AddWatchlistService().execute(watchemail, time);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -147,7 +147,7 @@ public class GroupbuyingViewModel extends ViewModel {
     public String strUrl(String url) {
         try {
             if (getResponseCode(url) == 404) {
-                url = "http://192.168.0.15:8080/king.png";
+                url = "http://183.96.240.182:8080/king.png";
             }
 
         } catch (InterruptedException e) {

@@ -1,9 +1,6 @@
 package com.example.capstondesign.network.bulletin.board;
 
 
-import android.os.Build;
-import androidx.annotation.RequiresApi;
-import com.example.capstondesign.network.method.AsyncTaskExecutor;
 import com.example.capstondesign.network.method.OkhttpNetwork;
 
 import java.io.IOException;

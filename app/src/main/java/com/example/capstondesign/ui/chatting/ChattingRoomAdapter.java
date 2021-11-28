@@ -60,7 +60,7 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
         mBinding.msgLast.setText(chat.getMessage());
         mBinding.roomName.setText(chat.getOthernick());
 
-        String url = "http://192.168.0.15:8080/test/" + chat.getOtheremail() + ".jpg";
+        String url = "http://183.96.240.182:8080/test/" + chat.getOtheremail() + ".jpg";
 
         try {
             i = getResponseCode(url);
@@ -69,7 +69,7 @@ public class ChattingRoomAdapter extends RecyclerView.Adapter<ChattingRoomAdapte
         }
 
         if(i == 404) {
-            url = "http://192.168.0.15:8080/test/king.png";
+            url = "http://183.96.240.182:8080/test/king.png";
             Picasso.get().load(url).into(mBinding.otherImage);
         } else {
             Picasso.get().load(Uri.parse(url)).into(mBinding.otherImage);

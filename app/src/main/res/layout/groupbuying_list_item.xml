@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="130dp"
     android:background="@color/white"
-    android:elevation="2dp"
     android:id="@+id/list_item"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -30,9 +29,9 @@
 
         <ImageView
             android:id="@+id/interest_btn"
-            android:layout_alignParentRight="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/watchlist_add" />
@@ -43,9 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/buyimage"
             android:fontFamily="@font/notosans"
+            android:maxEms="10"
             android:text="제목"
             android:textColor="#191919"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
 
@@ -58,7 +58,7 @@
             android:fontFamily="@font/notosans"
             android:text="지역"
             android:textColor="#9F9F9F"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv1"
@@ -69,7 +69,7 @@
             android:layout_toRightOf="@id/buyimage"
             android:text="모집인원:"
             android:textColor="#9F9F9F"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/nowCount"
@@ -82,68 +82,46 @@
             android:fontFamily="@font/notosans"
             android:text="3"
             android:textColor="#9F9F9F"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/area"
-            android:layout_toRightOf="@id/nowCount"
-            android:fontFamily="@font/notosans"
-            android:text="명"
-            android:textColor="#9F9F9F"
-            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/slash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_below="@id/area"
-            android:layout_toRightOf="@id/tv2"
+            android:layout_toRightOf="@id/nowCount"
             android:fontFamily="@font/notosans"
             android:text=" / "
             android:textColor="#9F9F9F"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
 
         <TextView
             android:id="@+id/headCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_below="@id/area"
             android:layout_toRightOf="@id/slash"
             android:fontFamily="@font/notosans"
             android:text="4"
             android:textColor="#9F9F9F"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/area"
-            android:layout_toRightOf="@id/headCount"
-            android:fontFamily="@font/notosans"
-            android:text="명"
-            android:textColor="#9F9F9F"
-            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:fontFamily="@font/notosans"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="15dp"
             android:text="가격"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/mainpink"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

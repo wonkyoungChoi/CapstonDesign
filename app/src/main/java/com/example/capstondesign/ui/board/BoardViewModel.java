@@ -20,7 +20,7 @@ import okhttp3.Response;
 public class BoardViewModel extends ViewModel {
     BoardRepository repository = new BoardRepository();
     public LiveData<Board> board = repository._board;
-    AddBoardService addBoardService = new AddBoardService();;
+    AddBoardService addBoardService = new AddBoardService();
 
     public void loadBoard() {
         repository.boardRepository();
@@ -62,7 +62,6 @@ public class BoardViewModel extends ViewModel {
     }
 
     public LiveData<Board> getSearchBoard() {return repository._searchBoard;}
-
 
 
 }

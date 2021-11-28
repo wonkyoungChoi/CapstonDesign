@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,13 +18,18 @@ import com.example.capstondesign.databinding.FragmentMainBinding;
 import com.example.capstondesign.ui.groupbuying.GroupbuyingFragment;
 import com.example.capstondesign.ui.board.BoardFragment;
 import com.example.capstondesign.ui.chatting.ChattingFragment;
+import com.example.capstondesign.ui.profile.ChangeNickDialog;
+import com.example.capstondesign.ui.profile.ChangeNickDialogClickListener;
 import com.example.capstondesign.ui.profile.FragmentProfile;
 import com.example.capstondesign.ui.home.login.LoginAcitivity;
 import com.example.capstondesign.ui.home.FragmentHome;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
+
 
 public class MainFragment extends AppCompatActivity {
+    LoginDialog dialog;
     Boolean Login = LoginAcitivity.Login;
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -120,25 +126,23 @@ public class MainFragment extends AppCompatActivity {
     }
 
     private void OnClickHandler() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("로그인 확인").setMessage("로그인 후 서비스 이용가능");
-
-        builder.setPositiveButton("로그인 하기", new DialogInterface.OnClickListener() {
+        dialog = new LoginDialog(MainFragment.this, new LoginDialogClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(getApplicationContext(), LoginAcitivity.class);
+            public void onPositiveClick() {
+                Intent intent = new Intent(MainFragment.this, LoginAcitivity.class);
                 startActivity(intent);
             }
-        });
 
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onNegativeClick() {
 
             }
+
         });
 
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.show();
     }
 }
