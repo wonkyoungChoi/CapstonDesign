@@ -371,6 +371,7 @@ public class FragmentProfile extends Fragment {
                     LoginAcitivity.profile.setNickname(dialog.binding.cNick.getText().toString());
                     binding.nickname.setText(dialog.binding.cNick.getText().toString());
                     Toast.makeText(getContext(), "닉네임 변경완료", Toast.LENGTH_SHORT).show();
+                    check = false;
                 } else {
                     Toast.makeText(getContext(), "닉네임 중복 체크를 하셔야 합니다.", Toast.LENGTH_SHORT).show();
                 }
