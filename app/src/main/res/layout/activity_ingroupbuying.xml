@@ -340,16 +340,16 @@
 
         <Button
             android:id="@+id/sub_chat"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="15dp"
             android:background="@drawable/border_btn"
+            android:visibility="gone"
             android:textStyle="bold"
             android:text="채팅으로 거래하기"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/change_text"
@@ -358,7 +358,7 @@
             android:layout_centerVertical="true"
             android:textColor="@color/mainpink"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:layout_marginEnd="60dp"
             android:layout_alignParentEnd="true"
             android:visibility="gone"
@@ -374,16 +374,16 @@
             android:orientation="vertical">
             <Button
                 android:id="@+id/Countaddbtn"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
+                android:layout_width="20dp"
+                android:layout_height="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
                 android:background="@drawable/up" />
 
             <Button
                 android:id="@+id/Countdelbtn"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
+                android:layout_width="20dp"
+                android:layout_height="10dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
                 android:background="@drawable/down" />

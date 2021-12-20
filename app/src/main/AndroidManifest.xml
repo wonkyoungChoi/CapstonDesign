@@ -25,10 +25,6 @@
         android:name=".network.login.GlobalApplication"
         tools:targetApi="m">
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key"/>
-
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -80,7 +76,6 @@
         <activity android:name=".ui.SearchBoardResult"/>
         <activity android:name=".ui.Notification"/>
         <activity android:name=".ui.groupbuying.AddGroupBuying"/>
-        <activity android:name=".ui.profile.inprofile.InProfileActivity"/>
         <activity android:name=".ui.profile.myactivity.WatchlistActivity"/>
         <activity android:name=".ui.profile.setting.SettingActivity"/>
         <activity android:name=".ui.profile.setting.changepassword.InChangePasswordActivity"/>

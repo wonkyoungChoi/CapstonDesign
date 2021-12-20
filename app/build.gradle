@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('D:\\AndroidStudioProjects\\CapstonDesign\\app\\release\\keystore.jks')
+            storePassword 'yhui1324'
+            keyAlias 'keystore()'
+            keyPassword 'yhui1324'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -23,6 +31,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            debuggable true
         }
     }
     compileOptions {
